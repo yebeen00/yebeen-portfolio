@@ -1,0 +1,939 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YU YEBEEN — Visual &amp; Content Designer</title>
+<meta name="description" content="편집, 웹, SNS 콘텐츠를 디자인하는 비주얼·콘텐츠 디자이너 유예빈의 포트폴리오.">
+<meta name="theme-color" content="#050403">
+<link rel="icon" href="assets/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
+<style>
+:root{
+  --bg:#050403;
+  --ink:#f4efe9;
+  --ink-2:rgba(244,239,233,.56);
+  --line:rgba(255,255,255,.12);
+  --violet:#d9702a;
+  --violet-2:#f2a565;
+  --pill:rgba(255,255,255,.42);
+  /* Same roles as the reference site: condensed display serif (their custom "Emotion Serif" → Instrument Serif),
+     IBM Plex Mono for small caps text, a neo-grotesk for UI ("PP Neue Montreal" → Inter Tight). Korean: Wanted Sans. */
+  --serif:"Instrument Serif","Wanted Sans Variable","Wanted Sans",serif;
+  --kserif:"Instrument Serif","Wanted Sans Variable","Wanted Sans",serif;
+  --mono:"IBM Plex Mono","Wanted Sans Variable","Wanted Sans",monospace;
+  --sans:"Inter Tight","Wanted Sans Variable","Wanted Sans",system-ui,sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --gut:clamp(16px,2.4vw,36px);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{color-scheme:dark;-webkit-text-size-adjust:100%;overflow-anchor:none}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,p{margin:0;font-weight:400}
+.mono{font-family:var(--mono);font-size:11px;line-height:1.45;letter-spacing:.02em;text-transform:uppercase;font-weight:400}
+/* Display type: uppercase serif with italic lower-case words, like the reference */
+.logo,.disp,.split,.exp-head h2,.ft-big,.badge .yr{font-weight:400}
+.disp i,.it,.split i,.exp-head h2 i,.ft-big i{font-style:italic;font-weight:400}
+.skip{position:fixed;left:12px;top:-60px;z-index:200;background:var(--ink);color:#000;padding:10px 14px;border-radius:8px}
+.skip:focus{top:12px}
+:focus-visible{outline:2px solid var(--violet);outline-offset:3px}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+
+/* ---------- Header ---------- */
+.logo{display:inline-flex;align-items:baseline;gap:.08em;font-family:var(--serif);font-size:26px;line-height:1;letter-spacing:-.01em}
+.logo b{font-weight:400;color:var(--violet)}
+.hd{position:fixed;top:0;left:0;right:0;z-index:50;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:18px var(--gut);color:#fff;mix-blend-mode:normal;transition:color .5s var(--ease),transform .7s var(--ease)}
+.hd.ink{color:var(--ink)}
+.hd nav{display:flex;gap:34px}
+.hd nav a{position:relative}
+.hd nav a::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease)}
+.hd nav a:hover::after{transform:scaleX(1);transform-origin:left}
+.hd .pill{justify-self:end}
+.pill{display:inline-flex;align-items:center;gap:10px;height:34px;padding:0 6px 0 14px;border-radius:99px;font-family:var(--sans);font-size:13px;color:var(--ink);background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.18);box-shadow:inset 0 -6px 14px rgba(174,154,255,.16),0 6px 20px rgba(0,0,0,.3);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.pill span{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:rgba(174,154,255,.2);color:var(--violet-2);font-size:13px;transition:transform .45s var(--ease)}
+.pill:hover{transform:translateY(-1px);box-shadow:inset 0 -6px 14px rgba(174,154,255,.3),0 10px 26px rgba(174,154,255,.18)}
+.pill:hover span{transform:rotate(-45deg)}
+.pill:active{transform:translateY(1px) scale(.98)}
+.pill.lg{height:46px;padding:0 8px 0 20px;font-size:15px}
+.pill.lg span{width:32px;height:32px}
+.tag{display:inline-block;padding:4px 8px;border-radius:6px;background:var(--violet);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;line-height:1.2}
+
+/* ---------- Scene (fixed behind chapters) ---------- */
+.scene{position:fixed;inset:0;z-index:0;overflow:hidden}
+.scene canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;mix-blend-mode:screen} /* black canvas + screen: only the light is added */
+.scene .fog{position:absolute;inset:auto 0 0 0;z-index:3;pointer-events:none}
+.scene .dust{position:absolute;inset:0;z-index:4;pointer-events:none}
+.scene .dust i{position:absolute;width:2px;height:2px;border-radius:50%;background:#ffd6b0;opacity:.4;animation:drift 14s linear infinite}
+@keyframes drift{from{transform:translate3d(0,0,0)}to{transform:translate3d(-60px,-120px,0)}}
+
+/* ---------- Chapters ---------- */
+main{position:relative;z-index:1}
+.chapters{position:relative;color:#fff}
+.ch{position:relative;height:100vh;height:100svh;padding:0 var(--gut)}
+.ch .in{position:absolute;inset:0;padding:0 var(--gut)}
+.disp{font-family:var(--serif);font-size:clamp(46px,7.3vw,132px);line-height:.88;letter-spacing:-.01em;text-transform:uppercase}
+.disp i,.it{font-style:italic;text-transform:none;font-family:var(--serif)}
+.ln{display:block;overflow:hidden;padding-bottom:.04em}
+.ln>span{display:block;transform:translateY(108%);transition:transform 1.1s var(--ease);transition-delay:calc(var(--i,0)*70ms + 120ms)}
+.ch.on .ln>span{transform:none}
+.fade{opacity:0;transform:translateY(12px);transition:opacity .9s var(--ease) .35s,transform .9s var(--ease) .35s}
+.ch.on .fade{opacity:1;transform:none}
+.ch .mono{color:#fff;max-width:330px}
+.ar{display:inline-block;font-family:var(--sans);font-size:.3em;vertical-align:middle;transform:translateY(-.4em)}
+
+/* Hero caption */
+.scene{background:radial-gradient(130% 70% at 50% 112%,#8a3a06 0%,#4a1d07 20%,#1e0d06 46%,#070504 72%,#000 100%)}
+.scene .fog{height:40vh;background:radial-gradient(60% 80% at 50% 120%,rgba(255,140,50,.18),transparent 70%)}
+.ch1 .in{display:flex;flex-direction:column;justify-content:end;padding-bottom:clamp(20px,4svh,48px)}
+.hero-title{margin-bottom:clamp(16px,3svh,40px)}
+.hero-title .mono{color:#f4efe9;font-size:clamp(10px,1vw,14px);margin-bottom:10px}
+.hero-title h1{font-size:clamp(60px,13vw,220px);line-height:.82;letter-spacing:-.035em}
+.hero-title h1 i{color:#f2c79a}
+.hero-foot{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  padding-top:14px;
+  border-top:1px solid #fff4;
+}
+.hero-foot p{font:400 clamp(11px,1vw,15px)/1.5 var(--sans);color:#f4efe9}
+
+/* ch2 */
+.ch2 .blk{position:absolute;left:var(--gut);top:16vh}
+.ch2 .blk .disp .ln:nth-child(2){padding-left:9vw}
+.ch2 .blk .mono{margin-top:28px}
+/* ch3 */
+.ch3 .blk{position:absolute;left:var(--gut);bottom:6vh}
+.ch3 .blk .disp .ln:nth-child(2){padding-left:4vw}
+.ch3 .side{position:absolute;right:var(--gut);bottom:7vh;width:min(360px,30vw)}
+/* ch4 */
+.ch4 .blk{position:absolute;left:52vw;top:30vh}
+.ch4 .blk .mono{margin-top:24px}
+/* ch5 */
+.ch5 .side{position:absolute;left:var(--gut);bottom:30vh}
+.ch5 .big{position:absolute;left:var(--gut);right:var(--gut);bottom:4vh;display:grid;grid-template-columns:27vw 1fr;align-items:start}
+.ch5 .big .it{font-size:clamp(46px,7.3vw,132px);line-height:.88}
+.tagrow{margin-bottom:14px}
+
+/* ---------- Solid sections ---------- */
+.solid{position:relative;z-index:2;background:var(--bg)}
+.wrap{padding:0 var(--gut)}
+
+/* What I do */
+.wwd{height:300vh}
+.wwd-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;padding:84px var(--gut) 40px}
+.wwd-lead{max-width:620px}
+.wwd-lead p{font-family:var(--kserif);font-weight:300;font-size:clamp(22px,2.15vw,36px);line-height:1.32;letter-spacing:-.02em;margin-top:-4px}
+.wwd-lead p .ar{font-size:.5em;margin:0 .5em 0 2.6em;transform:translateY(-.2em)}
+.wwd-lead .tag{position:relative;top:-6px;margin-right:-1em}
+.wwd-lead .pill{margin-top:42px}
+.svc{position:relative;height:100%;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 30%,#000 70%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 30%,#000 70%,transparent 100%)}
+.svc ol{list-style:none;margin:0;padding:0;position:absolute;left:0;right:0;top:50%;will-change:transform}
+.svc li{display:grid;grid-template-columns:64px 40px 1fr;align-items:center;height:56px;color:var(--ink-2);opacity:.28;transition:opacity .4s var(--ease),color .4s var(--ease)}
+.svc li .n{font-family:var(--mono);font-size:11px}
+.svc li .a{opacity:0;transform:translateX(-8px);transition:opacity .4s,transform .4s var(--ease);color:var(--violet)}
+.svc li .t{font-size:clamp(20px,1.75vw,28px);letter-spacing:-.02em;text-align:right}
+.svc li .t small{display:block;font-size:12px;color:var(--ink-2);letter-spacing:0}
+.svc li.on{opacity:1;color:var(--ink)}
+.svc li.on .a{opacity:1;transform:none}
+.svc li.near{opacity:.6}
+
+/* Big split heading */
+.split{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--serif);font-size:clamp(56px,10.6vw,190px);line-height:.9;text-transform:uppercase;letter-spacing:-.01em}
+.split i{text-transform:none}
+.split .ar{font-size:.25em}
+.split>*{display:inline-block;transform:translateY(40%);opacity:0;transition:transform 1.1s var(--ease),opacity 1.1s var(--ease)}
+.split.in>*{transform:none;opacity:1}
+.split.in>*:nth-child(2){transition-delay:.08s}.split.in>*:nth-child(3){transition-delay:.16s}.split.in>*:nth-child(4){transition-delay:.24s}
+
+/* Projects */
+.projects{padding:12vh 0 18vh}
+.projects .sub{text-align:right;margin:22px 0 0 auto;max-width:360px}
+.pgrid{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(34px,7vw,112px) 2vw;margin-top:9vh}
+.pc{display:block;position:relative;will-change:transform}
+.pc .im{overflow:hidden;border-radius:8px;background:#1c1627;aspect-ratio:var(--ar,1/1);box-shadow:0 20px 50px -24px rgba(0,0,0,.8)}
+.pc img{width:100%;height:100%;object-fit:cover;transform:scale(1.04);transition:transform 1s var(--ease)}
+.pc:hover img{transform:scale(1.1)}
+.pc .mono{margin-top:12px;color:var(--ink-2);font-size:10px}
+.pc h3{font-family:var(--kserif);font-weight:400;font-size:clamp(18px,1.6vw,26px);letter-spacing:-.02em;margin-top:4px;display:inline-block;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .5s var(--ease)}
+.pc:hover h3{background-size:100% 1px}
+.pc .im{transition:transform .6s var(--ease)}
+.pc:hover .im{transform:translateY(-2px)}
+.p1,.p5{grid-column:1/span 7;--ar:16/10}
+.p2,.p6{grid-column:9/span 4;--ar:4/3;margin-top:9vw}
+.p3,.p7{grid-column:2/span 4;--ar:4/3}
+.p4,.p8{grid-column:7/span 6;--ar:16/10;margin-top:5vw}
+.more{grid-column:8/span 5;justify-self:end}
+
+/* Experience */
+.exp{padding:10vh 0 16vh;position:relative}
+.exp-head{display:grid;grid-template-columns:1fr auto auto;gap:4vw;align-items:end;padding-bottom:28px}
+.exp-head h2{font-family:var(--serif);font-size:clamp(52px,6.6vw,120px);line-height:.9;text-transform:uppercase}
+.exp-head h2 i{text-transform:none}
+.exp-head .mono{max-width:330px}
+.erow{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line);position:relative}
+.erow:last-child{border-bottom:1px solid var(--line)}
+.erow .co{padding:14px 0;font-size:clamp(15px,1.15vw,18px);letter-spacing:-.01em;color:var(--ink-2);transition:color .4s}
+.erow .co sup{font-family:var(--mono);font-size:10px;margin-left:6px}
+.erow ul{list-style:none;margin:0;padding:0}
+.erow li{display:flex;justify-content:space-between;gap:24px;padding:14px 0;border-bottom:1px solid var(--line);font-family:var(--kserif);font-weight:300;font-size:clamp(15px,1.25vw,20px);color:var(--ink-2);transition:color .4s,padding .5s var(--ease)}
+.erow li:last-child{border-bottom:0}
+.erow li time{font-family:var(--mono);font-size:10px;letter-spacing:.02em;white-space:nowrap;align-self:center}
+.erow:hover .co,.erow:hover li{color:var(--ink)}
+.erow:hover li{padding-left:10px}
+.badge{position:fixed;left:0;top:0;z-index:5;width:220px;pointer-events:none;opacity:0;transform:translate3d(-50%,-50%,0) scale(.85);transition:opacity .4s var(--ease)}
+.badge.show{opacity:1}
+.badge .bx{border-radius:16px;overflow:hidden;aspect-ratio:1/1;background:radial-gradient(circle at 30% 25%,#3a2416,#1a100a 60%,#0b0705);border:1px solid rgba(255,255,255,.12);box-shadow:0 30px 60px -20px rgba(0,0,0,.8);display:grid;place-items:center;transform:rotate(-6deg)}
+.badge img{width:100%;height:100%;object-fit:cover}
+.badge img.glyph{object-fit:contain;padding:18px;filter:drop-shadow(0 8px 20px rgba(60,20,120,.35))}
+.badge .yr{font-family:var(--serif);font-size:64px;line-height:.9;text-align:center;color:var(--ink)}
+.badge .yr small{display:block;font-family:var(--mono);font-size:10px;margin-top:8px;color:var(--violet)}
+
+/* Contact / footer */
+.ft{position:relative;z-index:2;overflow:hidden;background:radial-gradient(110% 60% at 50% 112%,#453176 0%,#24193b 26%,#130e20 50%,var(--bg) 75%);padding:16vh 0 26px}
+.ft-glyph{position:absolute;right:clamp(-40px,4vw,90px);top:clamp(24px,6vw,110px);width:clamp(200px,34vw,520px);height:auto;opacity:.95;filter:drop-shadow(0 0 18px rgba(255,255,255,.25)) drop-shadow(0 0 60px rgba(200,180,255,.25));pointer-events:none;animation:bob 8s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-14px) rotate(-1.5deg)}}
+.ft-big{font-family:var(--serif);font-size:clamp(58px,10.4vw,190px);line-height:.86;text-transform:uppercase;margin-top:22px;position:relative}
+.ft-big i{text-transform:none}
+.ft-big .ln:nth-child(2){padding-left:12vw}
+.ft-big .ln>span{transform:translateY(108%)}
+.ft.in .ft-big .ln>span{transform:none}
+.ft-cta{display:flex;align-items:center;gap:28px;margin-top:40px;position:relative}
+.ft-cta .mono{max-width:330px}
+.ft-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:16vh;padding-top:22px;border-top:1px solid var(--line);position:relative}
+.ft-cols h4{margin:0 0 14px;font-family:var(--mono);font-size:10px;font-weight:400;color:var(--violet);letter-spacing:.04em}
+.ft-cols a,.ft-cols p{display:block;font-family:var(--mono);font-size:11px;line-height:1.9;text-transform:uppercase}
+.ft-cols a b{font-weight:400;color:var(--ink-2);margin-right:8px}
+.ft-cols a:hover{color:var(--violet)}
+.copy{cursor:pointer;background:none;border:0;padding:0;color:inherit;font:inherit;text-align:left}
+.copy em{font-style:normal;color:var(--violet);margin-left:8px;opacity:0;transition:opacity .3s}
+.copy.ok em{opacity:1}
+.ft-bot{display:flex;justify-content:space-between;margin-top:8vh;position:relative}
+
+/* Orb */
+.orb{position:fixed;right:var(--gut);bottom:22px;z-index:60;width:46px;height:46px;border-radius:50%;border:0;padding:0;cursor:pointer;background:conic-gradient(from 0deg,#fff,#c9b8ff,#2a2433,#ffd0ef,#bfe3ff,#fff);box-shadow:inset 0 -8px 14px rgba(0,0,0,.4),0 0 24px rgba(255,255,255,.25),0 10px 30px rgba(174,154,255,.3);animation:spin 6s linear infinite;transition:transform .4s var(--ease)}
+.orb::after{content:"";position:absolute;inset:7px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,rgba(255,255,255,.2) 50%,transparent 70%);filter:blur(2px)}
+.orb:hover{transform:scale(1.08)}
+@keyframes spin{to{rotate:360deg}}
+
+[data-rv]{opacity:0;transform:translateY(24px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+[data-rv].in{opacity:1;transform:none}
+
+/* ---------- Responsive ---------- */
+@media (max-width:900px){
+  .hd{grid-template-columns:1fr auto}
+  .hd nav{grid-area:2/1/3/-1;justify-content:space-between;gap:8px;padding-top:12px}
+  .hd.ink{background:#050403de;backdrop-filter:blur(12px)}
+  .hero-title h1{font-size:clamp(58px,15vw,136px)}
+  .hero-foot .pill{white-space:nowrap}
+  .disp,.ch5 .big .it{font-size:clamp(40px,11.5vw,72px)}
+  .ch5 .big{grid-template-columns:1fr}
+  .ch2 .blk{top:auto;bottom:6vh}
+  .ch2 .blk .disp .ln:nth-child(2){padding-left:0}
+  .ch3 .side{left:var(--gut);right:var(--gut);width:auto;bottom:calc(6vh + 23vw + 64px)}
+  .ch3 .blk{right:var(--gut)}
+  .ch4 .blk{left:var(--gut);right:var(--gut);top:auto;bottom:6vh}
+  .ch5 .side{bottom:auto;top:16vh}
+  .wwd{height:auto}
+  .wwd-pin{position:relative;height:auto;grid-template-columns:1fr;padding-top:12vh;gap:40px}
+  .svc{height:auto;-webkit-mask-image:none;mask-image:none}
+  .svc ol{position:static;transform:none!important}
+  .svc li{opacity:1;height:48px;color:var(--ink);grid-template-columns:52px 0 1fr}
+  .svc li .a{display:none}
+  .split{flex-wrap:wrap;gap:0 .2em}
+  .pgrid{grid-template-columns:1fr;gap:32px;margin-top:7vh}
+  .pgrid .pc{grid-column:auto;margin-top:0;transform:none!important}
+  .pgrid .pc{--ar:16/10}
+  .more{grid-column:1/-1;justify-self:start;margin-top:20px}
+  .exp-head{grid-template-columns:1fr;gap:16px}
+  .erow{grid-template-columns:1fr}
+  .erow .co{padding-bottom:4px;color:var(--ink)}
+  .erow li{color:var(--ink)}
+  .badge{display:none}
+  .ft-glyph{width:clamp(200px,72vw,460px);right:-10vw;top:clamp(40px,14vw,120px);opacity:.45}
+  .ft-big{font-size:clamp(40px,14vw,110px)}
+  .ft-cols>div:last-child{grid-column:1/-1}
+  .ft-big .ln:nth-child(2){padding-left:6vw}
+  .ft-cols{grid-template-columns:1fr 1fr;gap:28px}
+  .ft-cta{flex-direction:column;align-items:flex-start}
+  .ft-bot{flex-direction:column;gap:8px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .ln>span,.ft-big .ln>span{transform:none}
+  .fade,[data-rv],.split>*{opacity:1;transform:none}
+  .wwd{height:auto}
+  .wwd-pin{position:relative;height:auto}
+  .svc{mask-image:none;height:auto}
+  .svc ol{position:static;transform:none}
+  .svc li{opacity:1;color:var(--ink)}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+
+<header class="hd" id="hd">
+  <a class="logo" href="#top" aria-label="유예빈 홈">ye<b>been</b></a>
+  <nav class="mono" aria-label="주요 메뉴">
+    <a href="#about">About</a>
+    <a href="#work">Work</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <a class="pill" href="mailto:yeeyoii@naver.com">Let’s talk <span>↪</span></a>
+</header>
+
+<div class="scene" aria-hidden="true">
+  <canvas id="gl"></canvas>
+  <div class="fog"></div>
+  <div class="dust" id="dust"></div>
+</div>
+
+<main id="main">
+  <!-- ===== Chapters: particles morph between 斌 → sphere → 文 → 武 → ring ===== -->
+  <section class="chapters" id="top" aria-label="소개">
+    <div class="ch ch1" data-ch="0">
+      <div class="in">
+        <div class="hero-title">
+          <p class="mono">Visual &amp; content designer</p>
+          <h1 class="disp">Yu <i>Yebeen</i></h1>
+        </div>
+        <div class="hero-foot">
+          <p>편집·웹·SNS 콘텐츠를 디자인합니다.</p>
+          <a href="#work" class="pill">Selected work <span aria-hidden="true">↘</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="ch ch2" data-ch="1">
+      <div class="in">
+        <div class="blk">
+          <p class="tagrow fade"><span class="tag">Approach</span></p>
+          <h2 class="disp">
+            <span class="ln" style="--i:0"><span><i>I</i> design</span></span>
+            <span class="ln" style="--i:1"><span><span class="ar">↪</span> more than</span></span>
+            <span class="ln" style="--i:2"><span>visuals and</span></span>
+            <span class="ln" style="--i:3"><span>layouts</span></span>
+          </h2>
+          <p class="mono fade">생각을 디자인하고, 가치를 연결합니다.<br>브랜드가 마주한 문제를 먼저 발견합니다.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ch ch3" data-ch="2">
+      <div class="in">
+        <div class="blk">
+          <p class="tagrow fade"><span class="tag">文 · 소통</span></p>
+          <h2 class="disp">
+            <span class="ln" style="--i:0"><span>Communication</span></span>
+            <span class="ln" style="--i:1"><span><span class="ar">↪</span> as craft</span></span>
+          </h2>
+        </div>
+        <p class="mono side fade">클라이언트와 독자가 같은 메시지를 읽도록, 정보의 순서와 톤을 먼저 설계합니다.</p>
+      </div>
+    </div>
+
+    <div class="ch ch4" data-ch="3">
+      <div class="in">
+        <div class="blk">
+          <p class="tagrow fade"><span class="tag">武 · 기술</span></p>
+          <h2 class="disp">
+            <span class="ln" style="--i:0"><span>Skill <i>with</i></span></span>
+            <span class="ln" style="--i:1"><span>a reason</span></span>
+          </h2>
+          <p class="mono fade">Photoshop, Illustrator, After Effects, Figma에<br>생성형 AI까지 — 끝까지 만들어 내는 실행력.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ch ch5" data-ch="4">
+      <div class="in">
+        <div class="side">
+          <p class="tagrow fade"><span class="tag">Clients</span></p>
+          <p class="mono fade">SK telecom · S-OIL · HYOSUNG<br>키움투자자산운용 · HILTI KOREA</p>
+        </div>
+        <div class="big">
+          <span class="ln it"><span>I <span class="ar">↪</span></span></span>
+          <h2 class="disp">
+            <span class="ln" style="--i:1"><span>work with brands</span></span>
+            <span class="ln" style="--i:2"><span>that care how</span></span>
+            <span class="ln" style="--i:3"><span>things feel</span></span>
+          </h2>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== What I do ===== -->
+  <section class="wwd solid" id="about" aria-labelledby="wwd-t">
+    <div class="wwd-pin">
+      <div class="wwd-lead" data-rv>
+        <h2 id="wwd-t" class="tag">What I do</h2>
+        <p><span class="ar">↪</span>기업 홈페이지와 웹진, 뉴스레터, SNS 콘텐츠까지 — 브랜드의 메시지가 화면에서 정확히 읽히도록 설계하고 끝까지 만들어 냅니다. 왜 필요한지 먼저 묻고, 그다음 디자인합니다.</p>
+        <a class="pill" href="assets/yu-yebeen-portfolio-2026.pdf" target="_blank" rel="noopener">포트폴리오 PDF <span>↪</span></a>
+      </div>
+      <div class="svc" id="svc">
+        <ol>
+          <li><span class="n">(001)</span><span class="a">↪</span><span class="t">Website &amp; Webzine<small>기업 홈페이지 · 웹진 운영</small></span></li>
+          <li><span class="n">(002)</span><span class="a">↪</span><span class="t">SNS Content<small>인스타그램 · 페이스북 피드</small></span></li>
+          <li><span class="n">(003)</span><span class="a">↪</span><span class="t">Newsletter<small>뉴스레터 기획 · 디자인</small></span></li>
+          <li><span class="n">(004)</span><span class="a">↪</span><span class="t">Key Visual<small>캠페인 키비주얼</small></span></li>
+          <li><span class="n">(005)</span><span class="a">↪</span><span class="t">Character &amp; Illustration<small>캐릭터 · 일러스트</small></span></li>
+          <li><span class="n">(006)</span><span class="a">↪</span><span class="t">Editorial Design<small>카탈로그 · 편집물</small></span></li>
+          <li><span class="n">(007)</span><span class="a">↪</span><span class="t">Banner &amp; Advertising<small>온·오프라인 광고 배너</small></span></li>
+          <li><span class="n">(008)</span><span class="a">↪</span><span class="t">Detail Page<small>상세페이지 · 이벤트</small></span></li>
+          <li><span class="n">(009)</span><span class="a">↪</span><span class="t">Motion Graphics<small>After Effects 모션</small></span></li>
+          <li><span class="n">(010)</span><span class="a">↪</span><span class="t">Exhibition &amp; Signage<small>전시 · 사인물</small></span></li>
+          <li><span class="n">(011)</span><span class="a">↪</span><span class="t">Live Commerce Design<small>라이브 방송 디자인</small></span></li>
+          <li><span class="n">(012)</span><span class="a">↪</span><span class="t">AI Image Generation<small>생성형 AI 이미지</small></span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Projects ===== -->
+  <section class="projects solid" id="work" aria-labelledby="pj-t">
+    <div class="wrap">
+      <h2 class="split" id="pj-t"><span>Selected</span><i>work</i></h2>
+      <p class="mono sub" data-rv>브랜드의 목소리를 화면에 옮긴 작업들 —<br>뉴스레터, 웹진, SNS 캠페인까지</p>
+      <div class="pgrid">
+        <a class="pc p1" data-speed=".06" href="assets/yu-yebeen-portfolio-2026.pdf#page=3" target="_blank" rel="noopener">
+          <div class="im"><img src="assets/work/p03.jpg" width="1600" height="900" alt="키움투자자산운용 '연금술사' 뉴스레터 타이틀과 캐릭터 다다, 도도" loading="lazy"></div>
+          <p class="mono">Newsletter / Character / 2024–2026</p><h3>키움투자자산운용 ‘연금술사’</h3>
+        </a>
+        <a class="pc p2" data-speed="-.05" href="assets/yu-yebeen-portfolio-2026.pdf#page=11" target="_blank" rel="noopener">
+          <div class="im"><img src="assets/work/p12.jpg" width="1600" height="900" alt="SK telecom AI Life Magazine 웹진을 태블릿과 스마트폰 목업에 띄운 화면" loading="lazy"></div>
+          <p class="mono">Web / Editorial</p><h3>SK telecom ‘AI Life Magazine’</h3>
+        </a>
+        <a class="pc p3" data-speed=".1" href="assets/yu-yebeen-portfolio-2026.pdf#page=8" target="_blank" rel="noopener">
+          <div class="im"><img src="assets/work/p08.jpg" width="1600" height="900" alt="키움투자자산운용 SNS 키비주얼, 쌍안경과 상승 화살표 일러스트" loading="lazy"></div>
+          <p class="mono">Social / Illustration</p><h3>키움투자자산운용 SNS</h3>
+        </a>
+        <a class="pc p4" data-speed="-.04" href="assets/yu-yebeen-portfolio-2026.pdf#page=22" target="_blank" rel="noopener">
+          <div class="im"><img src="assets/work/p22.jpg" width="1600" height="900" alt="HYOSUNG 지속가능경영 키비주얼, 숲 속 지구 모양 수소 전구" loading="lazy"></div>
+          <p class="mono">Social / Key visual</p><h3>HYOSUNG SNS</h3>
+        </a>
+        <a class="pc p5" data-speed=".08" href="assets/yu-yebeen-portfolio-2026.pdf#page=25" target="_blank" rel="noopener">
+          <div class="im"><img src="assets/work/p26.jpg" width="1600" height="900" alt="HILTI KOREA 인스타그램과 페이스북 피드, 뉴론 캠페인 콘텐츠" loading="lazy"></div>
+          <p class="mono">Social / Product</p><h3>HILTI KOREA SNS</h3>
+        </a>
+        <a class="pc p6" data-speed="-.06" href="assets/yu-yebeen-portfolio-2026.pdf#page=15" target="_blank" rel="noopener">
+          <div class="im"><img src="assets/work/p16.jpg" width="1600" height="900" alt="SK telecom 홈페이지 INSIGHT 페이지를 노트북과 스마트폰에 띄운 화면" loading="lazy"></div>
+          <p class="mono">Web / UI</p><h3>SK telecom 홈페이지 ‘INSIGHT’</h3>
+        </a>
+        <a class="pc p7" data-speed=".07" href="assets/yu-yebeen-portfolio-2026.pdf#page=18" target="_blank" rel="noopener">
+          <div class="im"><img src="assets/work/p19.jpg" width="1600" height="900" alt="S-OIL 인스타그램 피드와 이벤트 카드뉴스 모음" loading="lazy"></div>
+          <p class="mono">Social / Campaign</p><h3>S-OIL SNS</h3>
+        </a>
+        <a class="pc p8" data-speed="-.03" href="assets/yu-yebeen-portfolio-2026.pdf#page=13" target="_blank" rel="noopener">
+          <div class="im"><img src="assets/work/p14.jpg" width="1600" height="900" alt="SK telecom 콘텐츠 키비주얼 모음, 보안 아이콘과 KBO 야구공, K-AI" loading="lazy"></div>
+          <p class="mono">Key visual / AI</p><h3>SK telecom 키비주얼</h3>
+        </a>
+        <p class="more"><a class="pill lg" href="assets/yu-yebeen-portfolio-2026.pdf" target="_blank" rel="noopener">전체 작업 보기 <span>↪</span></a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Experience ===== -->
+  <section class="exp solid" id="experience" aria-labelledby="ex-t">
+    <div class="wrap">
+      <div class="exp-head">
+        <h2 id="ex-t" data-rv>Experience <i>&amp;</i><br>Career</h2>
+        <p class="mono" data-rv>2016년 편집 디자인에서 시작해 광고, 웹, SNS까지 — 다섯 곳에서 쌓아 온 경력입니다</p>
+        <span class="tag" data-rv>Since: 2016</span>
+      </div>
+      <div class="erow" data-img="assets/work/p12.jpg">
+        <p class="co">미디어브레인<sup>[2023–2026]</sup></p>
+        <ul>
+          <li>기업 홈페이지 운영 및 콘텐츠 디자인<time>2023–2026</time></li>
+          <li>SK telecom 홈페이지 · 웹진 ‘AI Life Magazine’<time>Web</time></li>
+          <li>키움투자자산운용 뉴스레터 ‘연금술사’<time>2024–2026</time></li>
+          <li>S-OIL · HYOSUNG · HILTI KOREA SNS<time>Social</time></li>
+        </ul>
+      </div>
+      <div class="erow" data-text="2022" data-sub="판씨앤씨">
+        <p class="co">판씨앤씨<sup>[2022]</sup></p>
+        <ul><li>홈페이지 및 라이브 방송 디자인<time>2022</time></li></ul>
+      </div>
+      <div class="erow" data-text="21–22" data-sub="미니쉬치과">
+        <p class="co">미니쉬치과<sup>[2021–2022]</sup></p>
+        <ul>
+          <li>온·오프라인 광고 배너<time>Ads</time></li>
+          <li>홈페이지 · 콘텐츠 디자인<time>Web</time></li>
+          <li>원내 사인물 디자인<time>Signage</time></li>
+        </ul>
+      </div>
+      <div class="erow" data-text="18–20" data-sub="아르푸가구">
+        <p class="co">아르푸가구<sup>[2018–2020]</sup></p>
+        <ul>
+          <li>이벤트 · 광고 디자인<time>Ads</time></li>
+          <li>상세페이지 및 홈페이지 운영<time>Web</time></li>
+          <li>전시 디자인<time>Exhibition</time></li>
+        </ul>
+      </div>
+      <div class="erow" data-text="16–18" data-sub="K&amp;H 커뮤니케이션즈">
+        <p class="co">K&amp;H 커뮤니케이션즈<sup>[2016–2018]</sup></p>
+        <ul><li>이랜드 행사 안내 카탈로그 편집 디자인<time>Editorial</time></li></ul>
+      </div>
+      <div class="erow" data-glyph="assets/img/bin.png">
+        <p class="co">Education<sup>[01]</sup></p>
+        <ul><li>계원예술대학교 시각디자인과<time>2013–2015</time></li></ul>
+      </div>
+      <div class="erow" data-glyph="assets/img/mu.png">
+        <p class="co">Skills<sup>[08]</sup></p>
+        <ul>
+          <li>Photoshop · Illustrator · After Effects<time>Adobe</time></li>
+          <li>Figma<time>UI</time></li>
+          <li>ChatGPT · Gemini · Claude · Midjourney<time>AI</time></li>
+        </ul>
+      </div>
+    </div>
+    <div class="badge" id="badge" aria-hidden="true"><div class="bx"></div></div>
+  </section>
+</main>
+
+<!-- ===== Contact ===== -->
+<footer class="ft" id="contact">
+  <img class="ft-glyph" src="assets/img/bin.png" width="1200" height="1038" alt="" loading="lazy">
+  <div class="wrap">
+    <span class="tag">Stay in touch</span>
+    <h2 class="ft-big">
+      <span class="ln" style="--i:0"><span><i>Let’s</i> make <span class="ar">↪</span></span></span>
+      <span class="ln" style="--i:1"><span>something</span></span>
+      <span class="ln" style="--i:2"><span>meaningful</span></span>
+    </h2>
+    <div class="ft-cta">
+      <a class="pill lg" href="mailto:yeeyoii@naver.com">프로젝트 문의하기 <span>↪</span></a>
+      <p class="mono">아이디어나 제품, 함께 만들고 싶은 무언가가 있다면 편하게 연락 주세요</p>
+    </div>
+    <div class="ft-cols">
+      <div><h4>Portfolio</h4><a href="assets/yu-yebeen-portfolio-2026.pdf" target="_blank" rel="noopener"><b>[01]</b>View PDF</a><a href="assets/yu-yebeen-portfolio-2026.pdf" download><b>[02]</b>Download PDF</a></div>
+      <div><h4>Pages</h4><a href="#top"><b>[01]</b>Home</a><a href="#about"><b>[02]</b>About</a><a href="#work"><b>[03]</b>Work</a><a href="#experience"><b>[04]</b>Experience</a></div>
+      <div><h4>Role</h4><p>Visual &amp; content designer</p><p>Editorial · Web · SNS</p></div>
+      <div><h4>E-mail</h4><button class="copy mono" id="copy" type="button" data-mail="yeeyoii@naver.com">yeeyoii@naver.com<em>Copied</em></button></div>
+    </div>
+    <div class="ft-bot mono"><span>© 2016–2026 Yu Yebeen. All rights reserved</span><span>빛날 빈(斌), 유예빈</span></div>
+  </div>
+</footer>
+
+<button class="orb" id="orb" type="button" hidden aria-label="맨 위로"></button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const sstep = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+
+  /* ---------- Smooth scroll ---------- */
+  let lenis = null;
+  if (!reduce && window.Lenis) {
+    lenis = new Lenis({ lerp: .09, smoothWheel: true });
+    const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
+    requestAnimationFrame(raf);
+    $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+      const t = $(a.getAttribute('href')); if (!t) return;
+      e.preventDefault(); lenis.scrollTo(t, { duration: 1.6 });
+    }));
+  }
+  const backToTop = $('#orb');
+  backToTop.addEventListener('click', () => lenis ? lenis.scrollTo(0, { duration: 2 }) : scrollTo({ top: 0, behavior: reduce ? 'instant' : 'smooth' }));
+
+  /* ---------- Dust ---------- */
+  const dust = $('#dust');
+  for (let i = 0; i < 28; i++) {
+    const d = document.createElement('i');
+    d.style.left = Math.random() * 100 + '%'; d.style.top = Math.random() * 100 + '%';
+    d.style.animationDelay = (-Math.random() * 14) + 's';
+    d.style.opacity = (.25 + Math.random() * .5).toFixed(2);
+    dust.appendChild(d);
+  }
+
+  /* ---------- Chapters: active state ---------- */
+  const chs = $$('.ch');
+  const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('on', e.isIntersecting)),
+    { rootMargin: '-45% 0px -45% 0px' });
+
+  /* ---------- Generic reveal ---------- */
+  const rv = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); rv.unobserve(e.target); } }),
+    { rootMargin: '0px 0px -12% 0px' });
+  $$('[data-rv], .split, .ft').forEach(el => rv.observe(el));
+
+  /* ---------- Particle scene ---------- */
+  const canvas = $('#gl');
+  const hero = $('.ch1');
+  const isMobile = innerWidth < 900;
+  const N = isMobile ? 9000 : 20000;
+  let renderer, composer, bloom, scene, camera, points, geo, mat, seeds, shapes = [], ready = false, visible = true;
+
+  const loadImg = (src) => new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; });
+
+  // Sample opaque pixels of an image (or text) into N points normalised to [-1,1].
+  // Draw a glyph and keep a binary mask of its opaque pixels.
+  function buildMask(draw, w, h, skip) {
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    const x = c.getContext('2d', { willReadFrequently: true });
+    draw(x, w, h);
+    const d = x.getImageData(0, 0, w, h).data, a = new Uint8Array(w * h);
+    for (let yy = 0; yy < h; yy++) for (let xx = 0; xx < w; xx++) {
+      if (d[(yy * w + xx) * 4 + 3] > 140 && !(skip && skip(xx / w, yy / h))) a[yy * w + xx] = 1;
+    }
+    return { a, w, h };
+  }
+  // Typical stroke width in px: twice the 90th-percentile distance from the stroke core to its outline
+  // (a chamfer distance transform), plus the glyph's larger side.
+  function strokeStats({ a, w, h }) {
+    const D = new Float32Array(w * h);
+    let minX = w, maxX = 0, minY = h, maxY = 0;
+    for (let k = 0; k < w * h; k++) D[k] = a[k] ? 1e9 : 0;
+    for (let y = 1; y < h; y++) for (let x = 1; x < w - 1; x++) {
+      const k = y * w + x; if (!a[k]) continue;
+      D[k] = Math.min(D[k], D[k - 1] + 3, D[k - w] + 3, D[k - w - 1] + 4, D[k - w + 1] + 4);
+      if (x < minX) minX = x; if (x > maxX) maxX = x; if (y < minY) minY = y; if (y > maxY) maxY = y;
+    }
+    for (let y = h - 2; y >= 0; y--) for (let x = w - 2; x > 0; x--) {
+      const k = y * w + x; if (!a[k]) continue;
+      D[k] = Math.min(D[k], D[k + 1] + 3, D[k + w] + 3, D[k + w + 1] + 4, D[k + w - 1] + 4);
+    }
+    const v = []; for (let k = 0; k < w * h; k++) if (a[k]) v.push(D[k] / 3);
+    v.sort((p, q) => p - q);
+    return { T: 2 * v[Math.floor(v.length * .9)], dim: Math.max(maxX - minX, maxY - minY) };
+  }
+  // Thicken strokes by r px (alternating 4- and 8-neighbour steps ≈ a round brush).
+  function dilate(m, r) {
+    let a = m.a; const { w, h } = m;
+    for (let s = 0; s < Math.round(r); s++) {
+      const b = a.slice(), diag = s % 2 === 1;
+      for (let y = 1; y < h - 1; y++) for (let x = 1; x < w - 1; x++) {
+        const k = y * w + x; if (a[k]) continue;
+        if (a[k - 1] || a[k + 1] || a[k - w] || a[k + w] || (diag && (a[k - w - 1] || a[k - w + 1] || a[k + w - 1] || a[k + w + 1]))) b[k] = 1;
+      }
+      a = b;
+    }
+    return { a, w, h };
+  }
+  // Sample a mask into N points normalised to [-1,1], plus an edge value per point.
+  function sampleMask({ a, w, h }) {
+    const pts = [];
+    for (let yy = 0; yy < h; yy += 2) for (let xx = 0; xx < w; xx += 2) if (a[yy * w + xx]) pts.push(xx, yy);
+    let minX = 1e9, maxX = -1e9, minY = 1e9, maxY = -1e9;
+    for (let i = 0; i < pts.length; i += 2) { minX = Math.min(minX, pts[i]); maxX = Math.max(maxX, pts[i]); minY = Math.min(minY, pts[i + 1]); maxY = Math.max(maxY, pts[i + 1]); }
+    const cx = (minX + maxX) / 2, cy = (minY + maxY) / 2, s = 2 / Math.max(maxX - minX, maxY - minY);
+    // edge: how close a pixel is to the stroke outline (1 = on the rim, 0 = deep inside)
+    const R = Math.max(3, Math.round(w / 110)), dirs = [[1,0],[-1,0],[0,1],[0,-1],[.7,.7],[-.7,.7],[.7,-.7],[-.7,-.7]];
+    const on = (px, py) => (px < 0 || py < 0 || px >= w || py >= h) ? 0 : a[(py | 0) * w + (px | 0)];
+    const edgeOf = (px, py) => { let e = 0; for (const [dx, dy] of dirs) { if (!on(px + dx * R, py + dy * R)) e += .6; if (!on(px + dx * R * 2.2, py + dy * R * 2.2)) e += .4; } return Math.min(1, e / 3); };
+    const out = new Float32Array(N * 4), cnt = pts.length / 2;
+    for (let i = 0; i < N; i++) {
+      const k = (Math.random() * cnt | 0) * 2;
+      out[i * 4] = (pts[k] - cx + Math.random() * 2) * s;
+      out[i * 4 + 1] = -(pts[k + 1] - cy + Math.random() * 2) * s;
+      out[i * 4 + 2] = (Math.random() - .5) * .3;
+      out[i * 4 + 3] = edgeOf(pts[k], pts[k + 1]);
+    }
+    return out;
+  }
+  // Give every hanja the same on-screen stroke weight: thicken the thinner ones to match the boldest.
+  function matchStrokes(masks, sizes) {
+    const st = masks.map(strokeStats);
+    const world = st.map((q, i) => q.T * 2 / q.dim * sizes[i]);   // stroke width in scene units
+    const target = Math.max(...world);
+    return masks.map((m, i) => {
+      const r = (target * st[i].dim / (2 * sizes[i]) - st[i].T) / 2;   // px to add on each side
+      return r >= .5 ? dilate(m, r) : m;
+    });
+  }
+  function sphere() {
+    const o = new Float32Array(N * 4), g = Math.PI * (3 - Math.sqrt(5));
+    for (let i = 0; i < N; i++) {
+      const y = 1 - (i / (N - 1)) * 2, r = Math.sqrt(1 - y * y), t = g * i, k = .9 + Math.random() * .12;
+      o[i * 4] = Math.cos(t) * r * k; o[i * 4 + 1] = y * k; o[i * 4 + 2] = Math.sin(t) * r * k;
+      o[i * 4 + 3] = Math.pow(1 - Math.abs(Math.sin(t) * r), 2); // bright toward the silhouette
+    }
+    return o;
+  }
+  function ring() {
+    const o = new Float32Array(N * 4);
+    for (let i = 0; i < N; i++) {
+      const u = Math.random() * Math.PI * 2, v = Math.random() * Math.PI * 2, R = .7, r = .3 * Math.sqrt(Math.random()) + .02;
+      o[i * 4] = (R + r * Math.cos(v)) * Math.cos(u); o[i * 4 + 1] = (R + r * Math.cos(v)) * Math.sin(u); o[i * 4 + 2] = r * Math.sin(v);
+      o[i * 4 + 3] = Math.pow(Math.abs(Math.cos(v)), 1.5) * (r / .32); // rims of the tube catch the light
+    }
+    return o;
+  }
+
+  // Where each chapter's shape sits: x/y as fraction of half the visible frame, s = size in world units.
+  const layout = () => innerWidth < 900
+    ? [{ x: 0, y: .42, s: 1.15 }, { x: .2, y: .4, s: 1.0 }, { x: 0, y: .38, s: 1.1 }, { x: 0, y: .38, s: 1.1 }, { x: 0, y: .12, s: 1.15 }]
+    : [{ x: .05, y: .3, s: 1.45 }, { x: .5, y: .1, s: 1.35 }, { x: .1, y: .3, s: 1.55 }, { x: -.48, y: .02, s: 1.45 }, { x: 0, y: .3, s: 1.4 }];
+
+  async function initGL() {
+    try {
+      renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+      renderer.setClearColor(0x000000, 1);
+    } catch (e) { return; }
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(35, 1, .1, 100);
+    camera.position.z = 10;
+
+    const [bin, mu] = await Promise.all([loadImg('assets/img/bin.png'), loadImg('assets/img/mu.png')]);
+    await document.fonts.ready;
+    // skip the small "빛날 ✺ 빈" label to the right of the 斌 glyph
+    const glyphs = matchStrokes([
+      buildMask((x, w, h) => x.drawImage(bin, 0, 0, w, h), 600, 519, (u, v) => u > .74 && u < .82 && v > .4 && v < .66),
+      buildMask((x, w, h) => { x.fillStyle = '#000'; x.font = '700 440px serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('文', w / 2, h / 2 + 20); }, 520, 520),
+      buildMask((x, w, h) => x.drawImage(mu, 0, 0, w, h), 480, 490),
+    ], [1.45, 1.55, 1.45]); // desktop sizes of 斌, 文, 武 (see layout)
+    shapes.push(sampleMask(glyphs[0]));
+    shapes.push(sphere());
+    shapes.push(sampleMask(glyphs[1]));
+    shapes.push(sampleMask(glyphs[2]));
+    shapes.push(ring());
+
+    geo = new THREE.BufferGeometry();
+    const pos = new Float32Array(N * 3), size = new Float32Array(N), rnd = new Float32Array(N * 3);
+    seeds = new Float32Array(N);
+    for (let i = 0; i < N; i++) {
+      size[i] = 1.5 + Math.pow(Math.random(), 3) * 3.4;
+      seeds[i] = Math.random();
+      const a = Math.random() * Math.PI * 2, b = Math.acos(2 * Math.random() - 1), m = .3 + Math.random() * 1.1;
+      rnd.set([Math.sin(b) * Math.cos(a) * m, Math.sin(b) * Math.sin(a) * m, Math.cos(b) * m], i * 3);
+    }
+    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    geo.setAttribute('aSize', new THREE.BufferAttribute(size, 1));
+    geo.setAttribute('aSeed', new THREE.BufferAttribute(seeds, 1));
+    geo.setAttribute('aRand', new THREE.BufferAttribute(rnd, 3));
+    geo.setAttribute('aEdge', new THREE.BufferAttribute(new Float32Array(N), 1));
+    // Luminous dust: soft additive points. Colour runs as one smooth gradient over the shape,
+    // warm orange underneath (lit by the glow below) through white to lavender/purple on top.
+    const U = { uCenter: { value: new THREE.Vector2() }, uScale: { value: 1 }, uTime: { value: 0 }, uPix: { value: renderer.getPixelRatio() }, uScatter: { value: 0 }, uGain: { value: 1 }, uSizeMul: { value: 1 }, uHalo: { value: 1 } };
+    const vert = (mul) => `
+        attribute float aSize, aSeed, aEdge; attribute vec3 aRand;
+        uniform float uTime, uPix, uScatter, uScale, uGain, uSizeMul; uniform vec2 uCenter;
+        varying vec3 vCol; varying float vA; varying float vWarm; varying float vWhite;
+        // overlapping smoothsteps: no visible bands between orange, white, lavender and purple
+        vec3 grad(float t){
+          t = clamp(t, 0., 1.);
+          vec3 c = mix(vec3(.98, .48, .18), vec3(.98, .88, .9), smoothstep(-.1, .62, t));
+          c = mix(c, vec3(.8, .7, 1.), smoothstep(.38, .86, t));
+          return mix(c, vec3(.58, .42, 1.), smoothstep(.68, 1.12, t));
+        }
+        void main(){
+          float ph = aSeed * 6.2831;
+          vec3 p = position;
+          p += vec3(sin(uTime * .5 + p.y * 2.3 + ph), cos(uTime * .43 + p.x * 2.1 + ph), sin(uTime * .37 + ph)) * .016;
+          float sc = uScatter * (.5 + aSeed * .9);
+          p += aRand * sc;
+          float ang = sc * 1.1, cs = cos(ang), sn = sin(ang);
+          vec2 q = p.xy - uCenter; p.xy = vec2(cs * q.x - sn * q.y, sn * q.x + cs * q.y) + uCenter;
+          vec4 mv = modelViewMatrix * vec4(p, 1.);
+          gl_Position = projectionMatrix * mv;
+          gl_PointSize = aSize * ${mul} * uSizeMul * uPix * (10. / -mv.z);
+          // gradient at -45° (CSS convention): orange bottom-right → purple top-left
+          float t = dot(position.xy - uCenter, normalize(vec2(-1., 1.))) / (uScale * 2.2) + .5 + (aSeed - .5) * .08;
+          vec3 c = grad(t);
+          float e = smoothstep(.1, .8, aEdge);
+          float tw = (.86 + .14 * sin(uTime * (.7 + aSeed * 1.1) + ph * 3.)) * (.94 + .06 * sin(uTime * .6)); // gentle shimmer + slow breathing
+          vCol = mix(c * .85, mix(c, vec3(1.), .45), e);
+          // the orange end burns brighter, like embers lit by the glow below
+          vWarm = 1. - smoothstep(-.05, .6, t);
+          vCol = mix(vCol, mix(vec3(.95, .5, .2), vec3(1., .74, .56), e), vWarm * .35);
+          vWhite = 0.;
+          vCol = mix(vCol, vec3(1.), .1); // 10% more white across the gradient
+          vA = (.55 + .55 * e) * tw * (1. - uScatter * .3) * (1. + vWarm * .25 + vWhite * .55) * uGain;
+        }`;
+    mat = new THREE.ShaderMaterial({
+      uniforms: U,
+      vertexShader: vert('1.'),
+      fragmentShader: `
+        varying vec3 vCol; varying float vA; varying float vWarm; varying float vWhite;
+        void main(){
+          vec2 c = gl_PointCoord * 2. - 1.; float d = dot(c, c); if (d > 1.) discard;
+          float a = pow(1. - d, 1.6) * vA;
+          gl_FragColor = vec4(vCol + exp(-d * 10.) * (mix(vec3(.7), vec3(.8, .55, .38), vWarm) + vWhite * .35), a);
+        }`,
+      transparent: true, depthTest: false, depthWrite: false, blending: THREE.AdditiveBlending
+    });
+    // Halo: very large, very faint sprites so the whole glyph glows.
+    const glowMat = new THREE.ShaderMaterial({
+      uniforms: U,
+      vertexShader: vert('7.'),
+      fragmentShader: `
+        uniform float uHalo;
+        varying vec3 vCol; varying float vA; varying float vWarm; varying float vWhite;
+        void main(){
+          vec2 c = gl_PointCoord * 2. - 1.; float d = dot(c, c); if (d > 1.) discard;
+          gl_FragColor = vec4(mix(vCol, vec3(1., .5, .2), vWarm * .35), exp(-d * 4.) * vA * (.02 + vWarm * .0096 + vWhite * .016) * uHalo);
+        }`,
+      transparent: true, depthTest: false, depthWrite: false, blending: THREE.AdditiveBlending
+    });
+    const glow = new THREE.Points(geo, glowMat); glow.renderOrder = 0;
+    points = new THREE.Points(geo, mat); points.renderOrder = 1;
+    points.add(glow);
+    // Bloom: light spills softly around the bright strokes, like a lens would see it.
+    if (THREE.EffectComposer && THREE.UnrealBloomPass) {
+      composer = new THREE.EffectComposer(renderer);
+      composer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+      composer.addPass(new THREE.RenderPass(scene, camera));
+      bloom = new THREE.UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), .56, .6, .18);
+      composer.addPass(bloom);
+    }
+    scene.add(points);
+    resize();
+    ready = true;
+  }
+
+  let vw = 1, vh = 1, lay = layout();
+  function resize() {
+    if (!renderer) return;
+    const w = innerWidth, h = innerHeight;
+    renderer.setSize(w, h, false);
+    if (composer) { composer.setSize(w, h); bloom.resolution.set(w, h); }
+    // smaller particles on phones, so the strokes stay crisp
+    if (mat) mat.uniforms.uSizeMul.value = w < 900 ? .5775 : 1; // phones: .55 × 1.05
+    // desktop glow is 20% softer than on phones
+    if (mat) mat.uniforms.uHalo.value = w < 900 ? 1 : .8;
+    if (bloom) bloom.strength = w < 900 ? .56 : .45;
+    camera.aspect = w / h; camera.updateProjectionMatrix();
+    vh = 2 * camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)); vw = vh * camera.aspect;
+    const scaleFit = Math.min(1, camera.aspect / 1.2) ; // shrink shapes on portrait screens
+    lay = layout().map(l => ({ x: l.x * vw / 2, y: l.y * vh / 2, s: Math.min(l.s * (innerWidth < 900 ? Math.max(.75, scaleFit * 1.4) : 1), vw / 2 * .84) })); // never wider than the screen
+  }
+  addEventListener('resize', resize);
+
+  const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
+  addEventListener('pointermove', e => { mouse.tx = e.clientX / innerWidth * 2 - 1; mouse.ty = e.clientY / innerHeight * 2 - 1; }, { passive: true });
+
+  const chapters = $('.chapters');
+  const sceneEl = $('.scene');
+  const visIO = new IntersectionObserver(es => { visible = es[0].isIntersecting; }, { rootMargin: '0px 0px 0px 0px' });
+  visIO.observe(chapters);
+
+  const t0 = performance.now();
+  function frame(now) {
+    requestAnimationFrame(frame);
+    const t = (now - t0) / 1000;
+    const p = clamp((scrollY - chapters.offsetTop) / hero.offsetHeight, 0, 4);
+    sceneEl.style.visibility = visible ? 'visible' : 'hidden';
+    if (!ready || !visible) return;
+
+    const k = Math.min(3, Math.floor(p)), f = reduce ? Math.round(p - k) : sstep(.2, .8, p - k);
+    const A = shapes[k], B = shapes[k + 1], la = lay[k], lb = lay[k + 1];
+    const pos = geo.attributes.position.array, edg = geo.attributes.aEdge.array;
+    for (let n = 0, i = 0, j = 0; n < N; n++, i += 3, j += 4) {
+      const ax = A[j] * la.s + la.x, ay = A[j + 1] * la.s + la.y, az = A[j + 2] * la.s;
+      const bx = B[j] * lb.s + lb.x, by = B[j + 1] * lb.s + lb.y, bz = B[j + 2] * lb.s;
+      // stagger: each particle leaves and arrives at its own moment, so the morph flows
+      let g = clamp(f * 1.6 - seeds[n] * .6, 0, 1); g = g * g * (3 - 2 * g);
+      pos[i] = ax + (bx - ax) * g; pos[i + 1] = ay + (by - ay) * g; pos[i + 2] = az + (bz - az) * g;
+      edg[n] = A[j + 3] + (B[j + 3] - A[j + 3]) * g;
+    }
+    geo.attributes.position.needsUpdate = true; geo.attributes.aEdge.needsUpdate = true;
+    mouse.x += (mouse.tx - mouse.x) * .05; mouse.y += (mouse.ty - mouse.y) * .05;
+    mat.uniforms.uTime.value = reduce ? 0 : t;
+    mat.uniforms.uScatter.value = reduce ? 0 : Math.sin(Math.PI * f) * .55;
+    mat.uniforms.uCenter.value.set(la.x + (lb.x - la.x) * f, la.y + (lb.y - la.y) * f);
+    mat.uniforms.uScale.value = la.s + (lb.s - la.s) * f;
+    // thin shapes pack the same particles denser, so they get less gain: 斌, sphere, 文, 武, ring
+    const GAIN = [1, 1, .5, .8, .95];
+    mat.uniforms.uGain.value = GAIN[k] + (GAIN[k + 1] - GAIN[k]) * f;
+    // sphere and ring (chapters 2 and 5) turn more than the flat glyphs
+    const spin = [0.25, 1, .25, .25, .6][k] * (1 - f) + [0.25, 1, .25, .25, .6][k + 1] * f;
+    points.rotation.y = (reduce ? 0 : Math.sin(t * .35) * .22 * spin + (k === 1 || (k === 0 && f > .5) ? t * .15 * spin : 0)) + (reduce ? 0 : mouse.x * .25);
+    points.rotation.x = reduce ? 0 : mouse.y * .12;
+    composer ? composer.render() : renderer.render(scene, camera);
+  }
+
+  /* ---------- What I do: wheel list ---------- */
+  const wwd = $('.wwd'), svcOl = $('#svc ol'), svcLi = $$('#svc li');
+  function svcUpdate() {
+    if (reduce || innerWidth <= 900) return;
+    const r = wwd.getBoundingClientRect();
+    const prog = clamp(-r.top / (r.height - innerHeight), 0, 1);
+    const idx = prog * (svcLi.length - 1), rowH = svcLi[0].offsetHeight;
+    svcOl.style.transform = `translate3d(0,${-(idx * rowH) - rowH / 2}px,0)`;
+    const on = Math.round(idx);
+    svcLi.forEach((li, i) => { li.classList.toggle('on', i === on); li.classList.toggle('near', Math.abs(i - on) === 1); });
+  }
+
+  /* ---------- Projects parallax ---------- */
+  const pcs = $$('.pc[data-speed]');
+  function para() {
+    if (reduce || innerWidth <= 900) return;
+    const mid = innerHeight / 2;
+    pcs.forEach(el => {
+      const r = el.parentElement.getBoundingClientRect(); // grid box: stable reference, no feedback loop
+      const c = el.offsetTop + el.offsetHeight / 2 + r.top;
+      el.style.transform = `translate3d(0,${clamp((c - mid) * parseFloat(el.dataset.speed), -28, 28)}px,0)`;
+    });
+  }
+
+  /* ---------- Header colour: white over the scene, ink on solid ---------- */
+  const hd = $('#hd');
+  function hdUpdate() { hd.classList.toggle('ink', scrollY > chapters.offsetTop + chapters.offsetHeight - 60); }
+
+  function updateHero() {
+    const progress = scrollY / hero.offsetHeight;
+    backToTop.hidden = progress < 1;
+  }
+
+  const onScroll = () => { updateHero(); svcUpdate(); para(); hdUpdate(); };
+  document.addEventListener('visibilitychange', updateHero);
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', onScroll);
+
+  /* ---------- Experience: floating badge ---------- */
+  const badge = $('#badge'), bx = $('.bx', badge);
+  let bxT = 0, byT = 0, bxC = 0, byC = 0, bOn = false;
+  $$('.erow').forEach(row => {
+    row.addEventListener('pointerenter', () => {
+      if (row.dataset.img) bx.innerHTML = `<img src="${row.dataset.img}" alt="">`;
+      else if (row.dataset.glyph) bx.innerHTML = `<img class="glyph" src="${row.dataset.glyph}" alt="">`;
+      else bx.innerHTML = `<div class="yr">${row.dataset.text}<small>${row.dataset.sub}</small></div>`;
+      bOn = true; badge.classList.add('show');
+    });
+    row.addEventListener('pointerleave', () => { bOn = false; badge.classList.remove('show'); });
+  });
+  $('.exp').addEventListener('pointermove', e => { bxT = e.clientX; byT = e.clientY; });
+  (function bLoop() {
+    requestAnimationFrame(bLoop);
+    if (!bOn && !badge.classList.contains('show')) { bxC = bxT; byC = byT; return; }
+    bxC += (bxT - bxC) * .14; byC += (byT - byC) * .14;
+    const rot = clamp((bxT - bxC) * .08, -12, 12);
+    badge.style.transform = `translate3d(${bxC + 40}px,${byC - 200}px,0) rotate(${rot}deg) scale(${bOn ? 1 : .85})`;
+  })();
+
+  /* ---------- Copy e-mail ---------- */
+  const cp = $('#copy');
+  cp.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(cp.dataset.mail); } catch (e) { location.href = 'mailto:' + cp.dataset.mail; return; }
+    cp.classList.add('ok'); setTimeout(() => cp.classList.remove('ok'), 1600);
+  });
+
+  chs.forEach(chapter => io.observe(chapter));
+  onScroll();
+
+  initGL().catch(() => { canvas.hidden = true; });
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
