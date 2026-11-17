@@ -699,11 +699,13 @@ html.ld-on,html.ld-on body{overflow:hidden}
   // (desktop reference: 斌 at size 1.45 on a 900px-tall screen, 20000 particles at size 1)
   const UNIT = (() => {
     if (!isMobile) return 1;
+    if (!innerWidth || !innerHeight) return .8; // loaded in a zero-size window: a typical phone value
     const VH = 2 * 10 * Math.tan(17.5 * Math.PI / 180), asp = innerWidth / innerHeight, vw = VH * asp;
-    const s = Math.min(1.15 * Math.max(.75, Math.min(1, asp / 1.2) * 1.4), vw / 2 * .84); // same fit as resize()
+    const s = Math.min(1.15 * Math.max(.75, Math.min(1, asp / 1.2) * 1.4) * 1.5, vw / 2 * .96); // same fit as resize()
     return (s * innerHeight) / (1.45 * 900);
   })();
-  const N = Math.round(20000 * UNIT * UNIT);
+  // phones: 25% fewer particles than the desktop density, so the larger strokes don't pile up into a white blob
+  const N = Math.round(20000 * UNIT * UNIT * (isMobile ? .75 : 1));
   let renderer, composer, bloom, scene, camera, points, geo, mat, seeds, shapes = [], ready = false, visible = true;
 
   const loadImg = (src) => new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; });
@@ -804,7 +806,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
 
   // Where each chapter's shape sits: x/y as fraction of half the visible frame, s = size in world units.
   const layout = () => innerWidth < 900
-    ? [{ x: 0, y: .42, s: 1.15 }, { x: .2, y: .4, s: 1.0 }, { x: 0, y: .38, s: 1.1 }, { x: 0, y: .38, s: 1.1 }, { x: 0, y: .12, s: 1.15 }]
+    ? [{ x: 0, y: .3, s: 1.15 }, { x: .2, y: .4, s: 1.0 }, { x: 0, y: .3, s: 1.1 }, { x: 0, y: .3, s: 1.1 }, { x: 0, y: .12, s: 1.15 }]
     : [{ x: .05, y: .3, s: 1.45 }, { x: .5, y: .1, s: 1.35 }, { x: .1, y: .3, s: 1.55 }, { x: -.48, y: .02, s: 1.45 }, { x: 0, y: .3, s: 1.4 }];
 
   async function initGL() {
@@ -931,14 +933,19 @@ html.ld-on,html.ld-on body{overflow:hidden}
     const w = innerWidth, h = innerHeight;
     renderer.setSize(w, h, false);
     if (composer) { composer.setSize(w, h); bloom.resolution.set(w, h); }
-    // same particle style on every screen: desktop particle size, glow and bloom (count: see UNIT)
-    if (mat) mat.uniforms.uSizeMul.value = 1;
-    if (mat) mat.uniforms.uHalo.value = .8;
-    if (bloom) bloom.strength = .45;
+    // phones: slightly smaller particles, a softer halo and less bloom, so the strokes stay readable
+    const phone = w < 900;
+    if (mat) mat.uniforms.uSizeMul.value = phone ? .8 : 1;
+    if (mat) mat.uniforms.uHalo.value = phone ? .5 : .8;
+    if (bloom) bloom.strength = phone ? .28 : .45;
     camera.aspect = w / h; camera.updateProjectionMatrix();
     vh = 2 * camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)); vw = vh * camera.aspect;
     const scaleFit = Math.min(1, camera.aspect / 1.2) ; // shrink shapes on portrait screens
-    lay = layout().map(l => ({ x: l.x * vw / 2, y: l.y * vh / 2, s: Math.min(l.s * (innerWidth < 900 ? Math.max(.75, scaleFit * 1.4) : 1), vw / 2 * .84) })); // never wider than the screen
+    // phones draw the hanja (斌, 文, 武) 1.5x larger; the sphere and ring keep their size
+    const ph = innerWidth < 900, HANJA = [1.5, 1, 1.5, 1.5, 1];
+    lay = layout().map((l, i) => ({ x: l.x * vw / 2, y: l.y * vh / 2,
+      s: Math.min(l.s * (ph ? Math.max(.75, scaleFit * 1.4) * HANJA[i] : 1), vw / 2 * (ph && HANJA[i] > 1 ? .96 : .84)) })); // never wider than the screen
+    lastK = -1; // shapes moved: recompute particle positions on the next frame
   }
   addEventListener('resize', resize);
 
@@ -946,6 +953,11 @@ html.ld-on,html.ld-on body{overflow:hidden}
   addEventListener('pointermove', e => { mouse.tx = e.clientX / innerWidth * 2 - 1; mouse.ty = e.clientY / innerHeight * 2 - 1; }, { passive: true });
 
   const chapters = $('.chapters');
+  // layout numbers read once (and again when sizes change), never inside the per-frame or per-scroll code
+  let chTop = 0, heroH = 0, lastK = -1, lastF = -1;
+  const measure = () => { chTop = chapters.offsetTop; heroH = hero.offsetHeight; };
+  measure();
+  new ResizeObserver(measure).observe(chapters);
   const sceneEl = $('.scene');
   const visIO = new IntersectionObserver(es => { visible = es[0].isIntersecting; }, { rootMargin: '0px 0px 0px 0px' });
   visIO.observe(chapters);
@@ -955,15 +967,17 @@ html.ld-on,html.ld-on body{overflow:hidden}
     requestAnimationFrame(frame);
     const t = (now - t0) / 1000;
     // a zero-size window (a collapsed pane or hidden frame) has no chapters to scroll: skip the frame
-    const HH = hero.offsetHeight;
-    if (!HH) return;
-    const p = clamp((scrollY - chapters.offsetTop) / HH, 0, 5);
+    if (!heroH) return;
+    const p = clamp((scrollY - chTop) / heroH, 0, 5);
     sceneEl.style.visibility = visible ? 'visible' : 'hidden';
     if (!ready || !visible) return;
 
     // each chapter's text holds while its shape is still; the morph runs in the gap between chapters
     const k = Math.min(3, Math.floor(p)), f = reduce ? (p - k > .7 ? 1 : 0) : sstep(.5, .95, p - k);
     const A = shapes[k], B = shapes[k + 1], la = lay[k], lb = lay[k + 1];
+    // the shader animates the shimmer; positions only change while a morph is moving
+    if (k !== lastK || f !== lastF) {
+    lastK = k; lastF = f;
     const pos = geo.attributes.position.array, edg = geo.attributes.aEdge.array;
     for (let n = 0, i = 0, j = 0; n < N; n++, i += 3, j += 4) {
       const ax = A[j] * la.s + la.x, ay = A[j + 1] * la.s + la.y, az = A[j + 2] * la.s;
@@ -974,6 +988,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
       edg[n] = A[j + 3] + (B[j + 3] - A[j + 3]) * g;
     }
     geo.attributes.position.needsUpdate = true; geo.attributes.aEdge.needsUpdate = true;
+    }
     mouse.x += (mouse.tx - mouse.x) * .05; mouse.y += (mouse.ty - mouse.y) * .05;
     mat.uniforms.uTime.value = reduce ? 0 : t;
     mat.uniforms.uScatter.value = reduce ? 0 : Math.sin(Math.PI * f) * .55;
@@ -1041,9 +1056,8 @@ html.ld-on,html.ld-on body{overflow:hidden}
   const chIn = chs.map((c, i) => ({ el: c, inner: $('.in', c), w: makeWarp('wv' + i, '0.004 0.05', 3 + i), last: -1, seen: false }));
   let introW = 0; // 1 while the hero text is still settling after Enter
   function chUpdate() {
-    const H = hero.offsetHeight;
-    if (!H) return; // zero-size window: nothing to place
-    const p = (scrollY - chapters.offsetTop) / H;
+    if (!heroH) return; // zero-size window: nothing to place
+    const p = (scrollY - chTop) / heroH;
     chIn.forEach((c, i) => {
       const d = p - i;
       let w = i === 0 ? 0 : 1 - sstep(-.26, -.1, d);             // warp in
@@ -1058,9 +1072,10 @@ html.ld-on,html.ld-on body{overflow:hidden}
       c.inner.style.opacity = op;
       c.inner.style.setProperty('--k', reduce ? 0 : w);
       const on = !reduce && w > .004;
-      c.inner.style.filter = on ? `url(#wv${i})` : 'none';
+      const fxOn = on && !isMobile; // the SVG wave filter is too heavy to run while a phone scrolls
+      c.inner.style.filter = fxOn ? `url(#wv${i})` : 'none';
       c.inner.style.transform = on ? `translate3d(${-w * 40}px,0,0) skewX(${w * -6}deg)` : 'none';
-      if (on) {
+      if (fxOn) {
         c.w.disp.setAttribute('scale', (w * 170).toFixed(1));
         c.w.turb.setAttribute('baseFrequency', `${(.003 + w * .004).toFixed(4)} ${(.03 + w * .05).toFixed(4)}`);
       }
@@ -1135,7 +1150,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
   function fillUpdate() {
     const r = wwd.getBoundingClientRect();
     const F = clamp((innerHeight * .85 - r.top) / (innerHeight * (innerWidth <= 900 ? .7 : 1.1)), 0, 1) * (leadC.length + 8);
-    leadC.forEach((c, i) => { c.style.opacity = (.2 + .8 * clamp(F - i, 0, 8) / 8).toFixed(2); });
+    leadC.forEach((c, i) => { const o = (.2 + .8 * clamp(F - i, 0, 8) / 8).toFixed(2); if (c._o !== o) { c._o = o; c.style.opacity = o; } });
   }
 
   /* ---------- Project cards: image ripple + data that types in ---------- */
@@ -1266,6 +1281,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
     ldgo.addEventListener('focus', () => { if (kb) m.hot = 1; });
     ldgo.addEventListener('blur', () => { m.hot = 0; });
     const frame = now => {
+      raf = requestAnimationFrame(frame); // scheduled first, so one bad frame never stops the loop
       // the light and its drift are sized to the glyph, as on desktop
       const s = now / 1000, R = gr * .95;
       // no pointer for a while (or a touch screen): the torch drifts slowly over the glyph by itself
@@ -1281,7 +1297,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, W, H);
       ctx.globalCompositeOperation = 'lighter';
-      if (base) { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.drawImage(base, 0, 0); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+      if (base && base.width && base.height) { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.drawImage(base, 0, 0); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
       for (const p of pts) {
         const dx = p.x - m.x, dy = p.y - m.y;
         let k = 0, dist = 1;
@@ -1296,7 +1312,6 @@ html.ld-on,html.ld-on body{overflow:hidden}
         ctx.drawImage(p.img, p.x + dx * push - z / 2, p.y + dy * push - z / 2, z, z);
       }
       ctx.globalAlpha = 1;
-      raf = requestAnimationFrame(frame);
     };
     makeGlyph().then(() => { build(); m.x = m.tx = W / 2; m.y = m.ty = H / 2; }).catch(() => {});
     build();
@@ -1315,6 +1330,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
     addEventListener('load', () => { winLoaded = true; });
     document.fonts && document.fonts.ready.then(() => { fontsOk = true; });
     (function tick(now) {
+      if (!ld.isConnected) return; // already entered
       const el = now - t0;
       const target = Math.min(100, 30 + (fontsOk ? 20 : 0) + (winLoaded ? 25 : 0) + (glDone ? 25 : 0) + (el > 7000 ? 100 : 0));
       const cap = Math.min(target, el / 14); // never faster than ~1.4s for the full count
@@ -1342,7 +1358,15 @@ html.ld-on,html.ld-on body{overflow:hidden}
   }
   ldgo.addEventListener('click', enter);
 
-  const onScroll = () => { updateHero(); svcUpdate(); para(); hdUpdate(); chUpdate(); fillUpdate(); };
+  const onScrollNow = () => { updateHero(); svcUpdate(); para(); hdUpdate(); chUpdate(); fillUpdate(); };
+  let scrollQueued = false; // scroll events can fire several times a frame: do the work once, before the next paint
+  const onScroll = () => {
+    if (scrollQueued) return;
+    scrollQueued = true;
+    const run = () => { if (!scrollQueued) return; scrollQueued = false; onScrollNow(); };
+    requestAnimationFrame(run);
+    setTimeout(run, 100); // fallback where frames are paused (a background tab or hidden frame)
+  };
   document.addEventListener('visibilitychange', updateHero);
   addEventListener('scroll', onScroll, { passive: true });
   addEventListener('resize', onScroll);
