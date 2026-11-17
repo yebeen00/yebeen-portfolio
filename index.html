@@ -693,7 +693,17 @@ html.ld-on,html.ld-on body{overflow:hidden}
   const canvas = $('#gl');
   const hero = $('.ch1');
   const isMobile = innerWidth < 900;
-  const N = isMobile ? 5000 : 20000;
+  // Phones get the desktop look: particles keep the desktop's pixel size (shrinking them makes the
+  // strokes thin and grainy) and their count follows the glyph's on-screen area, so a stroke holds
+  // the same number of particles per pixel as on desktop
+  // (desktop reference: 斌 at size 1.45 on a 900px-tall screen, 20000 particles at size 1)
+  const UNIT = (() => {
+    if (!isMobile) return 1;
+    const VH = 2 * 10 * Math.tan(17.5 * Math.PI / 180), asp = innerWidth / innerHeight, vw = VH * asp;
+    const s = Math.min(1.15 * Math.max(.75, Math.min(1, asp / 1.2) * 1.4), vw / 2 * .84); // same fit as resize()
+    return (s * innerHeight) / (1.45 * 900);
+  })();
+  const N = Math.round(20000 * UNIT * UNIT);
   let renderer, composer, bloom, scene, camera, points, geo, mat, seeds, shapes = [], ready = false, visible = true;
 
   const loadImg = (src) => new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; });
@@ -807,12 +817,13 @@ html.ld-on,html.ld-on body{overflow:hidden}
     camera = new THREE.PerspectiveCamera(35, 1, .1, 100);
     camera.position.z = 10;
 
-    const [bin, mu] = await Promise.all([loadImg('assets/img/bin.png'), loadImg('assets/img/mu.png')]);
-    await document.fonts.ready;
+    // 文 is a baked image of the desktop letterform: a system font would differ per device, and since
+    // matchStrokes thickens every glyph to the boldest one, a different 文 would change 斌 and 武 too
+    const [bin, mu, wen] = await Promise.all([loadImg('assets/img/bin.png'), loadImg('assets/img/mu.png'), loadImg('assets/img/wen.png')]);
     // skip the small "빛날 ✺ 빈" label to the right of the 斌 glyph
     const glyphs = matchStrokes([
       buildMask((x, w, h) => x.drawImage(bin, 0, 0, w, h), 600, 519, (u, v) => u > .74 && u < .82 && v > .4 && v < .66),
-      buildMask((x, w, h) => { x.fillStyle = '#000'; x.font = '700 440px serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('文', w / 2, h / 2 + 20); }, 520, 520),
+      buildMask((x, w, h) => x.drawImage(wen, 0, 0, w, h), 520, 520),
       buildMask((x, w, h) => x.drawImage(mu, 0, 0, w, h), 480, 490),
     ], [1.45, 1.55, 1.45]); // desktop sizes of 斌, 文, 武 (see layout)
     shapes.push(sampleMask(glyphs[0]));
@@ -920,11 +931,10 @@ html.ld-on,html.ld-on body{overflow:hidden}
     const w = innerWidth, h = innerHeight;
     renderer.setSize(w, h, false);
     if (composer) { composer.setSize(w, h); bloom.resolution.set(w, h); }
-    // smaller particles on phones, so the strokes stay crisp
-    if (mat) mat.uniforms.uSizeMul.value = w < 900 ? .5775 : 1; // phones: .55 × 1.05
-    // desktop glow is 20% softer than on phones
-    if (mat) mat.uniforms.uHalo.value = w < 900 ? 1 : .8;
-    if (bloom) bloom.strength = w < 900 ? .56 : .45;
+    // same particle style on every screen: desktop particle size, glow and bloom (count: see UNIT)
+    if (mat) mat.uniforms.uSizeMul.value = 1;
+    if (mat) mat.uniforms.uHalo.value = .8;
+    if (bloom) bloom.strength = .45;
     camera.aspect = w / h; camera.updateProjectionMatrix();
     vh = 2 * camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)); vw = vh * camera.aspect;
     const scaleFit = Math.min(1, camera.aspect / 1.2) ; // shrink shapes on portrait screens
@@ -1185,10 +1195,10 @@ html.ld-on,html.ld-on body{overflow:hidden}
     };
     // The hero's exact 斌: same mask, label skipped, strokes thickened to match 文 and 武 (matchStrokes)
     const makeGlyph = async () => {
-      const [bin, mu] = await Promise.all([loadImg('assets/img/bin.png'), loadImg('assets/img/mu.png')]);
+      const [bin, mu, wen] = await Promise.all([loadImg('assets/img/bin.png'), loadImg('assets/img/mu.png'), loadImg('assets/img/wen.png')]);
       const [g] = matchStrokes([
         buildMask((x, w, h) => x.drawImage(bin, 0, 0, w, h), 600, 519, (u, v) => u > .74 && u < .82 && v > .4 && v < .66),
-        buildMask((x, w, h) => { x.fillStyle = '#000'; x.font = '700 440px serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('文', w / 2, h / 2 + 20); }, 520, 520),
+        buildMask((x, w, h) => x.drawImage(wen, 0, 0, w, h), 520, 520),
         buildMask((x, w, h) => x.drawImage(mu, 0, 0, w, h), 480, 490),
       ], [1.45, 1.55, 1.45]);
       const { a, w, h } = g, list = [];
@@ -1206,7 +1216,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
       const { list, cx, cy, half, edgeOf } = glyph, cnt = list.length / 2;
       // on screen the glyph is as big as in the hero: about 46% of the screen height (phones: fit the width)
       const S = (W < 900 ? Math.min(W * .4, H * .2) : H * .23) / half;
-      // particle size and count follow the glyph's size, so a phone shows the same picture as a desktop
+      // particles keep the desktop size and their count follows the glyph's area, so a phone shows the same picture as a desktop
       // (the desktop reference: a glyph about 400px tall, 12000 particles)
       gr = half * S;
       const unit = gr / 200, N = Math.round(12000 * unit * unit);
@@ -1221,13 +1231,13 @@ html.ld-on,html.ld-on body{overflow:hidden}
         c = mix(c, mix([.95, .5, .2], [1, .74, .56], e), warm * .35);
         c = mix(c, [1, 1, 1], .1);
         pts.push({ x: W / 2 + (px - cx) * S, y: H / 2 + (py - cy) * S, img: sprite(c[0] * 255 | 0, c[1] * 255 | 0, c[2] * 255 | 0),
-          a: Math.min(1, (.55 + .55 * e) * (1 + warm * .25) * 1.32), s: (1.5 + Math.pow(Math.random(), 3) * 3.4) * .72 * unit,
+          a: Math.min(1, (.55 + .55 * e) * (1 + warm * .25) * 1.32), s: (1.5 + Math.pow(Math.random(), 3) * 3.4) * .72,
           ph: sd * 6.28, sp: .7 + sd * 1.1 });
       }
       // a little stray dust around the glyph, as in the hero
       for (let i = 0; i < 90; i++) {
         const ang = Math.random() * 6.28, r = half * S * (1 + Math.random() * .9);
-        pts.push({ x: W / 2 + Math.cos(ang) * r, y: H / 2 + Math.sin(ang) * r, img: sprite(235, 225, 245), a: .35, s: (1.4 + Math.random() * 1.2) * unit, ph: Math.random() * 6.28, sp: 1 });
+        pts.push({ x: W / 2 + Math.cos(ang) * r, y: H / 2 + Math.sin(ang) * r, img: sprite(235, 225, 245), a: .35, s: 1.4 + Math.random() * 1.2, ph: Math.random() * 6.28, sp: 1 });
       }
       // the faint, unlit glyph never changes: draw it once, so each frame only redraws the particles in the light
       base = document.createElement('canvas'); base.width = cv.width; base.height = cv.height;
