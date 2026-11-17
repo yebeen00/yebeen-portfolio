@@ -821,8 +821,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
       renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
       renderer.setClearColor(0x000000, 1);
     } catch (e) { return; }
-    // phones render fewer pixels; scene and bloom keep the desktop ratio (2 : 1.5), so the particles look the same
-    renderer.setPixelRatio(Math.min(devicePixelRatio, isMobile ? 1.5 : 2));
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(35, 1, .1, 100);
     camera.position.z = 10;
@@ -923,9 +922,12 @@ html.ld-on,html.ld-on body{overflow:hidden}
     points = new THREE.Points(geo, mat); points.renderOrder = 1;
     points.add(glow);
     // Bloom: light spills softly around the bright strokes, like a lens would see it.
-    if (THREE.EffectComposer && THREE.UnrealBloomPass) {
+    // phones skip the bloom pass: the scene is drawn straight to the screen at full resolution, which keeps
+    // the strokes sharp (bloom renders at a lower resolution and is then stretched) and is also the lighter path;
+    // each particle's own halo still gives the glow
+    if (THREE.EffectComposer && THREE.UnrealBloomPass && !isMobile) {
       composer = new THREE.EffectComposer(renderer);
-      composer.setPixelRatio(Math.min(devicePixelRatio, isMobile ? 1.125 : 1.5));
+      composer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
       composer.addPass(new THREE.RenderPass(scene, camera));
       bloom = new THREE.UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), .56, .6, .18);
       composer.addPass(bloom);
@@ -941,10 +943,10 @@ html.ld-on,html.ld-on body{overflow:hidden}
     const w = innerWidth, h = innerHeight;
     renderer.setSize(w, h, false);
     if (composer) { composer.setSize(w, h); bloom.resolution.set(w, h); }
-    // phones: slightly smaller particles, a softer halo and less bloom, so the strokes stay readable
+    // phones have no bloom pass (see initGL): each particle's own halo is raised a little to carry the glow
     const phone = w < 900;
-    if (mat) mat.uniforms.uSizeMul.value = phone ? .8 : 1;
-    if (mat) mat.uniforms.uHalo.value = phone ? .5 : .8;
+    if (mat) mat.uniforms.uSizeMul.value = phone ? 1 : 1;
+    if (mat) mat.uniforms.uHalo.value = phone ? 1 : .8;
     if (bloom) bloom.strength = phone ? .28 : .45;
     camera.aspect = w / h; camera.updateProjectionMatrix();
     vh = 2 * camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)); vw = vh * camera.aspect;
