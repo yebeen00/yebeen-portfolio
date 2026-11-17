@@ -275,10 +275,12 @@ main{position:relative;z-index:1}
 .ld-bar i{position:absolute;inset:0;background:#ff5f00;transform-origin:left;transform:scaleX(var(--p,0))}
 .ld-row{position:absolute;left:0;right:0;top:12px;display:grid;grid-template-columns:repeat(7,1fr);font-size:10px;color:var(--ink-2);transition:opacity .5s}
 .ld-row span:nth-child(n+5){color:var(--ink)}
+.ld-row span{white-space:nowrap}
 .ld-row span:last-child{text-align:right}
+@media (max-width:600px){.ld-row{display:flex;justify-content:space-between}.ld-row span:nth-child(3),.ld-row span:nth-child(4),.ld-row span:nth-child(6){display:none}}
 .ld.ready .ld-row,.ld.ready .ld-bar{opacity:0}
 .ld-go{position:absolute;left:50%;bottom:0;translate:-50% 0;opacity:0;transform:translateY(10px);transition:opacity .6s var(--ease),transform .6s var(--ease);pointer-events:none}
-.ld.ready .ld-go{opacity:1;transform:none;pointer-events:auto}
+.ld.ready .ld-go{opacity:1;transform:none;pointer-events:auto;transition-delay:.4s}
 .ld-go:focus,.ld-go:focus-visible{outline:none}
 .ld.out .ld-fx,.ld.out .ld-go,.ld.out .ld-bar,.ld.out .ld-row{opacity:0}
 html.ld-on,html.ld-on body{overflow:hidden}
@@ -1224,7 +1226,10 @@ html.ld-on,html.ld-on body{overflow:hidden}
     m.g = 0; m.hot = 0;
     ldgo.addEventListener('pointerenter', () => { m.hot = 1; });
     ldgo.addEventListener('pointerleave', () => { m.hot = 0; });
-    ldgo.addEventListener('focus', () => { m.hot = 1; });
+    let kb = false;
+    addEventListener('keydown', () => { kb = true; if (document.activeElement === ldgo) m.hot = 1; });
+    addEventListener('pointerdown', () => { kb = false; });
+    ldgo.addEventListener('focus', () => { if (kb) m.hot = 1; });
     ldgo.addEventListener('blur', () => { m.hot = 0; });
     const frame = now => {
       const s = now / 1000, R = Math.max(120, Math.min(W, H) * .22);
