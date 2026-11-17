@@ -121,6 +121,13 @@ main{position:relative;z-index:1}
 .ch .in{position:fixed;inset:0;padding:0 var(--gut);pointer-events:none;visibility:hidden;opacity:0;
   text-shadow:calc(var(--k,0)*-12px) 0 0 rgb(120 255 200/calc(var(--k,0)*.9)),calc(var(--k,0)*12px) 0 0 rgb(176 120 255/calc(var(--k,0)*.9))}
 .ch.vis .in{visibility:visible}
+@media (max-width:900px){
+  /* phones: no live glass blur and no colour split while scrolling, both repaint every frame */
+  .hd.ink,.pill:not(.ld-go){backdrop-filter:none;-webkit-backdrop-filter:none}
+  .pill:not(.ld-go){background:rgba(14,10,8,.88)}
+  .ch .in{text-shadow:none}
+  .ch.vis .in{will-change:transform,opacity}
+}
 .ch.act .in>*{pointer-events:auto}
 .disp{font-family:var(--serif);font-size:clamp(46px,7.3vw,132px);line-height:.88;letter-spacing:-.01em;text-transform:uppercase}
 .disp i,.it{font-style:italic;text-transform:none;font-family:var(--serif)}
@@ -325,7 +332,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
   .ch{height:150vh;height:150svh}
   .hd{grid-template-columns:1fr auto}
   .hd nav{grid-area:2/1/3/-1;justify-content:space-between;gap:8px;padding-top:12px}
-  .hd.ink{background:rgba(10,7,5,.72)}
+  .hd.ink{background:rgba(10,7,5,.88)} /* solid enough to read over text without a live blur */
   .hero-title h1{font-size:clamp(58px,15vw,136px)}
   .hero-foot .pill{white-space:nowrap}
   .disp,.ch5 .big .it{font-size:clamp(40px,11.5vw,72px)}
@@ -814,7 +821,8 @@ html.ld-on,html.ld-on body{overflow:hidden}
       renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
       renderer.setClearColor(0x000000, 1);
     } catch (e) { return; }
-    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    // phones render fewer pixels; scene and bloom keep the desktop ratio (2 : 1.5), so the particles look the same
+    renderer.setPixelRatio(Math.min(devicePixelRatio, isMobile ? 1.5 : 2));
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(35, 1, .1, 100);
     camera.position.z = 10;
@@ -917,7 +925,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
     // Bloom: light spills softly around the bright strokes, like a lens would see it.
     if (THREE.EffectComposer && THREE.UnrealBloomPass) {
       composer = new THREE.EffectComposer(renderer);
-      composer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+      composer.setPixelRatio(Math.min(devicePixelRatio, isMobile ? 1.125 : 1.5));
       composer.addPass(new THREE.RenderPass(scene, camera));
       bloom = new THREE.UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), .56, .6, .18);
       composer.addPass(bloom);
@@ -954,7 +962,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
 
   const chapters = $('.chapters');
   // layout numbers read once (and again when sizes change), never inside the per-frame or per-scroll code
-  let chTop = 0, heroH = 0, lastK = -1, lastF = -1;
+  let chTop = 0, heroH = 0, lastK = -1, lastF = -1, lastE = -1, tick = 0;
   const measure = () => { chTop = chapters.offsetTop; heroH = hero.offsetHeight; };
   measure();
   new ResizeObserver(measure).observe(chapters);
@@ -1004,6 +1012,9 @@ html.ld-on,html.ld-on body{overflow:hidden}
     // leaving the last chapter: fly through the ring so the particles fill the screen
     const e = reduce ? 0 : sstep(.1, .75, p - 4);
     points.scale.setScalar(1 + e * e * 7);
+    // phones: when nothing is morphing or flying, the shimmer is drawn at half rate to leave room for scrolling
+    const still = (f === 0 || f === 1) && e === lastE; lastE = e;
+    if (isMobile && still && (tick++ & 1)) return;
     composer ? composer.render() : renderer.render(scene, camera);
   }
 
