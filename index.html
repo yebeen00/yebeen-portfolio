@@ -85,8 +85,16 @@ html.lenis,html.lenis body{height:auto}
 .pill:is(:hover,:focus-visible)>.pg{opacity:1}
 .pill:hover>span:not(.roll):not(.pg){transform:rotate(-45deg)}
 .pill:active{transform:translateY(1px)}
-.pill.lg{height:46px;padding:0 8px 0 20px;font-size:15px}
 .pill.lg>span:not(.roll):not(.pg){width:32px;height:32px}
+.pill.lg{height:46px;padding:0 8px 0 20px;font-size:15px}
+/* Every pill except the intro's Enter: a quiet glass face whose border lights up
+   on hover (mouse) or while tapped (touch, see .lit in the script); only Enter keeps the shiny sweep */
+.pill:not(.ld-go){animation:none;background:rgba(14,10,8,.62);border:1px solid rgba(255,255,255,.16);box-shadow:none;
+  backdrop-filter:blur(12px) saturate(1.3);-webkit-backdrop-filter:blur(12px) saturate(1.3);
+  transition:border-color .35s var(--ease),box-shadow .35s var(--ease),transform .35s var(--ease)}
+.pill:not(.ld-go)::before,.pill:not(.ld-go)::after{display:none}
+@media (hover:hover){.pill:not(.ld-go):hover{border-color:var(--acc-soft);box-shadow:0 0 0 1px rgba(255,95,0,.35),0 0 16px rgba(255,95,0,.5),0 0 36px rgba(255,95,0,.22),inset 0 0 12px rgba(255,95,0,.16)}}
+.pill:not(.ld-go):focus-visible,.pill:not(.ld-go).lit{border-color:var(--acc-soft);box-shadow:0 0 0 1px rgba(255,95,0,.35),0 0 16px rgba(255,95,0,.5),0 0 36px rgba(255,95,0,.22),inset 0 0 12px rgba(255,95,0,.16)}
 @keyframes pill-angle{to{--ga:360deg}}
 @keyframes pill-shimmer{to{rotate:360deg}}
 @keyframes pill-breathe{from,to{scale:1}50%{scale:1.2}}
@@ -1088,8 +1096,15 @@ html.ld-on,html.ld-on body{overflow:hidden}
     a.replaceChild(r, tn);
     if (a.classList.contains('pill')) a.insertBefore(document.createTextNode(''), r.nextSibling);
   });
-  // the shiny pill's under-glow (lit on hover)
-  $$('.pill').forEach(a => { const g = document.createElement('span'); g.className = 'pg'; g.setAttribute('aria-hidden', 'true'); a.prepend(g); });
+  // the shiny pill's under-glow (lit on hover): only the intro's Enter is a shiny pill
+  $$('.pill.ld-go').forEach(a => { const g = document.createElement('span'); g.className = 'pg'; g.setAttribute('aria-hidden', 'true'); a.prepend(g); });
+  // touch screens have no hover: a tapped pill lights its border while pressed and a moment after
+  $$('.pill:not(.ld-go)').forEach(a => {
+    let t = 0;
+    a.addEventListener('pointerdown', e => { if (e.pointerType === 'mouse') return; clearTimeout(t); a.classList.add('lit'); });
+    const off = () => { clearTimeout(t); t = setTimeout(() => a.classList.remove('lit'), 700); };
+    a.addEventListener('pointerup', off); a.addEventListener('pointercancel', off);
+  });
 
   /* ---------- What I do: the lead fills in letter by letter ---------- */
   const leadP = $('.wwd-lead p'), leadC = [];
