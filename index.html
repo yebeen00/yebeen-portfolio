@@ -36,6 +36,9 @@ img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
 h1,h2,h3,p{margin:0;font-weight:400}
 .mono{font-family:var(--mono);font-size:11px;line-height:1.45;letter-spacing:.02em;text-transform:uppercase;font-weight:400}
+/* Korean sentences: 30% larger than the 11px small text, with room for the longer lines */
+.mono.ko{font-size:14.3px;line-height:1.55;letter-spacing:0;word-break:keep-all}
+.ch .mono.ko,.exp-head .mono.ko,.ft-cta .mono.ko{max-width:430px}
 /* Display type: uppercase serif with italic lower-case words, like the reference */
 .logo,.disp,.split,.exp-head h2,.ft-big,.badge .yr{font-weight:400}
 .disp i,.it,.split i,.exp-head h2 i,.ft-big i{font-style:italic;font-weight:400}
@@ -103,7 +106,9 @@ html.lenis,html.lenis body{height:auto}
   .pill:is(:hover,:focus-visible)>.pg{opacity:0}
   .pill{transition:none}
 }
-.tag{display:inline-block;padding:4px 8px;border-radius:6px;background:var(--violet);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;line-height:1.2}
+/* Captions take the Contact button's shape (a round pill with a thin border and white sans text), in the orange tone */
+.tag{display:inline-flex;align-items:center;padding:7px 16px;border-radius:99px;background:linear-gradient(180deg,#e27a3c,#cc6520);
+  border:1px solid rgba(255,196,150,.45);color:#fff;font-family:var(--serif);font-weight:400;font-size:15.6px;letter-spacing:.03em;text-transform:uppercase;line-height:1.2} /* the chapter titles' serif */
 
 /* ---------- Scene (fixed behind chapters) ---------- */
 .scene{position:fixed;inset:0;z-index:0;overflow:hidden}
@@ -163,7 +168,7 @@ main{position:relative;z-index:1}
   padding-top:14px;
   border-top:1px solid #fff4;
 }
-.hero-foot p{font:400 clamp(11px,1vw,15px)/1.5 var(--sans);color:#f4efe9}
+.hero-foot p{font:400 clamp(14.3px,1.3vw,19.5px)/1.5 var(--sans);color:#f4efe9}
 
 /* ch2 */
 .ch2 .blk{position:absolute;left:var(--gut);top:16vh}
@@ -172,12 +177,16 @@ main{position:relative;z-index:1}
 /* ch3 */
 .ch3 .blk{position:absolute;left:var(--gut);bottom:6vh}
 .ch3 .blk .disp .ln:nth-child(2){padding-left:4vw}
-.ch3 .side{position:absolute;right:var(--gut);bottom:7vh;width:min(360px,30vw)}
+.ch3 .side{position:absolute;right:var(--gut);bottom:calc(6vh + 13vw + 64px);width:min(494px,40vw);max-width:none;word-break:keep-all} /* above the title: its long second line runs under here */
 /* ch4 */
-.ch4 .blk{position:absolute;left:52vw;top:30vh}
+.ch4 .blk{position:absolute;left:46vw;top:30vh}
+/* the longer "↪ bring ideas to life" stays on one line: a touch smaller than the other chapter titles */
+@media (min-width:901px){.ch4 .blk .disp{font-size:clamp(46px,6.3vw,114px)}.ch4 .blk .disp .ln{white-space:nowrap}}
 .ch4 .blk .mono{margin-top:24px}
 /* ch5 */
-.ch5 .side{position:absolute;left:var(--gut);bottom:30vh}
+.ch5 .side{position:absolute;left:var(--gut);bottom:calc(4vh + 19.4vw + 40px)} /* ends above the three-line title */
+.ch5 .side .ko{margin-top:4px}
+.ch5 .side .clients{margin-top:14px;max-width:none;white-space:nowrap;color:var(--ink-2);letter-spacing:.04em}
 .ch5 .big{position:absolute;left:var(--gut);right:var(--gut);bottom:4vh;display:grid;grid-template-columns:27vw 1fr;align-items:start}
 .ch5 .big .it{font-size:clamp(46px,7.3vw,132px);line-height:.88}
 .tagrow{margin-bottom:14px}
@@ -215,7 +224,7 @@ main{position:relative;z-index:1}
 
 /* Projects */
 .projects{padding:12vh 0 18vh}
-.projects .sub{text-align:right;margin:22px 0 0 auto;max-width:360px}
+.projects .sub{text-align:right;margin:22px 0 0 auto;max-width:470px}
 .pgrid{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(34px,7vw,112px) 2vw;margin-top:9vh}
 .pc{display:block;position:relative;will-change:transform}
 .pc .im{overflow:hidden;border-radius:8px;clip-path:inset(22% 0 0 0 round 8px);transition:clip-path 1.4s var(--ease),transform .6s var(--ease);background:#1c1627;aspect-ratio:var(--ar,1/1);box-shadow:0 20px 50px -24px rgba(0,0,0,.8)}
@@ -330,6 +339,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
 
 /* What I do: lead fills in letter by letter as you scroll */
 .wwd-lead p .c{opacity:.2}
+.wwd-lead p .w{white-space:nowrap}
 
 [data-rv]{opacity:0;transform:translateY(24px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
 [data-rv].in{opacity:1;transform:none}
@@ -349,7 +359,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
   .ch5 .big{grid-template-columns:1fr}
   .ch2 .blk{top:auto;bottom:6vh}
   .ch2 .blk .disp .ln:nth-child(2){padding-left:0}
-  .ch3 .side{left:var(--gut);right:var(--gut);width:auto;bottom:calc(6vh + 23vw + 64px)}
+  .ch3 .side{left:var(--gut);right:var(--gut);width:auto;bottom:calc(6vh + 34vw + 84px)} /* clears the tag above the three-line title */
   .ch3 .blk{right:var(--gut)}
   .ch4 .blk{left:var(--gut);right:var(--gut);top:auto;bottom:6vh}
   .ch5 .side{bottom:auto;top:16vh}
@@ -450,7 +460,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
             <span class="ln" style="--i:1"><span><span class="ar">↪︎</span> and connect</span></span>
             <span class="ln" style="--i:2"><span>brands with people.</span></span>
           </h2>
-          <p class="mono fade">생각을 디자인하고, 가치를 연결합니다.<br>브랜드가 전하고자 하는 메시지를 이해하고,<br>그 목적에 맞는 구조와 비주얼로 담아냅니다.</p>
+          <p class="mono ko fade">생각을 디자인하고, 가치를 연결합니다.<br>브랜드가 전하고자 하는 메시지를 이해하고,<br>그 목적에 맞는 구조와 비주얼로 담아냅니다.</p>
         </div>
       </div>
     </div>
@@ -460,11 +470,11 @@ html.ld-on,html.ld-on body{overflow:hidden}
         <div class="blk">
           <p class="tagrow fade"><span class="tag">文 · 소통</span></p>
           <h2 class="disp">
-            <span class="ln" style="--i:0"><span>Communication</span></span>
-            <span class="ln" style="--i:1"><span><span class="ar">↪︎</span> as craft</span></span>
+            <span class="ln" style="--i:0"><span>Better design</span></span>
+            <span class="ln" style="--i:1"><span><span class="ar">↪︎</span> through communication</span></span>
           </h2>
         </div>
-        <p class="mono side fade">클라이언트와 독자가 같은 메시지를 읽도록, 정보의 순서와 톤을 먼저 설계합니다.</p>
+        <p class="mono ko side fade">다양한 의견을 듣고 생각을 나누며,<br>서로의 관점을 이해하고 더 나은 디자인 방향을 함께 찾아갑니다.</p>
       </div>
     </div>
 
@@ -473,10 +483,10 @@ html.ld-on,html.ld-on body{overflow:hidden}
         <div class="blk">
           <p class="tagrow fade"><span class="tag">武 · 기술</span></p>
           <h2 class="disp">
-            <span class="ln" style="--i:0"><span>Skill <i>with</i></span></span>
-            <span class="ln" style="--i:1"><span>a reason</span></span>
+            <span class="ln" style="--i:0"><span>Skills <i>that</i></span></span>
+            <span class="ln" style="--i:1"><span><span class="ar">↪︎</span> bring ideas to life</span></span>
           </h2>
-          <p class="mono fade">Photoshop, Illustrator, After Effects, Figma에<br>생성형 AI까지 — 끝까지 만들어 내는 실행력.</p>
+          <p class="mono ko fade">쌓아온 디자인 경험에 새로운 기술을 더해,<br>아이디어를 구체화하고 세심한 디테일로 완성도를 높입니다.</p>
         </div>
       </div>
     </div>
@@ -484,15 +494,16 @@ html.ld-on,html.ld-on body{overflow:hidden}
     <div class="ch ch5" data-ch="4">
       <div class="in">
         <div class="side">
-          <p class="tagrow fade"><span class="tag">Clients</span></p>
-          <p class="mono fade">SK telecom · S-OIL · HYOSUNG<br>키움투자자산운용 · HILTI KOREA</p>
+          <p class="tagrow fade"><span class="tag">Brand experience</span></p>
+          <p class="mono ko fade">다양한 브랜드 경험으로 디자인의 깊이를 더합니다.<br>각 브랜드의 특성과 메시지를 이해하고,<br>매체와 목적에 맞는 디자인으로 구체화해 왔습니다.</p>
+          <p class="mono clients fade">SK텔레콤 · S-OIL · 효성 · 키움투자자산운용 · HILTI KOREA</p>
         </div>
         <div class="big">
           <span class="ln it"><span>I <span class="ar">↪︎</span></span></span>
           <h2 class="disp">
-            <span class="ln" style="--i:1"><span>work with brands</span></span>
-            <span class="ln" style="--i:2"><span>that care how</span></span>
-            <span class="ln" style="--i:3"><span>things feel</span></span>
+            <span class="ln" style="--i:1"><span>Experience</span></span>
+            <span class="ln" style="--i:2"><span>across brands,</span></span>
+            <span class="ln" style="--i:3"><span>depth in design.</span></span>
           </h2>
         </div>
       </div>
@@ -504,7 +515,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
     <div class="wwd-pin">
       <div class="wwd-lead" data-rv>
         <h2 id="wwd-t" class="tag">What I do</h2>
-        <p><span class="ar">↪︎</span>기업 홈페이지와 웹진, 뉴스레터, SNS 콘텐츠까지 — 브랜드의 메시지가 화면에서 정확히 읽히도록 설계하고 끝까지 만들어 냅니다. 왜 필요한지 먼저 묻고, 그다음 디자인합니다.</p>
+        <p><span class="ar">↪︎</span>편집부터 웹, SNS 콘텐츠까지 쌓아온 폭넓은 경험을 바탕으로 브랜드의 메시지를 명확하고 설득력 있는 디자인으로 풀어냅니다.</p>
         <a class="pill" href="assets/yu-yebeen-portfolio-2026.pdf" target="_blank" rel="noopener">포트폴리오 PDF <span>↪︎</span></a>
       </div>
       <div class="svc" id="svc">
@@ -530,7 +541,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
   <section class="projects solid" id="work" aria-labelledby="pj-t">
     <div class="wrap">
       <h2 class="split" id="pj-t"><span>Selected</span><i>work</i></h2>
-      <p class="mono sub" data-rv>브랜드의 목소리를 화면에 옮긴 작업들 —<br>뉴스레터, 웹진, SNS 캠페인까지</p>
+      <p class="mono ko sub" data-rv>브랜드의 목소리를 화면에 옮긴 작업들 —<br>뉴스레터, 웹진, SNS 캠페인까지</p>
       <div class="pgrid">
         <a class="pc p1" data-speed=".06" href="assets/yu-yebeen-portfolio-2026.pdf#page=3" target="_blank" rel="noopener">
           <div class="im"><img src="assets/work/p03.jpg" width="1600" height="900" alt="키움투자자산운용 '연금술사' 뉴스레터 타이틀과 캐릭터 다다, 도도" loading="lazy"></div>
@@ -574,7 +585,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
     <div class="wrap">
       <div class="exp-head">
         <h2 id="ex-t" data-rv>Experience <i>&amp;</i><br>Career</h2>
-        <p class="mono" data-rv>2016년 편집 디자인에서 시작해 광고, 웹, SNS까지 — 다섯 곳에서 쌓아 온 경력입니다</p>
+        <p class="mono ko" data-rv>2016년 편집 디자인에서 시작해 광고, 웹, SNS까지 — 다섯 곳에서 쌓아 온 경력입니다</p>
         <span class="tag" data-rv>Since: 2016</span>
       </div>
       <div class="erow" data-img="assets/work/p12.jpg">
@@ -639,7 +650,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
     </h2>
     <div class="ft-cta">
       <a class="pill lg" href="mailto:yeeyoii@naver.com">프로젝트 문의하기 <span>↪︎</span></a>
-      <p class="mono">아이디어나 제품, 함께 만들고 싶은 무언가가 있다면 편하게 연락 주세요</p>
+      <p class="mono ko">아이디어나 제품, 함께 만들고 싶은 무언가가 있다면 편하게 연락 주세요</p>
     </div>
     <div class="ft-cols">
       <div><h4>Portfolio</h4><a href="assets/yu-yebeen-portfolio-2026.pdf" target="_blank" rel="noopener"><b>[01]</b>View PDF</a><a href="assets/yu-yebeen-portfolio-2026.pdf" download><b>[02]</b>Download PDF</a></div>
@@ -821,8 +832,8 @@ html.ld-on,html.ld-on body{overflow:hidden}
 
   // Where each chapter's shape sits: x/y as fraction of half the visible frame, s = size in world units.
   const layout = () => innerWidth < 900
-    ? [{ x: 0, y: .3, s: 1.15 }, { x: .2, y: .4, s: 1.0 }, { x: 0, y: .3, s: 1.1 }, { x: 0, y: .3, s: 1.1 }, { x: 0, y: .12, s: 1.15 }]
-    : [{ x: .05, y: .3, s: 1.45 }, { x: .5, y: .1, s: 1.35 }, { x: .1, y: .3, s: 1.55 }, { x: -.48, y: .02, s: 1.45 }, { x: 0, y: .3, s: 1.4 }];
+    ? [{ x: 0, y: .3, s: 1.15 }, { x: .2, y: .4, s: 1.0 }, { x: 0, y: .3, s: 1.1 }, { x: 0, y: .3, s: 1.1 }, { x: 0, y: -.1, s: 1.15 }] // phones: the ring sits between the description and the title
+    : [{ x: .05, y: .3, s: 1.45 }, { x: .5, y: .1, s: 1.35 }, { x: .1, y: .3, s: 1.55 }, { x: -.56, y: .02, s: 1.45 }, { x: 0, y: .3, s: 1.4 }]; // 武 sits left of the longer chapter title
 
   async function initGL() {
     try {
@@ -1165,9 +1176,15 @@ html.ld-on,html.ld-on body{overflow:hidden}
   [...leadP.childNodes].forEach(n => {
     if (n.nodeType !== 3) return;
     const frag = document.createDocumentFragment();
-    for (const ch of n.nodeValue) {
-      const sp = document.createElement('span'); sp.className = 'c'; sp.textContent = ch;
-      frag.appendChild(sp); leadC.push(sp);
+    // each letter gets its own span for the fill, but letters stay grouped by word,
+    // so lines still break only between words (Korean words don't split mid-word)
+    for (const tok of n.nodeValue.split(/(\s+)/)) {
+      if (!tok) continue;
+      const box = /^\s+$/.test(tok) ? frag : frag.appendChild(Object.assign(document.createElement('span'), { className: 'w' }));
+      for (const ch of tok) {
+        const sp = document.createElement('span'); sp.className = 'c'; sp.textContent = ch;
+        box.appendChild(sp); leadC.push(sp);
+      }
     }
     n.replaceWith(frag);
   });
