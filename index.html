@@ -55,13 +55,46 @@ html.lenis,html.lenis body{height:auto}
 .hd nav a::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease)}
 .hd nav a:hover::after{transform:scaleX(1);transform-origin:left}
 .hd .pill{justify-self:end}
-.pill{display:inline-flex;align-items:center;gap:10px;height:34px;padding:0 6px 0 14px;border-radius:99px;font-family:var(--sans);font-size:13px;color:var(--ink);background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.18);box-shadow:inset 0 -6px 14px rgba(242,165,101,.16),0 6px 20px rgba(0,0,0,.3);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
-.pill>span:not(.roll){display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:rgba(242,165,101,.2);color:var(--violet-2);font-size:13px;transition:transform .45s var(--ease)}
-.pill:hover{transform:translateY(-1px);box-shadow:inset 0 -6px 14px rgba(242,165,101,.3),0 10px 26px rgba(242,165,101,.18)}
-.pill:hover>span:not(.roll){transform:rotate(-45deg)}
-.pill:active{transform:translateY(1px) scale(.98)}
+/* Shiny pill (ported from the ShinyButton component): black face, an orange arc sweeps round the 1px border,
+   a dotted speckle and a sheen turn underneath; on hover the arc widens and the face glows from below */
+@property --ga{syntax:"<angle>";initial-value:0deg;inherits:false}
+@property --gao{syntax:"<angle>";initial-value:0deg;inherits:false}
+@property --gp{syntax:"<percentage>";initial-value:5%;inherits:false}
+@property --gs{syntax:"<color>";initial-value:white;inherits:false}
+.pill{--acc:#ff5f00;--acc-soft:#ff9253;--dur:3s;--tr:.8s cubic-bezier(.25,1,.5,1);--anim:pill-angle linear infinite;
+  isolation:isolate;position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:10px;height:34px;padding:0 6px 0 14px;
+  border:1px solid transparent;border-radius:99px;font-family:var(--sans);font-size:13px;font-weight:500;color:#fff;cursor:pointer;outline-offset:4px;
+  background:linear-gradient(#000,#000) padding-box,
+    conic-gradient(from calc(var(--ga) - var(--gao)),transparent,var(--acc) var(--gp),var(--gs) calc(var(--gp) * 2),var(--acc) calc(var(--gp) * 3),transparent calc(var(--gp) * 4)) border-box;
+  box-shadow:inset 0 0 0 1px #1a1818;
+  transition:var(--tr);transition-property:--gao,--gp,--gs}
+.pill::before,.pill::after,.pill>.pg{content:"";pointer-events:none;position:absolute;left:50%;top:50%;translate:-50% -50%;z-index:-1}
+.pill::before{--size:calc(100% - 6px);width:var(--size);height:var(--size);
+  background:radial-gradient(circle at 2px 2px,white .5px,transparent 0) padding-box;background-size:4px 4px;background-repeat:space;
+  -webkit-mask-image:conic-gradient(from calc(var(--ga) + 45deg),black,transparent 10% 90%,black);mask-image:conic-gradient(from calc(var(--ga) + 45deg),black,transparent 10% 90%,black);
+  border-radius:inherit;opacity:.4}
+.pill::after{--anim:pill-shimmer linear infinite;width:100%;aspect-ratio:1;background:linear-gradient(-50deg,transparent,var(--acc),transparent);
+  -webkit-mask-image:radial-gradient(circle at bottom,transparent 40%,black);mask-image:radial-gradient(circle at bottom,transparent 40%,black);opacity:.6}
+.pill,.pill::before,.pill::after{animation:var(--anim) var(--dur),var(--anim) calc(var(--dur) / .4) reverse paused;animation-composition:add}
+.pill>.pg{width:calc(100% + 1rem);height:calc(100% + 1rem);box-shadow:inset 0 -1ex 2rem 4px var(--acc);opacity:0;
+  transition:opacity var(--tr);animation:calc(var(--dur) * 1.5) pill-breathe linear infinite}
+.pill>span:not(.roll):not(.pg){position:relative;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:rgba(255,95,0,.18);color:var(--acc-soft);font-size:13px;transition:transform .45s var(--ease)}
+.pill .roll{position:relative}
+.pill:is(:hover,:focus-visible){--gp:20%;--gao:95deg;--gs:var(--acc-soft)}
+.pill:is(:hover,:focus-visible),.pill:is(:hover,:focus-visible)::before,.pill:is(:hover,:focus-visible)::after{animation-play-state:running}
+.pill:is(:hover,:focus-visible)>.pg{opacity:1}
+.pill:hover>span:not(.roll):not(.pg){transform:rotate(-45deg)}
+.pill:active{transform:translateY(1px)}
 .pill.lg{height:46px;padding:0 8px 0 20px;font-size:15px}
-.pill.lg>span:not(.roll){width:32px;height:32px}
+.pill.lg>span:not(.roll):not(.pg){width:32px;height:32px}
+@keyframes pill-angle{to{--ga:360deg}}
+@keyframes pill-shimmer{to{rotate:360deg}}
+@keyframes pill-breathe{from,to{scale:1}50%{scale:1.2}}
+@media (prefers-reduced-motion:reduce){
+  .pill,.pill::before,.pill::after,.pill>.pg{animation:none!important}
+  .pill:is(:hover,:focus-visible)>.pg{opacity:0}
+  .pill{transition:none}
+}
 .tag{display:inline-block;padding:4px 8px;border-radius:6px;background:var(--violet);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;line-height:1.2}
 
 /* ---------- Scene (fixed behind chapters) ---------- */
@@ -235,19 +268,19 @@ main{position:relative;z-index:1}
   -webkit-mask-image:radial-gradient(circle at 50% 50%,transparent var(--r,-20vmax),#000 calc(var(--r,-20vmax) + 18vmax));
   mask-image:radial-gradient(circle at 50% 50%,transparent var(--r,-20vmax),#000 calc(var(--r,-20vmax) + 18vmax))}
 .ld.out{pointer-events:none}
-.ld-c{text-align:center;transition:opacity .5s var(--ease),transform .8s var(--ease)}
-.ld-c .logo{font-size:30px}
-.ld-c .mono{margin-top:14px;color:var(--ink-2);font-size:10px}
+/* 斌 (빛날 빈) as particles: hidden in the dark, lit only around the pointer like a torch (see glyphField) */
+.ld-fx{position:absolute;inset:0;width:100%;height:100%;display:block;transition:opacity .5s var(--ease)}
 .ld-foot{position:absolute;left:var(--gut);right:var(--gut);bottom:22px;height:64px}
-.ld-bar{position:absolute;left:0;right:0;top:0;height:1px;background:var(--line);transition:opacity .5s}
-.ld-bar i{position:absolute;inset:0;background:var(--ink);transform-origin:left;transform:scaleX(var(--p,0))}
+.ld-bar{position:absolute;left:0;right:0;top:0;height:1px;background:rgba(255,95,0,.18);transition:opacity .5s}
+.ld-bar i{position:absolute;inset:0;background:#ff5f00;transform-origin:left;transform:scaleX(var(--p,0))}
 .ld-row{position:absolute;left:0;right:0;top:12px;display:grid;grid-template-columns:repeat(7,1fr);font-size:10px;color:var(--ink-2);transition:opacity .5s}
 .ld-row span:nth-child(n+5){color:var(--ink)}
 .ld-row span:last-child{text-align:right}
+.ld.ready .ld-row,.ld.ready .ld-bar{opacity:0}
 .ld-go{position:absolute;left:50%;bottom:0;translate:-50% 0;opacity:0;transform:translateY(10px);transition:opacity .6s var(--ease),transform .6s var(--ease);pointer-events:none}
-.ld.ready .ld-bar,.ld.ready .ld-row{opacity:0}
 .ld.ready .ld-go{opacity:1;transform:none;pointer-events:auto}
-.ld.out .ld-c,.ld.out .ld-go{opacity:0;transform:scale(.96)}
+.ld-go:focus,.ld-go:focus-visible{outline:none}
+.ld.out .ld-fx,.ld.out .ld-go,.ld.out .ld-bar,.ld.out .ld-row{opacity:0}
 html.ld-on,html.ld-on body{overflow:hidden}
 
 /* ---------- Text roll on pills and nav ---------- */
@@ -337,10 +370,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
 <a class="skip" href="#main">본문으로 건너뛰기</a>
 
 <div class="ld" id="ld" role="dialog" aria-modal="true" aria-label="포트폴리오 불러오는 중">
-  <div class="ld-c">
-    <div class="logo">ye<b>been</b></div>
-    <p class="mono">Visual &amp; content design<br>portfolio 2016–2026</p>
-  </div>
+  <canvas class="ld-fx" id="ldfx" aria-hidden="true"></canvas>
   <div class="ld-foot">
     <div class="ld-bar"><i></i></div>
     <div class="ld-row mono" aria-hidden="true"><span>Portfolio</span><span>is loading</span><span>please</span><span>wait</span><span id="ldp">0%</span><span>斌 文 武</span><span>100</span></div>
@@ -653,7 +683,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
   const canvas = $('#gl');
   const hero = $('.ch1');
   const isMobile = innerWidth < 900;
-  const N = isMobile ? 9000 : 20000;
+  const N = isMobile ? 5000 : 20000;
   let renderer, composer, bloom, scene, camera, points, geo, mat, seeds, shapes = [], ready = false, visible = true;
 
   const loadImg = (src) => new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; });
@@ -1056,6 +1086,8 @@ html.ld-on,html.ld-on body{overflow:hidden}
     a.replaceChild(r, tn);
     if (a.classList.contains('pill')) a.insertBefore(document.createTextNode(''), r.nextSibling);
   });
+  // the shiny pill's under-glow (lit on hover)
+  $$('.pill').forEach(a => { const g = document.createElement('span'); g.className = 'pg'; g.setAttribute('aria-hidden', 'true'); a.prepend(g); });
 
   /* ---------- What I do: the lead fills in letter by letter ---------- */
   const leadP = $('.wwd-lead p'), leadC = [];
@@ -1106,14 +1138,128 @@ html.ld-on,html.ld-on body{overflow:hidden}
   });
 
   /* ---------- Loader: count up, Enter, then open like an iris ---------- */
-  const ld = $('#ld'), ldp = $('#ldp'), ldgo = $('#ldgo');
+  const ld = $('#ld'), ldgo = $('#ldgo'), ldp = $('#ldp');
   let glDone = false;
+
+  /* ---------- Loader: 斌 in particles, lit only where the pointer is ---------- */
+  function glyphField() {
+    const cv = $('#ldfx'), ctx = cv.getContext('2d');
+    let W = 0, H = 0, dpr = 1, pts = [], raf = 0, glyph = null, base = null;
+    // the torch: where it is (eased), and how present it is (fades out when the pointer leaves)
+    const m = { x: 0, y: 0, tx: 0, ty: 0, on: 0, ton: 0, last: -1e9 };
+    const ss = (a, b, t) => { t = clamp((t - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+    const mix = (a, b, t) => a.map((v, i) => v + (b[i] - v) * t);
+    // orange (bottom-right) → white → lavender → purple (top-left): the hero shader's gradient
+    const grad = t => { t = clamp(t, 0, 1); let c = mix([.98, .48, .18], [.98, .88, .9], ss(-.1, .62, t)); c = mix(c, [.8, .7, 1], ss(.38, .86, t)); return mix(c, [.58, .42, 1], ss(.68, 1.12, t)); };
+    // Soft glowing dots like the hero's points + bloom: a bright core with a faint halo, one sprite per colour
+    const sprites = new Map(), SP = 32;
+    const sprite = (r, g, b) => {
+      const key = (r >> 3) << 10 | (g >> 3) << 5 | b >> 3;
+      let s = sprites.get(key);
+      if (!s) {
+        s = document.createElement('canvas'); s.width = s.height = SP;
+        const x = s.getContext('2d'), gr = x.createRadialGradient(SP / 2, SP / 2, 0, SP / 2, SP / 2, SP / 2);
+        gr.addColorStop(0, `rgba(${r},${g},${b},1)`); gr.addColorStop(.12, `rgba(${r},${g},${b},.95)`);
+        gr.addColorStop(.24, `rgba(${r},${g},${b},.3)`); gr.addColorStop(.45, `rgba(${r},${g},${b},.05)`); gr.addColorStop(1, `rgba(${r},${g},${b},0)`);
+        x.fillStyle = gr; x.fillRect(0, 0, SP, SP);
+        sprites.set(key, s);
+      }
+      return s;
+    };
+    // The hero's exact 斌: same mask, label skipped, strokes thickened to match 文 and 武 (matchStrokes)
+    const makeGlyph = async () => {
+      const [bin, mu] = await Promise.all([loadImg('assets/img/bin.png'), loadImg('assets/img/mu.png')]);
+      const [g] = matchStrokes([
+        buildMask((x, w, h) => x.drawImage(bin, 0, 0, w, h), 600, 519, (u, v) => u > .74 && u < .82 && v > .4 && v < .66),
+        buildMask((x, w, h) => { x.fillStyle = '#000'; x.font = '700 440px serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('文', w / 2, h / 2 + 20); }, 520, 520),
+        buildMask((x, w, h) => x.drawImage(mu, 0, 0, w, h), 480, 490),
+      ], [1.45, 1.55, 1.45]);
+      const { a, w, h } = g, list = [];
+      let x0 = w, x1 = 0, y0 = h, y1 = 0;
+      for (let y = 0; y < h; y += 2) for (let x = 0; x < w; x += 2) if (a[y * w + x]) { list.push(x, y); x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
+      const ER = Math.max(3, Math.round(w / 110)), dirs = [[1,0],[-1,0],[0,1],[0,-1],[.7,.7],[-.7,.7],[.7,-.7],[-.7,-.7]];
+      const on = (px, py) => (px < 0 || py < 0 || px >= w || py >= h) ? 0 : a[(py | 0) * w + (px | 0)];
+      const edgeOf = (px, py) => { let e = 0; for (const [dx, dy] of dirs) { if (!on(px + dx * ER, py + dy * ER)) e += .6; if (!on(px + dx * ER * 2.2, py + dy * ER * 2.2)) e += .4; } return Math.min(1, e / 3); };
+      glyph = { list, cx: (x0 + x1) / 2, cy: (y0 + y1) / 2, half: Math.max(x1 - x0, y1 - y0) / 2, edgeOf };
+    };
+    const build = () => {
+      W = innerWidth; H = innerHeight; dpr = Math.min(devicePixelRatio || 1, 2);
+      cv.width = W * dpr | 0; cv.height = H * dpr | 0;
+      if (!glyph) return;
+      const { list, cx, cy, half, edgeOf } = glyph, cnt = list.length / 2;
+      // on screen the glyph is as big as in the hero: about 46% of the screen height (phones: fit the width)
+      const S = (W < 900 ? Math.min(W * .4, H * .2) : H * .23) / half, N = W < 900 ? 7500 : 12000;
+      pts = [];
+      for (let i = 0; i < N; i++) {
+        const k = (Math.random() * cnt | 0) * 2, px = list[k] + Math.random() * 2, py = list[k + 1] + Math.random() * 2;
+        const nx = (px - cx) / half, ny = (py - cy) / half, sd = Math.random();
+        const t = (-nx - ny) / Math.SQRT2 / 2.2 + .5 + (sd - .5) * .08;
+        const e = ss(.1, .8, edgeOf(px, py)), warm = 1 - ss(-.05, .6, t);
+        let c = grad(t);
+        c = mix(c.map(v => v * .85), mix(c, [1, 1, 1], .45), e);
+        c = mix(c, mix([.95, .5, .2], [1, .74, .56], e), warm * .35);
+        c = mix(c, [1, 1, 1], .1);
+        pts.push({ x: W / 2 + (px - cx) * S, y: H / 2 + (py - cy) * S, img: sprite(c[0] * 255 | 0, c[1] * 255 | 0, c[2] * 255 | 0),
+          a: Math.min(1, (.55 + .55 * e) * (1 + warm * .25) * 1.32), s: (1.5 + Math.pow(Math.random(), 3) * 3.4) * (W < 900 ? .62 : .72),
+          ph: sd * 6.28, sp: .7 + sd * 1.1 });
+      }
+      // a little stray dust around the glyph, as in the hero
+      for (let i = 0; i < 90; i++) {
+        const ang = Math.random() * 6.28, r = half * S * (1 + Math.random() * .9);
+        pts.push({ x: W / 2 + Math.cos(ang) * r, y: H / 2 + Math.sin(ang) * r, img: sprite(235, 225, 245), a: .35, s: 1.4 + Math.random() * 1.2, ph: Math.random() * 6.28, sp: 1 });
+      }
+      // the faint, unlit glyph never changes: draw it once, so each frame only redraws the particles in the light
+      base = document.createElement('canvas'); base.width = cv.width; base.height = cv.height;
+      const bx = base.getContext('2d');
+      bx.setTransform(dpr, 0, 0, dpr, 0, 0); bx.globalCompositeOperation = 'lighter';
+      for (const p of pts) { const z = p.s * 3.4; bx.globalAlpha = .035 * p.a; bx.drawImage(p.img, p.x - z / 2, p.y - z / 2, z, z); }
+    };
+    const move = e => { m.tx = e.clientX; m.ty = e.clientY; m.ton = 1; m.last = performance.now(); };
+    ld.addEventListener('pointermove', move);
+    ld.addEventListener('pointerdown', move);
+    ld.addEventListener('pointerleave', () => { m.ton = 0; });
+    const frame = now => {
+      const s = now / 1000, R = Math.max(120, Math.min(W, H) * .22);
+      // no pointer for a while (or a touch screen): the torch drifts slowly over the glyph by itself
+      if (now - m.last > 2500) {
+        m.tx = W / 2 + Math.sin(s * .45) * Math.min(W, H) * .16;
+        m.ty = H / 2 + Math.sin(s * .31 + 1) * Math.min(W, H) * .14;
+        m.ton = .75;
+      }
+      m.x += (m.tx - m.x) * .12; m.y += (m.ty - m.y) * .12; m.on += (m.ton - m.on) * .06;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, W, H);
+      ctx.globalCompositeOperation = 'lighter';
+      if (base) { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.drawImage(base, 0, 0); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+      for (const p of pts) {
+        const dx = p.x - m.x, dy = p.y - m.y;
+        if (dx > R || dx < -R || dy > R || dy < -R) continue;
+        const dist = Math.hypot(dx, dy);
+        let k = 1 - dist / R;
+        k = k > 0 ? k * k * (3 - 2 * k) * m.on : 0;
+        // gentle shimmer, as in the hero (the faint base is already drawn)
+        const a = k * .97 * p.a * (.86 + .14 * Math.sin(s * p.sp + p.ph));
+        if (a < .02) continue;
+        // particles in the light lift slightly away from the cursor
+        const push = k * 6 / (dist || 1), z = p.s * 3.4;
+        ctx.globalAlpha = Math.min(1, a);
+        ctx.drawImage(p.img, p.x + dx * push - z / 2, p.y + dy * push - z / 2, z, z);
+      }
+      ctx.globalAlpha = 1;
+      raf = requestAnimationFrame(frame);
+    };
+    makeGlyph().then(() => { build(); m.x = m.tx = W / 2; m.y = m.ty = H / 2; }).catch(() => {});
+    build();
+    addEventListener('resize', build);
+    raf = requestAnimationFrame(frame);
+    return () => { cancelAnimationFrame(raf); removeEventListener('resize', build); };
+  }
+  const fxStop = reduce ? () => {} : glyphField();
   function runLoader() {
     if (reduce) { ld.remove(); return; }
     document.documentElement.classList.add('ld-on');
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     scrollTo(0, 0);
-    introW = 1; chUpdate();
     const t0 = performance.now();
     let shown = 0, winLoaded = document.readyState === 'complete', fontsOk = false;
     addEventListener('load', () => { winLoaded = true; });
@@ -1125,7 +1271,6 @@ html.ld-on,html.ld-on body{overflow:hidden}
       shown += (cap - shown) * .12;
       if (cap >= 100 && shown > 99.5) shown = 100;
       ldp.textContent = Math.round(shown) + '%';
-      ld.style.setProperty('--p', (shown / 100).toFixed(3));
       $('.ld-bar i').style.transform = `scaleX(${(shown / 100).toFixed(3)})`;
       if (shown < 100) requestAnimationFrame(tick);
       else { ld.classList.add('ready'); ldgo.focus({ preventScroll: true }); }
@@ -1136,17 +1281,13 @@ html.ld-on,html.ld-on body{overflow:hidden}
     ld.classList.add('out');
     document.documentElement.classList.remove('ld-on');
     lenis && lenis.start();
-    const iris = makeWarp('iris', '0.006 0.006', 11);
-    ld.style.filter = 'url(#iris)';
+    // A clean circular opening: no warp on the edge, no distortion on the hero text
     const t0 = performance.now(), R = Math.hypot(innerWidth, innerHeight) * .75, V = Math.max(innerWidth, innerHeight) * .2;
     (function tick(now) {
       const t = clamp((now - t0 - 250) / 1500, 0, 1), e = 1 - Math.pow(1 - t, 3);
       ld.style.setProperty('--r', (-V + e * (R + V)) + 'px');
-      iris.disp.setAttribute('scale', (90 * (1 - t)).toFixed(1));
-      introW = 1 - sstep(.35, 1, t);
-      chUpdate();
       if (t < 1) requestAnimationFrame(tick);
-      else { ld.remove(); introW = 0; chUpdate(); }
+      else { fxStop(); ld.remove(); }
     })(t0);
   }
   ldgo.addEventListener('click', enter);
