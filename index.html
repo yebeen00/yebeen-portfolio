@@ -9,7 +9,7 @@
 <link rel="icon" href="assets/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500&family=Jost:wght@500&family=Pinyon+Script&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css" rel="stylesheet">
 <style>
 :root{
@@ -146,8 +146,12 @@ main{position:relative;z-index:1}
 .ch1 .in{display:flex;flex-direction:column;justify-content:end;padding-bottom:clamp(20px,4svh,48px)}
 .hero-title{margin-bottom:clamp(16px,3svh,40px)}
 .hero-title .mono{color:#f4efe9;font-size:clamp(10px,1vw,14px);margin-bottom:10px}
-.hero-title h1{font-size:clamp(60px,13vw,220px);line-height:.82;letter-spacing:-.035em}
-.hero-title h1 i{color:#f2c79a}
+/* The name: script capitals beside geometric letters, drawn as an ordered-dither halftone that is solid at the
+   top and breaks into dots toward the bottom (see heroName in the script); the text stays for screen readers */
+.hero-title h1{position:relative;font-size:clamp(64px,10.5vw,190px);line-height:1;letter-spacing:0;text-transform:none}
+.hero-name canvas{display:block;max-width:100%;height:auto;margin:-.18em 0 -.3em -.04em}
+.hero-name .hn-t{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.hero-name:not(.drawn) .hn-t{position:static;width:auto;height:auto;clip:auto}
 .hero-foot{
   display:flex;
   justify-content:space-between;
@@ -288,11 +292,11 @@ main{position:relative;z-index:1}
 .ld-foot{position:absolute;left:var(--gut);right:var(--gut);bottom:22px;height:64px}
 .ld-bar{position:absolute;left:0;right:0;top:0;height:1px;background:rgba(255,95,0,.18);transition:opacity .5s}
 .ld-bar i{position:absolute;inset:0;background:#ff5f00;transform-origin:left;transform:scaleX(var(--p,0))}
-.ld-row{position:absolute;left:0;right:0;top:12px;display:grid;grid-template-columns:repeat(7,1fr);font-size:10px;color:var(--ink-2);transition:opacity .5s}
+.ld-row{position:absolute;left:0;right:0;top:12px;display:grid;grid-template-columns:repeat(6,1fr);font-size:10px;color:var(--ink-2);transition:opacity .5s}
 .ld-row span:nth-child(n+5){color:var(--ink)}
 .ld-row span{white-space:nowrap}
 .ld-row span:last-child{text-align:right}
-@media (max-width:600px){.ld-row{display:flex;justify-content:space-between}.ld-row span:nth-child(3),.ld-row span:nth-child(4),.ld-row span:nth-child(6){display:none}}
+@media (max-width:600px){.ld-row{display:flex;justify-content:space-between}.ld-row span:nth-child(3),.ld-row span:nth-child(4){display:none}}
 .ld.ready .ld-row,.ld.ready .ld-bar{opacity:0}
 .ld-go{position:absolute;left:50%;bottom:0;translate:-50% 0;opacity:0;transform:translateY(10px);transition:opacity .6s var(--ease),transform .6s var(--ease);pointer-events:none}
 .ld.ready .ld-go{opacity:1;transform:none;pointer-events:auto;transition-delay:.4s}
@@ -333,7 +337,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
   .hd{grid-template-columns:1fr auto}
   .hd nav{grid-area:2/1/3/-1;justify-content:space-between;gap:8px;padding-top:12px}
   .hd.ink{background:rgba(10,7,5,.88)} /* solid enough to read over text without a live blur */
-  .hero-title h1{font-size:clamp(58px,15vw,136px)}
+  .hero-title h1{font-size:clamp(56px,20vw,130px)}
   .hero-foot .pill{white-space:nowrap}
   .disp,.ch5 .big .it{font-size:clamp(40px,11.5vw,72px)}
   .ch5 .big{grid-template-columns:1fr}
@@ -390,7 +394,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
   <canvas class="ld-fx" id="ldfx" aria-hidden="true"></canvas>
   <div class="ld-foot">
     <div class="ld-bar"><i></i></div>
-    <div class="ld-row mono" aria-hidden="true"><span>Portfolio</span><span>is loading</span><span>please</span><span>wait</span><span id="ldp">0%</span><span>斌 文 武</span><span>100</span></div>
+    <div class="ld-row mono" aria-hidden="true"><span>Portfolio</span><span>is loading</span><span>please</span><span>wait</span><span id="ldp">0%</span><span>100</span></div>
     <button class="pill lg ld-go" id="ldgo" type="button">Enter <span aria-hidden="true">↪︎</span></button>
   </div>
 </div>
@@ -423,7 +427,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
       <div class="in">
         <div class="hero-title">
           <p class="mono">Visual &amp; content designer</p>
-          <h1 class="disp">Yu <i>Yebeen</i></h1>
+          <h1 class="disp hero-name"><canvas aria-hidden="true"></canvas><span class="hn-t">Yu Yebeen</span></h1>
         </div>
         <div class="hero-foot">
           <p>편집·웹·SNS 콘텐츠를 디자인합니다.</p>
@@ -1361,6 +1365,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
   function enter() {
     if (ld.classList.contains('out')) return;
     ld.classList.add('out');
+    dispatchEvent(new Event('intro:enter')); // the hero name starts writing itself
     document.documentElement.classList.remove('ld-on');
     lenis && lenis.start();
     // A clean circular opening: no warp on the edge, no distortion on the hero text
@@ -1373,6 +1378,111 @@ html.ld-on,html.ld-on body{overflow:hidden}
     })(t0);
   }
   ldgo.addEventListener('click', enter);
+
+  /* ---------- Hero name: script capitals + geometric letters as an ordered-dither halftone ---------- */
+  (function heroName() {
+    const h1 = $('.hero-name'), cv = h1 && $('canvas', h1);
+    if (!cv) return;
+    const SCRIPT = '"Pinyon Script", "Instrument Serif", serif', SANS = 'Jost, "Inter Tight", sans-serif';
+    // [text, script?]: each word opens with a calligraphic capital Y; the rest is round and geometric
+    const parts = [['Y', 1], ['u', 0], [' ', 0], ['Y', 1], ['ebeen', 0]];
+    // 8×8 ordered dither: fine steps, so the fade from solid to dots reads as a smooth gradient
+    const B8 = [0,32,8,40,2,34,10,42, 48,16,56,24,50,18,58,26, 12,44,4,36,14,46,6,38, 60,28,52,20,62,30,54,22,
+                3,35,11,43,1,33,9,41, 51,19,59,27,49,17,57,25, 15,47,7,39,13,45,5,37, 63,31,55,23,61,29,53,21];
+    const mix = (a, b, t) => a.map((v, i) => v + (b[i] - v) * t);
+    const ss = (a, b, t) => { t = Math.min(1, Math.max(0, (t - a) / (b - a))); return t * t * (3 - 2 * t); };
+    // One warm light, lit from above: cream-white at the top of the letters, settling into a soft orange
+    // at the bottom, with a touch more warmth toward the right. A single hue family with long, overlapping
+    // stops, so no colour seam shows.
+    const CREAM = [255, 240, 226], PEACH = [252, 206, 168], AMBER = [240, 150, 92];
+    const tone = (v, h) => {               // v: 0 top → 1 bottom of the letters, h: 0 left → 1 right
+      const t = Math.min(1, Math.max(0, v * .85 + h * .25));
+      return mix(mix(CREAM, PEACH, ss(.05, .6, t)), AMBER, ss(.45, 1.05, t));
+    };
+    let cells = [], W = 0, H = 0, lastFs = 0, written = false, anim = 0;
+    function build() {
+      const fs = parseFloat(getComputedStyle(h1).fontSize) || 120;
+      if (Math.abs(fs - lastFs) < .5) return false;
+      lastFs = fs;
+      const dpr = Math.min(devicePixelRatio || 1, 2);
+      const fontOf = sc => sc ? `400 ${fs * 1.3}px ${SCRIPT}` : `500 ${fs * .9}px ${SANS}`;
+      const mc = document.createElement('canvas'), m = mc.getContext('2d', { willReadFrequently: true });
+      // set letter by letter so the spacing is tight and even; the script capitals tuck into the next letter
+      const TRACK = -fs * .035, glyphs = [];
+      let x = fs * .08;
+      for (const [t, sc] of parts) {
+        if (t === ' ') { x += fs * .18; continue; }
+        m.font = fontOf(sc);
+        for (const ch of t) {
+          glyphs.push({ ch, sc, x });
+          x += m.measureText(ch).width + (sc ? -fs * .09 : TRACK);
+        }
+      }
+      W = Math.ceil(x + fs * .12); H = Math.ceil(fs * 1.75);
+      const base = fs * 1.12;
+      mc.width = W * dpr; mc.height = H * dpr;
+      m.scale(dpr, dpr); m.textBaseline = 'alphabetic'; m.fillStyle = '#000';
+      for (const g of glyphs) { m.font = fontOf(g.sc); m.fillText(g.ch, g.x, base); }
+      const a = m.getImageData(0, 0, mc.width, mc.height).data;
+      cv.width = mc.width; cv.height = mc.height;
+      cv.style.width = W + 'px';
+      // one dither cell ≈ 2.4 CSS px (2 on phones); letters are solid near the top and thin out to the bottom
+      const cell = Math.max(2, Math.round((innerWidth < 900 ? 2 : 2.4) * dpr));
+      const capTop = (base - fs * .95) * dpr, top = (base - fs * .55) * dpr, bot = (base + fs * .45) * dpr;
+      cells = [];
+      // sample each cell at its centre; cells whose centre falls outside the image are skipped
+      for (let y = 0, row = 0; y + (cell >> 1) < mc.height; y += cell, row++) {
+        const d = 1 - .88 * ss(top, bot, y + cell / 2);
+        for (let xx = 0, col = 0; xx + (cell >> 1) < mc.width; xx += cell, col++) {
+          if (!(a[((y + (cell >> 1)) * mc.width + xx + (cell >> 1)) * 4 + 3] >= 110)) continue;
+          if (d <= (B8[(row & 7) * 8 + (col & 7)] + .5) / 64) continue;
+          const [r, g, b] = tone(Math.min(1, Math.max(0, (y - capTop) / (bot - capTop))), xx / mc.width);
+          const sz = cell - Math.min(cell * .4, cell * .45 * (1 - d)); // gaps open gradually as the letter thins
+          // writing order: left to right, leaning slightly so each stroke is laid down top-first like a pen
+          const at = (xx + (y - capTop) * .35) / (mc.width + (bot - capTop) * .35);
+          cells.push({ x: xx, y, sz, c: `rgb(${r | 0},${g | 0},${b | 0})`, at });
+        }
+      }
+      return true;
+    }
+    const ctx = cv.getContext('2d');
+    function paint(p) {                   // p: how far the pen has travelled, 0 → 1 (and a little past)
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      const EDGE = .06;                   // the pen's soft leading edge
+      for (const k of cells) {
+        if (k.at > p) continue;
+        const behind = p - k.at;
+        // just behind the pen the ink is still bright and settling; further back it is the final colour
+        ctx.globalAlpha = Math.min(1, .35 + behind / EDGE * .65);
+        ctx.fillStyle = behind < EDGE * .5 ? '#fff6ec' : k.c;
+        ctx.fillRect(k.x, k.y, k.sz, k.sz);
+      }
+      ctx.globalAlpha = 1;
+    }
+    function write() {                    // the name is written once, after the intro opens
+      if (written) return;
+      written = true;
+      if (reduce) { paint(2); return; }
+      const t0 = performance.now(), DUR = 2100;
+      cancelAnimationFrame(anim);
+      (function step(now) {
+        const t = Math.min(1, (now - t0) / DUR);
+        const e = t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;   // ease in-out: the pen speeds up, then settles
+        paint(e * 1.1);
+        if (t < 1) anim = requestAnimationFrame(step); else paint(2);
+      })(t0);
+    }
+    function ready() {
+      build();
+      h1.classList.add('drawn');
+      paint(written ? 2 : -1);            // blank until the intro opens
+      // no intro on screen (reduced motion, or it is already gone): write right away
+      if (!document.getElementById('ld')) write();
+    }
+    addEventListener('intro:enter', () => setTimeout(write, 650)); // starts as the iris is half open
+    addEventListener('resize', () => { if (build()) paint(written && !anim ? 2 : written ? 2 : -1); });
+    Promise.all([document.fonts.load(`400 80px "Pinyon Script"`), document.fonts.load(`500 80px Jost`)]).catch(() => {}).then(ready);
+  })();
 
   const onScrollNow = () => { updateHero(); svcUpdate(); para(); hdUpdate(); chUpdate(); fillUpdate(); };
   let scrollQueued = false; // scroll events can fire several times a frame: do the work once, before the next paint
