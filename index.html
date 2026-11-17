@@ -56,12 +56,12 @@ html.lenis,html.lenis body{height:auto}
 .hd nav a:hover::after{transform:scaleX(1);transform-origin:left}
 .hd .pill{justify-self:end}
 .pill{display:inline-flex;align-items:center;gap:10px;height:34px;padding:0 6px 0 14px;border-radius:99px;font-family:var(--sans);font-size:13px;color:var(--ink);background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.18);box-shadow:inset 0 -6px 14px rgba(174,154,255,.16),0 6px 20px rgba(0,0,0,.3);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
-.pill span{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:rgba(174,154,255,.2);color:var(--violet-2);font-size:13px;transition:transform .45s var(--ease)}
+.pill>span:not(.roll){display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:rgba(174,154,255,.2);color:var(--violet-2);font-size:13px;transition:transform .45s var(--ease)}
 .pill:hover{transform:translateY(-1px);box-shadow:inset 0 -6px 14px rgba(174,154,255,.3),0 10px 26px rgba(174,154,255,.18)}
-.pill:hover span{transform:rotate(-45deg)}
+.pill:hover>span:not(.roll){transform:rotate(-45deg)}
 .pill:active{transform:translateY(1px) scale(.98)}
 .pill.lg{height:46px;padding:0 8px 0 20px;font-size:15px}
-.pill.lg span{width:32px;height:32px}
+.pill.lg>span:not(.roll){width:32px;height:32px}
 .tag{display:inline-block;padding:4px 8px;border-radius:6px;background:var(--violet);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;line-height:1.2}
 
 /* ---------- Scene (fixed behind chapters) ---------- */
@@ -75,8 +75,12 @@ html.lenis,html.lenis body{height:auto}
 /* ---------- Chapters ---------- */
 main{position:relative;z-index:1}
 .chapters{position:relative;color:#fff}
-.ch{position:relative;height:100vh;height:100svh;padding:0 var(--gut)}
-.ch .in{position:absolute;inset:0;padding:0 var(--gut)}
+.ch{position:relative;height:160vh;height:160svh}
+/* Chapters are pinned: each .in stays fixed while its chapter scrolls, and warps in/out (see chUpdate) */
+.ch .in{position:fixed;inset:0;padding:0 var(--gut);pointer-events:none;visibility:hidden;opacity:0;
+  text-shadow:calc(var(--k,0)*-12px) 0 0 rgb(120 255 200/calc(var(--k,0)*.9)),calc(var(--k,0)*12px) 0 0 rgb(176 120 255/calc(var(--k,0)*.9))}
+.ch.vis .in{visibility:visible}
+.ch.act .in>*{pointer-events:auto}
 .disp{font-family:var(--serif);font-size:clamp(46px,7.3vw,132px);line-height:.88;letter-spacing:-.01em;text-transform:uppercase}
 .disp i,.it{font-style:italic;text-transform:none;font-family:var(--serif)}
 .ln{display:block;overflow:hidden;padding-bottom:.04em}
@@ -84,6 +88,7 @@ main{position:relative;z-index:1}
 .ch.on .ln>span{transform:none}
 .fade{opacity:0;transform:translateY(12px);transition:opacity .9s var(--ease) .35s,transform .9s var(--ease) .35s}
 .ch.on .fade{opacity:1;transform:none}
+.chapters .ln>span,.chapters .fade{transform:none;opacity:1;transition:none} /* chapter text enters with the warp instead */
 .ch .mono{color:#fff;max-width:330px}
 .ar{display:inline-block;font-family:var(--sans);font-size:.3em;vertical-align:middle;transform:translateY(-.4em)}
 
@@ -223,11 +228,56 @@ main{position:relative;z-index:1}
 .orb:hover{transform:scale(1.08)}
 @keyframes spin{to{rotate:360deg}}
 
+/* ---------- Loader ---------- */
+.ld{position:fixed;inset:0;z-index:120;background:var(--bg);color:var(--ink);display:grid;place-items:center;
+  -webkit-mask-image:radial-gradient(circle at 50% 50%,transparent var(--r,-20vmax),#000 calc(var(--r,-20vmax) + 18vmax));
+  mask-image:radial-gradient(circle at 50% 50%,transparent var(--r,-20vmax),#000 calc(var(--r,-20vmax) + 18vmax))}
+.ld.out{pointer-events:none}
+.ld-c{text-align:center;transition:opacity .5s var(--ease),transform .8s var(--ease)}
+.ld-c .logo{font-size:30px}
+.ld-c .mono{margin-top:14px;color:var(--ink-2);font-size:10px}
+.ld-foot{position:absolute;left:var(--gut);right:var(--gut);bottom:22px;height:64px}
+.ld-bar{position:absolute;left:0;right:0;top:0;height:1px;background:var(--line);transition:opacity .5s}
+.ld-bar i{position:absolute;inset:0;background:var(--ink);transform-origin:left;transform:scaleX(var(--p,0))}
+.ld-row{position:absolute;left:0;right:0;top:12px;display:grid;grid-template-columns:repeat(7,1fr);font-size:10px;color:var(--ink-2);transition:opacity .5s}
+.ld-row span:nth-child(n+5){color:var(--ink)}
+.ld-row span:last-child{text-align:right}
+.ld-go{position:absolute;left:50%;bottom:0;translate:-50% 0;opacity:0;transform:translateY(10px);transition:opacity .6s var(--ease),transform .6s var(--ease);pointer-events:none}
+.ld.ready .ld-bar,.ld.ready .ld-row{opacity:0}
+.ld.ready .ld-go{opacity:1;transform:none;pointer-events:auto}
+.ld.out .ld-c,.ld.out .ld-go{opacity:0;transform:scale(.96)}
+html.ld-on,html.ld-on body{overflow:hidden}
+
+/* ---------- Text roll on pills and nav ---------- */
+.roll{display:inline-grid;overflow:hidden;line-height:1.25;height:1.25em;vertical-align:middle}
+.roll>span{grid-area:1/1;transition:transform .55s var(--ease)}
+.roll>span+span{transform:translateY(105%)}
+.pill:hover .roll>span:first-child,.hd nav a:hover .roll>span:first-child{transform:translateY(-105%)}
+.pill:hover .roll>span+span,.hd nav a:hover .roll>span+span{transform:none}
+
+/* ---------- Project card hover: data overlay ---------- */
+.pc .im{position:relative}
+.pc .ov{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:14px;
+  background:linear-gradient(180deg,rgba(5,4,3,.72),rgba(5,4,3,.35) 50%,rgba(5,4,3,.72));opacity:0;transition:opacity .45s var(--ease);
+  font-family:var(--mono);font-size:10px;line-height:1.5;text-transform:uppercase;color:#fff;pointer-events:none}
+.pc .ov div{display:flex;justify-content:space-between;gap:12px}
+.pc .ov b{font-weight:400;color:var(--violet-2)}
+.pc .ov s{text-decoration:none;opacity:0;transition:opacity .12s linear}
+.pc.hov .ov{opacity:1}
+.pc.hov .ov s{opacity:1;transition-delay:var(--d)}
+.pc h3::before{content:"↪";display:inline-block;width:0;opacity:0;overflow:hidden;vertical-align:top;font-family:var(--sans);font-size:.6em;margin-top:.35em;transition:width .5s var(--ease),opacity .4s,margin .5s var(--ease)}
+.pc:hover h3::before{width:1em;opacity:1;margin-right:.35em}
+@media (hover:none){.pc .ov{display:none}}
+
+/* What I do: lead fills in letter by letter as you scroll */
+.wwd-lead p .c{opacity:.2}
+
 [data-rv]{opacity:0;transform:translateY(24px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
 [data-rv].in{opacity:1;transform:none}
 
 /* ---------- Responsive ---------- */
 @media (max-width:900px){
+  .ch{height:150vh;height:150svh}
   .hd{grid-template-columns:1fr auto}
   .hd nav{grid-area:2/1/3/-1;justify-content:space-between;gap:8px;padding-top:12px}
   .hd.ink{background:#050403de;backdrop-filter:blur(12px)}
@@ -269,6 +319,7 @@ main{position:relative;z-index:1}
   *,*::before,*::after{animation:none!important;transition:none!important}
   .ln>span,.ft-big .ln>span{transform:none}
   .fade,[data-rv],.split>*{opacity:1;transform:none}
+  .wwd-lead p .c{opacity:1!important}
   .wwd{height:auto}
   .wwd-pin{position:relative;height:auto}
   .svc{mask-image:none;height:auto}
@@ -279,6 +330,22 @@ main{position:relative;z-index:1}
 </head>
 <body>
 <a class="skip" href="#main">본문으로 건너뛰기</a>
+
+<div class="ld" id="ld" role="dialog" aria-modal="true" aria-label="포트폴리오 불러오는 중">
+  <div class="ld-c">
+    <div class="logo">ye<b>been</b></div>
+    <p class="mono">Visual &amp; content design<br>portfolio 2016–2026</p>
+  </div>
+  <div class="ld-foot">
+    <div class="ld-bar"><i></i></div>
+    <div class="ld-row mono" aria-hidden="true"><span>Portfolio</span><span>is loading</span><span>please</span><span>wait</span><span id="ldp">0%</span><span>斌 文 武</span><span>100</span></div>
+    <button class="pill lg ld-go" id="ldgo" type="button">Enter <span aria-hidden="true">↪</span></button>
+  </div>
+</div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs id="fx"></defs>
+</svg>
 
 <header class="hd" id="hd">
   <a class="logo" href="#top" aria-label="유예빈 홈">ye<b>been</b></a>
@@ -548,6 +615,7 @@ main{position:relative;z-index:1}
     lenis = new Lenis({ lerp: .09, smoothWheel: true });
     const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
     requestAnimationFrame(raf);
+    if (!reduce) lenis.stop(); // held until the loader's Enter
     $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
       const t = $(a.getAttribute('href')); if (!t) return;
       e.preventDefault(); lenis.scrollTo(t, { duration: 1.6 });
@@ -831,11 +899,12 @@ main{position:relative;z-index:1}
   function frame(now) {
     requestAnimationFrame(frame);
     const t = (now - t0) / 1000;
-    const p = clamp((scrollY - chapters.offsetTop) / hero.offsetHeight, 0, 4);
+    const p = clamp((scrollY - chapters.offsetTop) / hero.offsetHeight, 0, 5);
     sceneEl.style.visibility = visible ? 'visible' : 'hidden';
     if (!ready || !visible) return;
 
-    const k = Math.min(3, Math.floor(p)), f = reduce ? Math.round(p - k) : sstep(.2, .8, p - k);
+    // each chapter's text holds while its shape is still; the morph runs in the gap between chapters
+    const k = Math.min(3, Math.floor(p)), f = reduce ? (p - k > .7 ? 1 : 0) : sstep(.5, .95, p - k);
     const A = shapes[k], B = shapes[k + 1], la = lay[k], lb = lay[k + 1];
     const pos = geo.attributes.position.array, edg = geo.attributes.aEdge.array;
     for (let n = 0, i = 0, j = 0; n < N; n++, i += 3, j += 4) {
@@ -859,6 +928,9 @@ main{position:relative;z-index:1}
     const spin = [0.25, 1, .25, .25, .6][k] * (1 - f) + [0.25, 1, .25, .25, .6][k + 1] * f;
     points.rotation.y = (reduce ? 0 : Math.sin(t * .35) * .22 * spin + (k === 1 || (k === 0 && f > .5) ? t * .15 * spin : 0)) + (reduce ? 0 : mouse.x * .25);
     points.rotation.x = reduce ? 0 : mouse.y * .12;
+    // leaving the last chapter: fly through the ring so the particles fill the screen
+    const e = reduce ? 0 : sstep(.1, .75, p - 4);
+    points.scale.setScalar(1 + e * e * 7);
     composer ? composer.render() : renderer.render(scene, camera);
   }
 
@@ -895,7 +967,186 @@ main{position:relative;z-index:1}
     backToTop.hidden = progress < 1;
   }
 
-  const onScroll = () => { updateHero(); svcUpdate(); para(); hdUpdate(); };
+  /* ---------- SVG filters: one wave per chapter, one for project images, one for the loader edge ---------- */
+  const fx = $('#fx'), NS = 'http://www.w3.org/2000/svg';
+  function makeWarp(id, freq, seed) {
+    const f = document.createElementNS(NS, 'filter');
+    f.setAttribute('id', id); f.setAttribute('x', '-30%'); f.setAttribute('y', '-30%');
+    f.setAttribute('width', '160%'); f.setAttribute('height', '160%');
+    f.innerHTML = `<feTurbulence type="fractalNoise" baseFrequency="${freq}" numOctaves="2" seed="${seed}" result="n"/>` +
+      `<feDisplacementMap in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G"/>`;
+    fx.appendChild(f);
+    return { turb: f.firstChild, disp: f.lastChild };
+  }
+
+  /* ---------- Chapters: pinned text that warps in and out with an RGB split ---------- */
+  const chIn = chs.map((c, i) => ({ el: c, inner: $('.in', c), w: makeWarp('wv' + i, '0.004 0.05', 3 + i), last: -1, seen: false }));
+  let introW = 0; // 1 while the hero text is still settling after Enter
+  function chUpdate() {
+    const H = hero.offsetHeight, p = (scrollY - chapters.offsetTop) / H;
+    chIn.forEach((c, i) => {
+      const d = p - i;
+      let w = i === 0 ? 0 : 1 - sstep(-.26, -.1, d);             // warp in
+      w = Math.max(w, sstep(i === 4 ? .28 : .42, i === 4 ? .46 : .58, d)); // warp out
+      if (i === 0) w = Math.max(w, introW);
+      if (reduce) w = w > .5 ? 1 : 0;
+      const op = 1 - sstep(.55, .95, w);
+      if (Math.abs(w - c.last) < .002) return;
+      c.last = w;
+      c.el.classList.toggle('vis', op > .01);
+      c.el.classList.toggle('act', op > .6);
+      c.inner.style.opacity = op;
+      c.inner.style.setProperty('--k', reduce ? 0 : w);
+      const on = !reduce && w > .004;
+      c.inner.style.filter = on ? `url(#wv${i})` : 'none';
+      c.inner.style.transform = on ? `translate3d(${-w * 40}px,0,0) skewX(${w * -6}deg)` : 'none';
+      if (on) {
+        c.w.disp.setAttribute('scale', (w * 170).toFixed(1));
+        c.w.turb.setAttribute('baseFrequency', `${(.003 + w * .004).toFixed(4)} ${(.03 + w * .05).toFixed(4)}`);
+      }
+      // mono lines decode each time a chapter settles in
+      if (op > .9 && !c.seen) { c.seen = true; $$('.mono', c.inner).forEach(m => scramble(m)); }
+      if (op < .05) c.seen = false;
+    });
+  }
+
+  /* ---------- Mono text: characters decode left to right ---------- */
+  const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/#*+<>_';
+  const orig = new WeakMap();
+  function scramble(el, dur = 900) {
+    if (reduce) return;
+    const nodes = [];
+    const walk = n => n.nodeType === 3 ? nodes.push(n) : n.childNodes.forEach(walk);
+    walk(el);
+    nodes.forEach(n => { if (!orig.has(n)) orig.set(n, n.nodeValue); });
+    const total = nodes.reduce((a, n) => a + orig.get(n).length, 0) || 1;
+    const t0 = performance.now();
+    (function tick(now) {
+      const t = clamp((now - t0) / dur, 0, 1);
+      let idx = 0;
+      nodes.forEach(n => {
+        const src = orig.get(n);
+        let out = '';
+        for (let i = 0; i < src.length; i++, idx++) {
+          const ch = src[i];
+          out += (ch === ' ' || ch === '\n' || idx / total < t * 1.25 - .25) ? ch : GLYPHS[(Math.random() * GLYPHS.length) | 0];
+        }
+        n.nodeValue = out;
+      });
+      if (t < 1) requestAnimationFrame(tick); else nodes.forEach(n => { n.nodeValue = orig.get(n); });
+    })(t0);
+  }
+  const scrIO = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { scramble(e.target, 1100); scrIO.unobserve(e.target); } }),
+    { rootMargin: '0px 0px -10% 0px' });
+  $$('.solid .mono, .ft .mono').forEach(el => scrIO.observe(el));
+
+  /* ---------- Text roll: the label slides up and a copy follows ---------- */
+  $$('.pill, .hd nav a').forEach(a => {
+    const tn = [...a.childNodes].find(n => n.nodeType === 3 && n.nodeValue.trim());
+    if (!tn) return;
+    const label = tn.nodeValue.trim();
+    const r = document.createElement('span');
+    r.className = 'roll';
+    r.innerHTML = `<span>${label}</span><span aria-hidden="true">${label}</span>`;
+    a.replaceChild(r, tn);
+    if (a.classList.contains('pill')) a.insertBefore(document.createTextNode(''), r.nextSibling);
+  });
+
+  /* ---------- What I do: the lead fills in letter by letter ---------- */
+  const leadP = $('.wwd-lead p'), leadC = [];
+  [...leadP.childNodes].forEach(n => {
+    if (n.nodeType !== 3) return;
+    const frag = document.createDocumentFragment();
+    for (const ch of n.nodeValue) {
+      const sp = document.createElement('span'); sp.className = 'c'; sp.textContent = ch;
+      frag.appendChild(sp); leadC.push(sp);
+    }
+    n.replaceWith(frag);
+  });
+  function fillUpdate() {
+    const r = wwd.getBoundingClientRect();
+    const F = clamp((innerHeight * .85 - r.top) / (innerHeight * (innerWidth <= 900 ? .7 : 1.1)), 0, 1) * (leadC.length + 8);
+    leadC.forEach((c, i) => { c.style.opacity = (.2 + .8 * clamp(F - i, 0, 8) / 8).toFixed(2); });
+  }
+
+  /* ---------- Project cards: image ripple + data that types in ---------- */
+  const pcWarp = makeWarp('pcw', '0.012 0.02', 7);
+  let pcAnim = 0;
+  $$('.pc').forEach((pc, i) => {
+    const im = $('.im', pc), meta = $('.mono', pc).textContent.split('/').map(t => t.trim());
+    const rows = [['Prjct', '/' + String(i + 1).padStart(2, '0')], ['Client', $('h3', pc).textContent],
+      ['Type', meta.slice(0, 2).join(' · ')], ['Year', meta[2] || '—'], ['View', 'PDF ↗']];
+    const ov = document.createElement('div'); ov.className = 'ov'; ov.setAttribute('aria-hidden', 'true');
+    const chars = [];
+    ov.innerHTML = rows.map(([k, v]) => `<div><b>${k}</b><span>${v}</span></div>`).join('');
+    $$('b, span', ov).forEach(el => {
+      el.innerHTML = [...el.textContent].map(c => `<s>${c === ' ' ? '&nbsp;' : c}</s>`).join('');
+    });
+    $$('s', ov).forEach(s => chars.push(s));
+    im.appendChild(ov);
+    pc.addEventListener('pointerenter', () => {
+      if (reduce) return;
+      chars.forEach(s => s.style.setProperty('--d', (Math.random() * 420 | 0) + 'ms'));
+      pc.classList.add('hov');
+      const img = $('img', pc), t0 = performance.now(), id = ++pcAnim;
+      img.style.filter = 'url(#pcw)';
+      (function tick(now) {
+        if (id !== pcAnim) return;
+        const t = clamp((now - t0) / 700, 0, 1), a = Math.sin(Math.PI * t) * (1 - t * .4);
+        pcWarp.disp.setAttribute('scale', (a * 60).toFixed(1));
+        if (t < 1) requestAnimationFrame(tick); else img.style.filter = '';
+      })(t0);
+    });
+    pc.addEventListener('pointerleave', () => pc.classList.remove('hov'));
+  });
+
+  /* ---------- Loader: count up, Enter, then open like an iris ---------- */
+  const ld = $('#ld'), ldp = $('#ldp'), ldgo = $('#ldgo');
+  let glDone = false;
+  function runLoader() {
+    if (reduce) { ld.remove(); return; }
+    document.documentElement.classList.add('ld-on');
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    scrollTo(0, 0);
+    introW = 1; chUpdate();
+    const t0 = performance.now();
+    let shown = 0, winLoaded = document.readyState === 'complete', fontsOk = false;
+    addEventListener('load', () => { winLoaded = true; });
+    document.fonts && document.fonts.ready.then(() => { fontsOk = true; });
+    (function tick(now) {
+      const el = now - t0;
+      const target = Math.min(100, 30 + (fontsOk ? 20 : 0) + (winLoaded ? 25 : 0) + (glDone ? 25 : 0) + (el > 7000 ? 100 : 0));
+      const cap = Math.min(target, el / 14); // never faster than ~1.4s for the full count
+      shown += (cap - shown) * .12;
+      if (cap >= 100 && shown > 99.5) shown = 100;
+      ldp.textContent = Math.round(shown) + '%';
+      ld.style.setProperty('--p', (shown / 100).toFixed(3));
+      $('.ld-bar i').style.transform = `scaleX(${(shown / 100).toFixed(3)})`;
+      if (shown < 100) requestAnimationFrame(tick);
+      else { ld.classList.add('ready'); ldgo.focus({ preventScroll: true }); }
+    })(t0);
+  }
+  function enter() {
+    if (ld.classList.contains('out')) return;
+    ld.classList.add('out');
+    document.documentElement.classList.remove('ld-on');
+    lenis && lenis.start();
+    const iris = makeWarp('iris', '0.006 0.006', 11);
+    ld.style.filter = 'url(#iris)';
+    const t0 = performance.now(), R = Math.hypot(innerWidth, innerHeight) * .75, V = Math.max(innerWidth, innerHeight) * .2;
+    (function tick(now) {
+      const t = clamp((now - t0 - 250) / 1500, 0, 1), e = 1 - Math.pow(1 - t, 3);
+      ld.style.setProperty('--r', (-V + e * (R + V)) + 'px');
+      iris.disp.setAttribute('scale', (90 * (1 - t)).toFixed(1));
+      introW = 1 - sstep(.35, 1, t);
+      chUpdate();
+      if (t < 1) requestAnimationFrame(tick);
+      else { ld.remove(); introW = 0; chUpdate(); }
+    })(t0);
+  }
+  ldgo.addEventListener('click', enter);
+
+  const onScroll = () => { updateHero(); svcUpdate(); para(); hdUpdate(); chUpdate(); fillUpdate(); };
   document.addEventListener('visibilitychange', updateHero);
   addEventListener('scroll', onScroll, { passive: true });
   addEventListener('resize', onScroll);
@@ -929,9 +1180,10 @@ main{position:relative;z-index:1}
   });
 
   chs.forEach(chapter => io.observe(chapter));
+  runLoader();
   onScroll();
 
-  initGL().catch(() => { canvas.hidden = true; });
+  initGL().catch(() => { canvas.hidden = true; }).finally(() => { glDone = true; });
   requestAnimationFrame(frame);
 })();
 </script>
