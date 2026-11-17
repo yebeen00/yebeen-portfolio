@@ -954,7 +954,10 @@ html.ld-on,html.ld-on body{overflow:hidden}
   function frame(now) {
     requestAnimationFrame(frame);
     const t = (now - t0) / 1000;
-    const p = clamp((scrollY - chapters.offsetTop) / hero.offsetHeight, 0, 5);
+    // a zero-size window (a collapsed pane or hidden frame) has no chapters to scroll: skip the frame
+    const HH = hero.offsetHeight;
+    if (!HH) return;
+    const p = clamp((scrollY - chapters.offsetTop) / HH, 0, 5);
     sceneEl.style.visibility = visible ? 'visible' : 'hidden';
     if (!ready || !visible) return;
 
@@ -1018,7 +1021,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
   function hdUpdate() { hd.classList.toggle('ink', scrollY > chapters.offsetTop + chapters.offsetHeight - 60); }
 
   function updateHero() {
-    const progress = scrollY / hero.offsetHeight;
+    const progress = scrollY / (hero.offsetHeight || 1);
     backToTop.hidden = progress < 1;
   }
 
@@ -1038,7 +1041,9 @@ html.ld-on,html.ld-on body{overflow:hidden}
   const chIn = chs.map((c, i) => ({ el: c, inner: $('.in', c), w: makeWarp('wv' + i, '0.004 0.05', 3 + i), last: -1, seen: false }));
   let introW = 0; // 1 while the hero text is still settling after Enter
   function chUpdate() {
-    const H = hero.offsetHeight, p = (scrollY - chapters.offsetTop) / H;
+    const H = hero.offsetHeight;
+    if (!H) return; // zero-size window: nothing to place
+    const p = (scrollY - chapters.offsetTop) / H;
     chIn.forEach((c, i) => {
       const d = p - i;
       let w = i === 0 ? 0 : 1 - sstep(-.26, -.1, d);             // warp in
