@@ -269,13 +269,9 @@ main{position:relative;z-index:1}
 
 /* 斌 · 빛날 빈: 文 + 武 = 斌 on the left, the statement on the right */
 .bin{padding:16vh 0 18vh;border-top:1px solid var(--line)}
-.bin-in{display:grid;grid-template-columns:1.1fr 1fr;column-gap:6vw;row-gap:5vh;align-items:end}
+.bin-in{display:grid;grid-template-columns:1.1fr 1fr;column-gap:6vw;row-gap:5vh;align-items:center}
 .bin .tag{grid-column:1/-1;justify-self:start}
-.bin-eq{display:flex;align-items:baseline;gap:.16em;font-family:var(--serif);font-weight:400;font-size:clamp(64px,9vw,170px);line-height:1;letter-spacing:0;white-space:nowrap}
-.bin-eq small{font-family:var(--sans);font-weight:300;font-size:.4em;color:var(--ink-2)}
-.bin-eq b{font-weight:400;background:linear-gradient(164deg,#fff0e2 0%,#fccea8 50%,#f0965c 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
-.bin-key{display:flex;gap:22px;font-family:var(--mono);font-size:13px;letter-spacing:.04em;color:var(--ink-2);margin-bottom:22px}
-.bin-key em{font-style:normal;color:var(--ink);margin-left:.3em}
+.bin-img{display:block;width:min(100%,560px);height:auto;filter:drop-shadow(0 0 18px rgba(255,255,255,.18)) drop-shadow(0 0 60px rgba(200,180,255,.2))}
 .bin-p{font-size:clamp(16px,1.3vw,21px);line-height:1.75;word-break:keep-all;max-width:580px}
 .bin-p+.bin-p{margin-top:1em}
 .hero-title .bin-cue{position:relative;z-index:2;display:block;width:fit-content;margin-top:6px;color:var(--violet-2);white-space:nowrap} /* a second line under the role */
@@ -283,13 +279,11 @@ main{position:relative;z-index:1}
 @media (max-width:900px){
   .bin{padding:12vh 0 14vh}
   .bin-in{grid-template-columns:1fr;row-gap:36px}
-  .bin-eq{font-size:clamp(52px,17vw,96px)}
+  .bin-img{width:min(100%,360px)}
 }
 
 /* Contact / footer */
 .ft{position:relative;z-index:2;overflow:hidden;background:radial-gradient(110% 60% at 50% 112%,#8a3a06 0%,#4a1d07 22%,#1e0d06 48%,var(--bg) 76%);padding:16vh 0 26px}
-.ft-glyph{position:absolute;right:clamp(-40px,4vw,90px);top:clamp(24px,6vw,110px);width:clamp(200px,34vw,520px);height:auto;opacity:.95;filter:drop-shadow(0 0 18px rgba(255,255,255,.25)) drop-shadow(0 0 60px rgba(200,180,255,.25));pointer-events:none;animation:bob 8s ease-in-out infinite}
-@keyframes bob{50%{transform:translateY(-14px) rotate(-1.5deg)}}
 .ft-big{font-family:var(--serif);font-size:clamp(58px,10.4vw,190px);line-height:.86;text-transform:uppercase;margin-top:22px;position:relative}
 .ft-big i{text-transform:none}
 .ft-big .ln:nth-child(2){padding-left:12vw}
@@ -400,7 +394,6 @@ html.ld-on,html.ld-on body{overflow:hidden}
   .erow .co{padding-bottom:4px;color:var(--ink)}
   .erow li{color:var(--ink)}
   .badge{display:none}
-  .ft-glyph{width:clamp(200px,72vw,460px);right:-10vw;top:clamp(40px,14vw,120px);opacity:.45}
   .ft-big{font-size:clamp(40px,14vw,110px)}
   .ft-cols>div:last-child{grid-column:1/-1}
   .ft-big .ln:nth-child(2){padding-left:6vw}
@@ -660,12 +653,11 @@ html.ld-on,html.ld-on body{overflow:hidden}
 
 <!-- ===== Contact ===== -->
   <!-- 斌 (빛날 빈): the name's character is 文 + 武, the two chapters above; the designer's statement -->
-  <section class="bin solid" id="bin" aria-labelledby="bin-t">
+  <section class="bin solid" id="bin" aria-label="斌 빛날 빈">
     <div class="wrap bin-in">
       <span class="tag" data-rv>斌 · 빛날 빈</span>
-      <h2 id="bin-t" class="bin-eq" data-rv aria-label="文 더하기 武는 斌"><span>文</span><small>+</small><span>武</span><small>=</small><b>斌</b></h2>
+      <img class="bin-img" data-rv src="assets/img/bin.png" width="1200" height="1038" alt="斌 빛날 빈" loading="lazy">
       <div class="bin-txt" data-rv>
-        <p class="bin-key"><span>文 <em>소통</em></span><span>武 <em>기술 · 전문성</em></span></p>
         <p class="bin-p">유연하게 사고하고 정확하게 소통하며 끝까지 실행하는 것, 이것이 文(소통)과 武(기술·전문성)를 겸비한 디자이너의 핵심 역량이라고 생각합니다.</p>
         <p class="bin-p">다양한 경험으로 다져온 유연한 사고와 실행력을 바탕으로 브랜드가 마주한 문제를 발견하고, 핵심 메시지가 명확히 전달되도록 고민하며, 더 나은 가치를 만들어가겠습니다.</p>
       </div>
@@ -673,7 +665,6 @@ html.ld-on,html.ld-on body{overflow:hidden}
   </section>
 
 <footer class="ft" id="contact">
-  <img class="ft-glyph" src="assets/img/bin.png" width="1200" height="1038" alt="" loading="lazy">
   <div class="wrap">
     <span class="tag">Stay in touch</span>
     <h2 class="ft-big">
