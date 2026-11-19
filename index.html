@@ -229,12 +229,12 @@ main{position:relative;z-index:1}
 .pc{display:block;position:relative;will-change:transform}
 .pc .im{overflow:hidden;border-radius:8px;clip-path:inset(22% 0 0 0 round 8px);transition:clip-path 1.4s var(--ease),transform .6s var(--ease);background:#1c1627;aspect-ratio:var(--ar,1/1);box-shadow:0 20px 50px -24px rgba(0,0,0,.8)}
 .pc img{width:100%;height:100%;object-fit:cover;transform:scale(1.04);transition:transform 1s var(--ease)}
-.pc:hover img{transform:scale(1.1)}
+.pc:hover img{transform:scale(1.1)} /* the image eases in on hover and back out on leave */
 .pc .mono{margin-top:12px;color:var(--ink-2);font-size:10px}
 .pc h3{font-family:var(--kserif);font-weight:400;font-size:clamp(18px,1.6vw,26px);letter-spacing:-.02em;margin-top:4px;display:inline-block;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .5s var(--ease)}
 .pc:hover h3{background-size:100% 1px}
 .pc.in .im{clip-path:inset(0 0 0 0 round 8px)}
-.pc img{scale:1.18;transition:transform 1s var(--ease),scale 1.8s var(--ease)}
+.pc img{scale:1.18;will-change:transform;backface-visibility:hidden;transition:transform 1.2s cubic-bezier(.16,1,.3,1),scale 1.8s var(--ease)}
 .pc.in img{scale:1}
 .pc:hover .im{transform:translateY(-2px)}
 .p1,.p5{grid-column:1/span 7;--ar:16/10}
@@ -556,38 +556,38 @@ html.ld-on,html.ld-on body{overflow:hidden}
       <h2 class="split" id="pj-t"><span>Selected</span><i>work</i></h2>
       <p class="mono ko sub" data-rv>브랜드의 목소리를 화면에 옮긴 작업들 —<br>뉴스레터, 웹진, SNS 캠페인까지</p>
       <div class="pgrid">
-        <a class="pc p1" data-speed=".06" href="assets/yu-yebeen-portfolio-2026.pdf#page=3" target="_blank" rel="noopener">
+        <div class="pc p1" data-speed=".06">
           <div class="im"><img src="assets/work/p03.jpg" width="1600" height="900" alt="키움투자자산운용 '연금술사' 뉴스레터 타이틀과 캐릭터 다다, 도도" loading="lazy"></div>
           <p class="mono">Newsletter / Character / 2024–2026</p><h3>키움투자자산운용 ‘연금술사’</h3>
-        </a>
-        <a class="pc p2" data-speed="-.05" href="assets/yu-yebeen-portfolio-2026.pdf#page=11" target="_blank" rel="noopener">
+        </div>
+        <div class="pc p2" data-speed="-.05">
           <div class="im"><img src="assets/work/p12.jpg" width="1600" height="900" alt="SK telecom AI Life Magazine 웹진을 태블릿과 스마트폰 목업에 띄운 화면" loading="lazy"></div>
           <p class="mono">Web / Editorial</p><h3>SK telecom ‘AI Life Magazine’</h3>
-        </a>
-        <a class="pc p3" data-speed=".1" href="assets/yu-yebeen-portfolio-2026.pdf#page=8" target="_blank" rel="noopener">
+        </div>
+        <div class="pc p3" data-speed=".1">
           <div class="im"><img src="assets/work/p10.jpg" width="1600" height="900" alt="키움투자자산운용 광고 배너와 인스타그램·유튜브 콘텐츠 모음, 캐릭터 개미" loading="lazy"></div>
           <p class="mono">Social / Illustration</p><h3>키움투자자산운용 SNS</h3>
-        </a>
-        <a class="pc p4" data-speed="-.04" href="assets/yu-yebeen-portfolio-2026.pdf#page=22" target="_blank" rel="noopener">
+        </div>
+        <div class="pc p4" data-speed="-.04">
           <div class="im"><img src="assets/work/p22.jpg" width="1600" height="900" alt="HYOSUNG 지속가능경영 키비주얼, 숲 속 지구 모양 수소 전구" loading="lazy"></div>
           <p class="mono">Social / Key visual</p><h3>HYOSUNG SNS</h3>
-        </a>
-        <a class="pc p5" data-speed=".08" href="assets/yu-yebeen-portfolio-2026.pdf#page=25" target="_blank" rel="noopener">
+        </div>
+        <div class="pc p5" data-speed=".08">
           <div class="im"><img src="assets/work/p26.jpg" width="1600" height="900" alt="HILTI KOREA 인스타그램과 페이스북 피드, 뉴론 캠페인 콘텐츠" loading="lazy"></div>
           <p class="mono">Social / Product</p><h3>HILTI KOREA SNS</h3>
-        </a>
-        <a class="pc p6" data-speed="-.06" href="assets/yu-yebeen-portfolio-2026.pdf#page=15" target="_blank" rel="noopener">
+        </div>
+        <div class="pc p6" data-speed="-.06">
           <div class="im"><img src="assets/work/p16.jpg" width="1600" height="900" alt="SK telecom 홈페이지 INSIGHT 페이지를 노트북과 스마트폰에 띄운 화면" loading="lazy"></div>
           <p class="mono">Web / UI</p><h3>SK telecom 홈페이지 ‘INSIGHT’</h3>
-        </a>
-        <a class="pc p7" data-speed=".07" href="assets/yu-yebeen-portfolio-2026.pdf#page=18" target="_blank" rel="noopener">
+        </div>
+        <div class="pc p7" data-speed=".07">
           <div class="im"><img src="assets/work/p19.jpg" width="1600" height="900" alt="S-OIL 인스타그램 피드와 이벤트 카드뉴스 모음" loading="lazy"></div>
           <p class="mono">Social / Campaign</p><h3>S-OIL SNS</h3>
-        </a>
-        <a class="pc p8" data-speed="-.03" href="assets/yu-yebeen-portfolio-2026.pdf#page=13" target="_blank" rel="noopener">
+        </div>
+        <div class="pc p8" data-speed="-.03">
           <div class="im"><img src="assets/work/p14.jpg" width="1600" height="900" alt="SK telecom 콘텐츠 키비주얼 모음, 보안 아이콘과 KBO 야구공, K-AI" loading="lazy"></div>
           <p class="mono">Key visual / AI</p><h3>SK telecom 키비주얼</h3>
-        </a>
+        </div>
         <p class="more"><a class="pill lg" href="assets/yu-yebeen-portfolio-2026.pdf" target="_blank" rel="noopener">전체 작업 보기 <span>↪︎</span></a></p>
       </div>
     </div>
@@ -1218,13 +1218,11 @@ html.ld-on,html.ld-on body{overflow:hidden}
     leadC.forEach((c, i) => { const o = (.2 + .8 * clamp(F - i, 0, 8) / 8).toFixed(2); if (c._o !== o) { c._o = o; c.style.opacity = o; } });
   }
 
-  /* ---------- Project cards: image ripple + data that types in ---------- */
-  const pcWarp = makeWarp('pcw', '0.012 0.02', 7);
-  let pcAnim = 0;
+  /* ---------- Project cards: smooth zoom (CSS) + data that types in ---------- */
   $$('.pc').forEach((pc, i) => {
     const im = $('.im', pc), meta = $('.mono', pc).textContent.split('/').map(t => t.trim());
     const rows = [['Prjct', '/' + String(i + 1).padStart(2, '0')], ['Client', $('h3', pc).textContent],
-      ['Type', meta.slice(0, 2).join(' · ')], ['Year', meta[2] || '—'], ['View', 'PDF ↗︎']];
+      ['Type', meta.slice(0, 2).join(' · ')], ['Year', meta[2] || '—']];
     const ov = document.createElement('div'); ov.className = 'ov'; ov.setAttribute('aria-hidden', 'true');
     const chars = [];
     ov.innerHTML = rows.map(([k, v]) => `<div><b>${k}</b><span>${v}</span></div>`).join('');
@@ -1237,14 +1235,6 @@ html.ld-on,html.ld-on body{overflow:hidden}
       if (reduce) return;
       chars.forEach(s => s.style.setProperty('--d', (Math.random() * 420 | 0) + 'ms'));
       pc.classList.add('hov');
-      const img = $('img', pc), t0 = performance.now(), id = ++pcAnim;
-      img.style.filter = 'url(#pcw)';
-      (function tick(now) {
-        if (id !== pcAnim) return;
-        const t = clamp((now - t0) / 700, 0, 1), a = Math.sin(Math.PI * t) * (1 - t * .4);
-        pcWarp.disp.setAttribute('scale', (a * 60).toFixed(1));
-        if (t < 1) requestAnimationFrame(tick); else img.style.filter = '';
-      })(t0);
     });
     pc.addEventListener('pointerleave', () => pc.classList.remove('hov'));
   });
