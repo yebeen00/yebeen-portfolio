@@ -6,10 +6,22 @@
 <title>YU YEBEEN — Visual &amp; Content Designer</title>
 <meta name="description" content="편집, 웹, SNS 콘텐츠를 디자인하는 비주얼·콘텐츠 디자이너 유예빈의 포트폴리오.">
 <meta name="theme-color" content="#050403">
-<link rel="icon" href="assets/favicon.ico">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<!-- link previews (KakaoTalk, Slack, social): the cover artwork; crawlers need the absolute URL -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yebeen00.github.io/yebeen-portfolio/">
+<meta property="og:title" content="YU YEBEEN — Visual &amp; Content Designer">
+<meta property="og:description" content="편집, 웹, SNS 콘텐츠를 디자인하는 비주얼·콘텐츠 디자이너 유예빈의 포트폴리오.">
+<meta property="og:image" content="https://yebeen00.github.io/yebeen-portfolio/assets/img/og.jpg">
+<meta property="og:image:width" content="1920">
+<meta property="og:image:height" content="1080">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://yebeen00.github.io/yebeen-portfolio/assets/img/og.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&text=%EB%B9%9B%EB%82%A0%EB%B9%88&display=swap" rel="stylesheet"> <!-- only the three letters of 빛날 빈 -->
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
 <style>
 :root{
@@ -49,11 +61,11 @@ html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth{scroll-behavior:auto!important}
 
 /* ---------- Header ---------- */
-.logo{display:inline-flex;align-items:baseline;gap:.08em;font-family:var(--serif);font-size:26px;line-height:1;letter-spacing:-.01em}
-.logo b{font-weight:400;color:var(--violet)}
+.logo{display:inline-flex;justify-self:start;width:fit-content}
+.logo img{width:35px;height:35px;margin:-2px 0;filter:drop-shadow(0 0 8px rgba(205,185,255,.35))} /* 斌 artwork: a square crop, bleeding a little into the header padding */
 .hd{position:fixed;top:0;left:0;right:0;z-index:50;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:18px var(--gut);color:#fff;mix-blend-mode:normal;transition:color .5s var(--ease),transform .7s var(--ease),background .5s var(--ease),box-shadow .5s var(--ease)}
 .hd.ink{color:var(--ink);background:rgba(10,7,5,.5);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);box-shadow:0 1px 0 rgba(255,255,255,.07)}
-.hd nav{display:flex;gap:34px}
+.hd nav{display:flex;gap:34px;font-size:13.2px} /* 20% larger than the 11px small text */
 .hd nav a{position:relative}
 .hd nav a::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease)}
 .hd nav a:hover::after{transform:scaleX(1);transform-origin:left}
@@ -160,6 +172,23 @@ main{position:relative;z-index:1}
   -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
 /* after Enter the name is written in left to right */
 .hero-name.wait .en{clip-path:inset(-.25em 100% -.3em 0)}
+/* 斌's reading (훈 빛날, 음 빈) tucked inside the glyph like the lettering on the cover artwork (assets/img/bin.png):
+   small white Pretendard stacked vertically, a four-point sparkle between the two words. The particle mask leaves this
+   spot empty; resize() projects it onto the screen and passes it in as --hx/--hy/--hs */
+.hun{position:absolute;left:var(--hx,72%);top:var(--hy,40%);margin:0;display:flex;flex-direction:column;align-items:center;gap:.32em;
+  transform:translateX(-50%);font:300 var(--hs,18px)/1 "Noto Serif KR",var(--kserif);pointer-events:none;
+}
+.hun span{writing-mode:vertical-rl;text-orientation:upright;letter-spacing:.12em;margin-bottom:-.12em; /* no trailing space under the last letter, so the sparkle sits exactly midway */
+
+  -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 0 .3em rgba(255,190,140,.45))}
+/* one cream-to-orange run across both words, the same colours as the name: 빛날 holds the top half, 빈 the bottom */
+.hun span:first-child{background-image:linear-gradient(180deg,#fff0e2,#fccea8)}
+.hun span:last-child{background-image:linear-gradient(180deg,#fccea8,#f0965c)}
+.hun .spark{width:1.28em;height:1.28em;margin:0;filter:brightness(0) invert(1) drop-shadow(0 0 .25em #fff) drop-shadow(0 0 .7em rgba(255,214,170,.85))} /* the grey starburst artwork, turned white and lit */
+/* on Enter the label fades in once the 斌 particles have settled */
+.hun{transition:opacity 1.2s var(--ease)}
+.hun.wait{opacity:0}
 .hero-foot{
   display:flex;
   justify-content:space-between;
@@ -169,11 +198,6 @@ main{position:relative;z-index:1}
   border-top:1px solid #fff4;
 }
 .hero-foot p{font:400 clamp(14.3px,1.3vw,19.5px)/1.5 var(--sans);color:#f4efe9}
-
-/* ch2 */
-.ch2 .blk{position:absolute;left:var(--gut);top:16vh}
-.ch2 .blk .disp .ln:nth-child(2){padding-left:9vw}
-.ch2 .blk .mono{margin-top:28px}
 /* ch3 */
 .ch3 .blk{position:absolute;left:var(--gut);bottom:6vh}
 .ch3 .blk .disp .ln:nth-child(2){padding-left:4vw}
@@ -196,23 +220,6 @@ main{position:relative;z-index:1}
 .wrap{padding:0 var(--gut)}
 
 /* What I do */
-.wwd{height:300vh}
-.wwd-pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;padding:84px var(--gut) 40px}
-.wwd-lead{max-width:620px}
-.wwd-lead p{font-family:var(--kserif);font-weight:300;font-size:clamp(22px,2.15vw,36px);line-height:1.32;letter-spacing:-.02em;margin-top:-4px}
-.wwd-lead p .ar{font-size:.5em;margin:0 .5em 0 2.6em;transform:translateY(-.2em)}
-.wwd-lead .tag{position:relative;top:-6px;margin-right:-1em}
-.wwd-lead .pill{margin-top:42px}
-.svc{position:relative;height:100%;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 30%,#000 70%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 30%,#000 70%,transparent 100%)}
-.svc ol{list-style:none;margin:0;padding:0;position:absolute;left:0;right:0;top:50%;will-change:transform}
-.svc li{display:grid;grid-template-columns:64px 40px 1fr;align-items:center;height:56px;color:var(--ink-2);opacity:.28;transition:opacity .4s var(--ease),color .4s var(--ease)}
-.svc li .n{font-family:var(--mono);font-size:11px}
-.svc li .a{opacity:0;transform:translateX(-8px);transition:opacity .4s,transform .4s var(--ease);color:var(--violet)}
-.svc li .t{font-size:clamp(20px,1.75vw,28px);letter-spacing:-.02em;text-align:right}
-.svc li .t small{display:block;font-size:12px;color:var(--ink-2);letter-spacing:0}
-.svc li.on{opacity:1;color:var(--ink)}
-.svc li.on .a{opacity:1;transform:none}
-.svc li.near{opacity:.6}
 
 /* Big split heading */
 .split{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--serif);font-size:clamp(56px,10.6vw,190px);line-height:.9;text-transform:uppercase;letter-spacing:-.01em}
@@ -237,10 +244,11 @@ main{position:relative;z-index:1}
 .pc img{scale:1.18;will-change:transform;backface-visibility:hidden;transition:transform 1.2s cubic-bezier(.16,1,.3,1),scale 1.8s var(--ease)}
 .pc.in img{scale:1}
 .pc:hover .im{transform:translateY(-2px)}
-.p1,.p5{grid-column:1/span 7;--ar:16/10}
-.p2,.p6{grid-column:9/span 4;--ar:4/3;margin-top:9vw}
-.p3,.p7{grid-column:2/span 4;--ar:4/3}
-.p4,.p8{grid-column:7/span 6;--ar:16/10;margin-top:5vw}
+.p1,.p5,.p9,.p13{grid-column:1/span 7;--ar:16/10}
+.p2,.p6,.p10,.p14{grid-column:9/span 4;--ar:4/3;margin-top:9vw}
+.p3,.p7,.p11{grid-column:2/span 4;--ar:4/3}
+.p4,.p8,.p12{grid-column:7/span 6;--ar:16/10;margin-top:5vw}
+.p10 img,.p11 img,.p14 img{object-position:left center} /* imweb project sheets: the title sits at the left edge, keep it in the 4:3 crop */
 .more{grid-column:8/span 5;justify-self:end}
 
 /* Experience */
@@ -267,20 +275,6 @@ main{position:relative;z-index:1}
 .badge .yr{font-family:var(--serif);font-size:64px;line-height:.9;text-align:center;color:var(--ink)}
 .badge .yr small{display:block;font-family:var(--mono);font-size:10px;margin-top:8px;color:var(--violet)}
 
-/* 斌 · 빛날 빈: 文 + 武 = 斌 on the left, the statement on the right */
-.bin{padding:16vh 0 18vh;border-top:1px solid var(--line)}
-.bin-in{display:grid;grid-template-columns:1.1fr 1fr;column-gap:6vw;row-gap:5vh;align-items:center}
-.bin .tag{grid-column:1/-1;justify-self:start}
-.bin-img{display:block;width:min(100%,560px);height:auto;filter:drop-shadow(0 0 18px rgba(255,255,255,.18)) drop-shadow(0 0 60px rgba(200,180,255,.2))}
-.bin-p{font-size:clamp(16px,1.3vw,21px);line-height:1.75;word-break:keep-all;max-width:580px}
-.bin-p+.bin-p{margin-top:1em}
-.hero-title .bin-cue{position:relative;z-index:2;display:block;width:fit-content;margin-top:6px;color:var(--violet-2);white-space:nowrap} /* a second line under the role */
-.hero-title .bin-cue:hover{color:#fff}
-@media (max-width:900px){
-  .bin{padding:12vh 0 14vh}
-  .bin-in{grid-template-columns:1fr;row-gap:36px}
-  .bin-img{width:min(100%,360px)}
-}
 
 /* Contact / footer */
 .ft{position:relative;z-index:2;overflow:hidden;background:radial-gradient(110% 60% at 50% 112%,#8a3a06 0%,#4a1d07 22%,#1e0d06 48%,var(--bg) 76%);padding:16vh 0 26px}
@@ -302,8 +296,8 @@ main{position:relative;z-index:1}
 .ft-bot{display:flex;justify-content:space-between;margin-top:8vh;padding-right:64px;position:relative}
 
 /* Orb */
-.orb{position:fixed;right:var(--gut);bottom:22px;z-index:60;width:46px;height:46px;border-radius:50%;border:0;padding:0;cursor:pointer;background:conic-gradient(from 0deg,#fff,#c9b8ff,#2a2433,#ffd0ef,#bfe3ff,#fff);box-shadow:inset 0 -8px 14px rgba(0,0,0,.4),0 0 24px rgba(255,255,255,.25),0 10px 30px rgba(242,165,101,.3);animation:spin 6s linear infinite;transition:transform .4s var(--ease)}
-.orb::after{content:"";position:absolute;inset:7px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,rgba(255,255,255,.2) 50%,transparent 70%);filter:blur(2px)}
+.orb{position:fixed;right:var(--gut);bottom:22px;z-index:60;width:46px;height:46px;border-radius:50%;border:0;padding:0;cursor:pointer;background:conic-gradient(from 0deg,#fff0e2,#fccea8,#f0965c,#4a1d07,#d9702a,#fccea8,#fff0e2);box-shadow:inset 0 -8px 14px rgba(40,14,4,.55),0 0 24px rgba(255,190,140,.3),0 10px 30px rgba(217,112,42,.38);animation:spin 6s linear infinite;transition:transform .4s var(--ease)}
+.orb::after{content:"";position:absolute;inset:7px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff6ec,rgba(255,240,226,.22) 50%,transparent 70%);filter:blur(2px)} /* the site's cream-to-orange, the same warm metal as the hero name */
 .orb:hover{transform:scale(1.08)}
 @keyframes spin{to{rotate:360deg}}
 
@@ -350,9 +344,6 @@ html.ld-on,html.ld-on body{overflow:hidden}
 .pc:hover h3::before{width:1em;opacity:1;margin-right:.35em}
 @media (hover:none){.pc .ov{display:none}}
 
-/* What I do: lead fills in letter by letter as you scroll */
-.wwd-lead p .c{opacity:.2}
-.wwd-lead p .w{white-space:nowrap}
 
 [data-rv]{opacity:0;transform:translateY(24px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
 [data-rv].in{opacity:1;transform:none}
@@ -369,21 +360,13 @@ html.ld-on,html.ld-on body{overflow:hidden}
   /* phones: the two-line intro sentence gets the full width, the button sits below it */
   .hero-foot{flex-direction:column;align-items:flex-start;gap:16px}
   .hero-foot p{word-break:keep-all}
+  .hero-foot p br{display:none} /* phones: the two sentences flow as one paragraph instead of leaving a short word on each line */
   .disp,.ch5 .big .it{font-size:clamp(40px,11.5vw,72px)}
   .ch5 .big{grid-template-columns:1fr}
-  .ch2 .blk{top:auto;bottom:6vh}
-  .ch2 .blk .disp .ln:nth-child(2){padding-left:0}
   .ch3 .side{left:var(--gut);right:var(--gut);width:auto;bottom:calc(6vh + 34vw + 84px)} /* clears the tag above the three-line title */
   .ch3 .blk{right:var(--gut)}
   .ch4 .blk{left:var(--gut);right:var(--gut);top:auto;bottom:6vh}
   .ch5 .side{bottom:auto;top:16vh}
-  .wwd{height:auto}
-  .wwd-pin{position:relative;height:auto;grid-template-columns:1fr;padding-top:12vh;gap:40px}
-  .svc{height:auto;-webkit-mask-image:none;mask-image:none}
-  .svc ol{position:static;transform:none!important}
-  .svc li{opacity:1;height:auto;padding:10px 0;border-bottom:1px solid var(--line);color:var(--ink);grid-template-columns:52px 1fr}
-  .svc li .t{text-align:left}
-  .svc li .a{display:none}
   .split{flex-wrap:wrap;gap:0 .2em}
   .pgrid{grid-template-columns:1fr;gap:32px;margin-top:7vh}
   .pgrid .pc{grid-column:auto;margin-top:0;transform:none!important}
@@ -407,12 +390,6 @@ html.ld-on,html.ld-on body{overflow:hidden}
   .fade,[data-rv],.split>*{opacity:1;transform:none}
   .pc .im{clip-path:none}
   .pc img{scale:1}
-  .wwd-lead p .c{opacity:1!important}
-  .wwd{height:auto}
-  .wwd-pin{position:relative;height:auto}
-  .svc{mask-image:none;height:auto}
-  .svc ol{position:static;transform:none}
-  .svc li{opacity:1;color:var(--ink)}
 }
 </style>
 </head>
@@ -433,7 +410,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
 </svg>
 
 <header class="hd" id="hd">
-  <a class="logo" href="#top" aria-label="유예빈 홈">ye<b>been</b></a>
+  <a class="logo" href="#top" aria-label="유예빈 홈"><img src="assets/img/logo.png" width="160" height="160" alt=""></a>
   <nav class="mono" aria-label="주요 메뉴">
     <a href="#about">About</a>
     <a href="#work">Work</a>
@@ -449,36 +426,23 @@ html.ld-on,html.ld-on body{overflow:hidden}
 </div>
 
 <main id="main">
-  <!-- ===== Chapters: particles morph between 斌 → sphere → 文 → 武 → ring ===== -->
+  <!-- ===== Chapters: particles morph between 斌 → 文 → 武 → ring ===== -->
   <section class="chapters" id="top" aria-label="소개">
     <div class="ch ch1" data-ch="0">
       <div class="in">
+        <p class="hun" aria-hidden="true"><span>빛날</span><img class="spark" src="assets/img/spark.png" width="240" height="240" alt=""><span>빈</span></p>
         <div class="hero-title">
-          <p class="mono">Visual &amp; content designer <a class="bin-cue" href="#bin">斌 빛날 빈 ↘︎</a></p>
+          <p class="mono">Visual &amp; content designer</p>
           <h1 class="disp hero-name"><span class="en">Yu Ye<i>been</i></span></h1>
         </div>
         <div class="hero-foot">
-          <p>브랜드의 메시지를 명확한 구조와 감각적인 비주얼로 전달하는<br>웹·콘텐츠 디자이너 유예빈입니다.</p>
+          <p>斌(빛날 빈)은 소통의 文과 기술의 武가 만나 빛난다는 뜻입니다. <br>두 가지를 겸비해 브랜드를 빛내는 웹·콘텐츠 디자이너 유예빈입니다.</p>
           <a href="#work" class="pill">Selected work <span aria-hidden="true">↘︎</span></a>
         </div>
       </div>
     </div>
 
-    <div class="ch ch2" data-ch="1">
-      <div class="in">
-        <div class="blk">
-          <p class="tagrow fade"><span class="tag">Approach</span></p>
-          <h2 class="disp">
-            <span class="ln" style="--i:0"><span><i>I</i> shape ideas</span></span>
-            <span class="ln" style="--i:1"><span><span class="ar">↪︎</span> and connect</span></span>
-            <span class="ln" style="--i:2"><span>brands with people.</span></span>
-          </h2>
-          <p class="mono ko fade">생각을 디자인하고, 가치를 연결합니다.<br>브랜드가 전하고자 하는 메시지를 이해하고,<br>그 목적에 맞는 구조와 비주얼로 담아냅니다.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="ch ch3" data-ch="2">
+    <div class="ch ch3" data-ch="1" id="about">
       <div class="in">
         <div class="blk">
           <p class="tagrow fade"><span class="tag">文 · 소통</span></p>
@@ -491,7 +455,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
       </div>
     </div>
 
-    <div class="ch ch4" data-ch="3">
+    <div class="ch ch4" data-ch="2">
       <div class="in">
         <div class="blk">
           <p class="tagrow fade"><span class="tag">武 · 기술</span></p>
@@ -504,7 +468,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
       </div>
     </div>
 
-    <div class="ch ch5" data-ch="4">
+    <div class="ch ch5" data-ch="3">
       <div class="in">
         <div class="side">
           <p class="tagrow fade"><span class="tag">Brand experience</span></p>
@@ -519,33 +483,6 @@ html.ld-on,html.ld-on body{overflow:hidden}
             <span class="ln" style="--i:3"><span>depth in design.</span></span>
           </h2>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== What I do ===== -->
-  <section class="wwd solid" id="about" aria-labelledby="wwd-t">
-    <div class="wwd-pin">
-      <div class="wwd-lead" data-rv>
-        <h2 id="wwd-t" class="tag">What I do</h2>
-        <p><span class="ar">↪︎</span>편집부터 웹, SNS 콘텐츠까지 쌓아온 폭넓은 경험을 바탕으로 브랜드의 메시지를 명확하고 설득력 있는 디자인으로 풀어냅니다.</p>
-        <a class="pill" href="assets/yu-yebeen-portfolio-2026.pdf" target="_blank" rel="noopener">포트폴리오 PDF <span>↪︎</span></a>
-      </div>
-      <div class="svc" id="svc">
-        <ol>
-          <li><span class="n">(001)</span><span class="a">↪︎</span><span class="t">Website &amp; Webzine<small>기업 홈페이지 · 웹진 운영</small></span></li>
-          <li><span class="n">(002)</span><span class="a">↪︎</span><span class="t">SNS Content<small>인스타그램 · 페이스북 피드</small></span></li>
-          <li><span class="n">(003)</span><span class="a">↪︎</span><span class="t">Newsletter<small>뉴스레터 기획 · 디자인</small></span></li>
-          <li><span class="n">(004)</span><span class="a">↪︎</span><span class="t">Key Visual<small>캠페인 키비주얼</small></span></li>
-          <li><span class="n">(005)</span><span class="a">↪︎</span><span class="t">Character &amp; Illustration<small>캐릭터 · 일러스트</small></span></li>
-          <li><span class="n">(006)</span><span class="a">↪︎</span><span class="t">Editorial Design<small>카탈로그 · 편집물</small></span></li>
-          <li><span class="n">(007)</span><span class="a">↪︎</span><span class="t">Banner &amp; Advertising<small>온·오프라인 광고 배너</small></span></li>
-          <li><span class="n">(008)</span><span class="a">↪︎</span><span class="t">Detail Page<small>상세페이지 · 이벤트</small></span></li>
-          <li><span class="n">(009)</span><span class="a">↪︎</span><span class="t">Motion Graphics<small>After Effects 모션</small></span></li>
-          <li><span class="n">(010)</span><span class="a">↪︎</span><span class="t">Exhibition &amp; Signage<small>전시 · 사인물</small></span></li>
-          <li><span class="n">(011)</span><span class="a">↪︎</span><span class="t">Live Commerce Design<small>라이브 방송 디자인</small></span></li>
-          <li><span class="n">(012)</span><span class="a">↪︎</span><span class="t">AI Image Generation<small>생성형 AI 이미지</small></span></li>
-        </ol>
       </div>
     </div>
   </section>
@@ -587,6 +524,30 @@ html.ld-on,html.ld-on body{overflow:hidden}
         <div class="pc p8" data-speed="-.03">
           <div class="im"><img src="assets/work/p14.jpg" width="1600" height="900" alt="SK telecom 콘텐츠 키비주얼 모음, 보안 아이콘과 KBO 야구공, K-AI" loading="lazy"></div>
           <p class="mono">Key visual / AI</p><h3>SK telecom 키비주얼</h3>
+        </div>
+        <div class="pc p9" data-speed=".06">
+          <div class="im"><img src="assets/work/p28.jpg" width="1600" height="900" alt="판쇼라이브 앱 홈 화면 두 개를 스마트폰 목업에 띄운 화면" loading="lazy"></div>
+          <p class="mono">App / UI / 2022</p><h3>판쇼라이브 앱 디자인</h3>
+        </div>
+        <div class="pc p10" data-speed="-.05">
+          <div class="im"><img src="assets/work/p29.jpg" width="1600" height="900" alt="가구 브랜드 헤르짐머 웹사이트 메인과 이벤트 화면 모음" loading="lazy"></div>
+          <p class="mono">Web / Mobile / 2020</p><h3>HERRZIMMER 웹사이트</h3>
+        </div>
+        <div class="pc p11" data-speed=".1">
+          <div class="im"><img src="assets/work/p30.jpg" width="1600" height="900" alt="판쇼라이브 Apple Week Raffle 이벤트 페이지의 웹과 모바일 화면" loading="lazy"></div>
+          <p class="mono">Event page / Promotion / 2022</p><h3>판쇼라이브 ‘Apple Week Raffle’</h3>
+        </div>
+        <div class="pc p12" data-speed="-.04">
+          <div class="im"><img src="assets/work/p31.jpg" width="1600" height="900" alt="판쇼라이브 선셋글로우 방송용 라이브 배너와 SNS 홍보 이미지" loading="lazy"></div>
+          <p class="mono">Live banner / Commerce / 2022</p><h3>판쇼라이브 라이브 배너</h3>
+        </div>
+        <div class="pc p13" data-speed=".08">
+          <div class="im"><img src="assets/work/p33.jpg" width="1000" height="563" alt="마리몽듀 Mentos 플랫·펌프스 상세페이지 타이틀" loading="lazy"></div>
+          <p class="mono">Detail page / Product / 2025</p><h3>Marie mon dieu ‘Mentos’</h3>
+        </div>
+        <div class="pc p14" data-speed="-.06">
+          <div class="im"><img src="assets/work/p32.jpg" width="1600" height="900" alt="미니쉬치과병원 유튜브 썸네일 디자인 모음" loading="lazy"></div>
+          <p class="mono">YouTube / SNS</p><h3>미니쉬치과병원 유튜브</h3>
         </div>
         <p class="more"><a class="pill lg" href="assets/yu-yebeen-portfolio-2026.pdf" target="_blank" rel="noopener">전체 작업 보기 <span>↪︎</span></a></p>
       </div>
@@ -652,17 +613,6 @@ html.ld-on,html.ld-on body{overflow:hidden}
 </main>
 
 <!-- ===== Contact ===== -->
-  <!-- 斌 (빛날 빈): the name's character is 文 + 武, the two chapters above; the designer's statement -->
-  <section class="bin solid" id="bin" aria-label="斌 빛날 빈">
-    <div class="wrap bin-in">
-      <span class="tag" data-rv>斌 · 빛날 빈</span>
-      <img class="bin-img" data-rv src="assets/img/bin.png" width="1200" height="1038" alt="斌 빛날 빈" loading="lazy">
-      <div class="bin-txt" data-rv>
-        <p class="bin-p">유연하게 사고하고 정확하게 소통하며 끝까지 실행하는 것, 이것이 文(소통)과 武(기술·전문성)를 겸비한 디자이너의 핵심 역량이라고 생각합니다.</p>
-        <p class="bin-p">다양한 경험으로 다져온 유연한 사고와 실행력을 바탕으로 브랜드가 마주한 문제를 발견하고, 핵심 메시지가 명확히 전달되도록 고민하며, 더 나은 가치를 만들어가겠습니다.</p>
-      </div>
-    </div>
-  </section>
 
 <footer class="ft" id="contact">
   <div class="wrap">
@@ -835,15 +785,6 @@ html.ld-on,html.ld-on body{overflow:hidden}
       return r >= .5 ? dilate(m, r) : m;
     });
   }
-  function sphere() {
-    const o = new Float32Array(N * 4), g = Math.PI * (3 - Math.sqrt(5));
-    for (let i = 0; i < N; i++) {
-      const y = 1 - (i / (N - 1)) * 2, r = Math.sqrt(1 - y * y), t = g * i, k = .9 + Math.random() * .12;
-      o[i * 4] = Math.cos(t) * r * k; o[i * 4 + 1] = y * k; o[i * 4 + 2] = Math.sin(t) * r * k;
-      o[i * 4 + 3] = Math.pow(1 - Math.abs(Math.sin(t) * r), 2); // bright toward the silhouette
-    }
-    return o;
-  }
   function ring() {
     const o = new Float32Array(N * 4);
     for (let i = 0; i < N; i++) {
@@ -856,8 +797,8 @@ html.ld-on,html.ld-on body{overflow:hidden}
 
   // Where each chapter's shape sits: x/y as fraction of half the visible frame, s = size in world units.
   const layout = () => innerWidth < 900
-    ? [{ x: 0, y: .3, s: 1.15 }, { x: .2, y: .4, s: 1.0 }, { x: 0, y: .3, s: 1.1 }, { x: 0, y: .3, s: 1.1 }, { x: 0, y: -.1, s: 1.15 }] // phones: the ring sits between the description and the title
-    : [{ x: .05, y: .3, s: 1.45 }, { x: .5, y: .1, s: 1.35 }, { x: .1, y: .3, s: 1.55 }, { x: -.56, y: .02, s: 1.45 }, { x: 0, y: .3, s: 1.4 }]; // 武 sits left of the longer chapter title
+    ? [{ x: 0, y: .3, s: 1.15 }, { x: 0, y: .3, s: 1.1 }, { x: 0, y: .3, s: 1.1 }, { x: 0, y: -.1, s: 1.15 }] // phones: the ring sits between the description and the title
+    : [{ x: .05, y: .3, s: 1.45 }, { x: .1, y: .3, s: 1.55 }, { x: -.56, y: .02, s: 1.45 }, { x: 0, y: .3, s: 1.4 }]; // 武 sits left of the longer chapter title
 
   async function initGL() {
     try {
@@ -879,7 +820,6 @@ html.ld-on,html.ld-on body{overflow:hidden}
       buildMask((x, w, h) => x.drawImage(mu, 0, 0, w, h), 480, 490),
     ], [1.45, 1.55, 1.45]); // desktop sizes of 斌, 文, 武 (see layout)
     shapes.push(sampleMask(glyphs[0]));
-    shapes.push(sphere());
     shapes.push(sampleMask(glyphs[1]));
     shapes.push(sampleMask(glyphs[2]));
     shapes.push(ring());
@@ -980,6 +920,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
     ready = true;
   }
 
+  const HUN = { x: .818, y: -.11, s: .072 }; // 빛날 빈: centre x, top y and letter size, in units of 斌's half-size
   let vw = 1, vh = 1, lay = layout();
   function resize() {
     if (!renderer) return;
@@ -994,13 +935,19 @@ html.ld-on,html.ld-on body{overflow:hidden}
     camera.aspect = w / h; camera.updateProjectionMatrix();
     vh = 2 * camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)); vw = vh * camera.aspect;
     const scaleFit = Math.min(1, camera.aspect / 1.2) ; // shrink shapes on portrait screens
-    // phones draw the hanja (斌, 文, 武) 1.5x larger, then 5% smaller, and 40px lower; the sphere and ring keep their size and place
-    const ph = innerWidth < 900, HANJA = [1.5, 1, 1.5, 1.5, 1], drop = 40 * vh / h; // 40 CSS px in scene units
+    // phones draw the hanja (斌, 文, 武) 1.5x larger, then 5% smaller, and 40px lower; the ring keeps its size and place
+    const ph = innerWidth < 900, HANJA = [1.5, 1.5, 1.5, 1], drop = 40 * vh / h; // 40 CSS px in scene units
     lay = layout().map((l, i) => {
       const hz = ph && HANJA[i] > 1;
       const s = Math.min(l.s * (ph ? Math.max(.75, scaleFit * 1.4) * HANJA[i] : 1), vw / 2 * (hz ? .96 : .84)); // never wider than the screen
       return { x: l.x * vw / 2, y: l.y * vh / 2 - (hz ? drop : 0), s: hz ? s * .95 : s };
     });
+    // 빛날 빈 sits in the gap the 斌 mask leaves for it (see buildMask's skip box), scaled with the glyph
+    const hun = $('.hun');
+    if (hun) {
+      const L = lay[0], px = h / vh, r = L.s * px, cx = w / 2 + L.x * px, cy = h / 2 - L.y * px;
+      hun.style.cssText = `--hx:${cx + r * HUN.x}px;--hy:${cy + r * HUN.y}px;--hs:${Math.max(9, r * HUN.s)}px`;
+    }
     lastK = -1; // shapes moved: recompute particle positions on the next frame
   }
   addEventListener('resize', resize);
@@ -1024,12 +971,12 @@ html.ld-on,html.ld-on body{overflow:hidden}
     const t = (now - t0) / 1000;
     // a zero-size window (a collapsed pane or hidden frame) has no chapters to scroll: skip the frame
     if (!heroH) return;
-    const p = clamp((scrollY - chTop) / heroH, 0, 5);
+    const p = clamp((scrollY - chTop) / heroH, 0, 4);
     sceneEl.style.visibility = visible ? 'visible' : 'hidden';
     if (!ready || !visible) return;
 
     // each chapter's text holds while its shape is still; the morph runs in the gap between chapters
-    const k = Math.min(3, Math.floor(p)), f = reduce ? (p - k > .7 ? 1 : 0) : sstep(.5, .95, p - k);
+    const k = Math.min(2, Math.floor(p)), f = reduce ? (p - k > .7 ? 1 : 0) : sstep(.5, .95, p - k);
     const A = shapes[k], B = shapes[k + 1], la = lay[k], lb = lay[k + 1];
     // the shader animates the shimmer; positions only change while a morph is moving
     if (k !== lastK || f !== lastF) {
@@ -1050,32 +997,20 @@ html.ld-on,html.ld-on body{overflow:hidden}
     mat.uniforms.uScatter.value = reduce ? 0 : Math.sin(Math.PI * f) * .55;
     mat.uniforms.uCenter.value.set(la.x + (lb.x - la.x) * f, la.y + (lb.y - la.y) * f);
     mat.uniforms.uScale.value = la.s + (lb.s - la.s) * f;
-    // thin shapes pack the same particles denser, so they get less gain: 斌, sphere, 文, 武, ring
-    const GAIN = [1, 1, .5, .8, .95];
+    // thin shapes pack the same particles denser, so they get less gain: 斌, 文, 武, ring
+    const GAIN = [1, .5, .8, .95];
     mat.uniforms.uGain.value = GAIN[k] + (GAIN[k + 1] - GAIN[k]) * f;
-    // sphere and ring (chapters 2 and 5) turn more than the flat glyphs
-    const spin = [0.25, 1, .25, .25, .6][k] * (1 - f) + [0.25, 1, .25, .25, .6][k + 1] * f;
-    points.rotation.y = (reduce ? 0 : Math.sin(t * .35) * .22 * spin + (k === 1 || (k === 0 && f > .5) ? t * .15 * spin : 0)) + (reduce ? 0 : mouse.x * .25);
+    // the ring (last chapter) turns more than the flat glyphs
+    const spin = [.25, .25, .25, .6][k] * (1 - f) + [.25, .25, .25, .6][k + 1] * f;
+    points.rotation.y = (reduce ? 0 : Math.sin(t * .35) * .22 * spin) + (reduce ? 0 : mouse.x * .25);
     points.rotation.x = reduce ? 0 : mouse.y * .12;
     // leaving the last chapter: fly through the ring so the particles fill the screen
-    const e = reduce ? 0 : sstep(.1, .75, p - 4);
+    const e = reduce ? 0 : sstep(.1, .75, p - 3);
     points.scale.setScalar(1 + e * e * 7);
     // phones: when nothing is morphing or flying, the shimmer is drawn at half rate to leave room for scrolling
     const still = (f === 0 || f === 1) && e === lastE; lastE = e;
     if (isMobile && still && (tick++ & 1)) return;
     composer ? composer.render() : renderer.render(scene, camera);
-  }
-
-  /* ---------- What I do: wheel list ---------- */
-  const wwd = $('.wwd'), svcOl = $('#svc ol'), svcLi = $$('#svc li');
-  function svcUpdate() {
-    if (reduce || innerWidth <= 900) return;
-    const r = wwd.getBoundingClientRect();
-    const prog = clamp(-r.top / (r.height - innerHeight), 0, 1);
-    const idx = prog * (svcLi.length - 1), rowH = svcLi[0].offsetHeight;
-    svcOl.style.transform = `translate3d(0,${-(idx * rowH) - rowH / 2}px,0)`;
-    const on = Math.round(idx);
-    svcLi.forEach((li, i) => { li.classList.toggle('on', i === on); li.classList.toggle('near', Math.abs(i - on) === 1); });
   }
 
   /* ---------- Projects parallax ---------- */
@@ -1120,7 +1055,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
     chIn.forEach((c, i) => {
       const d = p - i;
       let w = i === 0 ? 0 : 1 - sstep(-.26, -.1, d);             // warp in
-      w = Math.max(w, sstep(i === 4 ? .28 : .42, i === 4 ? .46 : .58, d)); // warp out
+      w = Math.max(w, sstep(i === 3 ? .28 : .42, i === 3 ? .46 : .58, d)); // warp out
       if (i === 0) w = Math.max(w, introW);
       if (reduce) w = w > .5 ? 1 : 0;
       const op = 1 - sstep(.55, .95, w);
@@ -1194,29 +1129,6 @@ html.ld-on,html.ld-on body{overflow:hidden}
     const off = () => { clearTimeout(t); t = setTimeout(() => a.classList.remove('lit'), 700); };
     a.addEventListener('pointerup', off); a.addEventListener('pointercancel', off);
   });
-
-  /* ---------- What I do: the lead fills in letter by letter ---------- */
-  const leadP = $('.wwd-lead p'), leadC = [];
-  [...leadP.childNodes].forEach(n => {
-    if (n.nodeType !== 3) return;
-    const frag = document.createDocumentFragment();
-    // each letter gets its own span for the fill, but letters stay grouped by word,
-    // so lines still break only between words (Korean words don't split mid-word)
-    for (const tok of n.nodeValue.split(/(\s+)/)) {
-      if (!tok) continue;
-      const box = /^\s+$/.test(tok) ? frag : frag.appendChild(Object.assign(document.createElement('span'), { className: 'w' }));
-      for (const ch of tok) {
-        const sp = document.createElement('span'); sp.className = 'c'; sp.textContent = ch;
-        box.appendChild(sp); leadC.push(sp);
-      }
-    }
-    n.replaceWith(frag);
-  });
-  function fillUpdate() {
-    const r = wwd.getBoundingClientRect();
-    const F = clamp((innerHeight * .85 - r.top) / (innerHeight * (innerWidth <= 900 ? .7 : 1.1)), 0, 1) * (leadC.length + 8);
-    leadC.forEach((c, i) => { const o = (.2 + .8 * clamp(F - i, 0, 8) / 8).toFixed(2); if (c._o !== o) { c._o = o; c.style.opacity = o; } });
-  }
 
   /* ---------- Project cards: smooth zoom (CSS) + data that types in ---------- */
   $$('.pc').forEach((pc, i) => {
@@ -1418,11 +1330,15 @@ html.ld-on,html.ld-on body{overflow:hidden}
   (function heroName() {
     const h1 = $('.hero-name');
     if (!h1 || reduce || !document.getElementById('ld')) return; // no intro (or reduced motion): shown as is
-    h1.classList.add('wait');
-    addEventListener('intro:enter', () => setTimeout(() => h1.classList.remove('wait'), 650), { once: true }); // as the iris opens
+    const hun = $('.hun');
+    h1.classList.add('wait'); hun && hun.classList.add('wait');
+    addEventListener('intro:enter', () => {
+      setTimeout(() => h1.classList.remove('wait'), 650); // as the iris opens
+      hun && setTimeout(() => hun.classList.remove('wait'), 1600); // after the particles have formed 斌
+    }, { once: true });
   })();
 
-  const onScrollNow = () => { updateHero(); svcUpdate(); para(); hdUpdate(); chUpdate(); fillUpdate(); };
+  const onScrollNow = () => { updateHero(); para(); hdUpdate(); chUpdate(); };
   let scrollQueued = false; // scroll events can fire several times a frame: do the work once, before the next paint
   const onScroll = () => {
     if (scrollQueued) return;
