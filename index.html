@@ -185,7 +185,8 @@ main{position:relative;z-index:1}
 /* one cream-to-orange run across both words, the same colours as the name: 빛날 holds the top half, 빈 the bottom */
 .hun span:first-child{background-image:linear-gradient(180deg,#fff0e2,#fccea8)}
 .hun span:last-child{background-image:linear-gradient(180deg,#fccea8,#f0965c)}
-.hun .spark{width:1.28em;height:1.28em;margin:0;filter:brightness(0) invert(1) drop-shadow(0 0 .25em #fff) drop-shadow(0 0 .7em rgba(255,214,170,.85))} /* the grey starburst artwork, turned white and lit */
+.hun .spark{width:1.15em;height:1.15em;margin:0;transform:translate(.067em,.053em); /* optical centre: the serif letters sit a little right of their box and 빈 starts lower than 날 ends */
+  filter:brightness(0) invert(1) drop-shadow(0 0 .25em #fff) drop-shadow(0 0 .7em rgba(255,214,170,.85))} /* the grey starburst artwork, turned white and lit */
 /* on Enter the label fades in once the 斌 particles have settled */
 .hun{transition:opacity 1.2s var(--ease)}
 .hun.wait{opacity:0}
@@ -359,7 +360,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
   .tag{font-size:12.5px;padding:5.6px 12.8px} /* phones: captions 20% smaller */
   /* phones: the two-line intro sentence gets the full width, the button sits below it */
   .hero-foot{flex-direction:column;align-items:flex-start;gap:16px}
-  .hero-foot p{word-break:keep-all}
+  .hero-foot p{word-break:keep-all;font-size:13px}
   .hero-foot p br{display:none} /* phones: the two sentences flow as one paragraph instead of leaving a short word on each line */
   .disp,.ch5 .big .it{font-size:clamp(40px,11.5vw,72px)}
   .ch5 .big{grid-template-columns:1fr}
@@ -935,12 +936,12 @@ html.ld-on,html.ld-on body{overflow:hidden}
     camera.aspect = w / h; camera.updateProjectionMatrix();
     vh = 2 * camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)); vw = vh * camera.aspect;
     const scaleFit = Math.min(1, camera.aspect / 1.2) ; // shrink shapes on portrait screens
-    // phones draw the hanja (斌, 文, 武) 1.5x larger, then 5% smaller, and 40px lower; the ring keeps its size and place
+    // phones draw the hanja (斌, 文, 武) 1.5x larger, then 24% smaller (5%, then 20% more), and 40px lower; the ring keeps its size and place
     const ph = innerWidth < 900, HANJA = [1.5, 1.5, 1.5, 1], drop = 40 * vh / h; // 40 CSS px in scene units
     lay = layout().map((l, i) => {
       const hz = ph && HANJA[i] > 1;
       const s = Math.min(l.s * (ph ? Math.max(.75, scaleFit * 1.4) * HANJA[i] : 1), vw / 2 * (hz ? .96 : .84)); // never wider than the screen
-      return { x: l.x * vw / 2, y: l.y * vh / 2 - (hz ? drop : 0), s: hz ? s * .95 : s };
+      return { x: l.x * vw / 2, y: l.y * vh / 2 - (hz ? drop : 0), s: hz ? s * .76 : s };
     });
     // 빛날 빈 sits in the gap the 斌 mask leaves for it (see buildMask's skip box), scaled with the glyph
     const hun = $('.hun');
