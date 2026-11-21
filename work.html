@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Work — YU YEBEEN</title>
+<meta name="description" content="웹진, 뉴스레터, 웹사이트, SNS 콘텐츠까지 — 비주얼 디자이너 유예빈의 전체 작업.">
+<meta name="theme-color" content="#050403">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png?v=2">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yebeen00.github.io/yebeen-portfolio/work.html">
+<meta property="og:title" content="Work — YU YEBEEN">
+<meta property="og:description" content="웹진, 뉴스레터, 웹사이트, SNS 콘텐츠까지 — 비주얼 디자이너 유예빈의 전체 작업.">
+<meta property="og:image" content="https://yebeen00.github.io/yebeen-portfolio/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+<style>
+/* Same tokens as the main page (index.html) */
+:root{
+  --bg:#050403;
+  --ink:#f4efe9;
+  --ink-2:rgba(244,239,233,.56);
+  --line:rgba(255,255,255,.12);
+  --violet:#d9702a;
+  --violet-2:#f2a565;
+  --serif:"Instrument Serif","Pretendard Variable","Pretendard",serif;
+  --kserif:"Pretendard Variable","Pretendard",system-ui,sans-serif;
+  --mono:"IBM Plex Mono","Pretendard Variable","Pretendard",monospace;
+  --sans:"Inter Tight","Pretendard Variable","Pretendard",system-ui,sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --gut:clamp(16px,2.4vw,36px);
+}
+@media (min-width:901px){:root{--gut:60px}}
+*,*::before,*::after{box-sizing:border-box}
+html{color-scheme:dark;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4,p{margin:0;font-weight:400}
+.mono{font-family:var(--mono);font-size:11px;line-height:1.45;letter-spacing:.02em;text-transform:uppercase;font-weight:400}
+.skip{position:fixed;left:12px;top:-60px;z-index:200;background:var(--ink);color:#000;padding:10px 14px;border-radius:8px}
+.skip:focus{top:12px}
+:focus-visible{outline:2px solid var(--violet);outline-offset:3px}
+.wrap{padding:0 var(--gut)}
+
+/* ---------- Header (as on the main page) ---------- */
+.hd{position:fixed;top:0;left:0;right:0;z-index:50;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:18px var(--gut);color:#fff;transition:background .5s var(--ease),box-shadow .5s var(--ease)}
+.hd.ink{background:rgba(10,7,5,.5);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);box-shadow:0 1px 0 rgba(255,255,255,.07)}
+.logo{display:inline-flex;justify-self:start;width:fit-content}
+.logo img{width:35px;height:35px;margin:-2px 0;filter:drop-shadow(0 0 8px rgba(205,185,255,.35))}
+.hd nav{display:flex;gap:40.8px;font-size:13.2px}
+.hd nav a{position:relative}
+.hd nav a::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease)}
+.hd nav a:hover::after,.hd nav a[aria-current]::after{transform:scaleX(1);transform-origin:left}
+.hd nav a[aria-current]{color:var(--violet-2)}
+.hd .pill{justify-self:end}
+
+/* ---------- Pill (the main page's glass pill) ---------- */
+.pill{--acc-soft:#ff9253;position:relative;display:inline-flex;align-items:center;gap:10px;height:34px;padding:0 6px 0 14px;
+  border-radius:99px;font-family:var(--sans);font-size:13px;font-weight:500;color:#fff;cursor:pointer;outline-offset:4px;
+  background:rgba(14,10,8,.62);border:1px solid rgba(255,255,255,.16);
+  backdrop-filter:blur(12px) saturate(1.3);-webkit-backdrop-filter:blur(12px) saturate(1.3);
+  transition:border-color .35s var(--ease),box-shadow .35s var(--ease),transform .35s var(--ease)}
+.pill>span{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:rgba(255,95,0,.18);color:var(--acc-soft);font-size:13px;transition:transform .45s var(--ease)}
+.pill:hover>span{transform:rotate(-45deg)}
+.pill:active{transform:translateY(1px)}
+.pill.lg{height:46px;padding:0 8px 0 20px;font-size:15px}
+.pill.lg>span{width:32px;height:32px}
+@media (hover:hover){.pill:hover{border-color:var(--acc-soft);box-shadow:0 0 0 1px rgba(255,95,0,.35),0 0 16px rgba(255,95,0,.5),0 0 36px rgba(255,95,0,.22),inset 0 0 12px rgba(255,95,0,.16)}}
+.pill:focus-visible,.pill.lit{border-color:var(--acc-soft);box-shadow:0 0 0 1px rgba(255,95,0,.35),0 0 16px rgba(255,95,0,.5),0 0 36px rgba(255,95,0,.22),inset 0 0 12px rgba(255,95,0,.16)}
+.tag{display:inline-flex;align-items:center;padding:7px 16px;border-radius:99px;background:linear-gradient(180deg,#e27a3c,#cc6520);
+  border:1px solid rgba(255,196,150,.45);color:#fff;font-family:var(--serif);font-size:15.6px;letter-spacing:.03em;text-transform:uppercase;line-height:1.2}
+
+/* ---------- Intro: three short columns over the grid ---------- */
+.intro{display:grid;grid-template-columns:repeat(4,1fr);column-gap:20px;padding-top:150px}
+.intro .en{font-family:var(--serif);font-size:clamp(22px,1.9vw,30px);line-height:1.08;letter-spacing:-.005em}
+.intro .en i{font-style:italic;color:var(--violet-2)}
+.intro .ko{grid-column:3/5;font-family:var(--kserif);font-size:15px;line-height:1.6;color:var(--ink);word-break:keep-all;padding-top:3px}
+.intro .ko small{display:block;margin-top:14px;font-family:var(--mono);font-size:11px;letter-spacing:.02em;color:var(--ink-2)}
+
+/* ---------- Work grid ---------- */
+/* every row is one height; the cards in it are as wide as their image shape (--r = width / height) needs,
+   so the widths vary while the row stays level: flex-grow in proportion to --r from a zero basis */
+.wk{display:flex;flex-direction:column;gap:64px;margin-top:84px;padding-bottom:20vh}
+.row{display:flex;align-items:flex-start;gap:20px}
+.card{display:block;min-width:0;flex:var(--r) 1 0}
+.card .im{position:relative;overflow:hidden;border-radius:6px;background:#14100d;aspect-ratio:var(--r)}
+.card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 50%);
+  opacity:0;transition:opacity .7s var(--ease),transform 1.1s var(--ease)}
+.card img.ok{opacity:1}
+/* hover: a second image of the same project fades in (like the reference's moving thumbnails) */
+.card img.alt{opacity:0;transform:scale(1.06);object-position:var(--pos2,50% 50%)}
+@media (hover:hover){
+  .card:hover img:not(.alt){transform:scale(1.04)}
+  .card:hover img.alt.ok{opacity:1;transform:none}
+}
+.card .cap{margin-top:13px}
+.card h3{font-family:var(--kserif);font-size:15px;font-weight:500;letter-spacing:-.01em;line-height:1.35}
+.card .d{margin-top:3px;font-family:var(--kserif);font-size:13.5px;line-height:1.45;color:var(--ink-2);word-break:keep-all}
+.card .m{margin-top:6px;color:var(--ink-2);font-size:10.5px}
+.card .m b{font-weight:400;color:var(--violet-2)}
+/* linked cards open that project's pages in the PDF: the main page's ↪︎ slides in before the title */
+a.card h3::before{content:"↪︎";display:inline-block;width:0;opacity:0;overflow:hidden;vertical-align:top;font-family:var(--sans);font-size:.8em;color:var(--violet-2);transition:width .5s var(--ease),opacity .4s,margin .5s var(--ease)}
+a.card:hover h3::before,a.card:focus-visible h3::before{width:1em;opacity:1;margin-right:.3em}
+
+/* ---------- Footer (as on the main page) ---------- */
+.ft{position:relative;overflow:hidden;background:radial-gradient(110% 60% at 50% 112%,#8a3a06 0%,#4a1d07 22%,#1e0d06 48%,var(--bg) 76%);padding:12vh 0 26px}
+.ft-big{font-family:var(--serif);font-size:clamp(58px,10.4vw,190px);line-height:.86;text-transform:uppercase;margin-top:22px}
+.ft-big .ln{display:block}
+.ft-big .ln:nth-child(2){padding-left:12vw}
+.ar{display:inline-block;font-family:var(--sans);font-size:.3em;vertical-align:middle;transform:translateY(-.4em)}
+.ft-cta{display:flex;align-items:center;gap:28px;margin-top:40px}
+.ft-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:16vh;padding-top:22px;border-top:1px solid var(--line)}
+.ft-cols h4{margin:0 0 14px;font-family:var(--mono);font-size:10px;font-weight:400;color:var(--violet);letter-spacing:.04em}
+.ft-cols a,.ft-cols p{display:block;font-family:var(--mono);font-size:11px;line-height:1.9;text-transform:uppercase}
+.ft-cols a b{font-weight:400;color:var(--ink-2);margin-right:8px}
+.ft-cols a:hover{color:var(--violet)}
+.copy{text-transform:none;letter-spacing:0;cursor:pointer;background:none;border:0;padding:0;color:inherit;font:inherit;text-align:left}
+.copy em{font-style:normal;color:var(--violet);margin-left:8px;opacity:0;transition:opacity .3s}
+.copy.ok em{opacity:1}
+.ft-bot{display:flex;justify-content:space-between;margin-top:8vh;padding-right:64px}
+
+/* ---------- Back to top ---------- */
+.orb{position:fixed;right:var(--gut);bottom:22px;z-index:60;width:46px;height:46px;border-radius:50%;border:0;padding:0;cursor:pointer;background:conic-gradient(from 0deg,#fff0e2,#fccea8,#f0965c,#4a1d07,#d9702a,#fccea8,#fff0e2);box-shadow:inset 0 -8px 14px rgba(40,14,4,.55),0 0 24px rgba(255,190,140,.3),0 10px 30px rgba(217,112,42,.38);animation:spin 6s linear infinite;transition:transform .4s var(--ease)}
+.orb::after{content:"";position:absolute;inset:7px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff6ec,rgba(255,240,226,.22) 50%,transparent 70%);filter:blur(2px)}
+.orb:hover{transform:scale(1.08)}
+@keyframes spin{to{rotate:360deg}}
+
+/* ---------- Phones and narrow windows ---------- */
+@media (max-width:900px){
+  .hd{grid-template-columns:1fr auto}
+  .logo img{width:28px;height:28px}
+  .hd nav{grid-area:2/1/3/-1;justify-content:space-between;gap:8px;padding-top:12px}
+  .hd.ink,.pill{backdrop-filter:none;-webkit-backdrop-filter:none}
+  .hd.ink{background:rgba(10,7,5,.88)}
+  .pill{background:rgba(14,10,8,.88)}
+  .pill>span{font-size:14.3px}
+  .intro{grid-template-columns:1fr 1fr;row-gap:22px;padding-top:128px}
+  .intro .ko{grid-column:1/-1;font-size:14px}
+  /* phones: the same rule, but the rows form themselves: cards wrap where a row of ~150px-tall images is full,
+     then grow in proportion to their shape, so each line is still one height and fills the width */
+  .wk{flex-direction:row;flex-wrap:wrap;align-items:flex-start;gap:36px 10px;margin-top:48px}
+  .row{display:contents}
+  .card{flex:var(--r) 1 calc(var(--r) * 150px)}
+  .card h3{font-size:14px}
+  .card .d{font-size:12.5px}
+  .card .m{font-size:10px}
+  .ft-big{font-size:clamp(40px,14vw,110px)}
+  .ft-big .ln:nth-child(2){padding-left:6vw}
+  .ft-cta{flex-direction:column;align-items:flex-start}
+  .ft-cols{grid-template-columns:1fr 1fr;gap:28px}
+  .ft-cols>div:last-child{grid-column:1/-1}
+  .ft-bot{flex-direction:column;gap:8px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#list">본문으로 건너뛰기</a>
+
+<header class="hd" id="hd">
+  <a class="logo" href="index.html" aria-label="유예빈 홈"><img src="assets/img/logo.png" width="160" height="160" alt=""></a>
+  <nav class="mono" aria-label="주요 메뉴">
+    <a href="index.html#about">About</a>
+    <a href="work.html" aria-current="page">Work</a>
+    <a href="index.html#experience">Experience</a>
+  </nav>
+  <a class="pill" href="#contact">Contact <span>↪︎</span></a>
+</header>
+
+<main id="list">
+  <div class="wrap">
+    <h1 class="intro">
+      <span class="en">Selected work<br>across brands</span>
+      <span class="en">Visual design<br><i>since 2016</i></span>
+      <span class="ko">브랜드의 개성을 살리고 메시지를 명확하게 전달한 작업들 —<br>웹사이트와 웹진, 뉴스레터, SNS 콘텐츠까지<small>14 projects · 2020–2026</small></span>
+    </h1>
+
+    <div class="wk">
+      <div class="row">
+        <a class="card" style="--r:1.778" href="assets/yu-yebeen-portfolio-2026.pdf?v=2#page=12" target="_blank" rel="noopener">
+          <div class="im"><img src="assets/work/skt-webzine.jpg" width="1600" height="900" alt="SK telecom AI Life Magazine 웹진 타이틀"><img class="alt" src="assets/work/skt-webzine-2.jpg" width="1600" height="900" alt="" loading="lazy"></div>
+          <div class="cap"><h3>SK telecom ‘AI Life Magazine’</h3><p class="d">AI 기술과 비즈니스 이야기를 시각화한 웹진 콘텐츠 디자인</p><p class="mono m"><b>2025–2026</b> / Webzine</p></div>
+        </a>
+        <a class="card" style="--r:1" href="assets/yu-yebeen-portfolio-2026.pdf?v=2#page=3" target="_blank" rel="noopener">
+          <div class="im"><img src="assets/work/kiwoom-pension.jpg" width="1600" height="900" alt="키움투자자산운용 연금술사 뉴스레터 타이틀과 캐릭터 다다, 도도"><img class="alt" src="assets/work/kiwoom-pension-2.jpg" width="1600" height="900" alt="" loading="lazy" style="--pos2:20% 50%"></div>
+          <div class="cap"><h3>키움투자자산운용 ‘연금술사’</h3><p class="d">연금 정보를 친근하게 전달하는 뉴스레터·캐릭터 리뉴얼</p><p class="mono m"><b>2024–2026</b> / Newsletter</p></div>
+        </a>
+        <a class="card" style="--r:.75" href="assets/yu-yebeen-portfolio-2026.pdf?v=2#page=23" target="_blank" rel="noopener">
+          <div class="im"><img style="--pos:50% 50%" src="assets/work/hyosung.jpg" width="1600" height="900" alt="효성 지속가능경영보고서 키비주얼, 숲 위 지구 안의 수소 전구" loading="lazy"><img class="alt" src="assets/work/hyosung-2.jpg" width="1600" height="900" alt="" loading="lazy"></div>
+          <div class="cap"><h3>HYOSUNG SNS</h3><p class="d">지속가능성 메시지를 담은 키비주얼·채널별 SNS 콘텐츠 디자인</p><p class="mono m"><b>2024–2025</b> / Social</p></div>
+        </a>
+      </div>
+      <div class="row">
+        <a class="card" style="--r:1" href="assets/yu-yebeen-portfolio-2026.pdf?v=2#page=8" target="_blank" rel="noopener">
+          <div class="im"><img src="assets/work/kiwoom-sns.jpg" width="1600" height="900" alt="망원경을 든 손과 상승 화살표가 된 K 일러스트" loading="lazy"><img class="alt" src="assets/work/p10.jpg" width="1600" height="900" alt="" loading="lazy"></div>
+          <div class="cap"><h3>키움투자자산운용 SNS</h3><p class="d">블로그·유튜브·인스타그램 콘텐츠 디자인</p><p class="mono m"><b>2025–2026</b> / Social</p></div>
+        </a>
+        <a class="card" style="--r:.75" href="assets/yu-yebeen-portfolio-2026.pdf?v=2#page=19" target="_blank" rel="noopener">
+          <div class="im"><img style="--pos:38% 50%" src="assets/work/soil.jpg" width="1600" height="900" alt="분홍빛 하늘 아래 S-OIL 주유소 캐노피 간판" loading="lazy"><img class="alt" src="assets/work/p19.jpg" width="1600" height="900" alt="" loading="lazy"></div>
+          <div class="cap"><h3>S-OIL SNS</h3><p class="d">ESG·사내 PR 인스타그램 콘텐츠</p><p class="mono m"><b>2023</b> / Social</p></div>
+        </a>
+        <a class="card" style="--r:1.778" href="assets/yu-yebeen-portfolio-2026.pdf?v=2#page=26" target="_blank" rel="noopener">
+          <div class="im"><img src="assets/work/hilti.jpg" width="1600" height="900" alt="HILTI 로고와 인스타그램 오픈 피드 9칸 그리드" loading="lazy"><img class="alt" src="assets/work/p26.jpg" width="1600" height="900" alt="" loading="lazy"></div>
+          <div class="cap"><h3>HILTI KOREA SNS</h3><p class="d">SNS 콘텐츠 · 광고 소재 디자인</p><p class="mono m"><b>2023</b> / Social</p></div>
+        </a>
+      </div>
+      <div class="row">
+        <a class="card" style="--r:2" href="assets/yu-yebeen-portfolio-2026.pdf?v=2#page=13" target="_blank" rel="noopener">
+          <div class="im"><img style="--pos:50% 50%" src="assets/work/p16.jpg" width="1600" height="900" alt="SK telecom 홈페이지 INSIGHT 페이지를 노트북과 스마트폰에 띄운 화면" loading="lazy"><img class="alt" src="assets/work/p12.jpg" width="1600" height="900" alt="" loading="lazy"></div>
+          <div class="cap"><h3>SK telecom 홈페이지</h3><p class="d">T STORY · INSIGHT 콘텐츠 페이지 디자인</p><p class="mono m"><b>2025–2026</b> / Web</p></div>
+        </a>
+        <a class="card" style="--r:1.5" href="assets/yu-yebeen-portfolio-2026.pdf?v=2#page=15" target="_blank" rel="noopener">
+          <div class="im"><img style="--pos:50% 50%" src="assets/work/p14.jpg" width="1600" height="900" alt="SK telecom 콘텐츠 키비주얼 모음, 보안 아이콘과 KBO 야구공, K-AI" loading="lazy"><img class="alt" src="assets/work/skt-kv-2.jpg" width="1600" height="900" alt="" loading="lazy"></div>
+          <div class="cap"><h3>SK telecom 키비주얼</h3><p class="d">AI·보안·KBO 콘텐츠 키비주얼</p><p class="mono m"><b>2025–2026</b> / Key visual</p></div>
+        </a>
+      </div>
+      <div class="row">
+        <div class="card" style="--r:.75">
+          <div class="im"><img style="--pos:74% 50%" src="assets/work/p28.jpg" width="1600" height="900" alt="판쇼라이브 앱 홈 화면 두 개를 스마트폰 목업에 띄운 화면" loading="lazy"></div>
+          <div class="cap"><h3>판쇼라이브 앱 디자인</h3><p class="d">라이브 커머스 앱 UI 디자인</p><p class="mono m"><b>2022</b> / App</p></div>
+        </div>
+        <div class="card" style="--r:1.778">
+          <div class="im"><img src="assets/work/p33.jpg" width="1000" height="563" alt="마리몽듀 Mentos 플랫·펌프스 상세페이지 타이틀" loading="lazy"></div>
+          <div class="cap"><h3>Marie mon dieu ‘Mentos’</h3><p class="d">플랫·펌프스 상세페이지 디자인</p><p class="mono m"><b>2025</b> / Detail page</p></div>
+        </div>
+        <div class="card" style="--r:1">
+          <div class="im"><img style="--pos:55% 50%" src="assets/work/p31.jpg" width="1600" height="900" alt="판쇼라이브 선셋글로우 방송용 라이브 배너와 SNS 홍보 이미지" loading="lazy"></div>
+          <div class="cap"><h3>판쇼라이브 라이브 배너</h3><p class="d">라이브 방송 배너 · SNS 홍보 이미지</p><p class="mono m"><b>2022</b> / Live banner</p></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="card" style="--r:1.778">
+          <div class="im"><img src="assets/work/p30.jpg" width="1600" height="900" alt="판쇼라이브 Apple Week Raffle 이벤트 페이지의 웹과 모바일 화면" loading="lazy"></div>
+          <div class="cap"><h3>판쇼라이브 ‘Apple Week Raffle’</h3><p class="d">래플 이벤트 웹·모바일 페이지</p><p class="mono m"><b>2022</b> / Event page</p></div>
+        </div>
+        <div class="card" style="--r:1">
+          <div class="im"><img style="--pos:0% 50%" src="assets/work/p29.jpg" width="1600" height="900" alt="가구 브랜드 헤르짐머 웹사이트 메인과 이벤트 화면 모음" loading="lazy"></div>
+          <div class="cap"><h3>HERRZIMMER 웹사이트</h3><p class="d">가구 브랜드 웹·모바일 사이트</p><p class="mono m"><b>2020</b> / Web</p></div>
+        </div>
+        <div class="card" style="--r:1.778">
+          <div class="im"><img src="assets/work/p32.jpg" width="1600" height="900" alt="미니쉬치과병원 유튜브 썸네일 디자인 모음" loading="lazy"></div>
+          <div class="cap"><h3>미니쉬치과병원 유튜브</h3><p class="d">유튜브 썸네일 · 자막 디자인</p><p class="mono m"><b>2021–2022</b> / YouTube</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="ft" id="contact">
+  <div class="wrap">
+    <span class="tag">Get in touch</span>
+    <h2 class="ft-big">
+      <span class="ln">Ready to</span>
+      <span class="ln"><span class="ar">↪︎</span> contribute</span>
+      <span class="ln">and grow.</span>
+    </h2>
+    <div class="ft-cta">
+      <a class="pill lg" href="mailto:yeeyoii@naver.com">이메일 보내기 <span>↪︎</span></a>
+    </div>
+    <div class="ft-cols">
+      <div><h4>Portfolio</h4><a href="assets/yu-yebeen-portfolio-2026.pdf?v=2" target="_blank" rel="noopener"><b>[01]</b>View PDF</a><a href="assets/yu-yebeen-portfolio-2026.pdf?v=2" download><b>[02]</b>Download PDF</a></div>
+      <div><h4>Pages</h4><a href="index.html"><b>[01]</b>Home</a><a href="index.html#about"><b>[02]</b>About</a><a href="work.html"><b>[03]</b>Work</a><a href="index.html#experience"><b>[04]</b>Experience</a></div>
+      <div><h4>Role</h4><p>Visual designer</p><p>Editorial · Web · SNS</p></div>
+      <div><h4>E-mail</h4><button class="copy mono" id="copy" type="button" data-mail="yeeyoii@naver.com">yeeyoii@naver.com<em>Copied</em></button></div>
+    </div>
+    <div class="ft-bot mono"><span>© 2016–2026 Yu Yebeen. All rights reserved</span><span>빛날 빈(斌), 유예빈</span></div>
+  </div>
+</footer>
+
+<button class="orb" id="orb" type="button" hidden aria-label="맨 위로"></button>
+
+<script>
+(() => {
+  const $ = (s) => document.querySelector(s), $$ = (s) => [...document.querySelectorAll(s)];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // images fade in once decoded, so lazy rows don't pop in half-drawn
+  $$('.card img').forEach(i => {
+    const ok = () => i.classList.add('ok');
+    i.complete && i.naturalWidth ? ok() : i.addEventListener('load', ok, { once: true });
+  });
+
+  // header gets its glass face once the page moves; the orb appears further down
+  const hd = $('#hd'), orb = $('#orb');
+  const onScroll = () => { hd.classList.toggle('ink', scrollY > 10); orb.hidden = scrollY < 600; };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  orb.addEventListener('click', () => scrollTo({ top: 0, behavior: reduce ? 'instant' : 'smooth' }));
+
+  // same-page links (Contact) glide instead of jumping
+  $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+    const t = $(a.getAttribute('href')); if (!t) return;
+    e.preventDefault(); scrollTo({ top: t.getBoundingClientRect().top + scrollY, behavior: reduce ? 'instant' : 'smooth' });
+  }));
+
+  // touch: pills light up while tapped, as on the main page
+  $$('.pill').forEach(a => {
+    let t;
+    a.addEventListener('pointerdown', e => { if (e.pointerType === 'mouse') return; clearTimeout(t); a.classList.add('lit'); });
+    const off = () => { clearTimeout(t); t = setTimeout(() => a.classList.remove('lit'), 700); };
+    a.addEventListener('pointerup', off); a.addEventListener('pointercancel', off);
+  });
+
+  const cp = $('#copy');
+  cp && cp.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(cp.dataset.mail); cp.classList.add('ok'); setTimeout(() => cp.classList.remove('ok'), 1600); }
+    catch (e) { location.href = 'mailto:' + cp.dataset.mail; }
+  });
+})();
+</script>
+</body>
+</html>

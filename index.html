@@ -420,7 +420,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
   <a class="logo" href="#top" aria-label="유예빈 홈"><img src="assets/img/logo.png" width="160" height="160" alt=""></a>
   <nav class="mono" aria-label="주요 메뉴">
     <a href="#about">About</a>
-    <a href="#work">Work</a>
+    <a href="work.html">Work</a>
     <a href="#experience">Experience</a>
   </nav>
   <a class="pill" href="#contact">Contact <span>↪︎</span></a>
@@ -601,7 +601,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
     </div>
     <div class="ft-cols">
       <div><h4>Portfolio</h4><a href="assets/yu-yebeen-portfolio-2026.pdf?v=2" target="_blank" rel="noopener"><b>[01]</b>View PDF</a><a href="assets/yu-yebeen-portfolio-2026.pdf?v=2" download><b>[02]</b>Download PDF</a></div>
-      <div><h4>Pages</h4><a href="#top"><b>[01]</b>Home</a><a href="#about"><b>[02]</b>About</a><a href="#work"><b>[03]</b>Work</a><a href="#experience"><b>[04]</b>Experience</a></div>
+      <div><h4>Pages</h4><a href="#top"><b>[01]</b>Home</a><a href="#about"><b>[02]</b>About</a><a href="work.html"><b>[03]</b>Work</a><a href="#experience"><b>[04]</b>Experience</a></div>
       <div><h4>Role</h4><p>Visual designer</p><p>Editorial · Web · SNS</p></div>
       <div><h4>E-mail</h4><button class="copy mono" id="copy" type="button" data-mail="yeeyoii@naver.com">yeeyoii@naver.com<em>Copied</em></button></div>
     </div>
@@ -1313,6 +1313,8 @@ html.ld-on,html.ld-on body{overflow:hidden}
     dispatchEvent(new Event('intro:enter')); // the hero name starts writing itself
     document.documentElement.classList.remove('ld-on');
     lenis && lenis.start();
+    let to = null; try { to = location.hash && $(location.hash); } catch (e) {}
+    if (to) requestAnimationFrame(() => lenis ? lenis.scrollTo(to, { immediate: true }) : scrollTo(0, to.getBoundingClientRect().top + scrollY));
     // A clean circular opening: no warp on the edge, no distortion on the hero text
     const t0 = performance.now(), R = Math.hypot(innerWidth, innerHeight) * .75, V = Math.max(innerWidth, innerHeight) * .2;
     (function tick(now) {
@@ -1393,6 +1395,8 @@ html.ld-on,html.ld-on body{overflow:hidden}
 
   chs.forEach(chapter => io.observe(chapter));
   runLoader();
+  // a link from the work page to a section (index.html#about) opens the intro straight away
+  if (!reduce && ld.isConnected && location.hash && location.hash !== '#top') { try { if ($(location.hash)) enter(); } catch (e) {} }
   onScroll();
 
   initGL().catch(() => { canvas.hidden = true; }).finally(() => { glDone = true; });
