@@ -36,7 +36,7 @@
 *,*::before,*::after{box-sizing:border-box}
 html{color-scheme:dark;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-img{display:block;max-width:100%}
+img{display:block;max-width:100%;height:auto} /* every picture keeps its own shape at any width */
 a{color:inherit;text-decoration:none}
 h1,h2,h3,h4,p{margin:0;font-weight:400}
 .mono{font-family:var(--mono);font-size:11px;line-height:1.45;letter-spacing:.02em;text-transform:uppercase;font-weight:400}
@@ -96,9 +96,29 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 .back-m{display:none}
 
 .body{min-width:0}
-.fig{position:relative;margin:0 0 12px;border-radius:6px;overflow:hidden;background:#14100d}
+/* pictures run straight into each other, no gap or rounding between them */
+.fig{position:relative;margin:0;overflow:hidden;background:#14100d}
 .fig img{width:100%;height:auto;opacity:0;transition:opacity .8s var(--ease)}
 .fig img.ok{opacity:1}
+/* every picture fades up as it scrolls into view, and again each time it comes back */
+.fig{opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease),transform 1.2s var(--ease)}
+.fig.in{opacity:1;transform:none}
+
+/* stages: a background picture fades in when it scrolls into view, then the work on it fades in after,
+   one piece at a time (--i is each piece's place in the order) */
+.stage{position:relative;margin:0;overflow:hidden;background:#050403}
+.stage .bg{width:100%;height:auto;opacity:0;transition:opacity 1s var(--ease)}
+.stage .set{position:absolute;inset:0}
+.stage .fg{opacity:0;transform:translateY(28px);
+  transition:opacity .9s var(--ease) calc(.4s + var(--i,0) * .16s),transform 1.2s var(--ease) calc(.4s + var(--i,0) * .16s)}
+.stage.in .bg,.stage.in .fg{opacity:1}
+.stage.in .fg{transform:none}
+.stage.dark .set{display:grid;place-items:center}
+/* the mock-up's devices sit 25px left of centre inside its 2000px file; nudge them back to the middle */
+.stage.dark .fg{width:94%;translate:1.28% .5%}
+/* light stage: laid out as in the reference composite (1386 × 2000, the background's own size);
+   every piece is placed in % of the stage, so the arrangement scales as one picture on any screen */
+.stage.light .fg{position:absolute;left:var(--x);top:var(--y);width:var(--w)}
 
 /* text between the pictures: a serif label, then the copy from the portfolio */
 .tx{padding:84px 0 96px;max-width:780px}
@@ -174,7 +194,6 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
   /* phones: Back to list comes where the project's pictures end, before Featured work */
   .side .back{display:none}
   .back-m{display:inline-flex;margin-top:36px}
-  .fig{margin-bottom:8px;border-radius:4px}
   .tx{padding:52px 0 60px}
   .tx .lead{font-size:16px}
   .tx .p{font-size:14.5px;line-height:1.8}
@@ -260,8 +279,20 @@ const PROJECTS = [
     cat: 'Webzine', client: 'SK텔레콤', period: '2025–2026', cover: 'assets/work/skt-webzine.jpg',
     tools: 'Illustrator, Photoshop, Figma', ai: 'ChatGPT, Gemini, Midjourney, Firefly',
     blocks: [
-      { img: 'p12', alt: 'SK telecom AI Life Magazine 웹진 타이틀' },
+      { src: 'assets/project/skt-webzine/cover.webp', w: 2000, h: 1125, alt: 'SK telecom AI Life Magazine 웹진 타이틀' },
       { label: 'Overview', p: 'SK텔레콤의 <b>AI 혁신과 사업 비전을 쉽고 친근하게 전달하는 디지털 매거진 콘텐츠를 디자인</b>하며, 임직원 인터뷰와 현장 취재, 트렌드 소개 등 다양한 소재에 브랜드 가치를 담아냈습니다. 감각적이고 미래지향적인 이미지와 직관적인 인포그래픽으로 아티클의 이해도와 몰입도를 높이고, 기업의 기술적 전문성과 친근함을 균형 있게 전달했습니다.' },
+      // dark blue background, then the tablet and phone mock-up fades in at its centre
+      { html: `<figure class="stage dark"><img class="bg" src="assets/project/skt-webzine/dark-bg.jpg" width="2000" height="1125" alt="" loading="lazy">
+        <div class="set"><img class="fg" src="assets/project/skt-webzine/mockup.webp" width="2000" height="1096" alt="태블릿과 스마트폰에 띄운 SK telecom T STORY 페이지" loading="lazy"></div></figure>` },
+      // light blue background, then the article pages fade in one by one from the left
+      { html: `<figure class="stage light"><img class="bg" src="assets/project/skt-webzine/light-bg.jpg" width="1386" height="2000" alt="" loading="lazy">
+        <div class="set">
+          <img class="fg" style="--i:0;--x:8.33%;--y:4.01%;--w:32.7%" src="assets/project/skt-webzine/phone.png" width="484" height="2000" alt="T STORY 아티클 ‘Z세대에게 T팩토리 성수를 묻다’ 모바일 화면" loading="lazy">
+          <img class="fg" style="--i:1;--x:37.06%;--y:15.1%;--w:32.9%" src="assets/project/skt-webzine/tablet-1.png" width="632" height="961" alt="T팩토리 성수 외관과 입구를 소개하는 아티클 화면" loading="lazy">
+          <img class="fg" style="--i:2;--x:37.06%;--y:46.93%;--w:32.9%" src="assets/project/skt-webzine/tablet-2.png" width="632" height="999" alt="수능 끝 자유행 티켓 Freedom Flight 아티클 화면" loading="lazy">
+          <img class="fg" style="--i:3;--x:62.01%;--y:29.1%;--w:33.56%" src="assets/project/skt-webzine/tablet-3.png" width="642" height="432" alt="AI 이미지와 영상 제작 도구를 소개하는 아티클 화면" loading="lazy">
+          <img class="fg" style="--i:4;--x:62.01%;--y:41.35%;--w:33.56%" src="assets/project/skt-webzine/tablet-4.png" width="642" height="438" alt="에이닷으로 찾은 집 근처 미술 갤러리 아티클 화면" loading="lazy">
+        </div></figure>` },
       { img: 'p16', alt: '웹진 아티클 썸네일 모음과 대형 스크린에 띄운 웹진 화면' },
     ],
   },
@@ -382,9 +413,11 @@ const PROJECTS = [
 
   let first = true;
   const html = P.blocks.map(b => {
-    if (b.img) {
+    if (b.html) { first = false; return b.html; }
+    if (b.img || b.src) {
       const lazy = first ? 'fetchpriority="high"' : 'loading="lazy"'; first = false;
-      return `<figure class="fig"><img src="assets/project/${b.img}.jpg" width="2000" height="${b.img === 'p09b' ? 557 : 1125}" alt="${b.alt}" ${lazy}></figure>`;
+      const src = b.src || `assets/project/${b.img}.jpg`, w = b.w || 2000, h = b.h || (b.img === 'p09b' ? 557 : 1125);
+      return `<figure class="fig"><img src="${src}" width="${w}" height="${h}" alt="${b.alt}" ${lazy}></figure>`;
     }
     return `<section class="tx${b.pts ? ' wide' : ''}"><h2>${b.label}</h2>`
       + (b.lead ? `<p class="lead">${b.lead}</p>` : '')
@@ -402,7 +435,19 @@ const PROJECTS = [
   $('#body').innerHTML = html + back + more;
 
   // pictures fade in once decoded, so lazy ones don't pop in half-drawn
-  $$('#body img').forEach(i => {
+  // pictures and stages fade in when about a fifth of them is on screen, and reset once they have left it,
+  // so the fade plays again every time they are scrolled back into view
+  const shows = $$('.fig, .stage');
+  if (reduce || !('IntersectionObserver' in window)) shows.forEach(s => s.classList.add('in'));
+  else {
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (e.intersectionRatio >= .2) e.target.classList.add('in');
+      else if (!e.isIntersecting) e.target.classList.remove('in');
+    }), { threshold: [0, .2] });
+    shows.forEach(s => io.observe(s));
+  }
+
+  $$('.fig img, .more img').forEach(i => {
     const ok = () => i.classList.add('ok');
     i.complete && i.naturalWidth ? ok() : i.addEventListener('load', ok, { once: true });
   });
