@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project — YU YEBEEN</title>
+<meta name="description" content="비주얼 디자이너 유예빈의 프로젝트 상세.">
+<meta name="theme-color" content="#050403">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png?v=2">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Work — YU YEBEEN">
+<meta property="og:image" content="https://yebeen00.github.io/yebeen-portfolio/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+<style>
+/* Same tokens as the main page (index.html) and the Work page */
+:root{
+  --bg:#050403;
+  --ink:#f4efe9;
+  --ink-2:rgba(244,239,233,.56);
+  --line:rgba(255,255,255,.12);
+  --violet:#d9702a;
+  --violet-2:#f2a565;
+  --serif:"Instrument Serif","Pretendard Variable","Pretendard",serif;
+  --kserif:"Pretendard Variable","Pretendard",system-ui,sans-serif;
+  --mono:"IBM Plex Mono","Pretendard Variable","Pretendard",monospace;
+  --sans:"Inter Tight","Pretendard Variable","Pretendard",system-ui,sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --gut:clamp(16px,2.4vw,36px);
+}
+@media (min-width:901px){:root{--gut:60px}}
+*,*::before,*::after{box-sizing:border-box}
+html{color-scheme:dark;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4,p{margin:0;font-weight:400}
+.mono{font-family:var(--mono);font-size:11px;line-height:1.45;letter-spacing:.02em;text-transform:uppercase;font-weight:400}
+.skip{position:fixed;left:12px;top:-60px;z-index:200;background:var(--ink);color:#000;padding:10px 14px;border-radius:8px}
+.skip:focus{top:12px}
+:focus-visible{outline:2px solid var(--violet);outline-offset:3px}
+.wrap{padding:0 var(--gut)}
+
+/* ---------- Header (as on the main page) ---------- */
+.hd{position:fixed;top:0;left:0;right:0;z-index:50;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:18px var(--gut);color:#fff;transition:background .5s var(--ease),box-shadow .5s var(--ease)}
+.hd.ink{background:rgba(10,7,5,.5);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);box-shadow:0 1px 0 rgba(255,255,255,.07)}
+.logo{display:inline-flex;justify-self:start;width:fit-content}
+.logo img{width:35px;height:35px;margin:-2px 0;filter:drop-shadow(0 0 8px rgba(205,185,255,.35))}
+.hd nav{display:flex;gap:40.8px;font-size:13.2px}
+.hd nav a{position:relative}
+.hd nav a::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease)}
+.hd nav a:hover::after,.hd nav a[aria-current]::after{transform:scaleX(1);transform-origin:left}
+.hd nav a[aria-current]{color:var(--violet-2)}
+.hd .pill{justify-self:end}
+
+/* ---------- Pill (the main page's glass pill) ---------- */
+.pill{--acc-soft:#ff9253;position:relative;display:inline-flex;align-items:center;gap:10px;height:34px;padding:0 6px 0 14px;
+  border-radius:99px;font-family:var(--sans);font-size:13px;font-weight:500;color:#fff;cursor:pointer;outline-offset:4px;
+  background:rgba(14,10,8,.62);border:1px solid rgba(255,255,255,.16);
+  backdrop-filter:blur(12px) saturate(1.3);-webkit-backdrop-filter:blur(12px) saturate(1.3);
+  transition:border-color .35s var(--ease),box-shadow .35s var(--ease),transform .35s var(--ease)}
+.pill>span{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:rgba(255,95,0,.18);color:var(--acc-soft);font-size:13px;transition:transform .45s var(--ease)}
+.pill:hover>span{transform:rotate(-45deg)}
+.pill:active{transform:translateY(1px)}
+.pill.lg{height:46px;padding:0 8px 0 20px;font-size:15px}
+.pill.lg>span{width:32px;height:32px}
+@media (hover:hover){.pill:hover{border-color:var(--acc-soft);box-shadow:0 0 0 1px rgba(255,95,0,.35),0 0 16px rgba(255,95,0,.5),0 0 36px rgba(255,95,0,.22),inset 0 0 12px rgba(255,95,0,.16)}}
+.pill:focus-visible,.pill.lit{border-color:var(--acc-soft);box-shadow:0 0 0 1px rgba(255,95,0,.35),0 0 16px rgba(255,95,0,.5),0 0 36px rgba(255,95,0,.22),inset 0 0 12px rgba(255,95,0,.16)}
+.tag{display:inline-flex;align-items:center;padding:7px 16px;border-radius:99px;background:linear-gradient(180deg,#e27a3c,#cc6520);
+  border:1px solid rgba(255,196,150,.45);color:#fff;font-family:var(--serif);font-size:15.6px;letter-spacing:.03em;text-transform:uppercase;line-height:1.2}
+
+/* ---------- Project: a fixed column of facts on the left, the work scrolling past on the right ---------- */
+.pj{display:grid;grid-template-columns:1fr 2fr;column-gap:20px;padding-top:112px;padding-bottom:20vh}
+.side{position:sticky;top:112px;align-self:start;height:calc(100vh - 112px - 32px);display:flex;flex-direction:column;justify-content:space-between;padding-right:clamp(0px,3vw,48px)}
+.side .k{color:var(--ink-2);font-size:10.5px}
+.side .k span{display:block}
+.side .k b{font-weight:400;color:var(--violet-2)}
+.side h1{margin-top:22px;font-family:var(--kserif);font-size:clamp(20px,1.65vw,27px);font-weight:600;line-height:1.38;letter-spacing:-.02em;word-break:keep-all}
+.side dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:28px 0 0;font-size:10.5px}
+.side dt{color:var(--ink-2)}
+.side dd{margin:0;text-transform:none}
+.back{display:inline-flex;align-items:center;gap:12px;width:fit-content;font-size:16.5px;color:var(--ink-2);transition:color .3s}
+.back span{display:inline-block;font-family:var(--sans);font-size:19.5px;transform:scaleX(-1);transition:transform .45s var(--ease)}
+.back:hover{color:var(--ink)}
+.back:hover span{transform:scaleX(-1) translateX(4px)}
+
+.body{min-width:0}
+.fig{position:relative;margin:0 0 12px;border-radius:6px;overflow:hidden;background:#14100d}
+.fig img{width:100%;height:auto;opacity:0;transition:opacity .8s var(--ease)}
+.fig img.ok{opacity:1}
+
+/* text between the pictures: a serif label, then the copy from the portfolio */
+.tx{padding:84px 0 96px;max-width:780px}
+.tx h2{font-family:var(--serif);font-size:clamp(26px,2.2vw,34px);line-height:1.05;letter-spacing:-.005em}
+.tx .lead{margin-top:18px;font-family:var(--kserif);font-size:17px;font-weight:500;line-height:1.6;letter-spacing:-.01em;word-break:keep-all}
+.tx .p{margin-top:16px;font-family:var(--kserif);font-size:15.5px;line-height:1.85;color:var(--ink-2);word-break:keep-all}
+.tx .p b{font-weight:500;color:var(--ink)}
+.pts{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px;max-width:none}
+.pts div{padding-top:16px;border-top:1px solid var(--line)}
+.pts h3{font-family:var(--serif);font-size:22px;line-height:1.1}
+.pts .mono{margin-top:8px;color:var(--violet-2);font-size:10.5px}
+.pts p:last-child{margin-top:12px;font-family:var(--kserif);font-size:14px;line-height:1.7;color:var(--ink-2);word-break:keep-all}
+.stats{display:flex;flex-wrap:wrap;gap:20px 48px;margin-top:40px}
+.stats div{min-width:150px;padding-top:16px;border-top:1px solid var(--line)}
+.stats b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(48px,5vw,76px);line-height:1;letter-spacing:-.01em}
+.stats span{display:block;margin-top:10px;color:var(--ink-2)}
+.tx.wide{max-width:none}
+
+/* ---------- More work: three other projects, as on the Work page ---------- */
+.more{margin-top:120px}
+.more h2{font-family:var(--serif);font-size:clamp(26px,2.2vw,34px);line-height:1.05}
+.more .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:28px}
+.card{display:block;min-width:0}
+.card .im{position:relative;overflow:hidden;border-radius:6px;background:#14100d;aspect-ratio:4/3}
+.card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 50%);opacity:0;transition:opacity .7s var(--ease),transform 1.1s var(--ease)}
+.card img.ok{opacity:1}
+@media (hover:hover){.card:hover img{transform:scale(1.04)}}
+.card .cap{margin-top:13px}
+.card h3{font-family:var(--kserif);font-size:15px;font-weight:500;letter-spacing:-.01em;line-height:1.35}
+.card h3::before{content:"↪︎";display:inline-block;width:0;opacity:0;overflow:hidden;vertical-align:top;font-family:var(--sans);font-size:.8em;color:var(--violet-2);transition:width .5s var(--ease),opacity .4s,margin .5s var(--ease)}
+.card:hover h3::before,.card:focus-visible h3::before{width:1em;opacity:1;margin-right:.3em}
+.card .d{margin-top:3px;font-family:var(--kserif);font-size:13.5px;line-height:1.45;color:var(--ink-2);word-break:keep-all}
+.card .m{margin-top:6px;color:var(--ink-2);font-size:10.5px}
+.card .m b{font-weight:400;color:var(--violet-2)}
+
+/* ---------- Footer (as on the main page) ---------- */
+.ft{position:relative;overflow:hidden;background:radial-gradient(110% 60% at 50% 112%,#8a3a06 0%,#4a1d07 22%,#1e0d06 48%,var(--bg) 76%);padding:12vh 0 26px}
+.ft-big{font-family:var(--serif);font-size:clamp(58px,10.4vw,190px);line-height:.86;text-transform:uppercase;margin-top:22px}
+.ft-big .ln{display:block}
+.ft-big .ln:nth-child(2){padding-left:12vw}
+.ar{display:inline-block;font-family:var(--sans);font-size:.3em;vertical-align:middle;transform:translateY(-.4em)}
+.ft-cta{display:flex;align-items:center;gap:28px;margin-top:40px}
+.ft-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:16vh;padding-top:22px;border-top:1px solid var(--line)}
+.ft-cols h4{margin:0 0 14px;font-family:var(--mono);font-size:10px;font-weight:400;color:var(--violet);letter-spacing:.04em}
+.ft-cols a,.ft-cols p{display:block;font-family:var(--mono);font-size:11px;line-height:1.9;text-transform:uppercase}
+.ft-cols a b{font-weight:400;color:var(--ink-2);margin-right:8px}
+.ft-cols a:hover{color:var(--violet)}
+.copy{text-transform:none;letter-spacing:0;cursor:pointer;background:none;border:0;padding:0;color:inherit;font:inherit;text-align:left}
+.copy em{font-style:normal;color:var(--violet);margin-left:8px;opacity:0;transition:opacity .3s}
+.copy.ok em{opacity:1}
+.ft-bot{display:flex;justify-content:space-between;margin-top:8vh;padding-right:64px}
+
+/* ---------- Back to top ---------- */
+.orb{position:fixed;right:var(--gut);bottom:22px;z-index:60;width:46px;height:46px;border-radius:50%;border:0;padding:0;cursor:pointer;background:conic-gradient(from 0deg,#fff0e2,#fccea8,#f0965c,#4a1d07,#d9702a,#fccea8,#fff0e2);box-shadow:inset 0 -8px 14px rgba(40,14,4,.55),0 0 24px rgba(255,190,140,.3),0 10px 30px rgba(217,112,42,.38);animation:spin 6s linear infinite;transition:transform .4s var(--ease)}
+.orb::after{content:"";position:absolute;inset:7px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff6ec,rgba(255,240,226,.22) 50%,transparent 70%);filter:blur(2px)}
+.orb:hover{transform:scale(1.08)}
+@keyframes spin{to{rotate:360deg}}
+
+/* ---------- Phones and narrow windows ---------- */
+@media (max-width:900px){
+  .hd{grid-template-columns:1fr auto}
+  .logo img{width:28px;height:28px}
+  .hd nav{grid-area:2/1/3/-1;justify-content:space-between;gap:8px;padding-top:12px}
+  .hd.ink,.pill{backdrop-filter:none;-webkit-backdrop-filter:none}
+  .hd.ink{background:rgba(10,7,5,.88)}
+  .pill{background:rgba(14,10,8,.88)}
+  .pill>span{font-size:14.3px}
+  /* phones: the facts sit above the pictures instead of beside them */
+  .pj{grid-template-columns:1fr;padding-top:128px;padding-bottom:12vh}
+  .side{position:static;height:auto;padding:0 0 36px}
+  .side h1{font-size:21px;margin-top:16px}
+  .side dl{margin-top:20px}
+  .side .back{margin-top:24px}
+  .fig{margin-bottom:8px;border-radius:4px}
+  .tx{padding:52px 0 60px}
+  .tx .lead{font-size:16px}
+  .tx .p{font-size:14.5px;line-height:1.8}
+  .pts{grid-template-columns:1fr;gap:24px}
+  .stats{gap:20px 28px}
+  .stats div{min-width:120px}
+  .more{margin-top:72px}
+  .more .grid{grid-template-columns:1fr 1fr;gap:28px 10px}
+  .more .card:nth-child(3){display:none}
+  .card h3{font-size:14px}
+  .card .d{font-size:12.5px}
+  .card .m{font-size:10px}
+  .ft-big{font-size:clamp(40px,14vw,110px)}
+  .ft-big .ln:nth-child(2){padding-left:6vw}
+  .ft-cta{flex-direction:column;align-items:flex-start}
+  .ft-cols{grid-template-columns:1fr 1fr;gap:28px}
+  .ft-cols>div:last-child{grid-column:1/-1}
+  .ft-bot{flex-direction:column;gap:8px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#body">본문으로 건너뛰기</a>
+
+<header class="hd" id="hd">
+  <a class="logo" href="index.html" aria-label="유예빈 홈"><img src="assets/img/logo.png" width="160" height="160" alt=""></a>
+  <nav class="mono" aria-label="주요 메뉴">
+    <a href="index.html#about">About</a>
+    <a href="work.html" aria-current="page">Work</a>
+    <a href="index.html#experience">Experience</a>
+  </nav>
+  <a class="pill" href="#contact">Contact <span>↪︎</span></a>
+</header>
+
+<main class="wrap">
+  <article class="pj">
+    <aside class="side">
+      <div>
+        <p class="mono k" id="k"></p>
+        <h1 id="ttl"></h1>
+        <dl class="mono" id="meta"></dl>
+      </div>
+      <a class="back mono" href="work.html"><span>↪︎</span>Back to list</a>
+    </aside>
+    <div class="body" id="body"></div>
+  </article>
+</main>
+
+<footer class="ft" id="contact">
+  <div class="wrap">
+    <span class="tag">Get in touch</span>
+    <h2 class="ft-big">
+      <span class="ln">Ready to</span>
+      <span class="ln"><span class="ar">↪︎</span> contribute</span>
+      <span class="ln">and grow.</span>
+    </h2>
+    <div class="ft-cta">
+      <a class="pill lg" href="mailto:yeeyoii@naver.com">이메일 보내기 <span>↪︎</span></a>
+    </div>
+    <div class="ft-cols">
+      <div><h4>Portfolio</h4><a href="assets/yu-yebeen-portfolio-2026.pdf?v=2" target="_blank" rel="noopener"><b>[01]</b>View PDF</a><a href="assets/yu-yebeen-portfolio-2026.pdf?v=2" download><b>[02]</b>Download PDF</a></div>
+      <div><h4>Pages</h4><a href="index.html"><b>[01]</b>Home</a><a href="index.html#about"><b>[02]</b>About</a><a href="work.html"><b>[03]</b>Work</a><a href="index.html#experience"><b>[04]</b>Experience</a></div>
+      <div><h4>Role</h4><p>Visual designer</p><p>Editorial · Web · SNS</p></div>
+      <div><h4>E-mail</h4><button class="copy mono" id="copy" type="button" data-mail="yeeyoii@naver.com">yeeyoii@naver.com<em>Copied</em></button></div>
+    </div>
+    <div class="ft-bot mono"><span>© 2016–2026 Yu Yebeen. All rights reserved</span><span>빛날 빈(斌), 유예빈</span></div>
+  </div>
+</footer>
+
+<button class="orb" id="orb" type="button" hidden aria-label="맨 위로"></button>
+
+<script>
+/* Every project page is drawn from this list: project.html?p=<id>.
+   Blocks run top to bottom in the right column: a page image from the portfolio PDF (assets/project/pNN.jpg),
+   or a text section (label, optional lead, copy, optional three points or figures).
+   The order matches the Work page, and "Featured work" shows the next three projects in it. */
+const PROJECTS = [
+  {
+    id: 'skt-webzine', name: 'SK telecom ‘AI Life Magazine’', desc: 'AI 기술과 비즈니스 이야기를 시각화한 웹진 콘텐츠 디자인',
+    cat: 'Webzine', client: 'SK텔레콤', period: '2025–2026', cover: 'assets/work/skt-webzine.jpg',
+    tools: 'Illustrator, Photoshop, Figma', ai: 'ChatGPT, Gemini, Midjourney, Firefly',
+    blocks: [
+      { img: 'p12', alt: 'SK telecom AI Life Magazine 웹진 타이틀' },
+      { label: 'Overview', p: 'SK텔레콤의 <b>AI 혁신과 사업 비전을 쉽고 친근하게 전달하는 디지털 매거진 콘텐츠를 디자인</b>하며, 임직원 인터뷰와 현장 취재, 트렌드 소개 등 다양한 소재에 브랜드 가치를 담아냈습니다. 감각적이고 미래지향적인 이미지와 직관적인 인포그래픽으로 아티클의 이해도와 몰입도를 높이고, 기업의 기술적 전문성과 친근함을 균형 있게 전달했습니다.' },
+      { img: 'p16', alt: '웹진 아티클 썸네일 모음과 대형 스크린에 띄운 웹진 화면' },
+    ],
+  },
+  {
+    id: 'kiwoom-pension', name: '키움투자자산운용 ‘연금술사’', desc: '연금 정보를 친근하게 전달하는 뉴스레터·캐릭터 리뉴얼',
+    cat: 'Newsletter', client: '키움투자자산운용', period: '2024–2026', cover: 'assets/work/kiwoom-pension.jpg',
+    tools: 'Illustrator, Photoshop, Figma, After Effects',
+    blocks: [
+      { img: 'p03', alt: '연금술사 뉴스레터 타이틀과 캐릭터 다다, 도도' },
+      { label: 'Overview', p: '키움투자자산운용의 ‘연금술사’ 뉴스레터에 타이틀과 캐릭터를 포함한 <b>전반적인 디자인 리뉴얼을 진행</b>했습니다. 볼드한 타이포그래피와 금화 아이콘을 조합한 타이틀로 금융 정보의 신뢰성과 ‘연금’이라는 핵심 키워드를 직관적으로 전달하고, 메인 캐릭터인 ‘다다’와 ‘도도’에는 따뜻한 손그림 텍스처를 더해 입체감과 친근함이 자연스럽게 어우러지도록 표현했습니다.' },
+      { img: 'p05', alt: '캐릭터 다다와 도도의 리뉴얼 전후와 활용 예시' },
+      { label: 'Approach', p: '어려운 콘텐츠도 명확한 가독성, 직관적인 컬러 시스템, 친근한 캐릭터를 통해 누구나 쉽게 이해하고 즐길 수 있는 뉴스레터 경험으로 설계했습니다.',
+        pts: [
+          ['Color & Brand Identity', '색상 & 브랜드 아이덴티티', '브랜드 컬러는 유지하되 ‘연금술사’ 컨셉에 맞는 골드 컬러를 포인트로 추가'],
+          ['Readability', '가독성', '복잡하고 어려운 정보를 인포그래픽으로 시각화하여 가독성을 높임'],
+          ['Character & Visual Identity', '캐릭터 리뉴얼', '어렵고 딱딱한 정보를 캐릭터의 친근함으로 보완'],
+        ] },
+      { img: 'p06', alt: '뉴스레터 리뉴얼의 디자인 포인트와 모바일 화면' },
+      { img: 'p07', alt: '스마트폰에 띄운 연금술사 뉴스레터와 콘텐츠 모음' },
+      { label: 'Result', p: '뉴스레터의 시각적 가독성 개선과 UI/UX 최적화를 통해 <b>독자 중심의 콘텐츠 경험</b>을 구축했습니다. 이를 바탕으로 꾸준한 독자 유입을 이끌어 누적 구독자 8,186명을 달성했으며, 총 400호 발행 동안 평균 오픈율 20%를 유지하며 <b>지속적인 성장</b>을 이어갔습니다.',
+        stats: [['8,186+', '누적 구독자 (26.08 기준)'], ['20%', '평균 오픈율'], ['400호+', '누적 발행 수']] },
+    ],
+  },
+  {
+    id: 'hyosung', name: 'HYOSUNG SNS', desc: '지속가능성 메시지를 담은 키비주얼·채널별 SNS 콘텐츠 디자인',
+    cat: 'Social', client: '효성', period: '2024–2025', cover: 'assets/work/hyosung.jpg',
+    tools: 'Illustrator, Photoshop, Figma', ai: 'Midjourney, Firefly',
+    blocks: [
+      { img: 'p23', alt: '숲 위 지구 안의 수소 전구, 효성 지속가능경영보고서 키비주얼' },
+      { label: 'Overview', p: '효성의 지속가능성과 소재 기술을 주제로, <b>하나의 메시지를 브랜드 저널리즘과 SNS의 특성에 맞춰 디자인을 진행</b>했습니다. 브랜드 저널리즘에서는 산업 데이터와 소재의 제조 공정을 인포그래픽으로 시각화해 복잡한 정보를 쉽게 이해할 수 있도록 돕고, SNS에서는 하나의 주제를 페이스북 · 인스타그램 · 링크드인의 특성에 맞춰 풀어내며, 채널마다 이미지 소재와 화면 구성에 변화를 주었습니다.' },
+      { img: 'p24', alt: '효성 브랜드 저널리즘 아티클과 채널별 SNS 게시물' },
+      { img: 'p25', alt: '효성 SNS 콘텐츠 모음과 소재 키비주얼' },
+    ],
+  },
+  {
+    id: 'kiwoom-sns', name: '키움투자자산운용 SNS', desc: '블로그·유튜브·인스타그램 콘텐츠 디자인',
+    cat: 'Social', client: '키움투자자산운용', period: '2025–2026', cover: 'assets/work/kiwoom-sns.jpg',
+    tools: 'Illustrator, Photoshop, Figma', ai: 'ChatGPT, Gemini',
+    blocks: [
+      { img: 'p08', alt: '망원경을 든 손과 상승 화살표가 된 K 일러스트' },
+      { label: 'Overview', p: '키움투자자산운용의 블로그·유튜브·카카오톡·인스타그램 콘텐츠를 <b>목적과 채널 특성에 맞춰 디자인</b>하며, 어려운 금융 정보는 쉽게, 시의성 있는 소식은 빠르게 전달했습니다. 시장 심리를 다루는 콘텐츠에는 생성형 AI로 제작한 ‘개미’ 캐릭터와 만화 형식을 활용해 투자자의 공감을 이끌고, 정확한 정보 전달이 필요한 콘텐츠에는 도표와 인포그래픽을 적용했습니다. 이를 유튜브 썸네일, 블로그 키자매거진, 프로모션 배너로 확장해 <b>채널 간 일관된 콘텐츠 경험을 제공</b>했습니다.' },
+      { img: 'p09b', alt: '키움투자자산운용 SNS 콘텐츠 모음과 스마트폰 화면' },
+      { label: 'Approach', p: '콘텐츠의 목적과 채널의 특성에 맞춰 디자인을 다양하게 풀어내면서도, 브랜드 톤앤매너는 일관되게 유지했습니다.',
+        pts: [
+          ['Color & Brand Identity', '색상 & 브랜드 아이덴티티', '브랜드 컬러는 유지하되, 목적에 따라 톤을 세분화하여 콘텐츠 유형별 인지도를 강화'],
+          ['Readability', '가독성', '세액공제 · ETF · TDF처럼 복잡한 금융 정보를 도표 · 인포그래픽으로 시각화해 정보의 가독성을 높임'],
+          ['Character & Visual Identity', '캐릭터 제작', '딱딱한 투자 정보를 ‘개미’ 캐릭터의 친근함으로 풀어내고, 레퍼런스 기반 생성형 AI를 활용해 캐릭터 구현'],
+        ] },
+      { img: 'p10', alt: '광고 배너와 인스타그램·유튜브·블로그 콘텐츠 모음' },
+      { img: 'p11', alt: '태블릿에 띄운 유튜브 채널과 홈페이지 배너' },
+      { label: 'Result', stats: [['72%', '인스타그램 성장'], ['8%', '카카오톡 성장']] },
+    ],
+  },
+  {
+    id: 'soil', name: 'S-OIL SNS', desc: 'ESG·사내 PR 인스타그램 콘텐츠',
+    cat: 'Social', client: 'S-OIL', period: '2023', cover: 'assets/work/soil.jpg', pos: '38% 50%',
+    tools: 'Illustrator, Photoshop, Figma',
+    blocks: [
+      { img: 'p19', alt: '분홍빛 하늘 아래 S-OIL 주유소 캐노피 간판' },
+      { label: 'Overview', lead: '에쓰오일이 추구하는 미래 에너지 부문의 선도적인 모습과 ESG, 사내 PR 관련 콘텐츠를 디자인했습니다.', p: '콘텐츠의 목적과 핵심 메시지에 맞춰 비주얼 콘셉트를 설정하고, 레이아웃과 타이포그래피, 그래픽을 유연하게 구성했으며, 브랜드 컬러와 톤앤매너의 일관성을 유지하면서도 트렌디하고 캐주얼한 표현으로 시리즈에 새로움을 더했습니다. 이를 통해 <b>기업의 전문성과 친근함을 균형 있게 전달하고 밝고 활기찬 브랜드 SNS 채널을 구축</b>했습니다.' },
+      { img: 'p20', alt: 'S-OIL 인스타그램 피드와 이벤트 콘텐츠 모음' },
+      { label: 'Life at S-OIL', p: '딱딱해지기 쉬운 기업 콘텐츠에 직원의 일상과 이야기를 담아내며, <b>친근하고 따뜻한 브랜드 이미지를 만드는 데 중점</b>을 두었습니다.' },
+      { img: 'p21', alt: '직원의 일상을 담은 S-OIL 인스타그램 게시물 세 개' },
+      { img: 'p22', alt: '노트북과 스마트폰에 띄운 S-OIL STORY 페이지' },
+      { label: 'Result', stats: [['52%', '인스타그램 성장'], ['100%', '유튜브 성장']] },
+    ],
+  },
+  {
+    id: 'hilti', name: 'HILTI KOREA SNS', desc: 'SNS 콘텐츠 · 광고 소재 디자인',
+    cat: 'Social', client: '힐티코리아', period: '2023', cover: 'assets/work/hilti.jpg',
+    tools: 'Illustrator, Photoshop',
+    blocks: [
+      { img: 'p26', alt: 'HILTI 로고와 인스타그램 오픈 피드 9칸 그리드' },
+      { label: 'Overview', p: '힐티코리아의 제품과 브랜드 캠페인을 위한 <b>SNS 콘텐츠, 광고·홈페이지 배너, 유튜브·릴스 썸네일을 제작</b>했습니다. 시그니처 레드로 브랜드의 일관성을 유지하고, 건설 전문가가 제품의 기능과 쓰임, 구매 혜택을 빠르게 파악할 수 있도록 정보의 우선순위와 비주얼을 구성했습니다.' },
+      { img: 'p27', alt: 'HILTI 인스타그램과 페이스북 채널 화면' },
+      { img: 'p28', alt: 'HILTI 신제품과 이벤트 광고 소재 모음' },
+      { label: 'Result', p: '<b>이벤트 콘텐츠 및 광고 소재 디자인으로 KPI 222% 초과 및 리드 700건 확보에 기여</b>했습니다.',
+        stats: [['222%', 'KPI 초과 달성'], ['700건', '리드 확보']] },
+    ],
+  },
+  {
+    id: 'skt-home', name: 'SK telecom 홈페이지', desc: 'T STORY · INSIGHT 콘텐츠 페이지 디자인',
+    cat: 'Web', client: 'SK텔레콤', period: '2025–2026', cover: 'assets/work/p16.jpg',
+    blocks: [
+      { img: 'p13', alt: '태블릿과 스마트폰에 띄운 SK telecom T STORY 페이지' },
+      { label: 'Overview', p: 'SK텔레콤 홈페이지의 <b>T STORY · INSIGHT 콘텐츠 페이지를 디자인</b>했습니다. 아티클 목록과 상세 페이지를 PC와 모바일 화면에 맞춰 구성했습니다.' },
+      { img: 'p14', alt: 'T STORY 아티클 상세 페이지 모음' },
+      { img: 'p17', alt: '노트북과 스마트폰에 띄운 INSIGHT 페이지' },
+    ],
+  },
+  {
+    id: 'skt-kv', name: 'SK telecom 키비주얼', desc: 'AI·보안·KBO 콘텐츠 키비주얼',
+    cat: 'Key visual', client: 'SK텔레콤', period: '2025–2026', cover: 'assets/work/p14.jpg',
+    blocks: [
+      { img: 'p15', alt: 'AI·보안·KBO·6G 콘텐츠 키비주얼 모음' },
+      { label: 'Overview', p: 'AI, 보안, KBO 등 SK텔레콤 콘텐츠의 주제를 한눈에 보여주는 <b>키비주얼을 디자인</b>했습니다.' },
+      { img: 'p18', alt: 'SK telecom 콘텐츠 카드 모음' },
+    ],
+  },
+];
+
+(() => {
+  const $ = (s) => document.querySelector(s), $$ = (s) => [...document.querySelectorAll(s)];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const id = new URLSearchParams(location.search).get('p');
+  const at = PROJECTS.findIndex(x => x.id === id);
+  if (at < 0) { location.replace('work.html'); return; }
+  const P = PROJECTS[at];
+
+  document.title = P.name + ' — YU YEBEEN';
+  $('meta[name="description"]').content = P.desc;
+  $('#k').innerHTML = `<span>${P.cat}</span><span>${P.client}</span><b>${P.period}</b>`;
+  $('#ttl').innerHTML = `${P.name} :<br>${P.desc}`;
+  $('#meta').innerHTML = `<dt>Design</dt><dd>100%</dd>`
+    + (P.tools ? `<dt>Tools</dt><dd>${P.tools}</dd>` : '')
+    + (P.ai ? `<dt>AI</dt><dd>${P.ai}</dd>` : '');
+
+  let first = true;
+  const html = P.blocks.map(b => {
+    if (b.img) {
+      const lazy = first ? 'fetchpriority="high"' : 'loading="lazy"'; first = false;
+      return `<figure class="fig"><img src="assets/project/${b.img}.jpg" width="2000" height="${b.img === 'p09b' ? 557 : 1125}" alt="${b.alt}" ${lazy}></figure>`;
+    }
+    return `<section class="tx${b.pts ? ' wide' : ''}"><h2>${b.label}</h2>`
+      + (b.lead ? `<p class="lead">${b.lead}</p>` : '')
+      + (b.p ? `<p class="p">${b.p}</p>` : '')
+      + (b.pts ? `<div class="pts">${b.pts.map(([t, k, d]) => `<div><h3>${t}</h3><p class="mono">${k}</p><p>${d}</p></div>`).join('')}</div>` : '')
+      + (b.stats ? `<div class="stats">${b.stats.map(([v, k]) => `<div><b>${v}</b><span class="mono">${k}</span></div>`).join('')}</div>` : '')
+      + `</section>`;
+  }).join('');
+
+  const next = [1, 2, 3].map(n => PROJECTS[(at + n) % PROJECTS.length]);
+  const more = `<section class="more"><h2>Featured work</h2><div class="grid">${next.map(x =>
+    `<a class="card" href="project.html?p=${x.id}"><div class="im"><img src="${x.cover}" style="--pos:${x.pos || '50% 50%'}" width="1600" height="900" alt="" loading="lazy"></div>`
+    + `<div class="cap"><h3>${x.name}</h3><p class="d">${x.desc}</p><p class="mono m"><b>${x.period}</b> / ${x.cat}</p></div></a>`).join('')}</div></section>`;
+  $('#body').innerHTML = html + more;
+
+  // pictures fade in once decoded, so lazy ones don't pop in half-drawn
+  $$('#body img').forEach(i => {
+    const ok = () => i.classList.add('ok');
+    i.complete && i.naturalWidth ? ok() : i.addEventListener('load', ok, { once: true });
+  });
+
+  // header gets its glass face once the page moves; the orb appears further down
+  const hd = $('#hd'), orb = $('#orb');
+  const onScroll = () => { hd.classList.toggle('ink', scrollY > 10); orb.hidden = scrollY < 600; };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  orb.addEventListener('click', () => scrollTo({ top: 0, behavior: reduce ? 'instant' : 'smooth' }));
+
+  // same-page links (Contact) glide instead of jumping
+  $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+    const t = $(a.getAttribute('href')); if (!t) return;
+    e.preventDefault(); scrollTo({ top: t.getBoundingClientRect().top + scrollY, behavior: reduce ? 'instant' : 'smooth' });
+  }));
+
+  // touch: pills light up while tapped, as on the main page
+  $$('.pill').forEach(a => {
+    let t;
+    a.addEventListener('pointerdown', e => { if (e.pointerType === 'mouse') return; clearTimeout(t); a.classList.add('lit'); });
+    const off = () => { clearTimeout(t); t = setTimeout(() => a.classList.remove('lit'), 700); };
+    a.addEventListener('pointerup', off); a.addEventListener('pointercancel', off);
+  });
+
+  const cp = $('#copy');
+  cp && cp.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(cp.dataset.mail); cp.classList.add('ok'); setTimeout(() => cp.classList.remove('ok'), 1600); }
+    catch (e) { location.href = 'mailto:' + cp.dataset.mail; }
+  });
+})();
+</script>
+</body>
+</html>
