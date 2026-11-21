@@ -888,6 +888,9 @@ html.ld-on,html.ld-on body{overflow:hidden}
     if (THREE.EffectComposer && THREE.UnrealBloomPass && !isMobile) {
       composer = new THREE.EffectComposer(renderer);
       composer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+      // the particles are drawn into the composer's buffers, so they are sized in its pixels; with the canvas's
+      // ratio (2 on Retina) every particle came out a third larger and the strokes blew out into a white glare
+      U.uPix.value = Math.min(devicePixelRatio, 1.5);
       composer.addPass(new THREE.RenderPass(scene, camera));
       bloom = new THREE.UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), .56, .6, .18);
       composer.addPass(bloom);
@@ -897,6 +900,8 @@ html.ld-on,html.ld-on body{overflow:hidden}
     ready = true;
   }
 
+  // desktop look is defined on a screen this tall (CSS px); other sizes draw a scaled copy of it
+  const H_REF = 900;
   const HUN = { x: .818, y: -.11, s: .072 }; // 빛날 빈: centre x, top y and letter size, in units of 斌's half-size
   let vw = 1, vh = 1, lay = layout();
   // the screen height with the browser bars hidden (100lvh), the height the phone scene is drawn at
@@ -910,10 +915,16 @@ html.ld-on,html.ld-on body{overflow:hidden}
     if (!renderer) return;
     const w = innerWidth, h = isMobile ? lvh() : innerHeight;
     renderer.setSize(w, h, false);
-    if (composer) { composer.setSize(w, h); bloom.resolution.set(w, h); }
-    // phones have no bloom pass (see initGL): each particle's own halo is raised a little to carry the glow
+    // desktop: the glyph's on-screen size follows the window height, so the particles and the bloom's spread
+    // follow it too; a smaller window then shows the same strokes and glow, only smaller (fixed pixel sizes made
+    // the particles crowd and the bloom spill further the smaller the glyph got)
     const phone = w < 900;
-    if (mat) mat.uniforms.uSizeMul.value = phone ? 1 : 1;
+    if (composer) {
+      composer.setSize(w, h);
+      bloom.setSize(Math.round(w * H_REF / h), H_REF); // blur radius as a fraction of the screen height
+    }
+    // phones have no bloom pass (see initGL): each particle's own halo is raised a little to carry the glow
+    if (mat) mat.uniforms.uSizeMul.value = phone ? 1 : h / H_REF;
     if (mat) mat.uniforms.uHalo.value = phone ? 1 : .8;
     if (bloom) bloom.strength = phone ? .28 : .45;
     camera.aspect = w / h; camera.updateProjectionMatrix();
