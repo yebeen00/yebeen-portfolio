@@ -362,7 +362,8 @@ html.ld-on,html.ld-on body{overflow:hidden}
   .hd.ink{background:rgba(10,7,5,.88)} /* solid enough to read over text without a live blur */
   .hero-title h1{font-size:clamp(45px,16vw,104px)}
   .hero-foot .pill{white-space:nowrap;flex-shrink:0}
-  .pill .dn{width:11px;height:11px} /* phones: 10% larger */
+  .pill>span:not(.roll):not(.pg){font-size:14.3px} /* phones: every button arrow 10% larger (13px on desktop) */
+  .pill .dn{width:12.1px;height:12.1px} /* the drawn ↘: 10% larger again */
   .tag{font-size:12.5px;padding:5.6px 12.8px} /* phones: captions 20% smaller */
   /* phones: the two-line intro sentence gets the full width, the button sits below it */
   .hero-foot{flex-direction:column;align-items:flex-start;gap:16px}
