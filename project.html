@@ -118,7 +118,11 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 .stage.dark .fg{width:94%;translate:1.28% .5%}
 /* light stage: laid out as in the reference composite (1386 × 2000, the background's own size);
    every piece is placed in % of the stage, so the arrangement scales as one picture on any screen */
+.stage.light{container-type:inline-size}
 .stage.light .fg{position:absolute;left:var(--x);top:var(--y);width:var(--w)}
+/* the phone file has no shadow of its own; this one copies the tablets' baked-in shadow (soft, down and to
+   the right), sized in cqw so it scales with the stage like everything else */
+.stage.light .phone{filter:drop-shadow(1.45cqw 1.66cqw 2.2cqw rgba(0,0,0,.28))}
 
 /* text between the pictures: a serif label, then the copy from the portfolio */
 .tx{padding:84px 0 96px;max-width:780px}
@@ -287,7 +291,7 @@ const PROJECTS = [
       // light blue background, then the article pages fade in one by one from the left
       { html: `<figure class="stage light"><img class="bg" src="assets/project/skt-webzine/light-bg.jpg" width="1386" height="2000" alt="" loading="lazy">
         <div class="set">
-          <img class="fg" style="--i:0;--x:8.33%;--y:4.01%;--w:32.7%" src="assets/project/skt-webzine/phone.png" width="484" height="2000" alt="T STORY 아티클 ‘Z세대에게 T팩토리 성수를 묻다’ 모바일 화면" loading="lazy">
+          <img class="fg phone" style="--i:0;--x:8.33%;--y:4.01%;--w:32.7%" src="assets/project/skt-webzine/phone.png" width="484" height="2000" alt="T STORY 아티클 ‘Z세대에게 T팩토리 성수를 묻다’ 모바일 화면" loading="lazy">
           <img class="fg" style="--i:1;--x:37.06%;--y:15.1%;--w:32.9%" src="assets/project/skt-webzine/tablet-1.png" width="632" height="961" alt="T팩토리 성수 외관과 입구를 소개하는 아티클 화면" loading="lazy">
           <img class="fg" style="--i:2;--x:37.06%;--y:46.93%;--w:32.9%" src="assets/project/skt-webzine/tablet-2.png" width="632" height="999" alt="수능 끝 자유행 티켓 Freedom Flight 아티클 화면" loading="lazy">
           <img class="fg" style="--i:3;--x:62.01%;--y:29.1%;--w:33.56%" src="assets/project/skt-webzine/tablet-3.png" width="642" height="432" alt="AI 이미지와 영상 제작 도구를 소개하는 아티클 화면" loading="lazy">
