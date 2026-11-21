@@ -123,6 +123,16 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 /* the phone file has no shadow of its own; this one copies the tablets' baked-in shadow (soft, down and to
    the right), sized in cqw so it scales with the stage like everything else */
 .stage.light .phone{filter:drop-shadow(1.45cqw 1.66cqw 2.2cqw rgba(0,0,0,.28))}
+/* key visual stage: two rows of cards on the pale blue ground (2000 × 944), placed in % like the portfolio page;
+   tall cards are 220 × 380, wide ones 994 × 380, all one row height */
+.stage.wall .fg{transition-delay:calc(.5s + var(--i) * .6s)}
+.stage.wall .grid,.stage.wall .shade{position:absolute;inset:0;width:100%;height:100%;transform:none}
+/* the thumbnails' black gutters are cut out with a mask so the background glows through between them */
+.stage.wall .grid{-webkit-mask:url(assets/project/skt-webzine/wall-mask.png) 0 0/100% 100%;mask:url(assets/project/skt-webzine/wall-mask.png) 0 0/100% 100%}
+.stage.wall .shade{background:linear-gradient(180deg,rgba(5,4,20,.38) 0%,rgba(5,4,20,.34) 30%,rgba(5,4,20,.55) 55%,rgba(5,4,20,.8) 100%)}
+.stage.wall .frame{position:absolute;left:25.58%;top:22.4%;width:50.23%}
+.stage.kv .fg{position:absolute;left:var(--x);top:var(--y);width:11.465%}
+.stage.kv .fg.w{width:51.795%}
 
 /* text between the pictures: a serif label, then the copy from the portfolio */
 .tx{padding:84px 0 96px;max-width:780px}
@@ -201,6 +211,16 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
   .tx{padding:52px 0 60px}
   .tx .lead{font-size:16px}
   .tx .p{font-size:14.5px;line-height:1.8}
+  /* phones: the two-row strip would leave each card ~40px wide, so the cards regroup into a grid instead:
+     each wide card across the full width, then its four tall cards in a row beneath it */
+  .stage.kv{background:#dae9f9}
+  .stage.kv .bg{display:none}
+  .stage.kv .set{position:static;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:16px}
+  .stage.kv .fg,.stage.kv .fg.w{position:static;width:100%}
+  .stage.kv .fg.w{grid-column:1/-1}
+  .stage.kv .fg:nth-child(1),.stage.kv .fg:nth-child(2){order:1}
+  .stage.kv .fg:nth-child(4),.stage.kv .fg:nth-child(5){order:2}
+  .stage.kv .fg:nth-child(n+6){order:3}
   .pts{grid-template-columns:1fr;gap:24px}
   .stats{gap:20px 28px}
   .stats div{min-width:120px}
@@ -297,7 +317,32 @@ const PROJECTS = [
           <img class="fg" style="--i:3;--x:62.01%;--y:29.1%;--w:33.56%" src="assets/project/skt-webzine/tablet-3.png" width="642" height="432" alt="AI 이미지와 영상 제작 도구를 소개하는 아티클 화면" loading="lazy">
           <img class="fg" style="--i:4;--x:62.01%;--y:41.35%;--w:33.56%" src="assets/project/skt-webzine/tablet-4.png" width="642" height="438" alt="에이닷으로 찾은 집 근처 미술 갤러리 아티클 화면" loading="lazy">
         </div></figure>` },
-      { img: 'p16', alt: '웹진 아티클 썸네일 모음과 대형 스크린에 띄운 웹진 화면' },
+      // key visuals on a pale blue ground, laid out like the portfolio page (two rows bleeding off both sides),
+      // fading in one by one in the order below
+      { html: `<figure class="stage kv"><img class="bg" src="assets/project/skt-kv/bg.jpg" width="2000" height="944" alt="" loading="lazy">
+        <div class="set">${[
+          ['kv-01.png', 'n', -1, 6.144, '클래식 공연 실루엣과 음악 재생 화면'],
+          ['kv-02.png', 'n', 12, 6.144, '두 손 위에 떠 있는 붉은 하트'],
+          ['kv-03.jpg', 'w', 25.05, 6.144, '지문과 자물쇠 등 보안 아이콘 3D 그래픽'],
+          ['kv-04.png', 'n', 78.4, 6.144, '사무 공간이 들어 있는 유리 AI 글자'],
+          ['kv-05.png', 'n', 91.35, 6.144, '야경 도시 위에 빛나는 6G'],
+          ['kv-06.jpg', 'w', -3.9, 51.59, '경기장을 나는 KBO 야구공과 2026 KBO 변경 규정 말풍선'],
+          ['kv-07.png', 'n', 49.45, 51.59, 'AI Image Generator 화면'],
+          ['kv-08.png', 'n', 62.45, 51.59, '빛나는 지구 위 K-AI'],
+          ['kv-09.png', 'n', 75.5, 51.59, 'VR 기기를 쓴 사람들과 CES 로고'],
+          ['kv-10.png', 'n', 88.45, 51.59, '잔디 위 음표와 달리는 사람, 음악 재생 화면'],
+        ].map(([f, k, x, y, alt], i) => `<img class="fg ${k}" style="--i:${i};--x:${x}%;--y:${y}%" src="assets/project/skt-kv/${f}" width="${k === 'w' ? 994 : 220}" height="380" alt="${alt}" loading="lazy">`).join('')}
+        </div></figure>` },
+      // webzine wall: background, then the wall of article thumbnails, then a dark gradient over it,
+      // then the glass screen with the webzine launch on top
+      { html: `<figure class="stage wall"><img class="bg" src="assets/project/skt-webzine/wall-bg.jpg" width="2000" height="1125" alt="" loading="lazy">
+        <div class="set">
+          <img class="fg grid" style="--i:0" src="assets/project/skt-webzine/wall.jpg" width="1920" height="1080" alt="SKT 웹진 아티클 썸네일 모음" loading="lazy">
+          <div class="fg shade" style="--i:1"></div>
+          <img class="fg frame" style="--i:2" src="assets/project/skt-webzine/wall-frame.png" width="966" height="610" alt="대형 스크린에 띄운 SKT 웹진 ‘지능형 생태계’ 화면" loading="lazy">
+        </div></figure>` },
+      { img: 'p17', alt: '노트북과 스마트폰에 띄운 SK telecom INSIGHT 페이지' },
+      { img: 'p18', alt: '비스듬히 놓인 SK telecom 웹진 콘텐츠 카드 모음' },
     ],
   },
   {
