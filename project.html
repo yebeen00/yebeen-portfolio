@@ -125,12 +125,43 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 .stage.light .phone{filter:drop-shadow(1.45cqw 1.66cqw 2.2cqw rgba(0,0,0,.28))}
 /* key visual stage: two rows of cards on the pale blue ground (2000 × 944), placed in % like the portfolio page;
    tall cards are 220 × 380, wide ones 994 × 380, all one row height */
+/* 연금술사 title: the coin turns a full circle and settles back, then rests a few seconds before turning again */
+.fig.coin-hero .coin{position:absolute;left:30.7%;top:26.49%;width:6.1%;height:auto}
+.fig.coin-hero.in .coin{animation:coin-spin 4.6s cubic-bezier(.45,0,.25,1) .9s infinite}
+@keyframes coin-spin{
+  0%{transform:perspective(600px) rotateY(0)}
+  10%{transform:perspective(600px) translateY(-12%) rotateY(180deg)}
+  20%,100%{transform:perspective(600px) rotateY(360deg)}
+}
 .stage.wall .fg{transition-delay:calc(.5s + var(--i) * .6s)}
 .stage.wall .grid,.stage.wall .shade{position:absolute;inset:0;width:100%;height:100%;transform:none}
 /* the thumbnails' black gutters are cut out with a mask so the background glows through between them */
 .stage.wall .grid{-webkit-mask:url(assets/project/skt-webzine/wall-mask.png) 0 0/100% 100%;mask:url(assets/project/skt-webzine/wall-mask.png) 0 0/100% 100%}
 .stage.wall .shade{background:linear-gradient(180deg,rgba(5,4,20,.38) 0%,rgba(5,4,20,.34) 30%,rgba(5,4,20,.55) 55%,rgba(5,4,20,.8) 100%)}
 .stage.wall .frame{position:absolute;left:25.58%;top:22.4%;width:50.23%}
+/* approach diagram (연금술사): on the page's dark ground, a blue line drawn left to right; the circles and then their text
+   fade in from the left one after another as the line passes (--t). Sizes are in cqw of the diagram's width,
+   so it keeps its proportions at any width; text is 30% larger than the design, so the circles are wider too */
+.stage.dgm{background:transparent;container-type:inline-size;aspect-ratio:100/38} /* sits on the page's own dark ground */
+.dgm .ln{position:absolute;left:0;right:0;top:50%;height:1px;margin-top:-.5px;background:#4f9cf9;transform:scaleX(0);transform-origin:left;transition:transform 1.8s cubic-bezier(.65,0,.35,1)}
+.dgm.in .ln{transform:none}
+.dgm .node{position:absolute;z-index:1;left:var(--x);top:50%;translate:-50% -50%;display:grid;place-items:center}
+.dgm .node.mid{z-index:0}
+.dgm .disc,.dgm .halo{grid-area:1/1;border-radius:50%}
+.dgm .disc{position:relative;display:grid;place-items:center;width:26cqw;aspect-ratio:1;background:#fff;text-align:center;
+  box-shadow:0 0 0 1px rgba(79,156,249,.12),0 0 2.6cqw rgba(79,156,249,.42)}
+.dgm .mid .disc{width:25cqw;background:#4f9cf9;box-shadow:none}
+.dgm .halo{width:30cqw;aspect-ratio:1;background:rgba(79,156,249,.3)}
+.dgm .halo.h2{width:35.5cqw;background:rgba(79,156,249,.14)}
+.dgm .disc,.dgm .halo,.dgm .txt{opacity:0;transform:translateX(-28px);
+  transition:opacity 1.1s var(--ease) var(--t),transform 1.4s var(--ease) var(--t)}
+.dgm .txt{transform:translateX(-16px);transition-delay:calc(var(--t) + .35s)}
+.dgm.in .disc,.dgm.in .halo,.dgm.in .txt{opacity:1;transform:none}
+.dgm h3{font-family:var(--kserif);font-weight:700;font-size:clamp(17px,2.15cqw,31px);line-height:1.12;letter-spacing:-.015em;color:#3a7cf3}
+.dgm .k{margin-top:.6cqw;font-family:var(--kserif);font-size:clamp(13px,1.33cqw,18px);color:#9a9a9a}
+.dgm .k + p{margin-top:1cqw;font-family:var(--kserif);font-size:clamp(14px,1.59cqw,21px);font-weight:500;line-height:1.45;letter-spacing:-.03em;color:#222;word-break:keep-all}
+.dgm .mid h3,.dgm .mid .k + p{color:#fff}
+.dgm .mid .k{color:rgba(255,255,255,.82)}
 .stage.kv .fg{position:absolute;left:var(--x);top:var(--y);width:11.465%}
 .stage.kv .fg.w{width:51.795%}
 
@@ -221,6 +252,17 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
   .stage.kv .fg:nth-child(1),.stage.kv .fg:nth-child(2){order:1}
   .stage.kv .fg:nth-child(4),.stage.kv .fg:nth-child(5){order:2}
   .stage.kv .fg:nth-child(n+6){order:3}
+  /* phones: the approach diagram turns upright, the line drawn top to bottom through the three circles */
+  .stage.dgm{aspect-ratio:auto;display:flex;flex-direction:column;align-items:center;gap:22px;padding:44px 0}
+  .dgm .ln{left:50%;right:auto;top:0;bottom:0;width:1px;height:auto;margin:0;transform:scaleY(0);transform-origin:top}
+  .dgm .node{position:relative;left:auto;top:auto;translate:none}
+  .dgm .disc{width:270px}
+  .dgm .mid .disc{width:258px}
+  .dgm .halo{width:296px}
+  .dgm .halo.h2{width:330px}
+  .dgm h3{font-size:20.8px}
+  .dgm .k{margin-top:5px;font-size:14.3px}
+  .dgm .k + p{margin-top:9px;font-size:16.25px}
   .pts{grid-template-columns:1fr;gap:24px}
   .stats{gap:20px 28px}
   .stats div{min-width:120px}
@@ -350,15 +392,21 @@ const PROJECTS = [
     cat: 'Newsletter', client: '키움투자자산운용', period: '2024–2026', cover: 'assets/work/kiwoom-pension.jpg',
     tools: 'Illustrator, Photoshop, Figma, After Effects',
     blocks: [
-      { img: 'p03', alt: '연금술사 뉴스레터 타이틀과 캐릭터 다다, 도도' },
+      // title image with the coin (the ㅇ of 연) lifted onto its own layer so it can spin; the background
+      // file has the coin painted out and the strokes of ㅕ continued underneath
+      { html: `<figure class="fig coin-hero"><img src="assets/project/kiwoom-pension/cover-bg.jpg" width="2000" height="1125" alt="연금술사 뉴스레터 타이틀과 동전 더미 위의 캐릭터 다다, 도도" fetchpriority="high"><img class="coin" src="assets/project/kiwoom-pension/coin.png" width="122" height="124" alt=""></figure>` },
       { label: 'Overview', p: '키움투자자산운용의 ‘연금술사’ 뉴스레터에 타이틀과 캐릭터를 포함한 <b>전반적인 디자인 리뉴얼을 진행</b>했습니다. 볼드한 타이포그래피와 금화 아이콘을 조합한 타이틀로 금융 정보의 신뢰성과 ‘연금’이라는 핵심 키워드를 직관적으로 전달하고, 메인 캐릭터인 ‘다다’와 ‘도도’에는 따뜻한 손그림 텍스처를 더해 입체감과 친근함이 자연스럽게 어우러지도록 표현했습니다.' },
-      { img: 'p05', alt: '캐릭터 다다와 도도의 리뉴얼 전후와 활용 예시' },
-      { label: 'Approach', p: '어려운 콘텐츠도 명확한 가독성, 직관적인 컬러 시스템, 친근한 캐릭터를 통해 누구나 쉽게 이해하고 즐길 수 있는 뉴스레터 경험으로 설계했습니다.',
-        pts: [
-          ['Color & Brand Identity', '색상 & 브랜드 아이덴티티', '브랜드 컬러는 유지하되 ‘연금술사’ 컨셉에 맞는 골드 컬러를 포인트로 추가'],
-          ['Readability', '가독성', '복잡하고 어려운 정보를 인포그래픽으로 시각화하여 가독성을 높임'],
-          ['Character & Visual Identity', '캐릭터 리뉴얼', '어렵고 딱딱한 정보를 캐릭터의 친근함으로 보완'],
-        ] },
+      // approach diagram: a blue line runs across while the circles, then their text, fade in from the left
+      { html: `<figure class="stage dgm" aria-label="뉴스레터 디자인 접근 방식: 색상과 브랜드 아이덴티티, 가독성, 캐릭터와 비주얼 아이덴티티">
+        <span class="ln"></span>
+        <div class="node" style="--x:21%;--t:.3s"><div class="disc"><div class="txt">
+          <h3>Color &amp;<br>Brand Identity</h3><p class="k">색상 &amp; 브랜드 아이덴티티</p><p>브랜드 컬러는 유지하되<br>‘연금술사’ 컨셉에 맞는<br>골드컬러를 포인트로 추가</p></div></div></div>
+        <div class="node mid" style="--x:50%;--t:.75s"><span class="halo h2"></span><span class="halo h1"></span><div class="disc"><div class="txt">
+          <h3>Readability</h3><p class="k">가독성</p><p>복잡하고 어려운 정보를<br>인포그래픽으로<br>시각화하여 가독성을 높임</p></div></div></div>
+        <div class="node" style="--x:79%;--t:1.2s"><div class="disc"><div class="txt">
+          <h3>Character &amp;<br>Visual Identity</h3><p class="k">캐릭터 리뉴얼</p><p>어렵고 딱딱한 정보를<br>캐릭터의 친근함으로 보완</p></div></div></div>
+        </figure>` },
+      { label: 'Approach', p: '어려운 콘텐츠도 명확한 가독성, 직관적인 컬러 시스템, 친근한 캐릭터를 통해 누구나 쉽게 이해하고 즐길 수 있는 뉴스레터 경험으로 설계했습니다.' },
       { img: 'p06', alt: '뉴스레터 리뉴얼의 디자인 포인트와 모바일 화면' },
       { img: 'p07', alt: '스마트폰에 띄운 연금술사 뉴스레터와 콘텐츠 모음' },
       { label: 'Result', p: '뉴스레터의 시각적 가독성 개선과 UI/UX 최적화를 통해 <b>독자 중심의 콘텐츠 경험</b>을 구축했습니다. 이를 바탕으로 꾸준한 독자 유입을 이끌어 누적 구독자 8,186명을 달성했으며, 총 400호 발행 동안 평균 오픈율 20%를 유지하며 <b>지속적인 성장</b>을 이어갔습니다.',
