@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>YU YEBEEN — Visual &amp; Content Designer</title>
-<meta name="description" content="편집, 웹, SNS 콘텐츠를 디자인하는 비주얼·콘텐츠 디자이너 유예빈의 포트폴리오.">
+<title>YU YEBEEN — Visual Designer</title>
+<meta name="description" content="편집, 웹, SNS 콘텐츠를 디자인하는 비주얼 디자이너 유예빈의 포트폴리오.">
 <meta name="theme-color" content="#050403">
 <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png?v=2">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2">
 <!-- link previews (KakaoTalk, Slack, social): the cover artwork; crawlers need the absolute URL -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://yebeen00.github.io/yebeen-portfolio/">
-<meta property="og:title" content="YU YEBEEN — Visual &amp; Content Designer">
-<meta property="og:description" content="편집, 웹, SNS 콘텐츠를 디자인하는 비주얼·콘텐츠 디자이너 유예빈의 포트폴리오.">
+<meta property="og:title" content="YU YEBEEN — Visual Designer">
+<meta property="og:description" content="편집, 웹, SNS 콘텐츠를 디자인하는 비주얼 디자이너 유예빈의 포트폴리오.">
 <meta property="og:image" content="https://yebeen00.github.io/yebeen-portfolio/assets/img/og.jpg">
 <meta property="og:image:width" content="1920">
 <meta property="og:image:height" content="1080">
@@ -41,6 +41,7 @@
   --ease:cubic-bezier(.22,1,.36,1);
   --gut:clamp(16px,2.4vw,36px);
 }
+@media (min-width:901px){:root{--gut:clamp(19px,2.88vw,43px)}} /* desktop: side margins 20% wider */
 *,*::before,*::after{box-sizing:border-box}
 html{color-scheme:dark;-webkit-text-size-adjust:100%;overflow-anchor:none}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -101,6 +102,8 @@ html.lenis,html.lenis body{height:auto}
 .pill:hover>span:not(.roll):not(.pg){transform:rotate(-45deg)}
 .pill:active{transform:translateY(1px)}
 .pill.lg>span:not(.roll):not(.pg){width:32px;height:32px}
+/* the ↘ is drawn, not typed: phone fonts put the ↘ glyph off-centre in its circle */
+.pill .dn{display:block;width:10px;height:10px}
 .pill.lg{height:46px;padding:0 8px 0 20px;font-size:15px}
 /* Every pill except the intro's Enter: a quiet glass face whose border lights up
    on hover (mouse) or while tapped (touch, see .lit in the script); only Enter keeps the shiny sweep */
@@ -359,6 +362,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
   .hd.ink{background:rgba(10,7,5,.88)} /* solid enough to read over text without a live blur */
   .hero-title h1{font-size:clamp(45px,16vw,104px)}
   .hero-foot .pill{white-space:nowrap;flex-shrink:0}
+  .pill .dn{width:11px;height:11px} /* phones: 10% larger */
   .tag{font-size:12.5px;padding:5.6px 12.8px} /* phones: captions 20% smaller */
   /* phones: the two-line intro sentence gets the full width, the button sits below it */
   .hero-foot{flex-direction:column;align-items:flex-start;gap:16px}
@@ -434,12 +438,12 @@ html.ld-on,html.ld-on body{overflow:hidden}
       <div class="in">
         <p class="hun" aria-hidden="true"><span>빛날</span><img class="spark" src="assets/img/spark.png" width="240" height="240" alt=""><span>빈</span></p>
         <div class="hero-title">
-          <p class="mono">Visual &amp; content designer</p>
+          <p class="mono">Visual designer</p>
           <h1 class="disp hero-name"><span class="en">Yu Ye<i>been</i></span></h1>
         </div>
         <div class="hero-foot">
           <p>이름 속 斌(빛날 빈)에 소통의 文(문)과 기술의 武(무)를 담아,<br>유연한 소통과 세심한 실행력으로 브랜드를 빛내는 디자이너 유예빈입니다.</p>
-          <a href="#work" class="pill">Selected work <span aria-hidden="true">↘︎</span></a>
+          <a href="#work" class="pill">Selected work <span aria-hidden="true"><svg class="dn" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5l7 7M8.5 3.2v5.3H3.2"/></svg></span></a>
         </div>
       </div>
     </div>
@@ -597,7 +601,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
     <div class="ft-cols">
       <div><h4>Portfolio</h4><a href="assets/yu-yebeen-portfolio-2026.pdf" target="_blank" rel="noopener"><b>[01]</b>View PDF</a><a href="assets/yu-yebeen-portfolio-2026.pdf" download><b>[02]</b>Download PDF</a></div>
       <div><h4>Pages</h4><a href="#top"><b>[01]</b>Home</a><a href="#about"><b>[02]</b>About</a><a href="#work"><b>[03]</b>Work</a><a href="#experience"><b>[04]</b>Experience</a></div>
-      <div><h4>Role</h4><p>Visual &amp; content designer</p><p>Editorial · Web · SNS</p></div>
+      <div><h4>Role</h4><p>Visual designer</p><p>Editorial · Web · SNS</p></div>
       <div><h4>E-mail</h4><button class="copy mono" id="copy" type="button" data-mail="yeeyoii@naver.com">yeeyoii@naver.com<em>Copied</em></button></div>
     </div>
     <div class="ft-bot mono"><span>© 2016–2026 Yu Yebeen. All rights reserved</span><span>빛날 빈(斌), 유예빈</span></div>
