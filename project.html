@@ -83,10 +83,17 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 .side dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:28px 0 0;font-size:10.5px}
 .side dt{color:var(--ink-2)}
 .side dd{margin:0;text-transform:none}
+/* desktop: the facts column reads 40% larger than the base sizes above (phones keep the base) */
+@media (min-width:901px){
+  .side .k{font-size:14.7px}
+  .side h1{margin-top:30px;font-size:clamp(28px,2.31vw,37.8px)}
+  .side dl{gap:8px 20px;margin-top:38px;font-size:14.7px}
+}
 .back{display:inline-flex;align-items:center;gap:12px;width:fit-content;font-size:16.5px;color:var(--ink-2);transition:color .3s}
 .back span{display:inline-block;font-family:var(--sans);font-size:19.5px;transform:scaleX(-1);transition:transform .45s var(--ease)}
 .back:hover{color:var(--ink)}
 .back:hover span{transform:scaleX(-1) translateX(4px)}
+.back-m{display:none}
 
 .body{min-width:0}
 .fig{position:relative;margin:0 0 12px;border-radius:6px;overflow:hidden;background:#14100d}
@@ -164,7 +171,9 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
   .side{position:static;height:auto;padding:0 0 36px}
   .side h1{font-size:21px;margin-top:16px}
   .side dl{margin-top:20px}
-  .side .back{margin-top:24px}
+  /* phones: Back to list comes where the project's pictures end, before Featured work */
+  .side .back{display:none}
+  .back-m{display:inline-flex;margin-top:36px}
   .fig{margin-bottom:8px;border-radius:4px}
   .tx{padding:52px 0 60px}
   .tx .lead{font-size:16px}
@@ -389,7 +398,8 @@ const PROJECTS = [
   const more = `<section class="more"><h2>Featured work</h2><div class="grid">${next.map(x =>
     `<a class="card" href="project.html?p=${x.id}"><div class="im"><img src="${x.cover}" style="--pos:${x.pos || '50% 50%'}" width="1600" height="900" alt="" loading="lazy"></div>`
     + `<div class="cap"><h3>${x.name}</h3><p class="d">${x.desc}</p><p class="mono m"><b>${x.period}</b> / ${x.cat}</p></div></a>`).join('')}</div></section>`;
-  $('#body').innerHTML = html + more;
+  const back = `<a class="back back-m mono" href="work.html"><span>↪︎</span>Back to list</a>`; // phones only
+  $('#body').innerHTML = html + back + more;
 
   // pictures fade in once decoded, so lazy ones don't pop in half-drawn
   $$('#body img').forEach(i => {
