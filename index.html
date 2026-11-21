@@ -247,11 +247,10 @@ main{position:relative;z-index:1}
 .pc img{scale:1.18;will-change:transform;backface-visibility:hidden;transition:transform 1.2s cubic-bezier(.16,1,.3,1),scale 1.8s var(--ease)}
 .pc.in img{scale:1}
 .pc:hover .im{transform:translateY(-2px)}
-.p1,.p5,.p9,.p13{grid-column:1/span 7;--ar:16/10}
-.p2,.p6,.p10,.p14{grid-column:9/span 4;--ar:4/3;margin-top:9vw}
-.p3,.p7,.p11{grid-column:2/span 4;--ar:4/3}
-.p4,.p8,.p12{grid-column:7/span 6;--ar:16/10;margin-top:5vw}
-.p10 img,.p11 img,.p14 img{object-position:left center} /* imweb project sheets: the title sits at the left edge, keep it in the 4:3 crop */
+.p1,.p5{grid-column:1/span 7;--ar:16/10}
+.p2,.p6{grid-column:9/span 4;--ar:4/3;margin-top:9vw}
+.p3{grid-column:2/span 4;--ar:4/3}
+.p4{grid-column:7/span 6;--ar:16/10;margin-top:5vw}
 .more{grid-column:8/span 5;justify-self:end}
 
 /* Experience */
@@ -493,63 +492,31 @@ html.ld-on,html.ld-on body{overflow:hidden}
   <section class="projects solid" id="work" aria-labelledby="pj-t">
     <div class="wrap">
       <h2 class="split" id="pj-t"><span>Selected</span><i>work</i></h2>
-      <p class="mono ko sub" data-rv>브랜드의 목소리를 화면에 옮긴 작업들 —<br>뉴스레터, 웹진, SNS 캠페인까지</p>
+      <p class="mono ko sub" data-rv>브랜드의 메시지를 명확하게 담아낸 작업들 —<br>웹사이트와 웹진, 뉴스레터, SNS 콘텐츠까지</p>
       <div class="pgrid">
         <div class="pc p1" data-speed=".06">
-          <div class="im"><img src="assets/work/p03.jpg" width="1600" height="900" alt="키움투자자산운용 '연금술사' 뉴스레터 타이틀과 캐릭터 다다, 도도" loading="lazy"></div>
-          <p class="mono">Newsletter / Character / 2024–2026</p><h3>키움투자자산운용 ‘연금술사’</h3>
-        </div>
-        <div class="pc p2" data-speed="-.05">
           <div class="im"><img src="assets/work/p12.jpg" width="1600" height="900" alt="SK telecom AI Life Magazine 웹진을 태블릿과 스마트폰 목업에 띄운 화면" loading="lazy"></div>
           <p class="mono">Web / Editorial</p><h3>SK telecom ‘AI Life Magazine’</h3>
         </div>
-        <div class="pc p3" data-speed=".1">
-          <div class="im"><img src="assets/work/p10.jpg" width="1600" height="900" alt="키움투자자산운용 광고 배너와 인스타그램·유튜브 콘텐츠 모음, 캐릭터 개미" loading="lazy"></div>
-          <p class="mono">Social / Illustration</p><h3>키움투자자산운용 SNS</h3>
-        </div>
-        <div class="pc p4" data-speed="-.04">
+        <div class="pc p2" data-speed="-.05">
           <div class="im"><img src="assets/work/p22.jpg" width="1600" height="900" alt="HYOSUNG 지속가능경영 키비주얼, 숲 속 지구 모양 수소 전구" loading="lazy"></div>
           <p class="mono">Social / Key visual</p><h3>HYOSUNG SNS</h3>
         </div>
-        <div class="pc p5" data-speed=".08">
-          <div class="im"><img src="assets/work/p26.jpg" width="1600" height="900" alt="HILTI KOREA 인스타그램과 페이스북 피드, 뉴론 캠페인 콘텐츠" loading="lazy"></div>
-          <p class="mono">Social / Product</p><h3>HILTI KOREA SNS</h3>
-        </div>
-        <div class="pc p6" data-speed="-.06">
-          <div class="im"><img src="assets/work/p16.jpg" width="1600" height="900" alt="SK telecom 홈페이지 INSIGHT 페이지를 노트북과 스마트폰에 띄운 화면" loading="lazy"></div>
-          <p class="mono">Web / UI</p><h3>SK telecom 홈페이지 ‘INSIGHT’</h3>
-        </div>
-        <div class="pc p7" data-speed=".07">
+        <div class="pc p3" data-speed=".1">
           <div class="im"><img src="assets/work/p19.jpg" width="1600" height="900" alt="S-OIL 인스타그램 피드와 이벤트 카드뉴스 모음" loading="lazy"></div>
           <p class="mono">Social / Campaign</p><h3>S-OIL SNS</h3>
         </div>
-        <div class="pc p8" data-speed="-.03">
-          <div class="im"><img src="assets/work/p14.jpg" width="1600" height="900" alt="SK telecom 콘텐츠 키비주얼 모음, 보안 아이콘과 KBO 야구공, K-AI" loading="lazy"></div>
-          <p class="mono">Key visual / AI</p><h3>SK telecom 키비주얼</h3>
+        <div class="pc p4" data-speed="-.04">
+          <div class="im"><img src="assets/work/p10.jpg" width="1600" height="900" alt="키움투자자산운용 광고 배너와 인스타그램·유튜브 콘텐츠 모음, 캐릭터 개미" loading="lazy"></div>
+          <p class="mono">Social / Illustration</p><h3>키움투자자산운용 SNS</h3>
         </div>
-        <div class="pc p9" data-speed=".06">
-          <div class="im"><img src="assets/work/p28.jpg" width="1600" height="900" alt="판쇼라이브 앱 홈 화면 두 개를 스마트폰 목업에 띄운 화면" loading="lazy"></div>
-          <p class="mono">App / UI / 2022</p><h3>판쇼라이브 앱 디자인</h3>
+        <div class="pc p5" data-speed=".08">
+          <div class="im"><img src="assets/work/p03.jpg" width="1600" height="900" alt="키움투자자산운용 '연금술사' 뉴스레터 타이틀과 캐릭터 다다, 도도" loading="lazy"></div>
+          <p class="mono">Newsletter / Character / 2024–2026</p><h3>키움투자자산운용 ‘연금술사’</h3>
         </div>
-        <div class="pc p10" data-speed="-.05">
-          <div class="im"><img src="assets/work/p29.jpg" width="1600" height="900" alt="가구 브랜드 헤르짐머 웹사이트 메인과 이벤트 화면 모음" loading="lazy"></div>
-          <p class="mono">Web / Mobile / 2020</p><h3>HERRZIMMER 웹사이트</h3>
-        </div>
-        <div class="pc p11" data-speed=".1">
-          <div class="im"><img src="assets/work/p30.jpg" width="1600" height="900" alt="판쇼라이브 Apple Week Raffle 이벤트 페이지의 웹과 모바일 화면" loading="lazy"></div>
-          <p class="mono">Event page / Promotion / 2022</p><h3>판쇼라이브 ‘Apple Week Raffle’</h3>
-        </div>
-        <div class="pc p12" data-speed="-.04">
-          <div class="im"><img src="assets/work/p31.jpg" width="1600" height="900" alt="판쇼라이브 선셋글로우 방송용 라이브 배너와 SNS 홍보 이미지" loading="lazy"></div>
-          <p class="mono">Live banner / Commerce / 2022</p><h3>판쇼라이브 라이브 배너</h3>
-        </div>
-        <div class="pc p13" data-speed=".08">
-          <div class="im"><img src="assets/work/p33.jpg" width="1000" height="563" alt="마리몽듀 Mentos 플랫·펌프스 상세페이지 타이틀" loading="lazy"></div>
-          <p class="mono">Detail page / Product / 2025</p><h3>Marie mon dieu ‘Mentos’</h3>
-        </div>
-        <div class="pc p14" data-speed="-.06">
-          <div class="im"><img src="assets/work/p32.jpg" width="1600" height="900" alt="미니쉬치과병원 유튜브 썸네일 디자인 모음" loading="lazy"></div>
-          <p class="mono">YouTube / SNS</p><h3>미니쉬치과병원 유튜브</h3>
+        <div class="pc p6" data-speed="-.06">
+          <div class="im"><img src="assets/work/p26.jpg" width="1600" height="900" alt="HILTI KOREA 인스타그램과 페이스북 피드, 뉴론 캠페인 콘텐츠" loading="lazy"></div>
+          <p class="mono">Social / Product</p><h3>HILTI KOREA SNS</h3>
         </div>
         <p class="more"><a class="pill lg" href="assets/yu-yebeen-portfolio-2026.pdf" target="_blank" rel="noopener">전체 작업 보기 <span>↪︎</span></a></p>
       </div>
