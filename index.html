@@ -143,6 +143,8 @@ main{position:relative;z-index:1}
   .hd.ink,.pill:not(.ld-go){backdrop-filter:none;-webkit-backdrop-filter:none}
   .pill:not(.ld-go){background:rgba(14,10,8,.88)}
   .ch .in{text-shadow:none}
+  .scene{bottom:auto;height:100vh;height:100lvh}
+  html,body{overscroll-behavior-y:none}
   .ch.vis .in{will-change:transform,opacity}
 }
 .ch.act .in>*{pointer-events:auto}
@@ -254,7 +256,7 @@ main{position:relative;z-index:1}
 
 /* Experience */
 .exp{padding:10vh 0 16vh;position:relative}
-.exp-head{display:grid;grid-template-columns:1fr auto auto;gap:4vw;align-items:end;padding-bottom:28px}
+.exp-head{display:grid;grid-template-columns:1fr auto;gap:4vw;align-items:end;padding-bottom:28px}
 .exp-head h2{font-family:var(--serif);font-size:clamp(52px,6.6vw,120px);line-height:.9;text-transform:uppercase}
 .exp-head h2 i{text-transform:none}
 .exp-head .mono{max-width:330px}
@@ -285,7 +287,7 @@ main{position:relative;z-index:1}
 .ft-big .ln>span{transform:translateY(108%)}
 .ft.in .ft-big .ln>span{transform:none}
 .ft-cta{display:flex;align-items:center;gap:28px;margin-top:40px;position:relative}
-.ft-cta .mono{max-width:330px}
+.ft-cta .mono.ko{max-width:none;word-break:keep-all}
 .ft-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:16vh;padding-top:22px;border-top:1px solid var(--line);position:relative}
 .ft-cols h4{margin:0 0 14px;font-family:var(--mono);font-size:10px;font-weight:400;color:var(--violet);letter-spacing:.04em}
 .ft-cols a,.ft-cols p{display:block;font-family:var(--mono);font-size:11px;line-height:1.9;text-transform:uppercase}
@@ -346,6 +348,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
 @media (hover:none){.pc .ov{display:none}}
 
 
+@media (min-width:901px){br.mb{display:none}} /* line breaks for phones only */
 [data-rv]{opacity:0;transform:translateY(24px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
 [data-rv].in{opacity:1;transform:none}
 
@@ -360,8 +363,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
   .tag{font-size:12.5px;padding:5.6px 12.8px} /* phones: captions 20% smaller */
   /* phones: the two-line intro sentence gets the full width, the button sits below it */
   .hero-foot{flex-direction:column;align-items:flex-start;gap:16px}
-  .hero-foot p{word-break:keep-all;font-size:13px}
-  .hero-foot p br{display:none} /* phones: the two sentences flow as one paragraph instead of leaving a short word on each line */
+  .hero-foot p{word-break:keep-all;font-size:min(13px,var(--hf,13px));white-space:nowrap} /* phones: the same two lines as desktop; heroFit() sets --hf so each line fits the width */
   .disp,.ch5 .big .it{font-size:clamp(40px,11.5vw,72px)}
   .ch5 .big{grid-template-columns:1fr}
   .ch3 .side{left:var(--gut);right:var(--gut);width:auto;bottom:calc(6vh + 34vw + 84px)} /* clears the tag above the three-line title */
@@ -464,7 +466,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
             <span class="ln" style="--i:0"><span>Skills <i>that</i></span></span>
             <span class="ln" style="--i:1"><span><span class="ar">↪︎</span> bring ideas to life</span></span>
           </h2>
-          <p class="mono ko fade">쌓아온 디자인 경험에 새로운 기술을 더해,<br>아이디어를 구체화하고 세심한 디테일로 완성도를 높입니다.</p>
+          <p class="mono ko fade">쌓아온 디자인 경험에 새로운 기술을 더해,<br>아이디어를 구체화하고 <br class="mb">세심한 디테일로 완성도를 높입니다.</p>
         </div>
       </div>
     </div>
@@ -560,7 +562,6 @@ html.ld-on,html.ld-on body{overflow:hidden}
     <div class="wrap">
       <div class="exp-head">
         <h2 id="ex-t" data-rv>Experience <i>&amp;</i><br>Career</h2>
-        <p class="mono ko" data-rv>2016년 편집 디자인에서 시작해 광고, 웹, SNS까지 — 다섯 곳에서 쌓아 온 경력입니다</p>
         <span class="tag" data-rv>Since: 2016</span>
       </div>
       <div class="erow" data-img="assets/work/p12.jpg">
@@ -617,15 +618,15 @@ html.ld-on,html.ld-on body{overflow:hidden}
 
 <footer class="ft" id="contact">
   <div class="wrap">
-    <span class="tag">Stay in touch</span>
+    <span class="tag">Get in touch</span>
     <h2 class="ft-big">
-      <span class="ln" style="--i:0"><span><i>Let’s</i> make <span class="ar">↪︎</span></span></span>
-      <span class="ln" style="--i:1"><span>something</span></span>
-      <span class="ln" style="--i:2"><span>meaningful</span></span>
+      <span class="ln" style="--i:0"><span>Ready to</span></span>
+      <span class="ln" style="--i:1"><span><span class="ar">↪︎</span> contribute</span></span>
+      <span class="ln" style="--i:2"><span>and grow.</span></span>
     </h2>
     <div class="ft-cta">
-      <a class="pill lg" href="mailto:yeeyoii@naver.com">프로젝트 문의하기 <span>↪︎</span></a>
-      <p class="mono ko">아이디어나 제품, 함께 만들고 싶은 무언가가 있다면 편하게 연락 주세요</p>
+      <a class="pill lg" href="mailto:yeeyoii@naver.com">이메일 보내기 <span>↪︎</span></a>
+      <p class="mono ko">쌓아온 경험을 나누고 더 좋은 디자인을 만들어가며, 함께 성장하고 싶습니다.<br>저의 경험과 작업이 궁금하시다면 편하게 연락해 주세요.</p>
     </div>
     <div class="ft-cols">
       <div><h4>Portfolio</h4><a href="assets/yu-yebeen-portfolio-2026.pdf" target="_blank" rel="noopener"><b>[01]</b>View PDF</a><a href="assets/yu-yebeen-portfolio-2026.pdf" download><b>[02]</b>Download PDF</a></div>
@@ -656,17 +657,21 @@ html.ld-on,html.ld-on body{overflow:hidden}
   const sstep = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
 
   /* ---------- Smooth scroll ---------- */
+  // touch screens keep their own scrolling: Lenis there fights the finger and the address bar and jumps back
+  const touch = matchMedia('(pointer: coarse)').matches;
   let lenis = null;
-  if (!reduce && window.Lenis) {
+  if (!reduce && !touch && window.Lenis) {
     lenis = new Lenis({ lerp: .09, smoothWheel: true });
     const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
     requestAnimationFrame(raf);
-    if (!reduce) lenis.stop(); // held until the loader's Enter
-    $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
-      const t = $(a.getAttribute('href')); if (!t) return;
-      e.preventDefault(); lenis.scrollTo(t, { duration: 1.6 });
-    }));
+    lenis.stop(); // held until the loader's Enter
   }
+  $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+    const t = $(a.getAttribute('href')); if (!t) return;
+    e.preventDefault();
+    if (lenis) lenis.scrollTo(t, { duration: 1.6 });
+    else scrollTo({ top: t.getBoundingClientRect().top + scrollY, behavior: reduce ? 'instant' : 'smooth' });
+  }));
   const backToTop = $('#orb');
   backToTop.addEventListener('click', () => lenis ? lenis.scrollTo(0, { duration: 2 }) : scrollTo({ top: 0, behavior: reduce ? 'instant' : 'smooth' }));
 
@@ -923,9 +928,16 @@ html.ld-on,html.ld-on body{overflow:hidden}
 
   const HUN = { x: .818, y: -.11, s: .072 }; // 빛날 빈: centre x, top y and letter size, in units of 斌's half-size
   let vw = 1, vh = 1, lay = layout();
+  // the screen height with the browser bars hidden (100lvh), the height the phone scene is drawn at
+  const lvh = () => {
+    const d = document.createElement('div');
+    d.style.cssText = 'position:fixed;top:0;width:0;height:100vh;height:100lvh;visibility:hidden';
+    document.body.appendChild(d); const v = d.offsetHeight; d.remove();
+    return Math.max(v, innerHeight);
+  };
   function resize() {
     if (!renderer) return;
-    const w = innerWidth, h = innerHeight;
+    const w = innerWidth, h = isMobile ? lvh() : innerHeight;
     renderer.setSize(w, h, false);
     if (composer) { composer.setSize(w, h); bloom.resolution.set(w, h); }
     // phones have no bloom pass (see initGL): each particle's own halo is raised a little to carry the glow
@@ -951,7 +963,10 @@ html.ld-on,html.ld-on body{overflow:hidden}
     }
     lastK = -1; // shapes moved: recompute particle positions on the next frame
   }
-  addEventListener('resize', resize);
+  // phones fire resize whenever the address bar slides in or out while scrolling; reallocating the canvas then
+  // stalls the scroll and nudges the shapes, so on phones only a width change (rotation) redraws the scene
+  let sizeW = innerWidth;
+  addEventListener('resize', () => { if (isMobile && innerWidth === sizeW) return; sizeW = innerWidth; resize(); });
 
   const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
   addEventListener('pointermove', e => { mouse.tx = e.clientX / innerWidth * 2 - 1; mouse.ty = e.clientY / innerHeight * 2 - 1; }, { passive: true });
@@ -962,7 +977,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
   const measure = () => { chTop = chapters.offsetTop; heroH = hero.offsetHeight; };
   measure();
   new ResizeObserver(measure).observe(chapters);
-  const sceneEl = $('.scene');
+  const sceneEl = $('.scene'); let sceneShown = true;
   const visIO = new IntersectionObserver(es => { visible = es[0].isIntersecting; }, { rootMargin: '0px 0px 0px 0px' });
   visIO.observe(chapters);
 
@@ -973,7 +988,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
     // a zero-size window (a collapsed pane or hidden frame) has no chapters to scroll: skip the frame
     if (!heroH) return;
     const p = clamp((scrollY - chTop) / heroH, 0, 4);
-    sceneEl.style.visibility = visible ? 'visible' : 'hidden';
+    if (visible !== sceneShown) { sceneShown = visible; sceneEl.style.visibility = visible ? 'visible' : 'hidden'; }
     if (!ready || !visible) return;
 
     // each chapter's text holds while its shape is still; the morph runs in the gap between chapters
@@ -1338,6 +1353,20 @@ html.ld-on,html.ld-on body{overflow:hidden}
       hun && setTimeout(() => hun.classList.remove('wait'), 1600); // after the particles have formed 斌
     }, { once: true });
   })();
+
+  const heroP = $('.hero-foot p');
+  let fitW = 0;
+  function heroFit() {
+    if (!heroP || innerWidth === fitW) return;
+    fitW = innerWidth;
+    heroP.style.removeProperty('--hf');
+    if (innerWidth > 900) return;
+    const room = heroP.parentElement.clientWidth, need = heroP.scrollWidth;
+    if (need > room) heroP.style.setProperty('--hf', (parseFloat(getComputedStyle(heroP).fontSize) * room / need - .05).toFixed(2) + 'px');
+  }
+  heroFit();
+  document.fonts && document.fonts.ready.then(() => { fitW = 0; heroFit(); });
+  addEventListener('resize', heroFit);
 
   const onScrollNow = () => { updateHero(); para(); hdUpdate(); chUpdate(); };
   let scrollQueued = false; // scroll events can fire several times a frame: do the work once, before the next paint
