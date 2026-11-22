@@ -408,23 +408,19 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 @keyframes ks-peek{0%,100%{translate:0 0;rotate:0deg}22%{translate:0 -9%;rotate:-4deg}45%{translate:0 -2%;rotate:0deg}68%{translate:0 -9%;rotate:4deg}}
 /* 키움 SNS approach: heading row, a pink line with three circles coming in from the left, then the strip of contents */
 .stage.kap{container-type:inline-size;background:transparent} /* sits on the page's own dark ground */
-.kdg{position:relative;height:30cqw}
-.kdg .ln{position:absolute;left:0;right:0;top:50%;height:max(1px,.1cqw);background:#ee307e;transform:scaleX(0);transform-origin:left;transition:transform 1.6s cubic-bezier(.65,0,.35,1)}
+/* three boxes on a pink line, coming in from the left one after another; the middle one filled */
+.kdg{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:4.2cqw;padding:5cqw 7.3% 6cqw}
+.kdg .ln{position:absolute;left:0;right:0;top:50%;height:max(1px,.1cqw);background:#ee307e;transform:scaleX(0);transform-origin:left;
+  transition:transform 1.6s cubic-bezier(.65,0,.35,1)}
 .kap.in .kdg .ln{transform:none}
-.kn{position:absolute;z-index:1;left:var(--x);top:50%;translate:-50% -50%;display:grid;place-items:center}
-.kn .disc,.kn .halo{grid-area:1/1;border-radius:50%}
-.kn .disc{display:grid;place-items:center;width:20.25cqw;aspect-ratio:1;background:#fff;text-align:center;box-shadow:0 0 2.2cqw rgba(238,48,126,.32)}
-.kn.mid .disc{width:18cqw;background:#ee307e;box-shadow:none}
-.kn .halo{width:22.5cqw;aspect-ratio:1;background:rgba(238,48,126,.32)}
-.kn .halo.h2{width:26.55cqw;background:rgba(238,48,126,.15)}
-.kn .disc,.kn .halo,.kn .txt{opacity:0;transform:translateX(-2cqw);transition:opacity .9s cubic-bezier(.25,.1,.25,1) var(--t),transform 1.1s cubic-bezier(.16,1,.3,1) var(--t)}
-.kn .txt{transform:translateX(-1cqw);transition-delay:calc(var(--t) + .3s)}
-.kap.in .kn .disc,.kap.in .kn .halo,.kap.in .kn .txt{opacity:1;transform:none}
-.kn h3{margin:0;font-family:var(--kserif);font-size:1.8cqw;font-weight:700;line-height:1.12;letter-spacing:-.015em;color:#e8337f}
-.kn .k{margin:.45cqw 0 0;font-family:var(--kserif);font-size:1.13cqw;color:#9a9a9a}
-.kn .k+p{margin:.75cqw 0 0;font-family:var(--kserif);font-size:1.16cqw;font-weight:500;line-height:1.5;letter-spacing:-.03em;color:#222;word-break:keep-all}
-.kn.mid h3,.kn.mid .k+p{color:#fff}
-.kn.mid .k{color:rgba(255,255,255,.8)}
+.kbx{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:.9cqw;min-height:13cqw;padding:2.4cqw 2.6cqw;
+  border-radius:1.2cqw;background:#fff;box-shadow:0 0 2.2cqw rgba(238,48,126,.28);font-family:var(--kserif);word-break:keep-all;
+  opacity:0;transform:translateX(-2cqw);transition:opacity .9s cubic-bezier(.25,.1,.25,1) var(--t),transform 1.1s cubic-bezier(.16,1,.3,1) var(--t)}
+.kap.in .kbx{opacity:1;transform:none}
+.kbx h3{margin:0;font-size:2.1cqw;font-weight:700;letter-spacing:-.02em;color:#e8337f}
+.kbx p{margin:0;font-size:1.3cqw;font-weight:500;line-height:1.5;letter-spacing:-.02em;color:#222}
+.kbx.mid{background:#ee307e;box-shadow:0 0 0 .7cqw rgba(238,48,126,.22),0 0 0 1.5cqw rgba(238,48,126,.1)}
+.kbx.mid h3,.kbx.mid p{color:#fff}
 .kstrip img{display:block;width:100%;height:auto;opacity:0;transition:opacity 1.2s cubic-bezier(.25,.1,.25,1) 1.5s}
 .kap.in .kstrip img.ok{opacity:1}
 .kstrip .ks2{display:none}
@@ -439,23 +435,17 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 .kbn.in .kb.ok{opacity:1;transform:none}
 .kbn .ad{border-radius:0}
 .kfeed{display:none} /* phones only: the feed box as separate pictures */
-@media (prefers-reduced-motion:reduce){.ksa{animation:none!important}.khero .kp,.kn *,.kstrip img,.kbn .kb,.kfeed .kf{transition:none}.khero .hands{animation:none!important}}
+@media (prefers-reduced-motion:reduce){.ksa{animation:none!important}.khero .kp,.kbx,.kstrip img,.kbn .kb,.kfeed .kf{transition:none}.khero .hands{animation:none!important}}
 /* phones: the circles stand in a column on a vertical line, the content strip splits into the cards and the phone,
    and the banner pieces stack one under another, each fading in as it is reached */
 @container (max-width:640px){
-  .kdg{height:auto;display:flex;flex-direction:column;align-items:center;gap:15px;padding:24px 0 36px}
-  .kdg .ln{left:50%;right:auto;top:150px;bottom:150px;width:1px;height:auto;transform:scaleY(0);transform-origin:top}
+  .kdg{grid-template-columns:1fr;gap:14px;padding:24px 16px 36px}
+  .kdg .ln{left:50%;right:auto;top:24px;bottom:36px;width:1px;height:auto;transform:scaleY(0);transform-origin:top}
   .kap.in .kdg .ln{transform:none}
-  .kn{position:relative;left:auto;top:auto;translate:none}
-  .kn .disc{width:189px;box-shadow:0 0 14px rgba(238,48,126,.3)}
-  .kn.mid .disc{width:181px}
-  .kn .halo{width:207px}
-  .kn .halo.h2{width:231px}
-  .kn h3{font-size:14.6px}
-  .kn .k{margin-top:4px;font-size:10px}
-  .kn .k+p{margin-top:6px;font-size:11.4px}
-  .kn .disc,.kn .halo{transform:translateY(-16px)}
-  .kn .txt{transform:translateY(-8px)}
+  .kbx{min-height:0;gap:6px;padding:20px 22px;border-radius:14px;box-shadow:0 0 14px rgba(238,48,126,.28);transform:translateY(-12px)}
+  .kbx h3{font-size:19px}
+  .kbx p{font-size:14.5px}
+  .kbx.mid{box-shadow:0 0 0 5px rgba(238,48,126,.22),0 0 0 11px rgba(238,48,126,.1)}
   .kstrip{display:flex;flex-direction:column}
   .kstrip .ks1{aspect-ratio:1748/652;object-fit:cover;object-position:0 50%}
   .kstrip .ks2{display:block;order:-1;aspect-ratio:636/652;object-fit:cover;object-position:100% 50%}
@@ -470,7 +460,7 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
   .kbn .kb.in.ok,.kbn.in .kb.in.ok{opacity:1;transform:none}
   .kbn .knav.in .kc.ok{opacity:1;transform:none}
   .kbn .feed{display:none}
-  .kfeed{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;padding:14px 12px;border-radius:16px;background:#01072d;align-items:start}
+  .kfeed{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;padding:6px 0 0;align-items:start} /* no box of its own: straight on the slide's pink */
   .kfeed .kf{grid-column:span 3;display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:contain;opacity:0;transform:translateY(16px);
     transition:opacity .8s cubic-bezier(.25,.1,.25,1) .05s,transform .9s cubic-bezier(.16,1,.3,1) .05s}
   .kfeed .kf.in.ok{opacity:1;transform:none}
@@ -528,8 +518,34 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 @keyframes kfl-float{0%,100%{translate:0 0;rotate:0deg}50%{translate:0 var(--lift);rotate:var(--tilt)}}
 @media (prefers-reduced-motion:reduce){.kfl .fi{animation:none;transition:none}}
 @container (max-width:640px){
-  .kfl .set-f{aspect-ratio:375/700}
+  .kfl .set-f{aspect-ratio:375/410}
   .kfl .fi{left:var(--mx);top:var(--my);width:var(--mw)}
+}
+/* 키움 SNS graphics gallery: one row to swipe or step through with the arrows, pictures sharing one height */
+.gsec{container-type:inline-size;padding:8px 0 0}
+.gsw{position:relative}
+.gs-row{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  opacity:0;transform:translateY(24px);transition:opacity 1s cubic-bezier(.25,.1,.25,1),transform 1.2s cubic-bezier(.16,1,.3,1)}
+.gs-row::-webkit-scrollbar{display:none}
+.gs-row.in{opacity:1;transform:none}
+.gs-row img{flex:none;width:auto;height:380px;border-radius:14px;scroll-snap-align:start}
+.gsa{position:absolute;z-index:2;top:50%;width:48px;height:48px;margin-top:-24px;padding:0;display:grid;place-items:center;border:0;border-radius:50%;
+  background:rgba(255,255,255,.94);color:#e8337f;box-shadow:0 4px 16px rgba(0,0,0,.3);cursor:pointer;transition:opacity .3s,transform .3s}
+.gsa svg{width:22px;height:22px}
+.gsa.prev{left:-12px}
+.gsa.next{right:-12px;animation:ksa-nudge 1.8s ease-in-out 1s infinite}
+.gsa.off{opacity:0;pointer-events:none;animation:none}
+.gsa:hover{transform:scale(1.06)}
+.gsa:active{transform:scale(.92)}
+@keyframes ksa-nudge{0%,60%,100%{translate:0 0}30%{translate:4px 0}}
+@media (prefers-reduced-motion:reduce){.gsa{animation:none!important}.gs-row{transition:none}}
+@container (max-width:640px){
+  .gs-row{gap:10px}
+  .gs-row img{height:230px;border-radius:10px}
+  .gsa{width:38px;height:38px;margin-top:-19px}
+  .gsa svg{width:18px;height:18px}
+  .gsa.prev{left:4px}
+  .gsa.next{right:4px}
 }
 /* phones: the slide would shrink its text to a few pixels, so the pieces stack instead on the same blue,
    the AFTER frame becoming a plain white card that holds the characters, each character card full width */
@@ -1014,6 +1030,7 @@ const PROJECTS = [
     id: 'kiwoom-sns', name: '키움투자자산운용 SNS', desc: '블로그·유튜브·인스타그램 콘텐츠 디자인',
     cat: 'Social', client: '키움투자자산운용', period: '2025–2026', cover: 'assets/work/kiwoom-sns.jpg',
     tools: 'Illustrator, Photoshop, Figma', ai: 'ChatGPT, Gemini',
+    title: '키움투자자산운용<br>금융 정보를 쉽고 친근하게 전달하는<br>멀티채널 콘텐츠 디자인',
     blocks: [
       // key visual rebuilt from its layers (2000 × 1125): the pink ground, the K, then the hands with the binoculars
       // rising behind it and bobbing gently
@@ -1025,14 +1042,14 @@ const PROJECTS = [
         </div>
       </figure>` },
       { label: 'Overview', p: '키움투자자산운용의 블로그·유튜브·카카오톡·인스타그램 콘텐츠를 <b>목적과 채널 특성에 맞춰 디자인</b>하며, 어려운 금융 정보는 쉽게, 시의성 있는 소식은 빠르게 전달했습니다. 시장 심리를 다루는 콘텐츠에는 생성형 AI로 제작한 ‘개미’ 캐릭터와 만화 형식을 활용해 투자자의 공감을 이끌고, 정확한 정보 전달이 필요한 콘텐츠에는 도표와 인포그래픽을 적용했습니다. 이를 유튜브 썸네일, 블로그 키자매거진, 프로모션 배너로 확장해 <b>채널 간 일관된 콘텐츠 경험을 제공</b>했습니다.' },
-      { sub: 'Contents Design Approach', p: '콘텐츠의 목적과 채널의 특성에 맞춰 디자인을 다양하게 풀어내면서도, 브랜드 톤앤매너는 일관되게 유지했습니다.' },
+      { sub: 'Design Approach', p: '콘텐츠의 목적과 채널의 특성에 맞춰 디자인을 다양하게 풀어내면서도, 브랜드 톤앤매너는 일관되게 유지했습니다.' },
       // content design approach, as on the portfolio slide: the line under the heading, the three circles coming in from
       // the left, then the strip of contents; on phones the circles stand in a column and the strip splits in two
       { html: `<section class="stage kap" aria-label="콘텐츠 디자인 접근 방식">
         <div class="kdg"><span class="ln"></span>
-          <div class="kn" style="--x:23.1%;--t:.3s"><div class="disc"><div class="txt"><h3>Color &amp;<br>Brand Identity</h3><p class="k">색상 &amp; 브랜드 아이덴티티</p><p>브랜드 컬러는 유지하되,<br>목적에 따라 톤을 세분화하여<br>콘텐츠 유형별 인지도를 강화</p></div></div></div>
-          <div class="kn mid" style="--x:50.3%;--t:.7s"><span class="halo h2"></span><span class="halo h1"></span><div class="disc"><div class="txt"><h3>Readability</h3><p class="k">가독성</p><p>세액공제 · ETF · TDF처럼<br>복잡한 금융 정보를<br>도표·인포그래픽으로 시각화해<br>정보의 가독성을 높임</p></div></div></div>
-          <div class="kn" style="--x:77.2%;--t:1.1s"><div class="disc"><div class="txt"><h3>Character &amp;<br>Visual Identity</h3><p class="k">캐릭터 제작</p><p>딱딱한 투자 정보를 ‘개미’ 캐릭터의<br>친근함으로 풀어내고,<br>레퍼런스 기반 생성형 AI를 활용해<br>캐릭터 구현</p></div></div></div>
+          <div class="kbx" style="--t:.3s"><h3>공감</h3><p>캐릭터와 상황 중심의 이야기</p></div>
+          <div class="kbx mid" style="--t:.6s"><h3>이해</h3><p>핵심 정보를 정리한 도표와 그래픽</p></div>
+          <div class="kbx" style="--t:.9s"><h3>참여</h3><p>혜택과 행동을 명확히 보여주는 구성</p></div>
         </div>
         <div class="kstrip"><img class="ks1" src="assets/project/kiwoom-sns/strip.jpg" width="2400" height="652" alt="키움투자자산운용 SNS 콘텐츠 모음과 인스타그램 화면을 띄운 스마트폰" loading="lazy"><img class="ks2" src="assets/project/kiwoom-sns/strip.jpg" width="2400" height="652" alt="" loading="lazy"></div>
       </section>` },
@@ -1051,7 +1068,7 @@ const PROJECTS = [
             <img class="kb kc" style="--x:73.69%;--y:23.57%;--w:17.96%;--d:1.1s" src="assets/project/kiwoom-sns/card-3.png" width="271" height="339" alt="내 투자는 절대 틀리지 않았다 카드" loading="lazy">
           </div>
           <img class="kb feed" style="--x:30.10%;--y:47.22%;--w:62.76%;--d:1.3s" src="assets/project/kiwoom-sns/feed.jpg" width="2410" height="997" alt="이벤트, 연말정산 FAQ, K-ETF 매수 인증 등 인스타그램·블로그 콘텐츠" loading="lazy">
-          <div class="kfeed"><img class="kf post" src="assets/project/kiwoom-sns/feed/post.webp" width="697" height="1508" alt="‘롤러코스터장, 하락은 막고 상승은 잡아!’ 인스타그램 이벤트 게시물" loading="lazy"><div class="ksw"><button class="ksa prev off" type="button" aria-label="이전 카드"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="ksa next" type="button" aria-label="다음 카드"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="kswipe"><img class="kf" src="assets/project/kiwoom-sns/feed/f1.jpg" width="404" height="505" alt="포트폴리오 보험 전략 포인트 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/f2.jpg" width="404" height="505" alt="CPPI와 OBPI 소개 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/f3.jpg" width="404" height="505" alt="CPPI 동적 자산 배분 전략 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/f5.jpg" width="404" height="505" alt="OBPI 옵션 기반 전략 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/f6.jpg" width="404" height="505" alt="키움 마켓 리포트 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/f7.jpg" width="404" height="505" alt="흔들리는 시장 어디로 올라탈까 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/f4.jpg" width="404" height="505" alt="관세 파도 위의 개미 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/f8.jpg" width="404" height="492" alt="KIWOOM 독일DAX 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/f10.jpg" width="404" height="505" alt="KIWOOM 인도Nifty50 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/f9.jpg" width="404" height="505" alt="절세 계좌에 뭐 담지 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/f12.jpg" width="355" height="443" alt="연말정산 FAQ 표지" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/f11.jpg" width="404" height="404" alt="연말정산 빙고 이벤트 게시물" loading="lazy"><img class="kf full" src="assets/project/kiwoom-sns/feed/f13.jpg" width="717" height="443" alt="연금저축과 IRP 연말정산 Q&A 페이지" loading="lazy"><img class="kf tri" src="assets/project/kiwoom-sns/feed/f14.jpg" width="351" height="439" alt="K-ETF 매수 인증 이벤트 표지" loading="lazy"><img class="kf tri" src="assets/project/kiwoom-sns/feed/f15.jpg" width="351" height="439" alt="K-ETF 매수 인증 이벤트 안내" loading="lazy"><img class="kf tri" src="assets/project/kiwoom-sns/feed/f16.jpg" width="351" height="439" alt="이벤트 기간 및 경품 안내" loading="lazy"></div></div></div>
+          <div class="kfeed"><img class="kf post" src="assets/project/kiwoom-sns/feed/post.webp" width="697" height="1508" alt="‘롤러코스터장, 하락은 막고 상승은 잡아!’ 인스타그램 이벤트 게시물" loading="lazy"><div class="ksw"><button class="ksa prev off" type="button" aria-label="이전 카드"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="ksa next" type="button" aria-label="다음 카드"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="kswipe"><img class="kf" src="assets/project/kiwoom-sns/feed/c1.jpg" width="404" height="505" alt="포트폴리오 보험 전략 포인트 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/c2.jpg" width="404" height="505" alt="CPPI와 OBPI 소개 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/c3.jpg" width="404" height="505" alt="CPPI 동적 자산 배분 전략 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/c5.jpg" width="404" height="505" alt="OBPI 옵션 기반 전략 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/c6.jpg" width="404" height="503" alt="키움 마켓 리포트 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/c7.jpg" width="404" height="505" alt="흔들리는 시장 어디로 올라탈까 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/c4.jpg" width="404" height="505" alt="관세 파도 위의 개미 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/c8.jpg" width="404" height="492" alt="KIWOOM 독일DAX 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/c10.jpg" width="404" height="505" alt="KIWOOM 인도Nifty50 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/c9.jpg" width="404" height="505" alt="절세 계좌에 뭐 담지 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/c12.jpg" width="355" height="443" alt="연말정산 FAQ 표지" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/c11.jpg" width="404" height="404" alt="연말정산 빙고 이벤트 게시물" loading="lazy"><img class="kf full" src="assets/project/kiwoom-sns/feed/c13.jpg" width="717" height="443" alt="연금저축과 IRP 연말정산 Q&A 페이지" loading="lazy"><img class="kf tri" src="assets/project/kiwoom-sns/feed/c14.jpg" width="351" height="439" alt="K-ETF 매수 인증 이벤트 표지" loading="lazy"><img class="kf tri" src="assets/project/kiwoom-sns/feed/c15.jpg" width="351" height="439" alt="K-ETF 매수 인증 이벤트 안내" loading="lazy"><img class="kf tri" src="assets/project/kiwoom-sns/feed/c16.jpg" width="351" height="439" alt="이벤트 기간 및 경품 안내" loading="lazy"></div></div></div>
         </div>
       </figure>` },
       // YouTube and blog, laid out like the portfolio slide (3840 × 2160): the pink ground, the shaded wall of content
@@ -1070,23 +1087,26 @@ const PROJECTS = [
           <img class="ky cards" src="assets/project/kiwoom-sns/yt/cards-b.jpg" width="900" height="809" alt="공포탐욕 지수, 보호무역 등 인포그래픽 콘텐츠" loading="lazy">
         </div>
       </figure>` },
-      { label: 'Result', stats: [['72%', '인스타그램 성장'], ['8%', '카카오톡 성장']] },
+      { sub: '금융 콘텐츠를 위한 그래픽 요소', p: '투자·저축·시장 전망 등 주제에 맞는 그래픽을 제작해 다양한 콘텐츠에 활용했습니다.' },
       // closing band of the brand's icons drifting gently, each its own size and pace
       { html: `<figure class="stage kfl" aria-hidden="true"><div class="set-f">
-          <img class="fi" style="--x:0%;--y:58%;--w:15%;--mx:58%;--my:54%;--mw:36%;--t:5.6s;--dl:-0.4s;--lift:-7%;--tilt:-2deg;--k:0" src="assets/project/kiwoom-sns/float/i1.webp" width="2000" height="1211" alt="" loading="lazy">
-          <img class="fi" style="--x:2%;--y:8%;--w:22%;--mx:0%;--my:0%;--mw:56%;--t:6.4s;--dl:-2.1s;--lift:-6%;--tilt:2deg;--k:1" src="assets/project/kiwoom-sns/float/i5.webp" width="2000" height="1615" alt="" loading="lazy">
-          <img class="fi" style="--x:27%;--y:26%;--w:9%;--mx:70%;--my:12%;--mw:24%;--t:4.8s;--dl:-1.3s;--lift:-9%;--tilt:-3deg;--k:2" src="assets/project/kiwoom-sns/float/i10.webp" width="2000" height="1183" alt="" loading="lazy">
-          <img class="fi" style="--x:37%;--y:2%;--w:20%;--mx:50%;--my:26%;--mw:48%;--t:6.8s;--dl:-3.0s;--lift:-6%;--tilt:2deg;--k:3" src="assets/project/kiwoom-sns/float/i12.webp" width="2000" height="1853" alt="" loading="lazy">
-          <img class="fi" style="--x:62%;--y:20%;--w:12%;--mx:16%;--my:38%;--mw:28%;--t:5.2s;--dl:-0.9s;--lift:-8%;--tilt:-2deg;--k:4" src="assets/project/kiwoom-sns/float/i2.webp" width="2000" height="986" alt="" loading="lazy">
-          <img class="fi" style="--x:25%;--y:4%;--w:5%;--mx:60%;--my:2%;--mw:12%;--t:4.6s;--dl:-2.6s;--lift:-9%;--tilt:3deg;--k:5" src="assets/project/kiwoom-sns/float/i13.webp" width="1808" height="2000" alt="" loading="lazy">
-          <img class="fi" style="--x:41%;--y:54%;--w:14%;--mx:40%;--my:80%;--mw:30%;--t:6.0s;--dl:-1.7s;--lift:-7%;--tilt:2deg;--k:6" src="assets/project/kiwoom-sns/float/i6.webp" width="2000" height="1342" alt="" loading="lazy">
-          <img class="fi" style="--x:64%;--y:58%;--w:9%;--mx:80%;--my:74%;--mw:18%;--t:5.4s;--dl:-3.4s;--lift:-8%;--tilt:-2deg;--k:7" src="assets/project/kiwoom-sns/float/i8.webp" width="2000" height="1343" alt="" loading="lazy">
-          <img class="fi" style="--x:24%;--y:66%;--w:14%;--mx:4%;--my:78%;--mw:34%;--t:6.6s;--dl:-0.6s;--lift:-6%;--tilt:1deg;--k:8" src="assets/project/kiwoom-sns/float/i3.webp" width="2000" height="1520" alt="" loading="lazy">
-          <img class="fi" style="--x:18%;--y:52%;--w:7%;--mx:60%;--my:70%;--mw:16%;--t:5.0s;--dl:-2.3s;--lift:-9%;--tilt:-3deg;--k:9" src="assets/project/kiwoom-sns/float/i7.webp" width="2000" height="1848" alt="" loading="lazy">
-          <img class="fi" style="--x:78%;--y:4%;--w:19%;--mx:2%;--my:52%;--mw:50%;--t:6.2s;--dl:-1.1s;--lift:-7%;--tilt:2deg;--k:10" src="assets/project/kiwoom-sns/float/i9.webp" width="2000" height="1531" alt="" loading="lazy">
-          <img class="fi" style="--x:80%;--y:60%;--w:10%;--mx:74%;--my:86%;--mw:22%;--t:5.8s;--dl:-2.8s;--lift:-7%;--tilt:-2deg;--k:11" src="assets/project/kiwoom-sns/float/i4.webp" width="2000" height="1509" alt="" loading="lazy">
-          <img class="fi" style="--x:59%;--y:6%;--w:6%;--mx:6%;--my:28%;--mw:14%;--t:4.9s;--dl:-0.2s;--lift:-8%;--tilt:3deg;--k:12" src="assets/project/kiwoom-sns/float/i11.webp" width="2000" height="1793" alt="" loading="lazy">
+          <img class="fi" style="--x:0%;--y:58%;--w:15%;--mx:3.7%;--my:39.0%;--mw:26%;--t:5.6s;--dl:-0.4s;--lift:-7%;--tilt:-2deg;--k:0" src="assets/project/kiwoom-sns/float/i1.webp" width="2000" height="1211" alt="" loading="lazy">
+          <img class="fi" style="--x:2%;--y:8%;--w:22%;--mx:2.1%;--my:3.4%;--mw:40%;--t:6.4s;--dl:-2.1s;--lift:-6%;--tilt:2deg;--k:1" src="assets/project/kiwoom-sns/float/i5.webp" width="2000" height="1615" alt="" loading="lazy">
+          <img class="fi" style="--x:27%;--y:26%;--w:9%;--mx:55.9%;--my:8.8%;--mw:20.4%;--t:4.8s;--dl:-1.3s;--lift:-9%;--tilt:-3deg;--k:2" src="assets/project/kiwoom-sns/float/i10.webp" width="2000" height="1183" alt="" loading="lazy">
+          <img class="fi" style="--x:37%;--y:2%;--w:20%;--mx:35.2%;--my:35.6%;--mw:34%;--t:6.8s;--dl:-3.0s;--lift:-6%;--tilt:2deg;--k:3" src="assets/project/kiwoom-sns/float/i12.webp" width="2000" height="1853" alt="" loading="lazy">
+          <img class="fi" style="--x:62%;--y:20%;--w:12%;--mx:67.9%;--my:22.5%;--mw:24.0%;--t:5.2s;--dl:-0.9s;--lift:-8%;--tilt:-2deg;--k:4" src="assets/project/kiwoom-sns/float/i2.webp" width="2000" height="986" alt="" loading="lazy">
+          <img class="fi" style="--x:25%;--y:4%;--w:5%;--mx:45.0%;--my:3.0%;--mw:10.8%;--t:4.6s;--dl:-2.6s;--lift:-9%;--tilt:3deg;--k:5" src="assets/project/kiwoom-sns/float/i13.webp" width="1808" height="2000" alt="" loading="lazy">
+          <img class="fi" style="--x:41%;--y:54%;--w:14%;--mx:5.9%;--my:80.5%;--mw:22%;--t:6.0s;--dl:-1.7s;--lift:-7%;--tilt:2deg;--k:6" src="assets/project/kiwoom-sns/float/i6.webp" width="2000" height="1342" alt="" loading="lazy">
+          <img class="fi" style="--x:64%;--y:58%;--w:9%;--mx:78.2%;--my:53.3%;--mw:15.6%;--t:5.4s;--dl:-3.4s;--lift:-8%;--tilt:-2deg;--k:7" src="assets/project/kiwoom-sns/float/i8.webp" width="2000" height="1343" alt="" loading="lazy">
+          <img class="fi" style="--x:24%;--y:66%;--w:14%;--mx:4.8%;--my:57.6%;--mw:24%;--t:6.6s;--dl:-0.6s;--lift:-6%;--tilt:1deg;--k:8" src="assets/project/kiwoom-sns/float/i3.webp" width="2000" height="1520" alt="" loading="lazy">
+          <img class="fi" style="--x:18%;--y:52%;--w:7%;--mx:77.7%;--my:35.6%;--mw:14.4%;--t:5.0s;--dl:-2.3s;--lift:-9%;--tilt:-3deg;--k:9" src="assets/project/kiwoom-sns/float/i7.webp" width="2000" height="1848" alt="" loading="lazy">
+          <img class="fi" style="--x:78%;--y:4%;--w:19%;--mx:37.3%;--my:69.8%;--mw:35%;--t:6.2s;--dl:-1.1s;--lift:-7%;--tilt:2deg;--k:10" src="assets/project/kiwoom-sns/float/i9.webp" width="2000" height="1531" alt="" loading="lazy">
+          <img class="fi" style="--x:80%;--y:60%;--w:10%;--mx:78.4%;--my:78.0%;--mw:16%;--t:5.8s;--dl:-2.8s;--lift:-7%;--tilt:-2deg;--k:11" src="assets/project/kiwoom-sns/float/i4.webp" width="2000" height="1509" alt="" loading="lazy">
+          <img class="fi" style="--x:58.1%;--y:4.2%;--w:7.8%;--mx:83.3%;--my:2.2%;--mw:13%;--t:4.9s;--dl:-0.2s;--lift:-8%;--tilt:3deg;--k:12" src="assets/project/kiwoom-sns/float/i11.webp" width="2000" height="1793" alt="" loading="lazy">
         </div></figure>` },
+      // contents made with those graphics, in a row to swipe through, with arrows on either side
+      { html: `<section class="gsec" aria-label="그래픽 요소를 활용한 콘텐츠"><div class="gsw"><button class="gsa prev off" type="button" aria-label="이전 콘텐츠"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="gsa next" type="button" aria-label="다음 콘텐츠"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="gs-row"><img src="assets/project/kiwoom-sns/gfx/g1.webp" width="2000" height="2000" alt="‘트럼프 풋, 파월 풋 시장의 기대 방향은?’ 썸네일" loading="lazy"><img src="assets/project/kiwoom-sns/gfx/g2.webp" width="2000" height="1285" alt="보호무역의 경제적 결과 인포그래픽" loading="lazy"><img src="assets/project/kiwoom-sns/gfx/g3.webp" width="2000" height="1125" alt="‘리츠와 리츠 ETF! 투자 절세 꿀팁’ 썸네일" loading="lazy"><img src="assets/project/kiwoom-sns/gfx/g4.webp" width="2000" height="1114" alt="트럼프 풋 기대감 인포그래픽" loading="lazy"><img src="assets/project/kiwoom-sns/gfx/g5.webp" width="2000" height="1695" alt="투자자의 대응 전략 인포그래픽" loading="lazy"><img src="assets/project/kiwoom-sns/gfx/g6.webp" width="2000" height="2000" alt="‘키움투자자산운용 SNS 채널 운영원칙’ 썸네일" loading="lazy"></div></div></section>` },
+      { label: 'Result', lead: '채널 운영 성과 - 콘텐츠 디자인 기여', stats: [['+72%', '인스타그램 팔로워 증가'], ['+8%', '카카오톡 채널 친구 수 증가']] },
     ],
   },
   {
@@ -1187,7 +1207,7 @@ const PROJECTS = [
   // pictures and stages start their fade once their top has come a little way up into the screen (however tall
   // they are), and reset only after leaving through the bottom: scrolling back up never makes things blink out
   // and replay, while scrolling down to them again plays them afresh
-  const shows = $$('.fig, .stage, .rdb .rv, .chr .fg, .clg .cv, .hys .hv, .hys .hc, .hgal .gi, .kbn .kb, .kbn .knav, .kfeed .kf, .kswipe, .kyt .ky');
+  const shows = $$('.fig, .stage, .rdb .rv, .chr .fg, .clg .cv, .hys .hv, .hys .hc, .hgal .gi, .kbn .kb, .kbn .knav, .kfeed .kf, .kswipe, .kyt .ky, .gs-row');
   if (reduce || !('IntersectionObserver' in window)) shows.forEach(s => s.classList.add('in'));
   else {
     const io = new IntersectionObserver(es => es.forEach(e => {
@@ -1198,9 +1218,9 @@ const PROJECTS = [
   }
 
   // swipe rows (phones): the arrows step one card at a time and hide at either end
-  $$('.ksw').forEach(w => {
-    const row = w.querySelector('.kswipe'), prev = w.querySelector('.prev'), next = w.querySelector('.next');
-    const step = () => { const c = row.querySelector('.kf'); return c ? c.getBoundingClientRect().width + 8 : row.clientWidth * .8; };
+  $$('.ksw, .gsw').forEach(w => {
+    const row = w.querySelector('.kswipe, .gs-row'), prev = w.querySelector('.prev'), next = w.querySelector('.next');
+    const step = () => { const c = row.querySelector('img'); return c ? c.getBoundingClientRect().width + (parseFloat(getComputedStyle(row).columnGap) || 8) : row.clientWidth * .8; };
     const upd = () => {
       prev.classList.toggle('off', row.scrollLeft < 4);
       next.classList.toggle('off', row.scrollLeft + row.clientWidth >= row.scrollWidth - 4);
