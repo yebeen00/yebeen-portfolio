@@ -333,18 +333,20 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 .clg .cv:not(.hand){z-index:1} /* the contents sit over the hand */
 .clg.in .cv.ok{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.clg .cv{transition:none}}
-/* phones: the phone in hand first, then the content pictures at 70% width, stacked edge to edge (the cut-off
-   wage chart left out); the slide's background picture would be stretched blurry over the tall stack, so the same
-   blue with its purple glow in the lower left is drawn with gradients instead */
+/* phones: the content pictures at full screen width, stacked edge to edge (the cut-off wage chart left out), then
+   the phone in hand last, its arm running off the bottom edge; the slide's background picture would be stretched
+   blurry over the tall stack, so the same blue with its purple glow in the lower left is drawn with gradients instead */
 @container (max-width:640px){
   .clg .bg{display:none}
-  .clg .set-c{position:static;display:flex;flex-direction:column;align-items:center;gap:0;padding:40px 16px 40px;
+  .clg .set-c{position:static;display:flex;flex-direction:column;align-items:center;gap:0;padding:0;
     background:radial-gradient(140% 38% at 0% 100%,rgba(120,36,112,.9) 0%,rgba(98,41,131,.75) 28%,rgba(69,59,144,.4) 58%,rgba(69,59,144,0) 85%),
       linear-gradient(180deg,#1c3f73 0%,#234d8b 14%,#1f5096 40%,#1f5096 100%)}
-  .clg .cv{position:static;width:70%;transform:translateY(16px);--d:.05s!important;transition-duration:.8s,.9s}
+  .clg .cv{position:static;width:100%;transform:translateY(16px);--d:.05s!important;transition-duration:.8s,.9s}
   .clg.in .cv.ok{opacity:0;transform:translateY(16px)}
   .clg .cv.in.ok,.clg.in .cv.in.ok{opacity:1;transform:none}
-  .clg .hand{width:calc(100% + 32px);max-width:none}
+  /* the phone sits about a quarter of the way across the picture: shown at 105% width and shifted so the phone
+     is centred on the screen, the hand and arm running off the right edge */
+  .clg .hand{order:1;margin-top:40px;width:105%;max-width:none;align-self:flex-start;margin-left:23.75%}
   .clg .cv[src$="wage.png"]{display:none}
 }
 /* phones: the slide would shrink its text to a few pixels, so the pieces stack instead on the same blue,
