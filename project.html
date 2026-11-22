@@ -471,6 +471,7 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 .tx{padding:84px 0 96px;max-width:780px}
 /* a small heading and one line of text set straight above the picture it introduces */
 .st-sub{padding:84px 0 28px;max-width:780px;font-family:var(--kserif);word-break:keep-all}
+.st-sub.under{padding:28px 0 0} /* set under the picture it describes */
 .st-sub h3{margin:0;font-size:clamp(19px,1.5vw,23px);font-weight:600;line-height:1.4;letter-spacing:-.02em}
 .st-sub p{margin:10px 0 0;font-size:15.5px;line-height:1.8;color:var(--ink-2)}
 .tx h2,.st-h{font-family:var(--serif);font-size:clamp(26px,2.2vw,34px);line-height:1.05;letter-spacing:-.005em}
@@ -550,6 +551,7 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
   .tx{padding:52px 0 60px}
   .tx+.stage.sbk{margin-top:-24px} /* phones: 36px between the text and the chart */
   .st-sub{padding:52px 0 20px}
+  .st-sub.under{padding:20px 0 0}
   .st-sub p{font-size:14.5px}
   .st-h{padding:52px 0 20px}
   .tx .lead{font-size:16px}
@@ -835,9 +837,12 @@ const PROJECTS = [
     id: 'hyosung', name: 'HYOSUNG SNS', desc: '지속가능성 메시지를 담은 키비주얼·채널별 SNS 콘텐츠 디자인',
     cat: 'Social', client: '효성', period: '2024–2025', cover: 'assets/work/hyosung.jpg',
     tools: 'Illustrator, Photoshop, Figma', ai: 'Midjourney, Firefly',
+    title: 'HYOSUNG<br>기술과 지속가능성을 시각화한<br>브랜드 콘텐츠 · SNS 디자인',
+    scope: ['콘텐츠 비주얼 기획 · 키비주얼 제작', '인포그래픽 · 채널별 SNS 디자인'],
     blocks: [
       { src: 'assets/project/hyosung/hero.jpg', w: 2000, h: 1125, alt: '숲 위 지구 안의 수소 전구, 효성 지속가능경영보고서 키비주얼' },
-      { label: 'Overview', p: '효성의 지속가능성과 소재 기술을 주제로, <b>하나의 메시지를 브랜드 저널리즘과 SNS의 특성에 맞춰 디자인을 진행</b>했습니다. 브랜드 저널리즘에서는 산업 데이터와 소재의 제조 공정을 인포그래픽으로 시각화해 복잡한 정보를 쉽게 이해할 수 있도록 돕고, SNS에서는 하나의 주제를 페이스북 · 인스타그램 · 링크드인의 특성에 맞춰 풀어내며, 채널마다 이미지 소재와 화면 구성에 변화를 주었습니다.' },
+      { sub: '지속가능경영보고서 소개를 위한 SNS 키비주얼', p: '수소 에너지와 지속가능성이라는 주제를 전구와 지구, 자연의 이미지로 표현했습니다.', under: true },
+      { label: 'Overview', p: '<b>효성의 기술과 지속가능성 메시지를 브랜드 저널리즘과 SNS 콘텐츠로 시각화</b>했습니다. 복잡한 공정과 데이터는 인포그래픽으로 정리하고, 산업·제품별 특성은 키비주얼로 풀어내며 채널에 맞는 정보 구성과 일관된 비주얼을 함께 고려했습니다.' },
       // SNS contents, laid out like the portfolio page (3842 × 3964): the background, then the article pages, the three
       // posts, and the cluster of SNS cards around the Instagram feed, one after another; on phones the articles and
       // posts stack one per row and the cluster of cards shows as one block, all at once
@@ -958,7 +963,7 @@ const PROJECTS = [
   let first = true;
   const html = P.blocks.map(b => {
     if (b.html) { first = false; return b.html; }
-    if (b.sub) return `<section class="st-sub"><h3>${b.sub}</h3><p>${b.p}</p></section>`;
+    if (b.sub) return `<section class="st-sub${b.under ? ' under' : ''}"><h3>${b.sub}</h3><p>${b.p}</p></section>`;
     if (b.img || b.src) {
       const lazy = first ? 'fetchpriority="high"' : 'loading="lazy"'; first = false;
       const src = b.src || `assets/project/${b.img}.jpg`, w = b.w || 2000, h = b.h || (b.img === 'p09b' ? 557 : 1125);
