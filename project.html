@@ -83,6 +83,7 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 .side dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:28px 0 0;font-size:10.5px}
 .side dt{color:var(--ink-2)}
 .side dd{margin:0;text-transform:none}
+.side dd .scope{display:block;margin-top:.5em;font-family:var(--kserif);line-height:1.6;letter-spacing:-.01em;color:var(--ink);word-break:keep-all}
 /* desktop: the facts column reads 40% larger than the base sizes above (phones keep the base) */
 @media (min-width:901px){
   .side .k{font-size:14.7px}
@@ -418,11 +419,15 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 
 /* text between the pictures: a serif label, then the copy from the portfolio */
 .tx{padding:84px 0 96px;max-width:780px}
+/* a small heading and one line of text set straight above the picture it introduces */
+.st-sub{padding:84px 0 28px;max-width:780px;font-family:var(--kserif);word-break:keep-all}
+.st-sub h3{margin:0;font-size:clamp(19px,1.5vw,23px);font-weight:600;line-height:1.4;letter-spacing:-.02em}
+.st-sub p{margin:10px 0 0;font-size:15.5px;line-height:1.8;color:var(--ink-2)}
 .tx h2,.st-h{font-family:var(--serif);font-size:clamp(26px,2.2vw,34px);line-height:1.05;letter-spacing:-.005em}
 /* a title set straight above a slide */
 .st-h{margin:0;padding:84px 0 28px}
 .tx .lead{margin-top:18px;font-family:var(--kserif);font-size:17px;font-weight:500;line-height:1.6;letter-spacing:-.01em;word-break:keep-all}
-.tx .p{margin-top:16px;font-family:var(--kserif);font-size:15.5px;line-height:1.85;color:var(--ink-2);word-break:keep-all}
+.tx .p{margin-top:16px;font-family:var(--kserif);font-size:15.5px;line-height:1.85;color:rgba(244,239,233,.74);word-break:keep-all}
 .tx .p b{font-weight:500;color:var(--ink)}
 .pts{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px;max-width:none}
 .pts div{padding-top:16px;border-top:1px solid var(--line)}
@@ -493,6 +498,8 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
   .side .back{display:none}
   .back-m{display:inline-flex;margin-top:36px}
   .tx{padding:52px 0 60px}
+  .st-sub{padding:52px 0 20px}
+  .st-sub p{font-size:14.5px}
   .st-h{padding:52px 0 20px}
   .stage.sbk{padding-top:0} /* the text block above already leaves 60px */
   .tx .lead{font-size:16px}
@@ -603,12 +610,15 @@ const PROJECTS = [
     id: 'skt-webzine', name: 'SK telecom ‘AI Life Magazine’', desc: 'AI 기술과 비즈니스 이야기를 시각화한 웹진 콘텐츠 디자인',
     cat: 'Webzine', client: 'SK텔레콤', period: '2025–2026', cover: 'assets/work/skt-webzine.jpg',
     tools: 'Illustrator, Photoshop, Figma', ai: 'ChatGPT, Gemini, Midjourney, Firefly',
+    scope: ['아티클 비주얼 · 인포그래픽 · 썸네일 디자인', '생성형 AI 이미지 제작 및 후반 보정'],
+    title: 'SK telecom<br>AI Life Magazine<br>AI 기술과 비즈니스 이야기를 담은 웹진 콘텐츠 디자인',
     blocks: [
       { src: 'assets/project/skt-webzine/cover.webp', w: 2000, h: 1125, alt: 'SK telecom AI Life Magazine 웹진 타이틀' },
-      { label: 'Overview', p: 'SK텔레콤의 <b>AI 혁신과 사업 비전을 쉽고 친근하게 전달하는 디지털 매거진 콘텐츠를 디자인</b>하며, 임직원 인터뷰와 현장 취재, 트렌드 소개 등 다양한 소재에 브랜드 가치를 담아냈습니다. 감각적이고 미래지향적인 이미지와 직관적인 인포그래픽으로 아티클의 이해도와 몰입도를 높이고, 기업의 기술적 전문성과 친근함을 균형 있게 전달했습니다.' },
+      { label: 'Overview', p: 'SK텔레콤의 AI 기술과 비즈니스 이야기를 쉽게 전달하는 웹진 콘텐츠를 디자인했습니다. 인터뷰·현장 취재·트렌드 등 소재의 특성에 맞춰 아트워크와 인포그래픽, 썸네일을 구성하며 복잡한 정보는 명확하게, 추상적인 기술은 직관적인 이미지로 풀어냈습니다.' },
       // dark blue background, then the tablet and phone mock-up fades in at its centre
       { html: `<figure class="stage dark"><img class="bg" src="assets/project/skt-webzine/dark-bg.jpg" width="2000" height="1125" alt="" loading="lazy">
         <div class="set"><img class="fg" src="assets/project/skt-webzine/mockup.webp" width="2000" height="1096" alt="태블릿과 스마트폰에 띄운 SK telecom T STORY 페이지" loading="lazy"></div></figure>` },
+      { sub: '이야기의 흐름을 만드는 아티클 디자인', p: '인터뷰와 현장 취재, 트렌드 등 소재의 특성에 맞춰 이미지와 정보의 흐름을 구성했습니다.' },
       // light blue background, then the article pages fade in one by one from the left
       { html: `<figure class="stage light"><img class="bg" src="assets/project/skt-webzine/light-bg.jpg" width="1386" height="2000" alt="" loading="lazy">
         <div class="set">
@@ -642,6 +652,7 @@ const PROJECTS = [
           <div class="fg shade" style="--i:1"></div>
           <img class="fg frame" style="--i:2" src="assets/project/skt-webzine/wall-frame.png" width="966" height="610" alt="대형 스크린에 띄운 SKT 웹진 ‘지능형 생태계’ 화면" loading="lazy">
         </div></figure>` },
+      { sub: '다양한 주제를 연결하는 콘텐츠 디자인', p: '주제별 개성을 살리면서 타이포그래피와 정보 배치에 일관성을 더했습니다.' },
       { img: 'p17', alt: '노트북과 스마트폰에 띄운 SK telecom INSIGHT 페이지' },
       { img: 'p18', alt: '비스듬히 놓인 SK telecom 웹진 콘텐츠 카드 모음' },
     ],
@@ -857,14 +868,15 @@ const PROJECTS = [
   document.title = P.name + ' — YU YEBEEN';
   $('meta[name="description"]').content = P.desc;
   $('#k').innerHTML = `<span>${P.cat}</span><span>${P.client}</span><b>${P.period}</b>`;
-  $('#ttl').innerHTML = `${P.name} :<br>${P.desc}`;
-  $('#meta').innerHTML = `<dt>Design</dt><dd>100%</dd>`
+  $('#ttl').innerHTML = P.title || `${P.name} :<br>${P.desc}`; // a project may set its own heading lines
+  $('#meta').innerHTML = `<dt>Design</dt><dd>100%${P.scope ? `<span class="scope">${P.scope.join('<br>')}</span>` : ''}</dd>`
     + (P.tools ? `<dt>Tools</dt><dd>${P.tools}</dd>` : '')
     + (P.ai ? `<dt>AI</dt><dd>${P.ai}</dd>` : '');
 
   let first = true;
   const html = P.blocks.map(b => {
     if (b.html) { first = false; return b.html; }
+    if (b.sub) return `<section class="st-sub"><h3>${b.sub}</h3><p>${b.p}</p></section>`;
     if (b.img || b.src) {
       const lazy = first ? 'fetchpriority="high"' : 'loading="lazy"'; first = false;
       const src = b.src || `assets/project/${b.img}.jpg`, w = b.w || 2000, h = b.h || (b.img === 'p09b' ? 557 : 1125);
