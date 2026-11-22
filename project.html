@@ -179,13 +179,13 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 .stage.chr{container-type:inline-size}
 .stage.chr .fg{position:absolute;left:var(--x);top:var(--y);width:var(--w);height:auto;transform:none;transition:opacity .7s var(--ease) var(--d)}
 .stage.chr .aft{position:absolute;inset:0}
-.stage.chr .bg{aspect-ratio:2000/1255;object-fit:cover}
-.stage.chr .frame{aspect-ratio:1473/1012;box-sizing:border-box;border:solid transparent;border-width:5.73cqw 3.12cqw 3.12cqw 7.29cqw;
-  border-image:url(assets/project/kiwoom-pension/char/after.png) 110 60 60 140 fill/5.73cqw 3.12cqw 3.12cqw 7.29cqw stretch}
+.stage.chr .bg{aspect-ratio:2000/1363;object-fit:cover}
+.stage.chr .frame{aspect-ratio:1630/1120;box-sizing:border-box;border:solid transparent;border-width:6.34cqw 3.46cqw 3.46cqw 8.06cqw;
+  border-image:url(assets/project/kiwoom-pension/char/after.png) 110 60 60 140 fill/6.34cqw 3.46cqw 3.46cqw 8.06cqw stretch}
 /* plain white over the joins between the stretched pieces, which would otherwise show as faint lines */
 .stage.chr .frame::before,.stage.chr .frame::after{content:"";position:absolute;pointer-events:none}
-.stage.chr .frame::before{inset:-3px -2.85cqw -3px -1.35cqw;background:#fff}
-.stage.chr .frame::after{top:-5.33cqw;bottom:-2.72cqw;left:-3px;right:-3px;
+.stage.chr .frame::before{inset:-3px -3.16cqw -3px -1.49cqw;background:#fff}
+.stage.chr .frame::after{top:-5.90cqw;bottom:-3.02cqw;left:-3px;right:-3px;
   background:linear-gradient(#fff,#fff) left/6px 100% no-repeat,linear-gradient(#fff,#fff) right/6px 100% no-repeat}
 .stage.chr .wipe{clip-path:inset(0 100% 0 0);transition:clip-path 1.3s cubic-bezier(.65,0,.35,1) var(--d),opacity 0s linear var(--d)}
 .stage.chr.in .wipe{clip-path:inset(0 0 0 0)}
@@ -195,7 +195,7 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 /* character cards: the dotted guide line draws from the character's side first, then the card fades in */
 .stage.chr .ccard{opacity:1;transition:none}
 /* the card text is 40% larger than on the slide it came from; the cards keep their width and grow taller */
-.stage.chr .ccard{--n:0.01732cqw}
+.stage.chr .ccard{--n:0.01917cqw}
 .stage.chr .cbox{width:82.4%;margin-top:calc(24*var(--n));box-sizing:border-box;padding:calc(70*var(--n)) calc(70*var(--n)) calc(72*var(--n)) calc(82*var(--n));
   border-radius:calc(60*var(--n));background:#041754;box-shadow:0 0 calc(40*var(--n)) rgba(99,166,255,.35);color:#fff;
   font-family:var(--kserif);word-break:keep-all;opacity:0;transition:opacity .7s var(--ease) calc(var(--d) + .45s)}
@@ -213,13 +213,13 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 .stage.chr .tags span{padding:.42em 1.05em;border-radius:99px;background:#63a6ff;font-size:calc(46*var(--n));font-weight:700;line-height:1.3}
 /* the dotted guide line, drawn from the character's side toward the card before the card fades in */
 .stage.chr .ln{position:absolute;top:calc(332*var(--n));height:max(1px,calc(3*var(--n)));width:14.2%;
-  background:repeating-linear-gradient(90deg,#63a6ff 0 calc(12*var(--n)),transparent 0 calc(20*var(--n)));transition:clip-path .5s cubic-bezier(.45,0,.25,1) var(--d)}
+  background:repeating-linear-gradient(90deg,#63a6ff 0 calc(12*var(--n)),transparent 0 calc(20*var(--n)));opacity:0;transition:clip-path .5s cubic-bezier(.45,0,.25,1) var(--d),opacity 0s linear var(--d)}
 .stage.chr .ln::after{content:"";position:absolute;top:50%;width:max(4px,calc(18*var(--n)));aspect-ratio:1;border-radius:50%;background:#63a6ff;translate:0 -50%}
 .stage.chr .dodo .ln{left:84.87%;clip-path:inset(-900% -9% -900% 100%)}
 .stage.chr .dodo .ln::after{right:-1%;translate:50% -50%}
 .stage.chr .dada .ln{left:.8%;clip-path:inset(-900% 100% -900% -9%)}
 .stage.chr .dada .ln::after{left:0;translate:-50% -50%}
-.stage.chr.in .ccard .ln{clip-path:inset(-900% -9% -900% -9%)}
+.stage.chr.in .ccard .ln{clip-path:inset(-900% -9% -900% -9%);opacity:1}
 /* little loops once each character is in: the magnifier sweeps, 다다 sways his head, the high five, the clap, the wave */
 /* the magnifier and the paw holding it are one layer over the star, gliding side to side and tilting about the paw */
 .stage.chr .mag{transform-origin:35.5% 74%}
@@ -275,7 +275,7 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
   /* each character comes with its own card right below it */
   .stage.chr .star{order:1;width:64%}
   .stage.chr .dodo{order:2}
-  .stage.chr .moon{order:3;width:50%;margin-top:14px}
+  .stage.chr .moon{order:3;width:50%;margin-top:14px;--d:3.5s!important} /* after the 도도 card above it */
   .stage.chr .dada{order:4}
   .stage.chr .poses{order:5}
   .stage.chr .works{order:6}
@@ -401,6 +401,7 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
   .back-m{display:inline-flex;margin-top:36px}
   .tx{padding:52px 0 60px}
   .st-h{padding:52px 0 20px}
+  .stage.sbk{padding-top:0} /* the text block above already leaves 60px */
   .tx .lead{font-size:16px}
   .tx .p{font-size:14.5px;line-height:1.8}
   /* phones: the two-row strip would leave each card ~40px wide, so the cards regroup into a grid instead:
@@ -607,23 +608,23 @@ const PROJECTS = [
       { html: `<figure class="stage chr" aria-label="캐릭터 리뉴얼 전후: 도도와 다다">
         <img class="bg" src="assets/project/kiwoom-pension/char/bg.jpg" width="2000" height="1125" alt="" loading="lazy">
         <div class="set">
-          <img class="fg before" style="--x:9.50%;--y:41.35%;--w:12.48%;--d:.5s" src="assets/project/kiwoom-pension/char/before.png" width="602" height="564" alt="리뉴얼 전 캐릭터 두 마리" loading="lazy">
-          <div class="fg frame wipe" style="--x:19.47%;--y:10.35%;--w:73.64%;--d:1.1s"></div>
+          <img class="fg before" style="--x:6.00%;--y:42.04%;--w:12.48%;--d:.5s" src="assets/project/kiwoom-pension/char/before.png" width="602" height="564" alt="리뉴얼 전 캐릭터 두 마리" loading="lazy">
+          <div class="fg frame wipe" style="--x:16.00%;--y:9.53%;--w:81.50%;--d:1.1s"></div>
           <div class="aft">
-            <div class="fg pc star" style="--x:46.6%;--y:17.37%;--w:13.06%;--d:2s"><img src="assets/project/kiwoom-pension/char/star-base.png" width="755" height="662" alt="별 모양 옷을 입고 돋보기를 든 캐릭터 도도" loading="lazy"><img class="mag" src="assets/project/kiwoom-pension/char/star-mag.png" width="755" height="662" alt="" loading="lazy"></div>
-            <div class="fg pc moon" style="--x:61.3%;--y:18.97%;--w:10.63%;--d:2.4s"><img src="assets/project/kiwoom-pension/char/moon-base.png" width="618" height="596" alt="초승달에 기대 앉은 캐릭터 다다" loading="lazy"><img class="sway" src="assets/project/kiwoom-pension/char/moon-head.png" width="618" height="596" alt="" loading="lazy"><img src="assets/project/kiwoom-pension/char/moon-paws.png" width="618" height="596" alt="" loading="lazy"></div>
-            <div class="fg pc ccard dodo" style="--x:28.49%;--y:17.51%;--w:17.63%;--d:2.9s"><div class="cbox"><p class="ck">Character <b>도도</b></p><p class="ct"><b>별(Star)</b> <span>‘소액의 시작’과 ‘기회의 불빛’</span></p><p class="cx">밤하늘의 별은 멀리서 보면 작지만, 스스로 빛을 내며 길을 밝혀주는 존재</p><p class="tags"><span>#소액의 지속성</span><span>#성장과 투자</span></p></div><span class="ln" aria-hidden="true"></span></div>
-            <div class="fg pc ccard dada" style="--x:72.26%;--y:17.51%;--w:17.7%;--d:3.8s"><div class="cbox"><p class="ck">Character <b>다다</b></p><p class="ct"><b>달(Moon)</b> <span>‘차분한 방어’와 ‘안정적인 결실’</span></p><p class="cx">차곡차곡 모아온 자산을 세금 걱정 없는 풍성한 보름달(노후 자금)로 완성</p><p class="tags"><span>#절세와 방어</span><span>#노후의 완성</span></p></div><span class="ln" aria-hidden="true"></span></div>
+            <div class="fg pc star" style="--x:46.03%;--y:16.68%;--w:14.45%;--d:2s"><img src="assets/project/kiwoom-pension/char/star-base.png" width="755" height="662" alt="별 모양 옷을 입고 돋보기를 든 캐릭터 도도" loading="lazy"><img class="mag" src="assets/project/kiwoom-pension/char/star-mag.png" width="755" height="662" alt="" loading="lazy"></div>
+            <div class="fg pc moon" style="--x:62.29%;--y:18.31%;--w:11.76%;--d:2.4s"><img src="assets/project/kiwoom-pension/char/moon-base.png" width="618" height="596" alt="초승달에 기대 앉은 캐릭터 다다" loading="lazy"><img class="sway" src="assets/project/kiwoom-pension/char/moon-head.png" width="618" height="596" alt="" loading="lazy"><img src="assets/project/kiwoom-pension/char/moon-paws.png" width="618" height="596" alt="" loading="lazy"></div>
+            <div class="fg pc ccard dodo" style="--x:25.98%;--y:16.83%;--w:19.51%;--d:2.9s"><div class="cbox"><p class="ck">Character <b>도도</b></p><p class="ct"><b>별(Star)</b> <span>‘소액의 시작’과 ‘기회의 불빛’</span></p><p class="cx">밤하늘의 별은 멀리서 보면 작지만, 스스로 빛을 내며 길을 밝혀주는 존재</p><p class="tags"><span>#소액의 지속성</span><span>#성장과 투자</span></p></div><span class="ln" aria-hidden="true"></span></div>
+            <div class="fg pc ccard dada" style="--x:74.42%;--y:16.83%;--w:19.59%;--d:3.8s"><div class="cbox"><p class="ck">Character <b>다다</b></p><p class="ct"><b>달(Moon)</b> <span>‘차분한 방어’와 ‘안정적인 결실’</span></p><p class="cx">차곡차곡 모아온 자산을 세금 걱정 없는 풍성한 보름달(노후 자금)로 완성</p><p class="tags"><span>#절세와 방어</span><span>#노후의 완성</span></p></div><span class="ln" aria-hidden="true"></span></div>
             <div class="poses">
-              <div class="fg pc five" style="--x:31.8%;--y:47.42%;--w:12.6%;--d:4.8s"><img src="assets/project/kiwoom-pension/char/five-dodo.png" width="478" height="392" alt="하이파이브하는 도도와 다다" loading="lazy"><img class="five-b" src="assets/project/kiwoom-pension/char/five-dada.png" width="478" height="392" alt="" loading="lazy"></div>
-              <div class="fg pc clap" style="--x:46.43%;--y:47.51%;--w:11.99%;--d:5.2s"><img src="assets/project/kiwoom-pension/char/clap-base.png" width="454" height="376" alt="연금 주머니를 든 다다와 박수 치는 도도" loading="lazy"><img class="cl" src="assets/project/kiwoom-pension/char/clap-l.png" width="454" height="376" alt="" loading="lazy"><img class="cr" src="assets/project/kiwoom-pension/char/clap-r.png" width="454" height="376" alt="" loading="lazy"></div>
-              <div class="fg pc wave" style="--x:60.14%;--y:47.28%;--w:13.45%;--d:5.6s"><img src="assets/project/kiwoom-pension/char/santa-dada.png" width="767" height="576" alt="산타 옷을 입고 수염을 쓰다듬는 다다와 손 흔드는 도도" loading="lazy"><img class="bl" src="assets/project/kiwoom-pension/char/santa-dada-l.png" width="767" height="576" alt="" loading="lazy"><img class="br" src="assets/project/kiwoom-pension/char/santa-dada-r.png" width="767" height="576" alt="" loading="lazy"><img class="hand" src="assets/project/kiwoom-pension/char/santa-dodo-arm.png" width="767" height="576" alt="" loading="lazy"><img src="assets/project/kiwoom-pension/char/santa-dodo.png" width="767" height="576" alt="" loading="lazy"></div>
-              <div class="fg pc p4" style="--x:75.56%;--y:47.33%;--w:12.34%;--d:6s"><img src="assets/project/kiwoom-pension/char/hug-dada.png" width="726" height="601" alt="카드를 들고 위아래로 흔드는 다다와 연금 주머니를 좌우로 흔드는 도도" loading="lazy"><img class="lift" src="assets/project/kiwoom-pension/char/hug-hands.png" width="726" height="601" alt="" loading="lazy"><img src="assets/project/kiwoom-pension/char/hug-dodo.png" width="726" height="601" alt="" loading="lazy"><img class="bag" src="assets/project/kiwoom-pension/char/hug-bag.png" width="726" height="601" alt="" loading="lazy"></div>
+              <div class="fg pc five" style="--x:29.65%;--y:47.30%;--w:13.94%;--d:4.8s"><img src="assets/project/kiwoom-pension/char/five-dodo.png" width="478" height="392" alt="하이파이브하는 도도와 다다" loading="lazy"><img class="five-b" src="assets/project/kiwoom-pension/char/five-dada.png" width="478" height="392" alt="" loading="lazy"></div>
+              <div class="fg pc clap" style="--x:45.84%;--y:47.40%;--w:13.27%;--d:5.2s"><img src="assets/project/kiwoom-pension/char/clap-base.png" width="454" height="376" alt="연금 주머니를 든 다다와 박수 치는 도도" loading="lazy"><img class="cl" src="assets/project/kiwoom-pension/char/clap-l.png" width="454" height="376" alt="" loading="lazy"><img class="cr" src="assets/project/kiwoom-pension/char/clap-r.png" width="454" height="376" alt="" loading="lazy"></div>
+              <div class="fg pc wave" style="--x:61.01%;--y:47.16%;--w:14.89%;--d:5.6s"><img src="assets/project/kiwoom-pension/char/santa-dada.png" width="767" height="576" alt="산타 옷을 입고 수염을 쓰다듬는 다다와 손 흔드는 도도" loading="lazy"><img class="bl" src="assets/project/kiwoom-pension/char/santa-dada-l.png" width="767" height="576" alt="" loading="lazy"><img class="br" src="assets/project/kiwoom-pension/char/santa-dada-r.png" width="767" height="576" alt="" loading="lazy"><img class="hand" src="assets/project/kiwoom-pension/char/santa-dodo-arm.png" width="767" height="576" alt="" loading="lazy"><img src="assets/project/kiwoom-pension/char/santa-dodo.png" width="767" height="576" alt="" loading="lazy"></div>
+              <div class="fg pc p4" style="--x:78.08%;--y:47.21%;--w:13.66%;--d:6s"><img src="assets/project/kiwoom-pension/char/hug-dada.png" width="726" height="601" alt="카드를 들고 위아래로 흔드는 다다와 연금 주머니를 좌우로 흔드는 도도" loading="lazy"><img class="lift" src="assets/project/kiwoom-pension/char/hug-hands.png" width="726" height="601" alt="" loading="lazy"><img src="assets/project/kiwoom-pension/char/hug-dodo.png" width="726" height="601" alt="" loading="lazy"><img class="bag" src="assets/project/kiwoom-pension/char/hug-bag.png" width="726" height="601" alt="" loading="lazy"></div>
             </div>
             <div class="works">
-              <img class="fg" style="--x:32%;--y:67.02%;--w:17.51%;--d:6.6s" src="assets/project/kiwoom-pension/char/c1.png" width="672" height="469" alt="세금 멈춰! 콘텐츠 속 다다" loading="lazy">
-              <img class="fg" style="--x:50.2%;--y:65.77%;--w:19.81%;--d:6.6s" src="assets/project/kiwoom-pension/char/c2.png" width="733" height="495" alt="퇴직연금 중도인출 안내 콘텐츠 속 도도" loading="lazy">
-              <img class="fg" style="--x:70.84%;--y:67.07%;--w:16.08%;--d:6.6s" src="assets/project/kiwoom-pension/char/c3.png" width="617" height="465" alt="주식 비중 높이기와 시장에 머무르기 콘텐츠" loading="lazy">
+              <img class="fg" style="--x:29.87%;--y:67.28%;--w:19.38%;--d:6.6s" src="assets/project/kiwoom-pension/char/c1.png" width="672" height="469" alt="세금 멈춰! 콘텐츠 속 다다" loading="lazy">
+              <img class="fg" style="--x:50.01%;--y:66.00%;--w:21.92%;--d:6.6s" src="assets/project/kiwoom-pension/char/c2.png" width="733" height="495" alt="퇴직연금 중도인출 안내 콘텐츠 속 도도" loading="lazy">
+              <img class="fg" style="--x:72.85%;--y:67.33%;--w:17.80%;--d:6.6s" src="assets/project/kiwoom-pension/char/c3.png" width="617" height="465" alt="주식 비중 높이기와 시장에 머무르기 콘텐츠" loading="lazy">
             </div>
           </div>
         </div>
