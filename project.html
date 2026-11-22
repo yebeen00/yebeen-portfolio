@@ -110,7 +110,7 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 /* stages: a background picture fades in when it scrolls into view, then the work on it fades in after,
    one piece at a time (--i is each piece's place in the order) */
 .stage{position:relative;margin:0;overflow:hidden;background:#050403}
-.stage .bg{width:100%;height:auto;opacity:0;transition:opacity 1s var(--ease)}
+.stage .bg{display:block;width:100%;height:auto;opacity:0;transition:opacity 1s var(--ease)} /* block: no baseline gap showing the slide's colour under it */
 .stage .set{position:absolute;inset:0}
 .stage .fg{opacity:0;transform:translateY(28px);
   transition:opacity .9s var(--ease) calc(.4s + var(--i,0) * .16s),transform 1.2s var(--ease) calc(.4s + var(--i,0) * .16s)}
