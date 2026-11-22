@@ -351,6 +351,35 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
   .clg .hand{order:1;margin-top:40px;width:105%;max-width:none;align-self:flex-start;margin-left:23.75%}
   .clg .cv[src$="wage.png"]{display:none}
 }
+/* 효성 SNS: every piece placed in % of the 3842 × 3964 portfolio page, coming in at its own --d once loaded */
+.stage.hys{container-type:inline-size;background:#12062c}
+.hys .set-h,.hys .hc{position:absolute;inset:0}
+.hys .hv{position:absolute;left:var(--x);top:var(--y);width:var(--w);height:auto;opacity:0;transform:translateY(1cqw);
+  transition:opacity .9s cubic-bezier(.25,.1,.25,1) var(--d),transform 1.1s cubic-bezier(.16,1,.3,1) var(--d)}
+.hys.in .hv.ok{opacity:1;transform:none}
+.hys .a2{-webkit-mask-image:linear-gradient(#000 55%,transparent 82%);mask-image:linear-gradient(#000 55%,transparent 82%)}
+.hys .sub{border-radius:4.8%/9%}
+@media (prefers-reduced-motion:reduce){.hys .hv,.hys .hc{transition:none}}
+/* phones: articles and posts one per row, each fading in as it is reached; the cluster of SNS cards as one block,
+   all at once; the background drawn with gradients so it is not stretched blurry over the tall stack */
+@container (max-width:640px){
+  .hys .bg{display:none}
+  .hys .set-h{position:static;display:flex;flex-direction:column;align-items:center;gap:16px;padding:40px 16px 0;
+    background:radial-gradient(90% 26% at 100% 0%,rgba(11,90,64,.85),rgba(11,90,64,0) 70%),
+      radial-gradient(80% 22% at 0% 62%,rgba(11,90,64,.6),rgba(11,90,64,0) 70%),#12062c}
+  .hys .hv{position:static;width:100%;transform:translateY(16px);--d:.05s!important;transition-duration:.7s,.8s}
+  .hys.in .hv.ok{opacity:0;transform:translateY(16px)}
+  .hys .hv.in.ok,.hys.in .hv.in.ok{opacity:1;transform:none}
+  .hys .a2{-webkit-mask-image:none;mask-image:none}
+  /* the article files carry wide see-through margins around the page: sized and pulled so the page itself fills the row */
+  .hys .hv[src$="article-1.png"]{width:127.75%;max-width:none;align-self:flex-start;margin:-18.4% 0 -45% -12.03%}
+  .hys .a2{width:110.46%;max-width:none;align-self:flex-start;margin:-3.38% 0 -1.54% -5.85%}
+  .hys .post{width:86%}
+  .hys .hc{position:relative;inset:auto;width:calc(100% + 32px);aspect-ratio:2542/2033;overflow:hidden;margin-top:8px;
+    opacity:0;transition:opacity .8s cubic-bezier(.25,.1,.25,1) .05s}
+  .hys .hc.in{opacity:1}
+  .hys .hc .hv{position:absolute;left:var(--mx);top:var(--my);width:var(--mw);opacity:1!important;transform:none!important;transition:none}
+}
 /* phones: the slide would shrink its text to a few pixels, so the pieces stack instead on the same blue,
    the AFTER frame becoming a plain white card that holds the characters, each character card full width */
 @container (max-width:640px){
@@ -788,10 +817,30 @@ const PROJECTS = [
     cat: 'Social', client: '효성', period: '2024–2025', cover: 'assets/work/hyosung.jpg',
     tools: 'Illustrator, Photoshop, Figma', ai: 'Midjourney, Firefly',
     blocks: [
-      { img: 'p23', alt: '숲 위 지구 안의 수소 전구, 효성 지속가능경영보고서 키비주얼' },
+      { src: 'assets/project/hyosung/hero.jpg', w: 2000, h: 1125, alt: '숲 위 지구 안의 수소 전구, 효성 지속가능경영보고서 키비주얼' },
       { label: 'Overview', p: '효성의 지속가능성과 소재 기술을 주제로, <b>하나의 메시지를 브랜드 저널리즘과 SNS의 특성에 맞춰 디자인을 진행</b>했습니다. 브랜드 저널리즘에서는 산업 데이터와 소재의 제조 공정을 인포그래픽으로 시각화해 복잡한 정보를 쉽게 이해할 수 있도록 돕고, SNS에서는 하나의 주제를 페이스북 · 인스타그램 · 링크드인의 특성에 맞춰 풀어내며, 채널마다 이미지 소재와 화면 구성에 변화를 주었습니다.' },
-      { img: 'p24', alt: '효성 브랜드 저널리즘 아티클과 채널별 SNS 게시물' },
-      { img: 'p25', alt: '효성 SNS 콘텐츠 모음과 소재 키비주얼' },
+      // SNS contents, laid out like the portfolio page (3842 × 3964): the background, then the article pages, the three
+      // posts, and the cluster of SNS cards around the Instagram feed, one after another; on phones the articles and
+      // posts stack one per row and the cluster of cards shows as one block, all at once
+      { html: `<figure class="stage hys" aria-label="효성 브랜드 저널리즘 아티클과 채널별 SNS 콘텐츠">
+        <img class="bg" src="assets/project/hyosung/bg-2.jpg" width="1920" height="1981" alt="" loading="lazy">
+        <div class="set-h">
+          <img class="hv" style="--x:3.44%;--y:2.83%;--w:32.35%;--d:0.25s" src="assets/project/hyosung/article-1.png" width="1243" height="2864" alt="효성 브랜드 저널리즘 아티클 ‘패션 산업, 모두가 공존하는 지속가능 세상을 꿈꾸다’" loading="lazy">
+          <img class="hv a2" style="--x:4.89%;--y:64.38%;--w:28.03%;--d:0.41s" src="assets/project/hyosung/article-2.png" width="1077" height="1261" alt="regen BIO 제조 과정과 실제 활용 사례 인포그래픽" loading="lazy">
+          <img class="hv post" style="--x:36.60%;--y:7.59%;--w:18.17%;--d:0.57s" src="assets/project/hyosung/post-fb.png" width="698" height="1222" alt="효성 글로벌 패션 협업 페이스북 게시물" loading="lazy">
+          <img class="hv post" style="--x:56.64%;--y:7.59%;--w:18.17%;--d:0.63s" src="assets/project/hyosung/post-ig.png" width="698" height="1526" alt="효성 regen Ocean Nylon 인스타그램 게시물" loading="lazy">
+          <img class="hv post" style="--x:76.68%;--y:7.59%;--w:18.22%;--d:0.68s" src="assets/project/hyosung/post-li.png" width="700" height="994" alt="효성 regen 전시 링크드인 게시물" loading="lazy">
+          <div class="hc">
+            <img class="hv" style="--x:36.36%;--y:76.41%;--w:28.45%;--d:0.89s;--mx:3.82%;--my:59.27%;--mw:43.00%" src="assets/project/hyosung/materials.png" width="1100" height="940" alt="" loading="lazy">
+            <img class="hv" style="--x:68.95%;--y:84.99%;--w:19.86%;--d:1.05s;--mx:53.07%;--my:76.00%;--mw:30.02%" src="assets/project/hyosung/chinaplas.png" width="1144" height="894" alt="" loading="lazy">
+            <img class="hv" style="--x:90.32%;--y:46.34%;--w:9.71%;--d:1.21s;--mx:85.37%;--my:0.64%;--mw:14.67%" src="assets/project/hyosung/booth.png" width="559" height="1266" alt="" loading="lazy">
+            <img class="hv" style="--x:46.88%;--y:60.57%;--w:29.10%;--d:1.37s;--mx:19.71%;--my:28.38%;--mw:43.98%" src="assets/project/hyosung/instagram.png" width="1120" height="1101" alt="효성 인스타그램 피드 화면" loading="lazy">
+            <img class="hv sub" style="--x:34.88%;--y:68.31%;--w:10.88%;--d:1.53s;--mx:1.57%;--my:43.48%;--mw:16.44%" src="assets/project/hyosung/substation.png" width="418" height="222" alt="Mobile Substation Solution 게시물" loading="lazy">
+            <img class="hv" style="--x:35.53%;--y:50.68%;--w:6.38%;--d:0.73s;--mx:2.56%;--my:9.10%;--mw:9.64%" src="assets/project/hyosung/icon.png" width="367" height="367" alt="" loading="lazy">
+            <img class="hv" style="--x:38.76%;--y:51.39%;--w:59.16%;--d:1.53s;--mx:7.44%;--my:10.48%;--mw:89.42%" src="assets/project/hyosung/cards.png" width="2280" height="1348" alt="BioFiber, Garment Recycling, CREORA 등 효성 SNS 콘텐츠" loading="lazy">
+          </div>
+        </div>
+      </figure>` },
     ],
   },
   {
@@ -911,7 +960,7 @@ const PROJECTS = [
   // pictures and stages start their fade once their top has come a little way up into the screen (however tall
   // they are), and reset only after leaving through the bottom: scrolling back up never makes things blink out
   // and replay, while scrolling down to them again plays them afresh
-  const shows = $$('.fig, .stage, .rdb .rv, .chr .fg, .clg .cv');
+  const shows = $$('.fig, .stage, .rdb .rv, .chr .fg, .clg .cv, .hys .hv, .hys .hc');
   if (reduce || !('IntersectionObserver' in window)) shows.forEach(s => s.classList.add('in'));
   else {
     const io = new IntersectionObserver(es => es.forEach(e => {
@@ -923,7 +972,7 @@ const PROJECTS = [
 
   // pictures fade in once decoded, so lazy ones don't pop in half-drawn; decoding off the main thread
   $$('#body img').forEach(i => { i.decoding = 'async'; });
-  $$('.fig img, .more img, .rdb img, .clg img').forEach(i => {
+  $$('.fig img, .more img, .rdb img, .clg img, .hys img').forEach(i => {
     const ok = () => i.classList.add('ok');
     i.complete && i.naturalWidth ? ok() : i.addEventListener('load', ok, { once: true });
   });
