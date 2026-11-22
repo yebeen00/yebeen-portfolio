@@ -139,6 +139,7 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 /* 연금술사 results band: navy (#0b2168) with 80px above and below, the chart card beside three figures and the summary.
    Type is sized in cqw of the band with floors, so it stays legible when the band is narrow */
 .stage.sbk{container-type:inline-size;padding:60px 4%;display:grid;grid-template-columns:minmax(0,558fr) minmax(0,872fr);column-gap:3%;align-items:start}
+.tx+.stage.sbk{padding-top:0;margin-top:-48px} /* close under the text above it: 48px between the text and the chart */
 .sb-chart{display:block;width:100%;height:auto}
 .sb-chart .yl{font:500 14px var(--sans);fill:rgba(255,255,255,.62);text-anchor:end}
 .sb-chart .yl.unit{font-size:11px}
@@ -547,10 +548,10 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
   .side .back{display:none}
   .back-m{display:inline-flex;margin-top:36px}
   .tx{padding:52px 0 60px}
+  .tx+.stage.sbk{margin-top:-24px} /* phones: 36px between the text and the chart */
   .st-sub{padding:52px 0 20px}
   .st-sub p{font-size:14.5px}
   .st-h{padding:52px 0 20px}
-  .stage.sbk{padding-top:0} /* the text block above already leaves 60px */
   .tx .lead{font-size:16px}
   .tx .p{font-size:14.5px;line-height:1.8}
   /* phones: the two-row strip would leave each card ~40px wide, so the cards regroup into a grid instead:
@@ -726,36 +727,6 @@ const PROJECTS = [
         <div class="node" style="--x:79%;--t:1.2s"><div class="disc"><div class="txt">
           <h3>Character &amp;<br>Visual Identity</h3><p class="k">캐릭터 리뉴얼</p><p>어렵고 딱딱한 정보를<br>캐릭터의 친근함으로 보완</p></div></div></div>
         </figure>` },
-      { label: 'Approach', p: '어려운 콘텐츠도 명확한 가독성, 직관적인 컬러 시스템, 친근한 캐릭터를 통해 누구나 쉽게 이해하고 즐길 수 있는 뉴스레터 경험으로 설계했습니다.' },
-      // subscriber growth, as on the portfolio slide: navy band, line chart card on the left (the line draws
-      // itself, early months in blue and the renewal period in white), three figures and the summary on the right
-      { html: `<section class="stage sbk" aria-label="뉴스레터 성과">
-        <svg class="sb-chart" viewBox="0 0 558 342" role="img" aria-label="2023년 1월부터 2026년 8월까지 누적 구독자 수가 꾸준히 늘어 9,000명 가까이 오른 그래프">
-          <rect width="558" height="342" rx="18" fill="#19389e"/>
-          <rect class="shade" x="261.7" y="30" width="268.3" height="246" fill="#0b1f6b" opacity=".32"/>
-          <path d="M74 30 V276 H530" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="1"/>
-          <text class="yl unit" x="64" y="20">(명)</text><text class="yl" x="64" y="46.5">9000</text><text class="yl" x="64" y="105.3">6,750</text><text class="yl" x="64" y="164.1">4,500</text><text class="yl" x="64" y="222.1">2,250</text><text class="yl" x="64" y="280.0">0</text>
-          <text class="xl" transform="translate(81.3 290) rotate(-60)">2023.01</text><text class="xl" transform="translate(110.6 290) rotate(-60)">2023.03</text><text class="xl" transform="translate(139.9 290) rotate(-60)">2023.06</text><text class="xl" transform="translate(169.2 290) rotate(-60)">2023.09</text><text class="xl" transform="translate(198.5 290) rotate(-60)">2023.12</text><text class="xl" transform="translate(227.8 290) rotate(-60)">2024.02</text><text class="xl on" transform="translate(257.1 290) rotate(-60)">2024.05</text><text class="xl on" transform="translate(286.4 290) rotate(-60)">2024.08</text><text class="xl on" transform="translate(315.7 290) rotate(-60)">2024.11</text><text class="xl on" transform="translate(345.0 290) rotate(-60)">2025.01</text><text class="xl on" transform="translate(374.3 290) rotate(-60)">2025.04</text><text class="xl on" transform="translate(403.6 290) rotate(-60)">2025.07</text><text class="xl on" transform="translate(432.9 290) rotate(-60)">2025.10</text><text class="xl on" transform="translate(462.2 290) rotate(-60)">2025.12</text><text class="xl on" transform="translate(491.5 290) rotate(-60)">2026.03</text><text class="xl on" transform="translate(520.8 290) rotate(-60)">2026.08</text>
-          <path class="ln ln1" pathLength="1" d="M74.0 203.8 L77.7 166.4 L92.3 166.4 L96.0 160.1 L102.4 160.1 L107.0 140.5 L121.6 137.0 L128.9 125.4 L176.6 120.0 L222.3 101.3 L254.4 96.8 L261.7 94.2" fill="none" stroke="#6f93f0" stroke-width="1.6" stroke-linejoin="round"/>
-          <path class="ln ln2" pathLength="1" d="M261.7 94.2 L291.0 81.7 L339.5 70.1 L370.7 69.2 L396.3 68.3 L437.5 66.5 L465.0 58.5 L501.6 56.7 L530.0 45.2" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
-          <g class="call">
-            <line x1="400.0" y1="68.3" x2="400.0" y2="157.0" stroke="#fff" stroke-width="1"/>
-            <circle cx="400.0" cy="68.3" r="7" fill="rgba(255,255,255,.25)"/><circle cx="400.0" cy="68.3" r="3" fill="#fff"/>
-            <g class="box"><rect x="305.5" y="157.0" width="189" height="76" rx="6" fill="#3477ed"/>
-            <text class="cl" x="400.0" y="178.0">콘텐츠 경험 개선을 통한</text>
-            <text class="cl" x="400.0" y="195.0">지속적인 독자 유입 및</text>
-            <text class="cl b" x="400.0" y="218.0">꾸준한 구독자 상승세 달성</text></g>
-          </g>
-        </svg>
-        <div class="sb-side">
-          <div class="sb-cards">
-            <div class="sb-card" style="--i:0"><p>누적 구독자 <small>(26.08 기준)</small></p><b>8,186<sup>+</sup></b></div>
-            <div class="sb-card" style="--i:1"><p>뉴스레터 평균 오픈율</p><b>20<sup>%</sup></b></div>
-            <div class="sb-card" style="--i:2"><p>뉴스레터 누적 발행 수</p><b>400호<sup>+</sup></b></div>
-          </div>
-          <p class="sb-txt">뉴스레터의 시각적 가독성 개선과 UI/UX 최적화를 통해 <b>독자 중심의 콘텐츠 경험</b>을 구축했습니다. 이를 바탕으로 꾸준한 독자 유입을 이끌어 누적 구독자 8,186명을 달성했으며, 총 400호 발행 동안 평균 오픈율 20%를 유지하며 <b>지속적인 성장</b>을 이어갔습니다.</p>
-        </div>
-      </section>` },
       // characters, laid out like the portfolio slide (2000 × 1125): background, BEFORE card, the AFTER frame wiping in
       // from the left, 도도's star, 다다's moon, each card after its guide line has drawn, the poses one by one, the content
       { html: `<h2 class="st-h">Character &amp; Visual Identity</h2>` },
@@ -809,6 +780,36 @@ const PROJECTS = [
         </div>
         </div>
       </figure>` },
+      { label: 'Approach', p: '어려운 콘텐츠도 명확한 가독성, 직관적인 컬러 시스템, 친근한 캐릭터를 통해 누구나 쉽게 이해하고 즐길 수 있는 뉴스레터 경험으로 설계했습니다.' },
+      // subscriber growth, as on the portfolio slide: navy band, line chart card on the left (the line draws
+      // itself, early months in blue and the renewal period in white), three figures and the summary on the right
+      { html: `<section class="stage sbk" aria-label="뉴스레터 성과">
+        <svg class="sb-chart" viewBox="0 0 558 342" role="img" aria-label="2023년 1월부터 2026년 8월까지 누적 구독자 수가 꾸준히 늘어 9,000명 가까이 오른 그래프">
+          <rect width="558" height="342" rx="18" fill="#19389e"/>
+          <rect class="shade" x="261.7" y="30" width="268.3" height="246" fill="#0b1f6b" opacity=".32"/>
+          <path d="M74 30 V276 H530" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="1"/>
+          <text class="yl unit" x="64" y="20">(명)</text><text class="yl" x="64" y="46.5">9000</text><text class="yl" x="64" y="105.3">6,750</text><text class="yl" x="64" y="164.1">4,500</text><text class="yl" x="64" y="222.1">2,250</text><text class="yl" x="64" y="280.0">0</text>
+          <text class="xl" transform="translate(81.3 290) rotate(-60)">2023.01</text><text class="xl" transform="translate(110.6 290) rotate(-60)">2023.03</text><text class="xl" transform="translate(139.9 290) rotate(-60)">2023.06</text><text class="xl" transform="translate(169.2 290) rotate(-60)">2023.09</text><text class="xl" transform="translate(198.5 290) rotate(-60)">2023.12</text><text class="xl" transform="translate(227.8 290) rotate(-60)">2024.02</text><text class="xl on" transform="translate(257.1 290) rotate(-60)">2024.05</text><text class="xl on" transform="translate(286.4 290) rotate(-60)">2024.08</text><text class="xl on" transform="translate(315.7 290) rotate(-60)">2024.11</text><text class="xl on" transform="translate(345.0 290) rotate(-60)">2025.01</text><text class="xl on" transform="translate(374.3 290) rotate(-60)">2025.04</text><text class="xl on" transform="translate(403.6 290) rotate(-60)">2025.07</text><text class="xl on" transform="translate(432.9 290) rotate(-60)">2025.10</text><text class="xl on" transform="translate(462.2 290) rotate(-60)">2025.12</text><text class="xl on" transform="translate(491.5 290) rotate(-60)">2026.03</text><text class="xl on" transform="translate(520.8 290) rotate(-60)">2026.08</text>
+          <path class="ln ln1" pathLength="1" d="M74.0 203.8 L77.7 166.4 L92.3 166.4 L96.0 160.1 L102.4 160.1 L107.0 140.5 L121.6 137.0 L128.9 125.4 L176.6 120.0 L222.3 101.3 L254.4 96.8 L261.7 94.2" fill="none" stroke="#6f93f0" stroke-width="1.6" stroke-linejoin="round"/>
+          <path class="ln ln2" pathLength="1" d="M261.7 94.2 L291.0 81.7 L339.5 70.1 L370.7 69.2 L396.3 68.3 L437.5 66.5 L465.0 58.5 L501.6 56.7 L530.0 45.2" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+          <g class="call">
+            <line x1="400.0" y1="68.3" x2="400.0" y2="157.0" stroke="#fff" stroke-width="1"/>
+            <circle cx="400.0" cy="68.3" r="7" fill="rgba(255,255,255,.25)"/><circle cx="400.0" cy="68.3" r="3" fill="#fff"/>
+            <g class="box"><rect x="305.5" y="157.0" width="189" height="76" rx="6" fill="#3477ed"/>
+            <text class="cl" x="400.0" y="178.0">콘텐츠 경험 개선을 통한</text>
+            <text class="cl" x="400.0" y="195.0">지속적인 독자 유입 및</text>
+            <text class="cl b" x="400.0" y="218.0">꾸준한 구독자 상승세 달성</text></g>
+          </g>
+        </svg>
+        <div class="sb-side">
+          <div class="sb-cards">
+            <div class="sb-card" style="--i:0"><p>누적 구독자 <small>(26.08 기준)</small></p><b>8,186<sup>+</sup></b></div>
+            <div class="sb-card" style="--i:1"><p>뉴스레터 평균 오픈율</p><b>20<sup>%</sup></b></div>
+            <div class="sb-card" style="--i:2"><p>뉴스레터 누적 발행 수</p><b>400호<sup>+</sup></b></div>
+          </div>
+          <p class="sb-txt">뉴스레터의 시각적 가독성 개선과 UI/UX 최적화를 통해 <b>독자 중심의 콘텐츠 경험</b>을 구축했습니다. 이를 바탕으로 꾸준한 독자 유입을 이끌어 누적 구독자 8,186명을 달성했으며, 총 400호 발행 동안 평균 오픈율 20%를 유지하며 <b>지속적인 성장</b>을 이어갔습니다.</p>
+        </div>
+      </section>` },
       // the newsletter in hand with its contents around it, as on the portfolio slide (2000 × 1125): the background,
       // then the phone, then the contents one after another; on phones the pieces stack, each fading in as it is reached
       { html: `<figure class="stage clg" aria-label="스마트폰에 띄운 연금술사 뉴스레터와 콘텐츠 모음">
