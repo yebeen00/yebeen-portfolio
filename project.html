@@ -409,18 +409,18 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 /* 키움 SNS approach: heading row, a pink line with three circles coming in from the left, then the strip of contents */
 .stage.kap{container-type:inline-size;background:transparent} /* sits on the page's own dark ground */
 /* three boxes on a pink line, coming in from the left one after another; the middle one filled */
-.kdg{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:4.2cqw;padding:5cqw 7.3% 6cqw}
-.kdg .ln{position:absolute;left:0;right:0;top:50%;height:max(1px,.1cqw);background:#ee307e;transform:scaleX(0);transform-origin:left;
+.kdg{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:6cqw;padding:5cqw 6% 6cqw}
+.kdg .ln{position:absolute;left:0;right:0;top:50%;height:max(1px,.1cqw);background:#e86fa3;transform:scaleX(0);transform-origin:left;
   transition:transform 1.6s cubic-bezier(.65,0,.35,1)}
 .kap.in .kdg .ln{transform:none}
-.kbx{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:.9cqw;min-height:13cqw;padding:2.4cqw 2.6cqw;
-  border-radius:1.2cqw;background:#fff;box-shadow:0 0 2.2cqw rgba(238,48,126,.28);font-family:var(--kserif);word-break:keep-all;
-  opacity:0;transform:translateX(-2cqw);transition:opacity .9s cubic-bezier(.25,.1,.25,1) var(--t),transform 1.1s cubic-bezier(.16,1,.3,1) var(--t)}
+.kbx{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+  min-height:14.5cqw;padding:2.2cqw 2.4cqw;border-radius:999px;background:#fff;box-shadow:0 0 2.4cqw rgba(238,48,126,.45),0 0 .6cqw rgba(238,48,126,.25);
+  font-family:var(--kserif);word-break:keep-all;opacity:0;transform:translateX(-2cqw);
+  transition:opacity .9s cubic-bezier(.25,.1,.25,1) var(--t),transform 1.1s cubic-bezier(.16,1,.3,1) var(--t)}
 .kap.in .kbx{opacity:1;transform:none}
-.kbx h3{margin:0;font-size:2.1cqw;font-weight:700;letter-spacing:-.02em;color:#e8337f}
-.kbx p{margin:0;font-size:1.3cqw;font-weight:500;line-height:1.5;letter-spacing:-.02em;color:#222}
-.kbx.mid{background:#ee307e;box-shadow:0 0 0 .7cqw rgba(238,48,126,.22),0 0 0 1.5cqw rgba(238,48,126,.1)}
-.kbx.mid h3,.kbx.mid p{color:#fff}
+.kbx h3{margin:0;font-family:var(--sans);font-size:2.05cqw;font-weight:600;letter-spacing:-.01em;color:#e0427f}
+.kbx .k{margin:.3cqw 0 0;font-size:1.05cqw;font-weight:500;color:#9a9a9a}
+.kbx .k+p{margin:1.1cqw 0 0;font-size:1.3cqw;font-weight:500;line-height:1.5;letter-spacing:-.02em;color:#222}
 .kstrip img{display:block;width:100%;height:auto;opacity:0;transition:opacity 1.2s cubic-bezier(.25,.1,.25,1) 1.5s}
 .kap.in .kstrip img.ok{opacity:1}
 .kstrip .ks2{display:none}
@@ -439,13 +439,13 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 /* phones: the circles stand in a column on a vertical line, the content strip splits into the cards and the phone,
    and the banner pieces stack one under another, each fading in as it is reached */
 @container (max-width:640px){
-  .kdg{grid-template-columns:1fr;gap:14px;padding:24px 16px 36px}
-  .kdg .ln{left:50%;right:auto;top:24px;bottom:36px;width:1px;height:auto;transform:scaleY(0);transform-origin:top}
+  .kdg{grid-template-columns:1fr;gap:22px;padding:28px 20px 40px}
+  .kdg .ln{left:50%;right:auto;top:28px;bottom:40px;width:1px;height:auto;transform:scaleY(0);transform-origin:top}
   .kap.in .kdg .ln{transform:none}
-  .kbx{min-height:0;gap:6px;padding:20px 22px;border-radius:14px;box-shadow:0 0 14px rgba(238,48,126,.28);transform:translateY(-12px)}
+  .kbx{min-height:0;padding:22px 28px;box-shadow:0 0 18px rgba(238,48,126,.45),0 0 5px rgba(238,48,126,.25);transform:translateY(-12px)}
   .kbx h3{font-size:19px}
-  .kbx p{font-size:14.5px}
-  .kbx.mid{box-shadow:0 0 0 5px rgba(238,48,126,.22),0 0 0 11px rgba(238,48,126,.1)}
+  .kbx .k{margin-top:3px;font-size:11.5px}
+  .kbx .k+p{margin-top:9px;font-size:14px}
   .kstrip{display:flex;flex-direction:column}
   .kstrip .ks1{aspect-ratio:1748/652;object-fit:cover;object-position:0 50%}
   .kstrip .ks2{display:block;order:-1;aspect-ratio:636/652;object-fit:cover;object-position:100% 50%}
@@ -481,7 +481,7 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
   .ksa.off{opacity:0;pointer-events:none;animation:none}
   .ksa:active{transform:scale(.92)}
   @keyframes ksa-nudge{0%,60%,100%{translate:0 0}30%{translate:4px 0}}
-  .kswipe .kf{flex:none;width:auto;height:300px;aspect-ratio:auto;scroll-snap-align:start;border-radius:6px;opacity:1!important;transform:none!important}
+  .kswipe .kf{flex:none;width:auto;max-width:none;height:300px;aspect-ratio:auto;object-fit:cover;scroll-snap-align:start;border-radius:16px;opacity:1!important;transform:none!important}
   .kfeed .full{grid-column:1/-1;aspect-ratio:auto}
   .kfeed .tri{grid-column:span 2} /* the three K-ETF event cards side by side */
 }
@@ -622,9 +622,10 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 /* a small heading and one line of text set straight above the picture it introduces */
 .st-sub{padding:84px 0 28px;max-width:780px;font-family:var(--kserif);word-break:keep-all}
 .st-sub.under{padding:28px 0 0} /* set under the picture it describes */
+.st-sub.en h3{font-weight:400} /* an English heading set like the section titles (Overview, Result) */
 .st-sub h3{margin:0;font-size:clamp(19px,1.5vw,23px);font-weight:600;line-height:1.4;letter-spacing:-.02em}
 .st-sub p{margin:10px 0 0;font-size:15.5px;line-height:1.8;color:var(--ink-2)}
-.tx h2,.st-h{font-family:var(--serif);font-size:clamp(26px,2.2vw,34px);line-height:1.05;letter-spacing:-.005em}
+.tx h2,.st-h,.st-sub.en h3{font-family:var(--serif);font-size:clamp(26px,2.2vw,34px);line-height:1.05;letter-spacing:-.005em}
 /* a title set straight above a slide */
 .st-h{margin:0;padding:84px 0 28px}
 .tx .lead{margin-top:18px;font-family:var(--kserif);font-size:17px;font-weight:500;line-height:1.6;letter-spacing:-.01em;word-break:keep-all}
@@ -1042,14 +1043,14 @@ const PROJECTS = [
         </div>
       </figure>` },
       { label: 'Overview', p: '키움투자자산운용의 블로그·유튜브·카카오톡·인스타그램에서 <b>금융 정보를 쉽고 친근하게 전달하는 콘텐츠를 디자인</b>했습니다. 투자자의 심리는 생성형 AI로 제작한 ‘개미’ 캐릭터와 만화로 풀어내고, 복잡한 금융 정보는 도표와 인포그래픽으로 정리했으며, 썸네일·키자 매거진·프로모션 배너까지 콘텐츠의 목적과 채널에 맞게 표현하면서 브랜드의 일관성을 유지했습니다.' },
-      { sub: 'Design Approach', p: '콘텐츠의 목적과 채널의 특성에 맞춰 디자인을 다양하게 풀어내면서도, 브랜드 톤앤매너는 일관되게 유지했습니다.' },
+      { sub: 'Design Approach', en: true, p: '콘텐츠의 목적과 채널의 특성에 맞춰 디자인을 다양하게 풀어내면서도, 브랜드 톤앤매너는 일관되게 유지했습니다.' },
       // content design approach, as on the portfolio slide: the line under the heading, the three circles coming in from
       // the left, then the strip of contents; on phones the circles stand in a column and the strip splits in two
       { html: `<section class="stage kap" aria-label="콘텐츠 디자인 접근 방식">
         <div class="kdg"><span class="ln"></span>
-          <div class="kbx" style="--t:.3s"><h3>공감</h3><p>캐릭터와 상황 중심의 이야기</p></div>
-          <div class="kbx mid" style="--t:.6s"><h3>이해</h3><p>핵심 정보를 정리한 도표와 그래픽</p></div>
-          <div class="kbx" style="--t:.9s"><h3>참여</h3><p>혜택과 행동을 명확히 보여주는 구성</p></div>
+          <div class="kbx" style="--t:.3s"><h3>Empathy</h3><p class="k">공감</p><p>캐릭터와 상황 중심의 이야기</p></div>
+          <div class="kbx" style="--t:.6s"><h3>Clarity</h3><p class="k">이해</p><p>핵심 정보를 정리한 도표와 그래픽</p></div>
+          <div class="kbx" style="--t:.9s"><h3>Engagement</h3><p class="k">참여</p><p>혜택과 참여 방법을 명확히<br>보여주는 구성</p></div>
         </div>
         <div class="kstrip"><img class="ks1" src="assets/project/kiwoom-sns/strip.jpg" width="2400" height="652" alt="키움투자자산운용 SNS 콘텐츠 모음과 인스타그램 화면을 띄운 스마트폰" loading="lazy"><img class="ks2" src="assets/project/kiwoom-sns/strip.jpg" width="2400" height="652" alt="" loading="lazy"></div>
       </section>` },
@@ -1177,7 +1178,7 @@ const PROJECTS = [
   let first = true;
   const html = P.blocks.map(b => {
     if (b.html) { first = false; return b.html; }
-    if (b.sub) return `<section class="st-sub${b.under ? ' under' : ''}"><h3>${b.sub}</h3><p>${b.p}</p></section>`;
+    if (b.sub) return `<section class="st-sub${b.under ? ' under' : ''}${b.en ? ' en' : ''}"><h3>${b.sub}</h3><p>${b.p}</p></section>`;
     if (b.img || b.src) {
       const lazy = first ? 'fetchpriority="high"' : 'loading="lazy"'; first = false;
       const src = b.src || `assets/project/${b.img}.jpg`, w = b.w || 2000, h = b.h || (b.img === 'p09b' ? 557 : 1125);

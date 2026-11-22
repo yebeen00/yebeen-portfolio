@@ -779,10 +779,10 @@ html.ld-on,html.ld-on body{overflow:hidden}
 
   async function initGL() {
     try {
-      renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+      renderer = new THREE.WebGLRenderer({ canvas, antialias: !isMobile, alpha: false, powerPreference: 'high-performance' });
       renderer.setClearColor(0x000000, 1);
     } catch (e) { return; }
-    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(devicePixelRatio, isMobile ? 1.5 : 2));
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(35, 1, .1, 100);
     camera.position.z = 10;
@@ -818,7 +818,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
     // Luminous dust: soft additive points. Colour runs as one smooth gradient over the shape,
     // warm orange underneath (lit by the glow below) through white to lavender/purple on top.
     const U = { uCenter: { value: new THREE.Vector2() }, uScale: { value: 1 }, uTime: { value: 0 }, uPix: { value: renderer.getPixelRatio() }, uScatter: { value: 0 }, uGain: { value: 1 }, uSizeMul: { value: 1 }, uHalo: { value: 1 } };
-    const vert = (mul) => `
+    const vert = (mul, cap) => `
         attribute float aSize, aSeed, aEdge; attribute vec3 aRand;
         uniform float uTime, uPix, uScatter, uScale, uGain, uSizeMul; uniform vec2 uCenter;
         varying vec3 vCol; varying float vA; varying float vWarm; varying float vWhite;
@@ -839,7 +839,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
           vec2 q = p.xy - uCenter; p.xy = vec2(cs * q.x - sn * q.y, sn * q.x + cs * q.y) + uCenter;
           vec4 mv = modelViewMatrix * vec4(p, 1.);
           gl_Position = projectionMatrix * mv;
-          gl_PointSize = aSize * ${mul} * uSizeMul * uPix * (10. / -mv.z);
+          gl_PointSize = mv.z > -.35 ? 0. : min(aSize * ${mul} * uSizeMul * uPix * (10. / -mv.z), ${cap} * uPix);
           // gradient at -45° (CSS convention): orange bottom-right → purple top-left
           float t = dot(position.xy - uCenter, normalize(vec2(-1., 1.))) / (uScale * 2.2) + .5 + (aSeed - .5) * .08;
           vec3 c = grad(t);
@@ -855,7 +855,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
         }`;
     mat = new THREE.ShaderMaterial({
       uniforms: U,
-      vertexShader: vert('1.'),
+      vertexShader: vert('1.', isMobile ? '28.' : '96.'),
       fragmentShader: `
         varying vec3 vCol; varying float vA; varying float vWarm; varying float vWhite;
         void main(){
@@ -868,7 +868,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
     // Halo: very large, very faint sprites so the whole glyph glows.
     const glowMat = new THREE.ShaderMaterial({
       uniforms: U,
-      vertexShader: vert('7.'),
+      vertexShader: vert('7.', isMobile ? '110.' : '400.'),
       fragmentShader: `
         uniform float uHalo;
         varying vec3 vCol; varying float vA; varying float vWarm; varying float vWhite;
