@@ -259,6 +259,71 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 @keyframes chr-lift{0%,100%{translate:0 0}50%{translate:0 -2.2%}}
 @keyframes chr-bag{0%,100%{rotate:0deg}25%{rotate:-6deg}75%{rotate:6deg}}
 @media (prefers-reduced-motion:reduce){.stage.chr .pc img{animation:none!important}}
+/* 연금술사 readability: newsletters and design-point boxes placed in % of the 2000 × 1125 slide, text in cqw
+   (1 slide px = .05cqw); each piece comes in at its own --d, the guide lines just before the box they lead to */
+.stage.rdb{container-type:inline-size;background:#0b2269}
+.rdb .rv{position:absolute;left:var(--x);top:var(--y);width:var(--w);opacity:0;transform:translateY(1cqw);
+  transition:opacity 1.4s cubic-bezier(.25,.1,.25,1) var(--d),transform 1.8s cubic-bezier(.16,1,.3,1) var(--d)}
+.rdb.in .rv{opacity:1;transform:none}
+.rdb .set-r{position:absolute;inset:0}
+.rdb .bg{aspect-ratio:2000/1310;object-fit:cover}
+.rdb .rv img{display:block;width:100%;height:auto}
+.rdb .lk{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .6s var(--ease) var(--d);pointer-events:none}
+.rdb .lk1{--d:1.2s}
+.rdb .lk2{--d:2.2s}
+.rdb.in .lk{opacity:1}
+.rdb .lk path{fill:none;stroke:#5aa2ff;stroke-width:1.2;stroke-dasharray:4 3;vector-effect:non-scaling-stroke}
+.rdb .lk circle{fill:#68aeff}
+.rdb .dp{box-sizing:border-box;border-radius:1.43cqw;background:#071657;font-family:var(--kserif);word-break:keep-all}
+.rdb .dp section{padding:1.95cqw 1.56cqw 1.69cqw}
+.rdb .dp section+section{padding-top:0.52cqw}
+.rdb .dp h3{margin:0;font-size:1.07cqw;font-weight:700;letter-spacing:-.005em;color:#67a2f6}
+.rdb .dp p{margin:0.65cqw 0 0;font-size:1.21cqw;font-weight:400;line-height:1.5;letter-spacing:-.02em;color:#aaadc3}
+.rdb .dp p b{font-weight:600;color:#fff}
+.rdb .tl{display:grid;gap:0.26cqw;margin-top:1.30cqw}
+.rdb .t2{grid-template-columns:1fr 1fr}
+.rdb .t2 .w{grid-column:1/-1}
+.rdb .ed img{box-sizing:border-box;border:max(1px,0.10cqw) solid #4f8ff0}
+/* translator and chat share the first row (349 : 136), the TEST loader and the playlist split the second in half */
+.rdb .g3{grid-template-columns:242.5fr 106.5fr 136fr;gap:0.59cqw}
+.rdb .g3 span:nth-child(1){grid-column:1/3}
+.rdb .g3 span:nth-child(4){grid-column:2/4}
+.rdb .g3 span{display:grid;place-items:center;overflow:hidden;border-radius:0.59cqw;background:#fff}
+.rdb .g3 .c{aspect-ratio:240/183}
+.rdb .g3 .w{grid-column:1/-1}
+/* inside each box, its pictures come in one after another once the box is in */
+/* each picture also waits until it has loaded, so a lazy GIF never pops in half-drawn */
+.rdb .tl img{opacity:0;transition:opacity 1.1s cubic-bezier(.25,.1,.25,1) calc(var(--d) + .4s + var(--k) * .1s)}
+.rdb.in .tl img.ok{opacity:1}
+.rdb .nl img{opacity:0;transition:opacity 1.2s cubic-bezier(.25,.1,.25,1)}
+.rdb .nl img.ok{opacity:1}
+@media (prefers-reduced-motion:reduce){.rdb .rv,.rdb .lk,.rdb img{transition:none}}
+/* phones: the slide's text would shrink to a few pixels, so the pieces stack on the same blue, each newsletter
+   followed by its design points, and each piece fades in as it is scrolled to */
+@container (max-width:640px){
+  .rdb .bg,.rdb .lk{display:none}
+  .rdb .set-r{position:static;display:flex;flex-direction:column;align-items:center;gap:22px;padding:40px 16px;
+    background:url(assets/project/kiwoom-pension/read/bg.jpg) center top/100% auto no-repeat,#0b2269}
+  .rdb .rv{position:static;width:100%;transform:translateY(16px);--d:.1s!important}
+  .rdb.in .rv{opacity:0;transform:translateY(16px)}
+  .rdb .rv.in,.rdb.in .rv.in{opacity:1;transform:none}
+  .rdb .nl{width:88%}
+  .rdb .nl1{order:1}
+  .rdb .dp12{order:2}
+  .rdb .nl2{order:3}
+  .rdb .dp3{order:4}
+  .rdb .dp{border-radius:18px}
+  .rdb .dp section{padding:26px 20px 22px}
+  .rdb .dp section+section{padding-top:6px}
+  .rdb .dp h3{font-size:15px}
+  .rdb .dp p{margin-top:8px;font-size:15px;line-height:1.6}
+  .rdb .tl{gap:4px;margin-top:16px}
+  .rdb .g3{gap:7px}
+  .rdb .g3 span{border-radius:8px}
+  .rdb .ed img{border-width:1px}
+  .rdb.in .tl img.ok{opacity:0}
+  .rdb .rv.in .tl img.ok{opacity:1}
+}
 /* phones: the slide would shrink its text to a few pixels, so the pieces stack instead on the same blue,
    the AFTER frame becoming a plain white card that holds the characters, each character card full width */
 @container (max-width:640px){
@@ -629,7 +694,32 @@ const PROJECTS = [
           </div>
         </div>
       </figure>` },
-      { img: 'p06', alt: '뉴스레터 리뉴얼의 디자인 포인트와 모바일 화면' },
+      // newsletter readability, laid out like the portfolio slide (2000 × 1125): the two newsletters fade in, then each
+      // dotted guide line, then the design-point box it leads to; on phones the pieces stack and each fades in on its own
+      { html: `<h2 class="st-h">Readability</h2>` },
+      { html: `<figure class="stage rdb" aria-label="뉴스레터 가독성을 높인 디자인 포인트">
+        <img class="bg" src="assets/project/kiwoom-pension/read/bg.jpg" width="2000" height="1125" alt="" loading="lazy">
+        <div class="set-r">
+        <svg class="lk lk1" viewBox="0 0 2000 1310" preserveAspectRatio="none" aria-hidden="true"><path d="M534 245H559V254H634M534 622H552V384H664"/><circle cx="534" cy="245" r="4.5"/><circle cx="634" cy="254" r="4.5"/><circle cx="534" cy="622" r="4.5"/><circle cx="664" cy="384" r="4.5"/></svg>
+        <svg class="lk lk2" viewBox="0 0 2000 1310" preserveAspectRatio="none" aria-hidden="true"><path d="M1466 443H1441V843H1332M1441 474H1393"/><circle cx="1466" cy="443" r="4.5"/><circle cx="1332" cy="843" r="4.5"/><circle cx="1393" cy="474" r="4.5"/></svg>
+        <div class="rv nl nl1" style="--x:29.20%;--y:11.45%;--w:20.45%;--d:.3s"><img style="--k:0" src="assets/project/kiwoom-pension/read/nl1.png" width="786" height="1362" alt="스페셜 에디션 타이틀과 연금 줌아웃 타이틀로 시작하는 연금술사 뉴스레터" loading="lazy"></div>
+        <div class="rv nl nl2" style="--x:50.30%;--y:11.45%;--w:20.50%;--d:.6s"><img style="--k:0" src="assets/project/kiwoom-pension/read/nl2.png" width="788" height="1636" alt="연금투자 번역기와 투자톡방 콘텐츠가 담긴 연금술사 뉴스레터" loading="lazy"></div>
+        <div class="rv dp dp12" style="--x:3.70%;--y:8.40%;--w:23.00%;--d:1.7s">
+          <section><h3>Design Point 01</h3><p>스페셜 호와 일반 호의 타이틀 디자인을 차별화하여 직관적인 구분을 주었으며, 모션과 같은 <b>동적 요소를 적용</b>해 시각적 지루함을 해소하고 몰입감을 더했습니다.</p>
+            <div class="tl t2 ed"><img style="--k:0" src="assets/project/kiwoom-pension/read/title-sp.gif" width="1080" height="472" alt="스페셜 호 연금술사 타이틀 모션" loading="lazy"><img style="--k:1" src="assets/project/kiwoom-pension/read/title.gif" width="1080" height="468" alt="일반 호 연금술사 타이틀 모션" loading="lazy"></div></section>
+          <section><h3>Design Point 02</h3><p><b>타이틀을 통해 콘텐츠 구분</b>을 명확히 하고, 자연스러운 시선 흐름을 유도해 독자가 내용을 더 매끄럽고 쉽게 읽을 수 있도록 디자인했습니다.</p>
+            <div class="tl t2 bn"><img style="--k:0" src="assets/project/kiwoom-pension/read/b-zoomin.png" width="290" height="49" alt="연금 줌인 타이틀" loading="lazy"><img style="--k:1" src="assets/project/kiwoom-pension/read/b-zoomout.png" width="290" height="49" alt="연금 줌아웃 타이틀" loading="lazy"><img class=w style="--k:2" src="assets/project/kiwoom-pension/read/b-test.png" width="584" height="170" alt="연금력 TEST 타이틀" loading="lazy"><img class=w style="--k:3" src="assets/project/kiwoom-pension/read/b-trans.png" width="584" height="135" alt="연금투자 번역기 타이틀" loading="lazy"><img style="--k:4" src="assets/project/kiwoom-pension/read/b-ipmun.png" width="290" height="57" alt="연금입문반 타이틀" loading="lazy"><img style="--k:5" src="assets/project/kiwoom-pension/read/b-sangdam.png" width="290" height="57" alt="연금쪽 상담소 타이틀" loading="lazy"><img style="--k:6" src="assets/project/kiwoom-pension/read/b-1min.png" width="290" height="96" alt="일분만 투자해 타이틀" loading="lazy"><img style="--k:7" src="assets/project/kiwoom-pension/read/b-talk.png" width="290" height="96" alt="투자톡방 타이틀" loading="lazy"><img style="--k:8" src="assets/project/kiwoom-pension/read/b-money.png" width="288" height="108" alt="머니볼 타이틀" loading="lazy"><img style="--k:9" src="assets/project/kiwoom-pension/read/b-gusl.png" width="291" height="108" alt="구슬아, 구슬아 자산 목표를 이루는 방법을 알려줘! 타이틀" loading="lazy"><img style="--k:10" src="assets/project/kiwoom-pension/read/b-library.png" width="290" height="76" alt="마스터의 연금서재 타이틀" loading="lazy"><img style="--k:11" src="assets/project/kiwoom-pension/read/b-didim.png" width="290" height="76" alt="겟 레디 위드 디딤펀드 타이틀" loading="lazy"></div></section>
+        </div>
+        <div class="rv dp dp3" style="--x:73.30%;--y:19.85%;--w:23.00%;--d:2.7s">
+          <section><h3>Design Point 03</h3><p>콘텐츠 내용에 동적 요소(GIF)를 적용하여 <b>시각적 리듬감을 더해 주목도를 극대화</b>하였습니다.</p>
+            <div class="tl g3">
+              <span><img style="--k:0" src="assets/project/kiwoom-pension/read/trans.gif" width="1080" height="512" alt="연금·투자어를 금술어로 바꿔 주는 번역기 모션" loading="lazy"></span><span><img style="--k:1" src="assets/project/kiwoom-pension/read/chat.gif" width="1080" height="1042" alt="도도와 다다가 대화하는 투자톡방 모션" loading="lazy"></span>
+              <span class="c"><img style="--k:2" src="assets/project/kiwoom-pension/read/test.gif" width="400" height="300" alt="TEST 로딩 중 모션" loading="lazy"></span><span class="c"><img style="--k:3" src="assets/project/kiwoom-pension/read/play.gif" width="1080" height="400" alt="연금 플레이 리스트 모션" loading="lazy"></span>
+              <span class="w"><img style="--k:4" src="assets/project/kiwoom-pension/read/bar.gif" width="1080" height="235" alt="분홍 선 위로 고개를 내미는 도도와 다다" loading="lazy"></span>
+            </div></section>
+        </div>
+        </div>
+      </figure>` },
       { img: 'p07', alt: '스마트폰에 띄운 연금술사 뉴스레터와 콘텐츠 모음' },
     ],
   },
@@ -754,7 +844,7 @@ const PROJECTS = [
   // pictures fade in once decoded, so lazy ones don't pop in half-drawn
   // pictures and stages fade in when about a fifth of them is on screen, and reset once they have left it,
   // so the fade plays again every time they are scrolled back into view
-  const shows = $$('.fig, .stage');
+  const shows = $$('.fig, .stage, .rdb .rv');
   if (reduce || !('IntersectionObserver' in window)) shows.forEach(s => s.classList.add('in'));
   else {
     const io = new IntersectionObserver(es => es.forEach(e => {
@@ -764,7 +854,7 @@ const PROJECTS = [
     shows.forEach(s => io.observe(s));
   }
 
-  $$('.fig img, .more img').forEach(i => {
+  $$('.fig img, .more img, .rdb img').forEach(i => {
     const ok = () => i.classList.add('ok');
     i.complete && i.naturalWidth ? ok() : i.addEventListener('load', ok, { once: true });
   });
