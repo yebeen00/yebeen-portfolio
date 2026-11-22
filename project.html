@@ -35,6 +35,8 @@
 @media (min-width:901px){:root{--gut:60px}}
 *,*::before,*::after{box-sizing:border-box}
 html{color-scheme:dark;-webkit-text-size-adjust:100%}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img{display:block;max-width:100%;height:auto} /* every picture keeps its own shape at any width */
 a{color:inherit;text-decoration:none}
@@ -602,6 +604,7 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 
 <button class="orb" id="orb" type="button" hidden aria-label="맨 위로"></button>
 
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script>
 /* Every project page is drawn from this list: project.html?p=<id>.
    Blocks run top to bottom in the right column: a page image from the portfolio PDF (assets/project/pNN.jpg),
@@ -766,13 +769,13 @@ const PROJECTS = [
       { html: `<figure class="stage clg" aria-label="스마트폰에 띄운 연금술사 뉴스레터와 콘텐츠 모음">
         <img class="bg" src="assets/project/kiwoom-pension/phone/bg.jpg" width="2000" height="1125" alt="" loading="lazy">
         <div class="set-c">
-          <img class="cv hand" style="--x:7.30%;--y:12.89%;--w:52.50%;--d:.35s" src="assets/project/kiwoom-pension/phone/hand.png" width="2016" height="1882" alt="손에 든 스마트폰에 띄운 연금술사 뉴스레터" loading="lazy">
+          <img class="cv hand" style="--x:7.30%;--y:12.89%;--w:52.50%;--d:.35s" src="assets/project/kiwoom-pension/phone/hand.png" width="1300" height="1213" alt="손에 든 스마트폰에 띄운 연금술사 뉴스레터" loading="lazy">
           <img class="cv" style="--x:42.55%;--y:0.00%;--w:15.55%;--d:1.00s" src="assets/project/kiwoom-pension/phone/uk.png" width="600" height="521" alt="영국 정부의 퇴직연금 개혁 요약 콘텐츠" loading="lazy">
           <img class="cv" style="--x:42.55%;--y:25.16%;--w:15.55%;--d:1.12s" src="assets/project/kiwoom-pension/phone/flags.png" width="600" height="811" alt="뉴욕, 런던, 홍콩의 공통점을 묻는 콘텐츠" loading="lazy">
           <img class="cv" style="--x:42.55%;--y:63.73%;--w:15.55%;--d:1.24s" src="assets/project/kiwoom-pension/phone/tax.png" width="600" height="562" alt="세액공제 한도 초과분 인정 그래프 콘텐츠" loading="lazy">
           <img class="cv" style="--x:42.55%;--y:90.76%;--w:15.55%;--d:1.36s" src="assets/project/kiwoom-pension/phone/wage.png" width="600" height="196" alt="임금피크제에 따른 임금 변화 그래프" loading="lazy">
           <img class="cv" style="--x:59.25%;--y:0.09%;--w:24.05%;--d:1.48s" src="assets/project/kiwoom-pension/phone/kids.jpg" width="927" height="1212" alt="어른이날 소원 투표 이벤트" loading="lazy">
-          <img class="cv" style="--x:59.25%;--y:57.24%;--w:24.05%;--d:1.60s" src="assets/project/kiwoom-pension/phone/event.gif" width="1080" height="1080" alt="연금능력고사 이벤트 모션" loading="lazy">
+          <img class="cv" style="--x:59.25%;--y:57.24%;--w:24.05%;--d:1.60s" src="assets/project/kiwoom-pension/phone/event.gif" width="640" height="640" alt="연금능력고사 이벤트 모션" loading="lazy">
           <img class="cv" style="--x:84.45%;--y:0.09%;--w:15.55%;--d:1.72s" src="assets/project/kiwoom-pension/phone/split.png" width="600" height="530" alt="분산투자 분위기를 묻는 도도와 다다" loading="lazy">
           <img class="cv" style="--x:84.45%;--y:25.60%;--w:15.55%;--d:1.84s" src="assets/project/kiwoom-pension/phone/bakery.png" width="600" height="996" alt="다다의 코멘트와 어느 빵집을 고를까요 콘텐츠" loading="lazy">
           <img class="cv" style="--x:84.45%;--y:72.71%;--w:15.55%;--d:1.96s" src="assets/project/kiwoom-pension/phone/barn.png" width="600" height="587" alt="국민연금 기금 곳간 콘텐츠" loading="lazy">
@@ -899,19 +902,27 @@ const PROJECTS = [
   const back = `<a class="back back-m mono" href="work.html"><span>↪︎</span>Back to list</a>`; // phones only
   $('#body').innerHTML = html + back + more;
 
-  // pictures fade in once decoded, so lazy ones don't pop in half-drawn
-  // pictures and stages fade in when about a fifth of them is on screen, and reset once they have left it,
-  // so the fade plays again every time they are scrolled back into view
+  // smooth wheel scrolling on mouse and trackpad, as on the main page; touch screens keep their own scrolling
+  const touch = matchMedia('(pointer: coarse)').matches;
+  const lenis = !reduce && !touch && window.Lenis ? new Lenis({ lerp: .09, smoothWheel: true }) : null;
+  if (lenis) { const raf = t => { lenis.raf(t); requestAnimationFrame(raf); }; requestAnimationFrame(raf); }
+  const glide = top => lenis ? lenis.scrollTo(top, { duration: 1.6 }) : scrollTo({ top, behavior: reduce ? 'instant' : 'smooth' });
+
+  // pictures and stages start their fade once their top has come a little way up into the screen (however tall
+  // they are), and reset only after leaving through the bottom: scrolling back up never makes things blink out
+  // and replay, while scrolling down to them again plays them afresh
   const shows = $$('.fig, .stage, .rdb .rv, .chr .fg, .clg .cv');
   if (reduce || !('IntersectionObserver' in window)) shows.forEach(s => s.classList.add('in'));
   else {
     const io = new IntersectionObserver(es => es.forEach(e => {
-      if (e.intersectionRatio >= .2) e.target.classList.add('in');
-      else if (!e.isIntersecting) e.target.classList.remove('in');
-    }), { threshold: [0, .2] });
+      if (e.isIntersecting) e.target.classList.add('in');
+      else if (e.boundingClientRect.top > 0) e.target.classList.remove('in');
+    }), { rootMargin: '0px 0px -12% 0px' });
     shows.forEach(s => io.observe(s));
   }
 
+  // pictures fade in once decoded, so lazy ones don't pop in half-drawn; decoding off the main thread
+  $$('#body img').forEach(i => { i.decoding = 'async'; });
   $$('.fig img, .more img, .rdb img, .clg img').forEach(i => {
     const ok = () => i.classList.add('ok');
     i.complete && i.naturalWidth ? ok() : i.addEventListener('load', ok, { once: true });
@@ -921,12 +932,12 @@ const PROJECTS = [
   const hd = $('#hd'), orb = $('#orb');
   const onScroll = () => { hd.classList.toggle('ink', scrollY > 10); orb.hidden = scrollY < 600; };
   addEventListener('scroll', onScroll, { passive: true }); onScroll();
-  orb.addEventListener('click', () => scrollTo({ top: 0, behavior: reduce ? 'instant' : 'smooth' }));
+  orb.addEventListener('click', () => glide(0));
 
   // same-page links (Contact) glide instead of jumping
   $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
     const t = $(a.getAttribute('href')); if (!t) return;
-    e.preventDefault(); scrollTo({ top: t.getBoundingClientRect().top + scrollY, behavior: reduce ? 'instant' : 'smooth' });
+    e.preventDefault(); glide(t.getBoundingClientRect().top + scrollY);
   }));
 
   // touch: pills light up while tapped, as on the main page
