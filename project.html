@@ -424,8 +424,8 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 .kstrip .ks2{display:none}
 /* 키움 SNS ad banners and SNS contents: pieces placed in % of the 3840 × 2160 slide on the flat pink ground */
 .stage.kbn{container-type:inline-size;background:#ffe8f3}
-.kbn .set-b{position:relative;aspect-ratio:3840/2160}
-.kbn .kl{position:absolute;left:var(--x);top:11.3%;margin:0;font-family:var(--kserif);font-size:1.1cqw;font-weight:600;color:#222;letter-spacing:-.01em}
+.kbn .set-b{position:relative;aspect-ratio:3840/2261} /* the same space below the boxes as above the labels */
+.kbn .kl{position:absolute;left:var(--x);top:10.79%;margin:0;font-family:var(--kserif);font-size:1.1cqw;font-weight:600;color:#222;letter-spacing:-.01em}
 .kbn .kl b{margin-right:.35em;font-family:var(--sans);font-weight:600;color:#e8337f}
 .kbn .kb,.kbn .knav{position:absolute;left:var(--x);top:var(--y);width:var(--w);height:auto}
 .kbn .knav .kb:first-child{position:static;width:100%;display:block}
@@ -568,6 +568,40 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
   .lc{padding:18px 18px 20px}
   .lc h3{font-size:16px}
   .lc p{margin-top:8px;font-size:14px}
+}
+/* 키움 SNS graphics: collapsing cards. The open card takes most of the row; the rest fold to strips */
+.ccs{container-type:inline-size;padding:8px 0 0;opacity:0;transform:translateY(24px);
+  transition:opacity 1s cubic-bezier(.25,.1,.25,1),transform 1.2s cubic-bezier(.16,1,.3,1)}
+.ccs.in{opacity:1;transform:none}
+.cc-cards{display:flex;gap:10px;height:min(46cqw,460px)}
+.cc-card{position:relative;flex:.7;min-width:0;padding:0;border:0;border-radius:14px;overflow:hidden;cursor:pointer;background:#141218;
+  color:#fff;font:inherit;text-align:left;transition:flex .75s cubic-bezier(.2,1,.3,1)}
+.cc-card.active{flex:4.2}
+.cc-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.04);filter:grayscale(.3) brightness(.7);
+  transition:transform .9s cubic-bezier(.2,1,.3,1),filter .75s cubic-bezier(.2,1,.3,1)}
+.cc-card.active .cc-img{transform:none;filter:none;object-fit:contain} /* the open card shows the whole picture */
+.cc-card.active{background:#f3eef5}
+.cc-card::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to top,rgba(0,0,0,.6),rgba(0,0,0,.15) 35%,rgba(0,0,0,0) 60%);transition:opacity .5s}
+.cc-card.active::after{opacity:.75}
+.cc-v{position:absolute;z-index:2;left:50%;bottom:20px;translate:-50% 0;writing-mode:vertical-rl;font-family:var(--kserif);
+  font-size:14px;font-weight:600;letter-spacing:.06em;color:rgba(255,255,255,.9);white-space:nowrap;transition:opacity .3s}
+.cc-card.active .cc-v{opacity:0}
+.cc-c{position:absolute;z-index:2;inset:auto 0 0 0;display:flex;flex-direction:column;gap:6px;padding:20px 22px;font-family:var(--kserif);word-break:keep-all}
+.cc-i{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.75);opacity:0;transition:opacity .35s .15s}
+.cc-t{font-size:18px;font-weight:600;letter-spacing:-.015em;opacity:0;transform:translateY(6px);
+  transition:opacity .35s ease .15s,transform .5s cubic-bezier(.2,1,.3,1) .15s}
+.cc-card.active .cc-i,.cc-card.active .cc-t{opacity:1;transform:none}
+.cc-card:focus-visible{outline:2px solid #e8337f;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.ccs,.cc-card,.cc-img,.cc-t,.cc-i,.cc-v{transition-duration:.15s!important}}
+/* phones: the cards stack, the open one tall, the others thin bands with their name across */
+@container (max-width:640px){
+  .cc-cards{flex-direction:column;gap:6px;height:auto}
+  .cc-card{flex:none;height:56px;transition:height .75s cubic-bezier(.2,1,.3,1)}
+  .cc-card.active{flex:none;height:min(78cqw,380px)}
+  .cc-v{writing-mode:horizontal-tb;left:16px;bottom:50%;translate:0 50%}
+  .cc-c{padding:14px 16px}
+  .cc-t{font-size:16px}
 }
 /* phones: the slide would shrink its text to a few pixels, so the pieces stack instead on the same blue,
    the AFTER frame becoming a plain white card that holds the characters, each character card full width */
@@ -1080,16 +1114,16 @@ const PROJECTS = [
       { html: `<figure class="stage kbn" aria-label="광고 배너와 인스타그램·유튜브·블로그·홈페이지 콘텐츠">
         <div class="set-b">
           <p class="kl" style="--x:7.30%"><b>AD Banner</b> 광고 배너</p>
-          <img class="kb ad" style="--x:7.19%;--y:16.85%;--w:19.92%;--d:.2s" src="assets/project/kiwoom-sns/ad.jpg" width="765" height="1661" alt="키움투자자산운용 카카오톡 채널과 유튜브 구독 광고 배너" loading="lazy">
+          <img class="kb ad" style="--x:7.19%;--y:16.10%;--w:19.92%;--d:.2s" src="assets/project/kiwoom-sns/ad.jpg" width="765" height="1661" alt="키움투자자산운용 카카오톡 채널과 유튜브 구독 광고 배너" loading="lazy">
           <p class="kl sns" style="--x:30.25%"><b>SNS</b> 인스타그램, 유튜브, 블로그, 홈페이지</p>
-          <img class="kb" style="--x:30.10%;--y:16.85%;--w:22.14%;--d:.4s" src="assets/project/kiwoom-sns/insta.jpg" width="850" height="619" alt="‘너의 애칭은’, ‘25년 1분기 HOT 상품은?’ 인스타그램 게시물" loading="lazy">
-          <div class="knav" style="--x:53.54%;--y:16.85%;--w:39.30%">
+          <img class="kb" style="--x:30.10%;--y:16.10%;--w:22.14%;--d:.4s" src="assets/project/kiwoom-sns/insta.jpg" width="850" height="619" alt="‘너의 애칭은’, ‘25년 1분기 HOT 상품은?’ 인스타그램 게시물" loading="lazy">
+          <div class="knav" style="--x:53.54%;--y:16.10%;--w:39.30%">
             <img class="kb" style="--d:.6s" src="assets/project/kiwoom-sns/navy.jpg" width="1509" height="611" alt="‘왜 하필 그때 들어가셨죠?’ 인스타그램 게시물" loading="lazy">
             <img class="kb kc" style="--x:36.32%;--y:24.22%;--w:17.96%;--d:.8s" src="assets/project/kiwoom-sns/card-1.png" width="271" height="339" alt="하락장일 때 카드" loading="lazy">
             <img class="kb kc" style="--x:54.87%;--y:24.22%;--w:17.96%;--d:.95s" src="assets/project/kiwoom-sns/card-2.png" width="271" height="339" alt="뉴스 지금 산업 대호황 카드" loading="lazy">
             <img class="kb kc" style="--x:73.69%;--y:23.57%;--w:17.96%;--d:1.1s" src="assets/project/kiwoom-sns/card-3.png" width="271" height="339" alt="내 투자는 절대 틀리지 않았다 카드" loading="lazy">
           </div>
-          <img class="kb feed" style="--x:30.10%;--y:47.22%;--w:62.76%;--d:1.3s" src="assets/project/kiwoom-sns/feed.jpg" width="2410" height="997" alt="이벤트, 연말정산 FAQ, K-ETF 매수 인증 등 인스타그램·블로그 콘텐츠" loading="lazy">
+          <img class="kb feed" style="--x:30.10%;--y:45.11%;--w:62.76%;--d:1.3s" src="assets/project/kiwoom-sns/feed.jpg" width="2410" height="997" alt="이벤트, 연말정산 FAQ, K-ETF 매수 인증 등 인스타그램·블로그 콘텐츠" loading="lazy">
           <div class="kfeed"><img class="kf post" src="assets/project/kiwoom-sns/feed/post.webp" width="697" height="1508" alt="‘롤러코스터장, 하락은 막고 상승은 잡아!’ 인스타그램 이벤트 게시물" loading="lazy"><div class="ksw"><button class="ksa prev off" type="button" aria-label="이전 카드"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="ksa next" type="button" aria-label="다음 카드"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="kswipe"><img class="kf" src="assets/project/kiwoom-sns/feed/c1.jpg" width="404" height="505" alt="포트폴리오 보험 전략 포인트 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/c2.jpg" width="404" height="505" alt="CPPI와 OBPI 소개 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/c3.jpg" width="404" height="505" alt="CPPI 동적 자산 배분 전략 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/c5.jpg" width="404" height="505" alt="OBPI 옵션 기반 전략 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/c6.jpg" width="404" height="503" alt="키움 마켓 리포트 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/c7.jpg" width="404" height="505" alt="흔들리는 시장 어디로 올라탈까 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/c4.jpg" width="404" height="505" alt="관세 파도 위의 개미 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/c8.jpg" width="404" height="492" alt="KIWOOM 독일DAX 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/c10.jpg" width="404" height="505" alt="KIWOOM 인도Nifty50 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/c9.jpg" width="404" height="505" alt="절세 계좌에 뭐 담지 카드" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/c12.jpg" width="355" height="443" alt="연말정산 FAQ 표지" loading="lazy"><img class="kf" src="assets/project/kiwoom-sns/feed/c11.jpg" width="404" height="404" alt="연말정산 빙고 이벤트 게시물" loading="lazy"><img class="kf full" src="assets/project/kiwoom-sns/feed/c13.jpg" width="717" height="443" alt="연금저축과 IRP 연말정산 Q&A 페이지" loading="lazy"><img class="kf tri" src="assets/project/kiwoom-sns/feed/c14.jpg" width="351" height="439" alt="K-ETF 매수 인증 이벤트 표지" loading="lazy"><img class="kf tri" src="assets/project/kiwoom-sns/feed/c15.jpg" width="351" height="439" alt="K-ETF 매수 인증 이벤트 안내" loading="lazy"><img class="kf tri" src="assets/project/kiwoom-sns/feed/c16.jpg" width="351" height="439" alt="이벤트 기간 및 경품 안내" loading="lazy"></div></div></div>
         </div>
       </figure>` },
@@ -1129,7 +1163,9 @@ const PROJECTS = [
           <img class="fi" style="--x:58.1%;--y:4.2%;--w:7.8%;--mx:83.3%;--my:2.2%;--mw:13%;--t:4.9s;--dl:-0.2s;--lift:-8%;--tilt:3deg;--k:12" src="assets/project/kiwoom-sns/float/i11.webp" width="2000" height="1793" alt="" loading="lazy">
         </div></figure>` },
       // contents made with those graphics, in a row to swipe through, with arrows on either side
-      { html: `<section class="hgal plain" aria-label="그래픽 요소를 활용한 콘텐츠"><div class="swiper hg-sw"><div class="swiper-wrapper"><div class="swiper-slide" style="--ar:1.0000"><img src="assets/project/kiwoom-sns/gfx/g1.webp" width="2000" height="2000" alt="‘트럼프 풋, 파월 풋 시장의 기대 방향은?’ 썸네일" loading="lazy"></div><div class="swiper-slide" style="--ar:1.5564"><img src="assets/project/kiwoom-sns/gfx/g2.webp" width="2000" height="1285" alt="보호무역의 경제적 결과 인포그래픽" loading="lazy"></div><div class="swiper-slide" style="--ar:1.7778"><img src="assets/project/kiwoom-sns/gfx/g3.webp" width="2000" height="1125" alt="‘리츠와 리츠 ETF! 투자 절세 꿀팁’ 썸네일" loading="lazy"></div><div class="swiper-slide" style="--ar:1.7953"><img src="assets/project/kiwoom-sns/gfx/g4.webp" width="2000" height="1114" alt="트럼프 풋 기대감 인포그래픽" loading="lazy"></div><div class="swiper-slide" style="--ar:1.1799"><img src="assets/project/kiwoom-sns/gfx/g5.webp" width="2000" height="1695" alt="투자자의 대응 전략 인포그래픽" loading="lazy"></div><div class="swiper-slide" style="--ar:1.0000"><img src="assets/project/kiwoom-sns/gfx/g6.webp" width="2000" height="2000" alt="‘키움투자자산운용 SNS 채널 운영원칙’ 썸네일" loading="lazy"></div></div><div class="swiper-pagination"></div></div></section>` },
+      // contents made with those graphics: a row of cards; hovering or tapping one opens it while the others fold
+      // to narrow strips with their name on end (after Cue's collapsing cards accordion)
+      { html: `<section class="ccs" aria-label="그래픽 요소를 활용한 콘텐츠"><div class="cc-cards"><button class="cc-card active" type="button" aria-label="‘트럼프 풋, 파월 풋 시장의 기대 방향은?’ 썸네일"><img class="cc-img" src="assets/project/kiwoom-sns/gfx/g1.webp" alt="‘트럼프 풋, 파월 풋 시장의 기대 방향은?’ 썸네일" loading="lazy"><span class="cc-v">파월 풋</span><span class="cc-c"><span class="cc-i">01 / 06</span><span class="cc-t">트럼프 풋, 파월 풋 시장의 기대 방향은?</span></span></button><button class="cc-card" type="button" aria-label="보호무역의 경제적 결과 인포그래픽"><img class="cc-img" src="assets/project/kiwoom-sns/gfx/g2.webp" alt="보호무역의 경제적 결과 인포그래픽" loading="lazy"><span class="cc-v">보호무역</span><span class="cc-c"><span class="cc-i">02 / 06</span><span class="cc-t">보호무역의 경제적 결과</span></span></button><button class="cc-card" type="button" aria-label="‘리츠와 리츠 ETF! 투자 절세 꿀팁’ 썸네일"><img class="cc-img" src="assets/project/kiwoom-sns/gfx/g3.webp" alt="‘리츠와 리츠 ETF! 투자 절세 꿀팁’ 썸네일" loading="lazy"><span class="cc-v">리츠 ETF</span><span class="cc-c"><span class="cc-i">03 / 06</span><span class="cc-t">리츠와 리츠 ETF! 투자 절세 꿀팁</span></span></button><button class="cc-card" type="button" aria-label="트럼프 풋 기대감 인포그래픽"><img class="cc-img" src="assets/project/kiwoom-sns/gfx/g4.webp" alt="트럼프 풋 기대감 인포그래픽" loading="lazy"><span class="cc-v">트럼프 풋</span><span class="cc-c"><span class="cc-i">04 / 06</span><span class="cc-t">트럼프 풋 기대감</span></span></button><button class="cc-card" type="button" aria-label="투자자의 대응 전략 인포그래픽"><img class="cc-img" src="assets/project/kiwoom-sns/gfx/g5.webp" alt="투자자의 대응 전략 인포그래픽" loading="lazy"><span class="cc-v">대응 전략</span><span class="cc-c"><span class="cc-i">05 / 06</span><span class="cc-t">투자자의 대응 전략</span></span></button><button class="cc-card" type="button" aria-label="‘키움투자자산운용 SNS 채널 운영원칙’ 썸네일"><img class="cc-img" src="assets/project/kiwoom-sns/gfx/g6.webp" alt="‘키움투자자산운용 SNS 채널 운영원칙’ 썸네일" loading="lazy"><span class="cc-v">운영원칙</span><span class="cc-c"><span class="cc-i">06 / 06</span><span class="cc-t">키움투자자산운용 SNS 채널 운영원칙</span></span></button></div></section>` },
       { label: 'Result', lead: '채널 운영 성과 - 콘텐츠 디자인 기여', stats: [['+72%', '인스타그램 팔로워 증가'], ['+8%', '카카오톡 채널 친구 수 증가']] },
     ],
   },
@@ -1250,7 +1286,7 @@ const PROJECTS = [
   // pictures and stages start their fade once their top has come a little way up into the screen (however tall
   // they are), and reset only after leaving through the bottom: scrolling back up never makes things blink out
   // and replay, while scrolling down to them again plays them afresh
-  const shows = $$('.fig, .stage, .rdb .rv, .chr .fg, .clg .cv, .hys .hv, .hys .hc, .hgal, .kbn .kb, .kbn .knav, .kfeed .kf, .kswipe, .kyt .ky, .sog .so');
+  const shows = $$('.fig, .stage, .rdb .rv, .chr .fg, .clg .cv, .hys .hv, .hys .hc, .hgal, .kbn .kb, .kbn .knav, .kfeed .kf, .kswipe, .kyt .ky, .sog .so, .ccs');
   if (reduce || !('IntersectionObserver' in window)) shows.forEach(s => s.classList.add('in'));
   else {
     const io = new IntersectionObserver(es => es.forEach(e => {
@@ -1274,6 +1310,15 @@ const PROJECTS = [
     }));
     document.head.appendChild(js);
   }
+
+  // collapsing cards: hovering (mouse) or tapping a card opens it
+  $$('.cc-cards').forEach(row => {
+    const open = c => row.querySelectorAll('.cc-card').forEach(x => x.classList.toggle('active', x === c));
+    row.querySelectorAll('.cc-card').forEach(c => {
+      c.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') open(c); });
+      c.addEventListener('click', () => open(c));
+    });
+  });
 
   // swipe rows (phones): the arrows step one card at a time and hide at either end
   $$('.ksw').forEach(w => {
