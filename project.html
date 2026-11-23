@@ -650,7 +650,8 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 .sk img.ok{opacity:1}
 @container (max-width:640px){
   .hstk{padding-top:8svh}
-  .stk{--W:55cqw;--step:28svh;padding-bottom:22svh}
+  .stk{--W:77cqw;--step:36svh;padding-bottom:24svh}
+  .sk{--w:min(var(--W),calc(70svh * var(--ar)))} /* the story keeps the same width as the rest */
 }
 /* phones: the slide would shrink its text to a few pixels, so the pieces stack instead on the same blue,
    the AFTER frame becoming a plain white card that holds the characters, each character card full width */
