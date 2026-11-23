@@ -858,6 +858,22 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
   .igh{font-size:7.8px}.igt{font-size:6px}
   .igc-t{font-size:7px} /* three phones across a phone screen: 15px would not fit a word per line */
 }
+/* S-OIL proposal: green and yellow washes; series titles float on their stage, captions under each piece */
+.mn.so-dir{--g:linear-gradient(160deg,#0f6b3a 0%,#0a5a30 100%)}
+.mn.so-an{--g:linear-gradient(180deg,#f3f7dc,#e4efc2)}
+.mn.so-dy{--g:#f1f2ec}
+.mn.so-fm{--g:#ecebe6}
+.mn.so-tr{--g:#eaf3c4}
+.mn[class*="so-"] figcaption{margin-top:10px;font-family:var(--kserif);font-size:13px;font-weight:500;color:#3d4a33;text-align:center;word-break:keep-all}
+.mn.so-dir figcaption{color:rgba(255,255,255,.85)}
+.so-an figcaption{text-align:left;line-height:1.6}
+.so-an figcaption b{display:block;margin-bottom:2px;font-weight:700;color:#0a5a30}
+.spt{justify-self:center;width:min(100%,40cqw);margin-bottom:1.6cqw}
+.spt img{display:block;width:100%;height:auto}
+.so-fm .spt{width:min(100%,46cqw)}
+.trc{flex:none!important;width:min(100%,52cqw);margin:0 auto}
+.so-tr .pn-l,.so-dy .pn-l{color:#1f3a1d}
+@container (max-width:640px){.spt{width:72%}.so-fm .spt{width:84%}.trc{width:100%}.mn[class*="so-"] figcaption{font-size:12px}}
 /* phones: the leaflets, plaques and forms become one swipe row, each piece at its own shape, with a bar for progress */
 .mn-c{display:grid;gap:2.4cqw}
 .mn-bar{display:none}
@@ -1695,6 +1711,27 @@ const PROJECTS = [
       { html: `<section class="mn-h sub gap"><p class="en">유니세프 로그온</p><h3>한 아이의 하루를 따라가는 이야기</h3><p class="ds">아동의 하루를 따라가며 선택의 순간을 마주하는 참여형 콘텐츠를 제안했습니다. 픽셀 캐릭터와 게임 인터페이스로 이야기의 진입점을 만들고, 인물 소개와 상황 설명, 선택지로 이어지는 흐름을 구성했습니다. 선택에 대한 생각을 댓글로 나누며 아동의 현실을 돌아볼 수 있도록 설계했습니다.</p></section>` },
       // the main case: the story in five steps, the moving screens as they play
       { html: `<section class="mn un-lg" aria-label="유니세프 로그온 참여형 스토리보드"><p class="pn-l">01 시작 화면 · 02 인물 소개</p><div class="mn-r"><figure class="mi sh uv" style="--r:0.8;--k:0" aria-label="유니세프 로그온 시작 화면 모션"><video src="assets/project/unicef/login-start.mp4" poster="assets/project/unicef/login-start-poster.jpg" width="720" height="900" muted loop autoplay playsinline preload="metadata"></video><figcaption>시작 화면</figcaption></figure><figure class="mi sh" style="--r:0.8000;--k:1"><img src="assets/project/unicef/login2.jpg" width="900" height="1125" alt="파티마의 플레이어 프로필" loading="lazy"><figcaption>인물 소개</figcaption></figure></div><p class="pn-l">03 상황 제시</p><div class="mn-r"><figure class="mi sh uv" style="--r:0.8;--k:0" aria-label="파티마의 아침과 대화창 모션"><video src="assets/project/unicef/login-story.mp4" poster="assets/project/unicef/login-story-poster.jpg" width="720" height="900" muted loop autoplay playsinline preload="metadata"></video><figcaption>하루의 시작</figcaption></figure><figure class="mi sh" style="--r:0.8000;--k:1"><img src="assets/project/unicef/login5.jpg" width="900" height="1125" alt="예멘 지도와 위기 상황 알림" loading="lazy"><figcaption>위기 상황 알림</figcaption></figure></div><p class="pn-l">04 선택 화면 · 05 마무리</p><div class="mn-r q"><figure class="mi sh uv" style="--r:0.8;--k:0" aria-label="학교에 갈지 물을 길으러 갈지 고르는 선택 모션"><video src="assets/project/unicef/login-choice.mp4" poster="assets/project/unicef/login-choice-poster.jpg" width="720" height="900" muted loop autoplay playsinline preload="metadata"></video><figcaption>선택의 순간</figcaption></figure><figure class="mi sh" style="--r:0.8000;--k:1"><img src="assets/project/unicef/login6.jpg" width="900" height="1125" alt="세이브 포인트와 공유 안내" loading="lazy"><figcaption>세이브 포인트</figcaption></figure><figure class="mi sh" style="--r:0.8000;--k:2"><img src="assets/project/unicef/login7.jpg" width="900" height="1125" alt="게임이 아닌 현실을 전하는 엔딩" loading="lazy"><figcaption>엔딩</figcaption></figure></div><p class="ulg-n">게임 형식을 활용한 SNS 콘텐츠 · 스토리보드 제안</p></section>` },
+    ],
+  },
+  {
+    id: 'soil-proposal', name: 'S-OIL 제안', desc: '블로그·SNS 시리즈 콘텐츠 디자인 제안',
+    title: 'S-OIL<br>브랜드의 역사와 일상을 연결하는<br>디지털 콘텐츠 디자인 제안',
+    cat: 'Proposal', client: 'S-OIL', period: '2025', cover: 'assets/work/soil-proposal.jpg',
+    scope: ['제안 프로젝트', '블로그 메인 비주얼', 'SNS 시리즈 타이틀', '카드뉴스', '썸네일 디자인'],
+    tools: 'Photoshop, Illustrator, Figma',
+    blocks: [
+      { src: 'assets/project/soil-proposal/anni-a.jpg', w: 2000, h: 1333, alt: '기록 사진 콜라주와 투명한 그린 숫자 50으로 만든 S-OIL 50주년 ‘시작’ 메인 비주얼' },
+      { label: 'Overview', p: '에쓰오일의 역사와 기업 활동을 보다 친근하게 전달하기 위한 블로그·SNS 콘텐츠 제안 시안을 디자인했습니다. 50주년 아카이브부터 월간 소식, 지역 이야기, 생활 속 과학까지 주제별로 시각적 콘셉트를 구분하고, 브랜드의 그린과 옐로를 공통 요소로 활용했습니다. 사진 콜라주와 입체 타이포그래피, 캐릭터 등 다양한 표현을 통해 콘텐츠마다 개성을 살리면서도 에쓰오일의 브랜드 인상이 이어지도록 구성했습니다.' },
+      // the four directions side by side before each is shown in full
+      { html: `<section class="mn so-dir" aria-label="네 가지 콘텐츠 방향"><div class="mn-r q"><figure class="mi sh" style="--r:0.8000;--k:0"><img src="assets/project/soil-proposal/dir-anni.jpg" width="900" height="1125" alt="50주년 아카이브 시리즈 메인 비주얼" loading="lazy"><figcaption>50주년 아카이브 · 과거와 현재</figcaption></figure><figure class="mi sh" style="--r:0.8000;--k:1"><img src="assets/project/soil-proposal/day-cover.jpg" width="900" height="1125" alt="에쓰오일데이 카드뉴스 표지" loading="lazy"><figcaption>에쓰오일데이 · 월간 소식</figcaption></figure><figure class="mi sh" style="--r:0.8000;--k:2"><img src="assets/project/soil-proposal/film-1.jpg" width="900" height="1125" alt="필름 온 사이트 화성 편 표지" loading="lazy"><figcaption>필름 온 사이트 · 지역 이야기</figcaption></figure><figure class="mi sh" style="--r:0.8000;--k:3"><img src="assets/project/soil-proposal/triple.jpg" width="900" height="1125" alt="트리플 S 보일러 1도의 비밀 표지" loading="lazy"><figcaption>트리플 S · 생활 속 과학</figcaption></figure></div></section>` },
+      { html: `<section class="mn-h"><p class="en">01. Anniversary Visual</p><h3>과거의 기록을 현재의 이미지로</h3><p class="ds">에쓰오일의 50년을 돌아보는 연간 시리즈의 첫 주제인 ‘시작’을 블로그 메인 비주얼로 표현했습니다. 과거 기록 사진과 산업 현장 이미지를 콜라주하고, 50주년 타이포그래피를 결합해 브랜드의 출발과 시간의 흐름을 한 화면에 담았습니다.</p><p class="sc mono">아카이브 시리즈 메인 비주얼 제안</p></section>` },
+      { html: `<section class="mn so-an" aria-label="50주년 아카이브 시리즈 메인 비주얼 시안"><div class="mn-r st"><figure class="mi sh" style="--r:1.5004;--k:0"><img src="assets/project/soil-proposal/anni-a.jpg" width="2000" height="1333" alt="투명한 그린 숫자 50과 기록 사진 콜라주의 A안" loading="lazy"><figcaption><b>A안 · 입체 타이포그래피</b>투명한 그린 소재의 숫자와 자유로운 사진 배치로 생동감을 강조</figcaption></figure><figure class="mi sh" style="--r:1.5004;--k:1"><img src="assets/project/soil-proposal/anni-b.jpg" width="2000" height="1333" alt="그린·옐로 면 분할과 굵은 타이포그래피의 B안" loading="lazy"><figcaption><b>B안 · 그래픽 콜라주</b>그린·옐로 면 분할과 굵은 타이포그래피로 기록의 무게감과 정보 위계를 강조</figcaption></figure></div></section>` },
+      { html: `<section class="mn-h"><p class="en">02. Monthly Summary</p><h3>가볍게 시작해 명확하게 전하는 월간 소식</h3><p class="ds">‘에쓰오일데이’는 한 달간의 주요 활동을 정리하는 카드뉴스 시리즈입니다. 표지는 인물의 표정과 짧은 문구로 관심을 유도하고, 본문은 핵심 제목·활동 사진·요약 설명의 반복 구조로 구성했습니다. 친근한 도입과 정돈된 정보 전달을 결합해 기업 소식을 부담 없이 읽을 수 있도록 디자인했습니다.</p></section>` },
+      { html: `<section class="mn so-dy" aria-label="에쓰오일데이 카드뉴스"><figure class="mi spt" style="--k:0"><img src="assets/project/soil-proposal/title1.png" width="1200" height="719" alt="‘에쓰오일 데이’ 시리즈 타이틀" loading="lazy"></figure><div class="mn-r q"><figure class="mi sh" style="--r:0.8000;--k:0"><img src="assets/project/soil-proposal/day-cover.jpg" width="900" height="1125" alt="인물의 표정과 짧은 문구로 시작하는 표지" loading="lazy"><figcaption>표지</figcaption></figure><figure class="mi sh" style="--r:0.8000;--k:1"><img src="assets/project/soil-proposal/day-1.jpg" width="900" height="1125" alt="취약계층 난방유 지원 소식 본문" loading="lazy"><figcaption>본문 1</figcaption></figure><figure class="mi sh" style="--r:0.8000;--k:2"><img src="assets/project/soil-proposal/day-2.jpg" width="900" height="1125" alt="장항습지 보호 후원 소식 본문" loading="lazy"><figcaption>본문 2</figcaption></figure><figure class="mi sh" style="--r:0.8000;--k:3"><img src="assets/project/soil-proposal/day-3.jpg" width="900" height="1125" alt="7년 연속 지역사회공헌 인정기업 선정 소식 본문" loading="lazy"><figcaption>본문 3</figcaption></figure></div></section>` },
+      { html: `<section class="mn-h"><p class="en">03. Film on Site</p><h3>지역의 풍경을 담는 브랜드 콘텐츠</h3><p class="ds">‘필름 온 사이트’는 지역 주유소 이야기와 주변의 장소·풍경을 연결하는 콘텐츠 제안입니다. 화성의 풍경에 카메라와 필름 프레임을 조합해 현장을 직접 기록하는 듯한 분위기를 만들고, 지역명을 결합한 시리즈 타이틀로 다른 지역에도 확장할 수 있도록 구성했습니다.</p></section>` },
+      { html: `<section class="mn so-fm" aria-label="필름 온 사이트 표지"><figure class="mi spt" style="--k:0"><img src="assets/project/soil-proposal/title2.png" width="1200" height="469" alt="‘필름 온 사이트 화성’ 시리즈 타이틀" loading="lazy"></figure><div class="mn-r"><figure class="mi sh" style="--r:0.8000;--k:0"><img src="assets/project/soil-proposal/film-1.jpg" width="900" height="1125" alt="카메라 액정 속 화성 성곽 풍경 표지" loading="lazy"></figure><figure class="mi sh" style="--r:0.8000;--k:1"><img src="assets/project/soil-proposal/film-2.jpg" width="900" height="1125" alt="필름 스트립 프레임 속 화성 성곽 풍경 표지" loading="lazy"></figure></div></section>` },
+      { html: `<section class="mn-h"><p class="en">04. Triple S</p><h3>일상의 작은 질문을 시각적으로</h3><p class="ds">‘트리플 S’는 작은 생활 습관에서 출발해 과학적 원리를 쉽게 요약하는 콘텐츠 시리즈입니다. ‘보일러 1도의 비밀’을 주제로 구도일 캐릭터와 온도조절기, 말풍선을 조합해 생활 속 질문을 친근하게 제시했습니다. 캐릭터와 주제 오브젝트만으로도 내용을 짐작할 수 있는 표지를 디자인했습니다.</p><p class="sc mono">생활 지식 카드뉴스 타이틀·표지 제안</p></section>` },
+      { html: `<section class="mn so-tr" aria-label="트리플 S 타이틀과 표지"><figure class="mi spt" style="--k:0"><img src="assets/project/soil-proposal/title3.png" width="1200" height="641" alt="‘트리플 S’ 시리즈 타이틀" loading="lazy"></figure><div class="mn-r"><figure class="mi sh trc" style="--r:0.8;--k:0"><img src="assets/project/soil-proposal/triple.jpg" width="900" height="1125" alt="구도일 캐릭터와 온도조절기, ‘보일러 1도의 비밀’ 표지" loading="lazy"><figcaption>완성 표지</figcaption></figure></div></section>` },
     ],
   },
 ];
