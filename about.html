@@ -101,7 +101,9 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 .ab-ls li:hover span{color:rgba(244,239,233,.8)}
 .ab-ls.ed li{grid-template-columns:minmax(0,1fr) auto}
 .ab-ls.ed li span{font-size:clamp(15px,1.02vw,17px);color:var(--ink)}
-.ab-sk{margin-top:22px;width:min(100%,420px);height:auto}
+.ab-sk{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0;padding:0;list-style:none}
+.ab-sk li{width:46px;height:46px}
+.ab-sk img{display:block;width:100%;height:100%;border-radius:22%;object-fit:cover}
 /* one entrance: the photo opens from below, then the lines follow in order */
 .ab [data-in]{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease) calc(var(--i,0) * 90ms),transform 1.1s var(--ease) calc(var(--i,0) * 90ms)}
 .ab.on [data-in]{opacity:1;transform:none}
@@ -170,7 +172,7 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
   .ab h1{font-size:25px}
   .ab-info{margin-top:36px;font-size:14.5px}
   .ab-r section+section{margin-top:52px}
-  .ab-sk{width:100%}
+  .ab-sk{gap:7px}.ab-sk li{width:calc((100% - 49px) / 8)}.ab-sk li{height:auto;aspect-ratio:1}
   .ft-cols{grid-template-columns:1fr 1fr;gap:28px}
   .ft-cols>div:last-child{grid-column:1/-1}
   .ft-bot{flex-direction:column;gap:8px}
@@ -215,7 +217,7 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
       <section data-in style="--i:2" aria-labelledby="ab-w"><h2 id="ab-w">WORK</h2><ul class="ab-ls"><li><b>미디어브레인</b><span>SKT, S-OIL, HYOSUNG 등 기업 홈페이지 운영 및 콘텐츠 디자인</span><time>2023 ~ 2026</time></li><li><b>판씨앤씨</b><span>홈페이지 및 라이브 방송 디자인</span><time>2022</time></li><li><b>미니쉬치과</b><span>온·오프라인 광고배너, 홈페이지, 콘텐츠, 원내 사인물 등 디자인</span><time>2021 ~ 2022</time></li><li><b>아르푸가구</b><span>이벤트, 광고, 상세페이지 및 홈페이지 운영, 전시 디자인</span><time>2018 ~ 2020</time></li><li><b>K&amp;H 커뮤니케이션즈</b><span>이랜드 행사 안내 카탈로그 편집 디자인</span><time>2016 ~ 2018</time></li></ul></section>
       <section data-in style="--i:4" aria-labelledby="ab-e"><h2 id="ab-e">EDUCATION</h2><ul class="ab-ls ed"><li><span>계원예술대학교 시각디자인과</span><time>2013 ~ 2015</time></li></ul></section>
       <section data-in style="--i:5" aria-labelledby="ab-s"><h2 id="ab-s">SKILLS</h2>
-        <img class="ab-sk" src="assets/img/skills.jpg" width="420" height="56" alt="Photoshop, Illustrator, After Effects, Figma, ChatGPT, Gemini, Claude, Midjourney" loading="lazy"></section>
+        <ul class="ab-sk"><li><img src="assets/img/skills/ps.png" width="126" height="126" alt="Photoshop" title="Photoshop" loading="lazy"></li><li><img src="assets/img/skills/ai.png" width="126" height="126" alt="Illustrator" title="Illustrator" loading="lazy"></li><li><img src="assets/img/skills/ae.png" width="126" height="126" alt="After Effects" title="After Effects" loading="lazy"></li><li><img src="assets/img/skills/figma.png" width="126" height="126" alt="Figma" title="Figma" loading="lazy"></li><li><img src="assets/img/skills/chatgpt.png" width="126" height="126" alt="ChatGPT" title="ChatGPT" loading="lazy"></li><li><img src="assets/img/skills/gemini.png" width="126" height="126" alt="Gemini" title="Gemini" loading="lazy"></li><li><img src="assets/img/skills/claude.png" width="126" height="126" alt="Claude" title="Claude" loading="lazy"></li><li><img src="assets/img/skills/midjourney.jpg" width="126" height="126" alt="Midjourney" title="Midjourney" loading="lazy"></li></ul></section>
     </div>
   </div>
 </main>

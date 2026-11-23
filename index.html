@@ -1076,7 +1076,8 @@ html.ld-on,html.ld-on body{overflow:hidden}
       const on = !reduce && w > .004;
       const fxOn = on && !isMobile; // the SVG wave filter is too heavy to run while a phone scrolls
       c.inner.style.filter = fxOn ? `url(#wv${i})` : 'none';
-      c.inner.style.transform = on ? `translate3d(${-w * 40}px,0,0) skewX(${w * -6}deg)` : 'none';
+      // phones have a 16px edge: a gentler skew and a small push right keep the warping text on screen
+      c.inner.style.transform = on ? (isMobile ? `translate3d(${w * 12}px,0,0) skewX(${w * -2}deg)` : `translate3d(${-w * 40}px,0,0) skewX(${w * -6}deg)`) : 'none';
       if (fxOn) {
         c.w.disp.setAttribute('scale', (w * 170).toFixed(1));
         c.w.turb.setAttribute('baseFrequency', `${(.003 + w * .004).toFixed(4)} ${(.03 + w * .05).toFixed(4)}`);
