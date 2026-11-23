@@ -733,6 +733,131 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 .hzb.r{border-color:#ce4044;background:#ce4044;color:#fff;letter-spacing:0;font-size:12px}
 @container (max-width:640px){.hzd{grid-template-columns:1fr;gap:22px}.hzs li{grid-template-columns:26px 1fr auto;column-gap:10px}.hzs i{width:26px}
   .hzd .pn-l{margin-bottom:10px}.hzt{gap:14px}}
+/* Selected Projects: an iPhone 17 drawn in CSS around the story video. The body is 71.5 x 149.6 mm; the screen sits
+   behind a thin even bezel with rounded corners, the Dynamic Island near its top edge, the side button on the right and
+   the action and volume buttons on the left */
+.mn.sp-j{--g:#e8efe1}
+.sp-j .mi.rd img{border-radius:10.8%/8.1%} /* the still beside the phone, its corners as round as the phone's */
+.phn{position:relative;aspect-ratio:var(--r);border-radius:17%/8.1%;background:#0c0c0d;
+  box-shadow:inset 0 0 0 1.5px #8d8f94,inset 0 0 0 3.5px #2b2c2f,inset 0 0 0 5px #0c0c0d,
+    0 2cqw 5cqw rgba(30,40,24,.26),0 .4cqw 1cqw rgba(30,40,24,.16)}
+.phn video{position:absolute;left:4.2%;top:2%;width:91.6%;height:96%;object-fit:cover;border-radius:14%/6.6%;background:#0b7be8}
+.phn::after{content:"";position:absolute;left:50%;top:3.3%;width:30%;height:4%;translate:-50% 0;border-radius:99px;background:#050505}
+.phn::before,.phn-b,.phn-b::before,.phn-b::after{content:"";position:absolute;width:1.4%;border-radius:2px;background:linear-gradient(90deg,#55575c,#9a9ca1)}
+.phn::before{right:-1.2%;top:28%;height:11%;background:linear-gradient(90deg,#9a9ca1,#55575c)}
+.phn-b{left:-1.2%;top:18%;height:4.6%}
+.phn-b::before{left:0;top:180%;height:220%;width:100%}
+.phn-b::after{left:0;top:450%;height:220%;width:100%}
+@container (max-width:640px){.mn-r.st>.phn{width:72%;margin:0 auto}}
+/* Selected Projects 02: the Mentos page on its own peach-to-cream wash; the whole page scrolls in a window that opens it */
+.mn.sp-m{--g:linear-gradient(180deg,#fdeee4 0%,#f6f1e4 55%,#f2f3e2 100%)}
+.sp-m .vid video{display:block;width:100%;height:auto}
+.spi{display:grid;grid-template-columns:1fr 1fr;gap:2.4cqw;align-items:start} /* the detail column beside the options over the size notes */
+.spi>.mi:first-child{grid-row:span 2}
+.sp-m .mi.sh.vid{box-shadow:0 1.2cqw 3cqw rgba(60,30,20,.14),0 .2cqw .6cqw rgba(60,30,20,.08)}
+.sp-m .spf{flex:none;width:min(100%,46cqw);margin:0 auto;display:block;cursor:zoom-in}
+.spf-h{margin:-1cqw 0 0;text-align:center;font-family:var(--kserif);font-size:13px;color:#7a6a60}
+.mn-h .ds{margin:10px 0 0;font-size:15.5px;line-height:1.8;color:var(--ink-2)}
+.mn-h .sc{margin:14px 0 0!important;font-size:11.5px!important;line-height:1.5!important;letter-spacing:.08em;color:var(--violet-2,#b9a7ff)!important}
+@container (max-width:640px){.spi{grid-template-columns:1fr;gap:10px}.spi>.mi:first-child{grid-row:auto}.sp-m .spf{width:76%}.spf-h{margin-top:4px;font-size:12px}}
+@media (max-width:640px){.mn-h .ds{font-size:14.5px}}
+/* Selected Projects 03: the live screens on a lavender wash; captions under each, the empty video area marked */
+.mn.sp-l{--g:linear-gradient(180deg,#efeaf9 0%,#ece9f6 60%,#e6f3ea 100%)}
+.sp-l .lw{position:relative}
+.sp-l figcaption{margin-top:10px;font-family:var(--kserif);font-size:13px;color:#5d5578;text-align:center}
+.sp-l .vz{position:absolute;left:15.56%;top:29.5%;width:68.98%;height:46.35%;display:grid;place-items:center;box-sizing:border-box;
+  border:1.5px dashed rgba(110,90,170,.45);font-family:var(--kserif);font-size:clamp(11px,1.1vw,14px);color:#7a6ea6;letter-spacing:-.01em}
+.spc{margin:-1cqw 0 0;font-family:var(--kserif);font-size:12px;color:#8a83a3;text-align:right}
+.sp-l .lstrip{flex:1 1 auto}
+.lstrip-s{display:grid;place-items:center;padding:6cqw 4cqw;border-radius:1.2cqw;
+  background:linear-gradient(135deg,#cdb8f5,#e9a9ee 55%,#a8b4f6);box-shadow:0 1.2cqw 3cqw rgba(60,40,110,.14)}
+.lstrip-s img{display:block;width:min(100%,46cqw);height:auto}
+@container (max-width:640px){.sp-l figcaption{font-size:12px;margin-top:6px}.sp-l .vz{font-size:10px}.spc{margin-top:2px;text-align:left}.lstrip-s{padding:28px 14px}.lstrip-s img{width:100%}}
+/* Selected Projects 03: one Live Commerce heading over two sub-parts, each with its own smaller title */
+.mn-h.lc-top{padding-bottom:6px}
+.mn-h.lc-top .en{margin:0;font-size:clamp(26px,2.2vw,34px);line-height:1.05;color:var(--ink)} /* its only line, kept from the last-line body style */
+.mn-h.sub{padding-top:22px}
+.mn-h.sub.gap{padding-top:80px}
+.mn-h.sub .en{font-size:clamp(19px,1.55vw,24px);color:var(--violet-2)}
+@media (max-width:640px){.mn-h.sub{padding-top:16px}.mn-h.sub.gap{padding-top:52px}}
+/* the ZIGZAG banners on a dark paper brown */
+.mn.sp-z{--g:linear-gradient(180deg,#3b3028 0%,#2b2420 60%,#221d1a 100%)}
+.sp-z figcaption{margin-top:10px;font-family:var(--kserif);font-size:13px;color:rgba(244,232,220,.7);text-align:center}
+.mn-h .sc2{margin:6px 0 0!important;font-size:13px!important;line-height:1.6!important;color:var(--ink-2)!important}
+@container (max-width:640px){.sp-z figcaption{font-size:12px;margin-top:6px}}
+/* UNICEF: blue stages; the series shown on iPhone 17s as Instagram posts, the login story on night navy */
+.mn.un-top{--g:linear-gradient(160deg,#5cc6ef 0%,#1cabe2 50%,#0e86c4 100%)}
+.mn.un-vi,.mn.un-ch,.mn.un-rc,.mn.un-sr{--g:#eaf6fc}
+.mn.un-nw{--g:linear-gradient(180deg,#d9f1fb,#a9def5)}
+.mn.un-sk,.mn.un-ch{--g:none;padding:0 0 2.4cqw} /* the skins and phones straight on the page, no stage behind */
+.mn.un-sk figcaption,.mn.un-ch figcaption{color:rgba(244,239,233,.72)!important}
+.skr img{border-radius:3.11%/3.98%} /* the same corner as the season skin's browser window beside it (36px on 1320 at that height) */
+.mn.un-ch .pn-l{color:var(--ink)}
+.mn.un-ch{padding-top:4cqw}
+.mn.un-lg{--g:linear-gradient(180deg,#14244f 0%,#0d1834 100%)}
+.un-vi .pn-l,.un-ch .pn-l,.un-rc .pn-l,.un-nw .pn-l{color:#1d3e5e}
+.mn[class*="un-"] figcaption{margin-top:10px;font-family:var(--kserif);font-size:13px;font-weight:500;color:#2c5677;text-align:center}
+.un-top figcaption,.un-lg figcaption{color:rgba(255,255,255,.82)!important}
+/* phones in a row; each phone is the iPhone 17 drawn for Selected Projects, here holding an Instagram screen */
+.uph-r{display:grid;grid-template-columns:repeat(3,1fr);gap:4cqw;align-items:end}
+.uph-r.one{grid-template-columns:.9fr 1.6fr;align-items:center}
+.uph .phn{width:100%}
+.igs{position:absolute;left:4.2%;top:2%;width:91.6%;height:96%;border-radius:14%/6.6%;overflow:hidden;background:#fff;
+  display:flex;flex-direction:column;justify-content:center;gap:2.2%;padding:16% 0 8%;box-sizing:border-box;font-family:var(--sans);color:#111}
+.igh{display:flex;align-items:center;gap:5%;padding:0 5%;font-size:clamp(9.1px,1.04cqw,14.3px)} /* 30% up */
+.igh i{width:11.7%;aspect-ratio:1;border-radius:50%;background:#1cabe2;box-shadow:0 0 0 1.5px #fff,0 0 0 2.6px #e1306c}
+.igh b,.igt b{font-weight:600}
+.igm{aspect-ratio:4/5;overflow:hidden;background:#eaf6fc}
+.igm img,.phn .igm video{position:static;display:block;width:100%;height:100%;object-fit:cover;border-radius:0} /* in the post frame, not the full screen */
+.igf{padding:0 5%;color:#111}
+.igf svg{display:block;width:100%;height:auto}
+.igt{padding:0 5%;font-size:clamp(7px,.75cqw,10.5px);color:#333}
+/* a long caption: the screen starts at the top and the mention scrolls slowly through what is left of it */
+.igs.long{justify-content:flex-start}
+.igc{position:relative;flex:1;min-height:0;overflow:hidden;margin:0 5%;
+  -webkit-mask:linear-gradient(180deg,transparent,#000 12%,#000 82%,transparent);mask:linear-gradient(180deg,transparent,#000 12%,#000 82%,transparent)}
+.igc-t{position:absolute;left:0;right:0;top:0;font-size:15px;line-height:1.5;color:#222;word-break:keep-all;
+  animation:igc 16s ease-in-out 2.5s infinite alternate}
+.igc-t b{font-weight:600}
+.igtag{color:#00376b}
+@keyframes igc{to{top:100%;transform:translateY(-100%)}}
+@media (prefers-reduced-motion:reduce){.igc-t{animation:none}}
+/* the guide: palette groups beside the two faces */
+.uvi{display:grid;grid-template-columns:1.25fr 1fr;gap:4cqw;align-items:start}
+.uvi .pn-l{margin:0 0 1.4cqw}
+.upg{margin-bottom:1.8cqw}
+.upg-h{margin:0 0 .8cqw;font-family:var(--kserif);font-size:13px;font-weight:500;color:#2c5677}
+.upg-h b{font-family:var(--sans);font-weight:700;color:#1d3e5e}
+.upg ul{display:grid;grid-template-columns:repeat(4,1fr);gap:.6cqw;margin:0;padding:0;list-style:none}
+.upg li{display:flex;flex-direction:column;gap:3px;font-family:var(--sans);font-size:11.5px;font-weight:600;color:#1d3e5e}
+.upg i{display:block;aspect-ratio:1.6;border-radius:6px;background:var(--c);box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+.upg em{font-style:normal;font-size:10px;font-weight:400;color:#6a8aa3}
+.uty{padding:1.6cqw 0;border-top:1px solid rgba(29,62,94,.16);color:#1d3e5e}
+.uty p{margin:0}
+.uty .t1{font-family:var(--kserif);font-size:clamp(20px,2vw,28px);font-weight:600;letter-spacing:-.01em}
+.uty .t1.hw{color:#961a49}
+.uty .t2{margin-top:6px;font-family:var(--kserif);font-size:13.5px;font-weight:500;color:#2c5677}
+.uty .t3{margin-top:4px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:#6a8aa3}
+.uvi-n,.ulg-n,.unw-n{margin:1.4cqw 0 0;display:inline-block;padding:6px 12px;border-radius:99px;background:#1d3e5e;color:#fff;
+  font-family:var(--kserif);font-size:12px;font-weight:600}
+.ulg-n{justify-self:center;background:#1cabe2}
+.unw-z{display:grid;gap:2cqw;justify-items:start}
+.unw-z .mi{width:100%}
+.unw-z .unw-l{width:min(100%,24cqw);justify-self:center}.unw-l img{display:block;width:100%;height:auto;filter:drop-shadow(0 1cqw 2cqw rgba(13,60,100,.18))}
+.urc1{flex:none!important;width:min(100%,58cqw);margin:0 auto}
+.uch{justify-content:center;gap:5cqw}.uch>.mi{flex:none!important;width:30cqw}
+.un-lg .uv video,.un-nw .uv video{display:block;width:100%;height:auto}
+.mi.uv{overflow:visible}
+.mi.uv video{border-radius:0}
+@container (max-width:640px){
+  .uph-r{grid-template-columns:repeat(3,1fr);gap:8px}
+  .uph-r.one{grid-template-columns:1fr;gap:18px}.uph-r.one .uph{width:62%;margin:0 auto}
+  .uvi{grid-template-columns:1fr;gap:22px}.upg ul{gap:6px}.upg li{font-size:10.5px}
+  .urc1{width:100%}
+  .uch{gap:12px}.uch>.mi{width:calc(50% - 6px)}
+  .igh{font-size:7.8px}.igt{font-size:6px}
+  .igc-t{font-size:7px} /* three phones across a phone screen: 15px would not fit a word per line */
+}
 /* phones: the leaflets, plaques and forms become one swipe row, each piece at its own shape, with a bar for progress */
 .mn-c{display:grid;gap:2.4cqw}
 .mn-bar{display:none}
@@ -1000,6 +1125,13 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
 }
+/* detail text one weight heavier throughout: body copy 400 to 500, sub-headings 600 to 700, bold runs up a step too
+   (Pretendard is variable, so every step is real) */
+.tx .p,.mn-h p,.st-sub p,.mn-h .ds,.mn-h .sc2,.spf-h,.spc,.sp-l figcaption,.sp-z figcaption{font-weight:500}
+.mn-h h3,.st-sub h3,.pn-l{font-weight:700}
+.tx .lead{font-weight:600}
+.tx .p b,.st-sub p b{font-weight:600}
+.tx .p b.w{font-weight:800}
 </style>
 </head>
 <body>
@@ -1515,6 +1647,54 @@ const PROJECTS = [
       { html: `<section class="mn pn hz-p" aria-label="헤르짐머 상품 상세페이지"><p class="pn-l">공간 연출 · EURO / VINT Collection</p><div class="mn-r"><figure class="mi" style="--r:0.5310;--k:0"><img src="assets/project/herrzimmer/pd-collection.jpg" width="1600" height="3013" alt="EURO·VINT 컬렉션 상세페이지 모음" loading="lazy"></figure></div><p class="pn-l">디테일 · 규격 · 구매 안내 · VINT TABLE-M</p><div class="mn-r"><figure class="mi" style="--r:0.4267;--k:0"><img src="assets/project/herrzimmer/pd-vint.jpg" width="1600" height="3750" alt="VINT TABLE-M 상품 상세페이지의 소재, 디자인 포인트, 규격과 구매 안내" loading="lazy"></figure></div><p class="pn-l">브랜드 · 상품 소개</p><div class="mn-r q"><figure class="mi lpw pw" style="--r:0.5000;--k:0;--t:22s"><img src="assets/project/herrzimmer/pd-lg.jpg" width="850" height="2384" alt="LG3000 모듈 소파 상세페이지" loading="lazy"></figure><figure class="mi lpw pw" style="--r:0.5000;--k:1;--t:22s"><img src="assets/project/herrzimmer/pd-about.jpg" width="850" height="2208" alt="헤르짐머 브랜드 소개 페이지" loading="lazy"></figure><figure class="mi" style="--r:0.8882;--k:2"><img src="assets/project/herrzimmer/pd-kta.jpg" width="850" height="957" alt="KTA Group 소개 페이지" loading="lazy"></figure></div></section>` },
       { html: `<section class="mn-h"><p class="en">04. Promotion Design</p><h3>목적에 맞게 전달하는 혜택과 참여 안내</h3><p>시즌 프로모션부터 포토 리뷰, 신규 회원 혜택, 전시 및 쇼룸 안내까지 다양한 목적의 이벤트 페이지를 제작했습니다. 행사별 분위기를 살리면서 혜택과 대상, 참여 방법을 구분해 필요한 내용을 쉽게 확인할 수 있도록 디자인했습니다.</p></section>` },
       { html: `<section class="mn pn hz-e" aria-label="헤르짐머 프로모션 페이지"><p class="pn-l">시즌 프로모션</p><div class="mn-r st"><figure class="mi" style="--r:0.5966;--k:0"><img src="assets/project/herrzimmer/pr-event.jpg" width="1600" height="2682" alt="추석 맞이 이벤트, 포토 리뷰 이벤트, 오픈 이벤트 페이지" loading="lazy"></figure><figure class="mi" style="--r:1.0000;--k:1"><img src="assets/project/herrzimmer/pr-coming.gif" width="500" height="500" alt="‘감성을 만드는 가구 헤르짐머 Coming Soon’ 론칭 안내" loading="lazy"></figure></div><p class="pn-l">고객 참여</p><div class="mn-r st"><figure class="mi" style="--r:0.7380;--k:0"><img src="assets/project/herrzimmer/pr-welcome.jpg" width="1600" height="2168" alt="신규 가입 5가지 혜택과 카카오톡 채널 OPEN 페이지" loading="lazy"></figure><figure class="mi" style="--r:0.6800;--k:1"><img src="assets/project/herrzimmer/pr-coupon.jpg" width="340" height="500" alt="Welcome Coupon 할인 쿠폰 배너" loading="lazy"></figure></div><p class="pn-l">방문 안내</p><div class="mn-r st"><figure class="mi" style="--r:0.7221;--k:0"><img src="assets/project/herrzimmer/pr-xb2.jpg" width="530" height="734" alt="전시회 리클라이너 소개와 이벤트 안내 X배너" loading="lazy"></figure><figure class="mi" style="--r:1.0286;--k:1"><img src="assets/project/herrzimmer/pr-xb3.jpg" width="755" height="734" alt="뽑기 이벤트, SNS 이벤트, 멤버십 안내 X배너" loading="lazy"></figure></div></section>` },
+    ],
+  },
+  {
+    id: 'selected', name: 'Selected Projects', desc: '주얼리 모션 · 상세페이지 · 라이브 커머스 그래픽',
+    title: 'SELECTED PROJECTS<br>상품의 매력을 담은<br>디지털 콘텐츠 디자인',
+    cat: 'Digital Content', client: 'Selected Projects', period: '2025', cover: 'assets/work/selected.jpg',
+    tools: 'Photoshop, Illustrator, After Effects, Figma',
+    blocks: [
+      { label: 'Overview', p: '주얼리 홍보 영상과 구두 신제품 상세페이지, 라이브 커머스 그래픽 등 상품과 매체의 특성에 맞춘 디지털 콘텐츠를 제작했습니다. 픽셀 캐릭터와 모션, 사진 중심의 레이아웃 등 다양한 표현을 활용해 상품의 매력을 담고, 제품 정보와 구매 혜택, 참여 방법이 명확하게 전달되도록 구성했습니다.' },
+      { html: `<section class="mn-h"><p class="en">01. Jewelry Motion Content</p><h3>착용 이미지에서 픽셀 캐릭터로</h3><p>주얼리 착용 컷의 헤어스타일과 의상, 클로버 펜던트를 픽셀 캐릭터로 재해석했습니다. 해변 배경과 제품 소개 패널을 결합하고 모션을 더해, 제품의 특징을 경쾌하게 보여주는 인스타그램 스토리 홍보 영상으로 제작했습니다.</p></section>` },
+      // the photos, the character and charm drawn from them, then the story playing on a phone beside a still
+      { html: `<section class="mn pn sp-j hzl" aria-label="주얼리 착용 이미지와 픽셀 캐릭터 홍보 영상"><div class="mn-r"><figure class="mi" style="--r:0.7502;--k:0"><img src="assets/project/selected/j-model.jpg" width="1000" height="1333" alt="클로버 펜던트 목걸이를 착용한 모델 사진" loading="lazy"></figure><figure class="mi" style="--r:0.4176;--k:1"><img src="assets/project/selected/j-character.jpg" width="332" height="795" alt="착용 컷의 곱슬머리와 의상, 클로버 목걸이를 옮긴 픽셀 캐릭터" loading="lazy"></figure></div><div class="mn-r"><figure class="mi" style="--r:1.0000;--k:0"><img src="assets/project/selected/j-charm.jpg" width="1400" height="1400" alt="픽셀로 다시 그린 클로버 목걸이" loading="lazy"></figure><figure class="mi" style="--r:0.7502;--k:1"><img src="assets/project/selected/j-product.jpg" width="1000" height="1333" alt="실버 체인에 골드 클로버 펜던트가 달린 목걸이 제품 사진" loading="lazy"></figure></div><p class="pn-l">인스타그램 스토리</p><div class="mn-r st"><figure class="mi phn" style="--r:0.4780;--k:0" aria-label="아이폰 화면에서 재생되는 인스타그램 스토리 홍보 영상"><span class="phn-b" aria-hidden="true"></span><video src="assets/project/selected/story-v2.mp4" poster="assets/project/selected/story-v2-poster.jpg" width="720" height="1280" muted loop autoplay playsinline preload="metadata"></video></figure><figure class="mi rd" style="--r:0.7500;--k:1"><img src="assets/project/selected/j-beach.jpg" width="1080" height="1440" alt="해변 배경에 캐릭터와 CLOVER CORE NK 제품 패널을 놓은 스토리 이미지" loading="lazy"></figure></div></section>` },
+      { html: `<section class="mn-h"><p class="en">02. Footwear Detail Page</p><h3>컬러와 스타일링으로 전하는 제품의 매력</h3><p class="ds">구두 신제품 출시를 위한 상세페이지를 외주로 제작했습니다. 컬러별 착용 컷과 제품 이미지를 조합해 스타일링을 제안하고, 부위별 디테일과 옵션 정보를 구분해 제품의 분위기부터 구매에 필요한 정보까지 자연스럽게 살펴볼 수 있도록 구성했습니다.</p><p class="sc mono">상품 상세페이지 디자인 · 외주 프로젝트</p></section>` },
+      // the moving top of the page beside its collage, three colour stretches, the info parts, then the whole page in a window
+      { html: `<section class="mn pn sp-m hzl" aria-label="Marie mon dieu Mentos 플랫·펌프스 상세페이지"><p class="pn-l">도입부</p><div class="mn-r"><figure class="mi sh vid" style="--r:0.3502;--k:0" aria-label="Mentos 상세페이지 상단 모션: 타이틀과 대표 착용 컷"><video src="assets/project/selected/m-intro.mp4" poster="assets/project/selected/m-intro-poster.jpg" width="720" height="2056" muted loop autoplay playsinline preload="metadata"></video></figure><figure class="mi sh" style="--r:0.4805;--k:1"><img src="assets/project/selected/m-collage.jpg" width="900" height="1873" alt="컬러별 착용 컷과 제품 사진을 모은 Mentos 타이틀 콜라주" loading="lazy"></figure></div><p class="pn-l">컬러별 구성</p><div class="mn-r q"><figure class="mi sh" style="--r:0.3071;--k:2"><img src="assets/project/selected/m-olive.jpg" width="800" height="2605" alt="Olive 컬러 착용 컷과 제품 사진 구간" loading="lazy"></figure><figure class="mi sh" style="--r:0.3384;--k:3"><img src="assets/project/selected/m-brick.jpg" width="800" height="2364" alt="Brick 컬러 착용 컷과 제품 사진 구간" loading="lazy"></figure><figure class="mi sh" style="--r:0.3230;--k:4"><img src="assets/project/selected/m-ivory.jpg" width="800" height="2477" alt="Ivory 컬러 착용 컷과 제품 사진 구간" loading="lazy"></figure></div><p class="pn-l">정보 구성</p><div class="spi"><figure class="mi sh" style="--r:0.4113;--k:1"><img src="assets/project/selected/m-point.jpg" width="900" height="2188" alt="소재와 부위별 디테일, 굽 높이 안내" loading="lazy"></figure><figure class="mi sh" style="--r:0.7719;--k:0"><img src="assets/project/selected/m-colors.jpg" width="900" height="1166" alt="여섯 가지 컬러 옵션 안내" loading="lazy"></figure><figure class="mi sh" style="--r:0.8349;--k:2"><img src="assets/project/selected/m-info.jpg" width="900" height="1078" alt="소재·컬러·사이즈·굽 높이 정보와 사이즈 팁" loading="lazy"></figure></div><p class="pn-l">전체 페이지</p><div class="mn-r"><a class="mi lpw pw spf" href="assets/project/selected/m-full.jpg" target="_blank" rel="noopener" style="--r:0.5625;--k:0;--t:80s" aria-label="Mentos 상세페이지 전체를 새 창에서 크게 보기"><img src="assets/project/selected/m-full.jpg" width="600" height="17445" alt="Mentos 상세페이지 전체" loading="lazy"></a></div><p class="spf-h">클릭하면 전체 페이지를 원본 크기로 볼 수 있습니다</p></section>` },
+      { html: `<section class="mn-h lc-top"><p class="en">03. Live Commerce Design</p></section>` },
+      // one section, two jobs: the Naver proposal, then the ZIGZAG banners
+      { html: `<section class="mn-h sub"><p class="en">Naver Shopping Live</p><h3>상품 소개와 참여 안내를 연결하는 라이브 방송 그래픽</h3><p class="ds">네이버 쇼핑라이브 방송을 위한 화면 그래픽 제안 디자인을 외주로 진행했습니다. ‘지구에 입고됐습니다’라는 타이틀에 선명한 컬러와 입체적인 그래픽을 적용하고, SNS 피드와 스토리를 모티프로 방송 화면을 구성했습니다. 상품명과 가격, 이벤트 참여 방법을 용도별로 구분해 하나의 비주얼 콘셉트 안에서 상품 소개와 참여 안내가 이어지도록 디자인했습니다.</p><p class="sc mono">네이버 쇼핑라이브 · 제안 시안 · 외주 프로젝트</p></section>` },
+      // purple for products and prices, green for the event; then single-price and feed screens, then the strip banner in use
+      { html: `<section class="mn pn sp-l hzl" aria-label="‘지구에 입고됐습니다’ 네이버 쇼핑라이브 방송 그래픽 제안"><p class="pn-l">대표 시안</p><div class="mn-r"><figure class="mi sh" style="--r:0.5625;--k:0"><div class="lw"><img src="assets/project/selected/l-multi.jpg" width="900" height="1600" alt="네 가지 상품의 이름과 정상가, 입고가를 정리한 보라색 상품 안내 화면" loading="lazy"></div><figcaption>상품 · 가격</figcaption></figure><figure class="mi sh" style="--r:0.5625;--k:1"><div class="lw"><img src="assets/project/selected/l-event.jpg" width="900" height="1600" alt="친한친구 스토리 공유와 구매인증 참여를 안내하는 초록색 이벤트 화면" loading="lazy"></div><figcaption>이벤트 · 혜택</figcaption></figure></div><p class="pn-l">상품 정보</p><div class="mn-r"><figure class="mi sh" style="--r:0.5625;--k:0"><div class="lw"><img src="assets/project/selected/l-single.jpg" width="900" height="1600" alt="말풍선으로 단일 상품과 입고가를 띄운 방송 화면" loading="lazy"><span class="vz" aria-hidden="true">방송 영상 삽입 영역</span></div><figcaption>단일 상품 가격 표시</figcaption></figure><figure class="mi sh" style="--r:0.5625;--k:1"><div class="lw"><img src="assets/project/selected/l-feed.jpg" width="900" height="1600" alt="SNS 피드 형식으로 인물 사진과 상품 사진을 함께 보여주는 화면" loading="lazy"></div><figcaption>SNS 피드 모티프 화면</figcaption></figure></div><p class="spc">인물·상품 사진은 제안용 참고 이미지입니다.</p><p class="pn-l">방송 적용</p><div class="mn-r"><figure class="mi lstrip" style="--k:0"><div class="lstrip-s"><img src="assets/project/selected/l-strip.png" width="540" height="122" alt="‘팔로워가 지구님의 LOOK을 좋아합니다’ 띠배너" loading="lazy"></div><figcaption>방송 화면 위에 띄우는 띠배너 적용 예시</figcaption></figure></div></section>` },
+      { html: `<section class="mn-h sub gap"><p class="en">ZIGZAG Live</p><h3>시즌의 분위기를 담은 라이브 방송 배너</h3><p class="ds">지그재그에서 진행한 어텀(AUTUMN)의 라이브 방송을 위해 쿠폰, 퀴즈, 경품 및 당첨자 안내 배너를 디자인했습니다. 브라운·그레이 톤과 종이 질감, 폴라로이드 프레임을 활용해 가을 컬렉션의 분위기를 담고, 할인율과 참여 방법 등 주요 정보를 강조해 방송 중에도 혜택과 이벤트 내용을 쉽게 파악할 수 있도록 구성했습니다.</p><p class="sc mono">지그재그 라이브 · 방송 배너 제작</p><p class="sc2">라이브 쿠폰 · 퀴즈 화면 · 이벤트 혜택 · 당첨자 안내 배너</p></section>` },
+      // the event benefit large beside the teaser, the two quiz screens on one layout, then the coupon and the winners
+      { html: `<section class="mn pn sp-z" aria-label="지그재그 어텀 라이브 방송 배너"><p class="pn-l">이벤트 혜택</p><div class="mn-r"><figure class="mi sh" style="--r:0.5625;--k:0"><img src="assets/project/selected/z-benefit.jpg" width="900" height="1600" alt="폴라로이드 프레임과 사진 콜라주 위에 퀴즈 경품을 안내하는 LIVE QUIZ EVENT 화면" loading="lazy"><figcaption>시즌 콘셉트와 사진 콜라주</figcaption></figure><figure class="mi sh" style="--r:0.5625;--k:1"><img src="assets/project/selected/z-story.jpg" width="900" height="1600" alt="방송 일시와 23% 쿠폰, 퀴즈 이벤트를 알리는 ZIGZAG LIVE 예고 화면" loading="lazy"><figcaption>방송 예고 스토리</figcaption></figure></div><p class="pn-l">퀴즈 화면</p><div class="mn-r"><figure class="mi sh" style="--r:0.5625;--k:0"><img src="assets/project/selected/z-quiz1.jpg" width="900" height="1600" alt="버터오버가디건 설명 중 틀린 것을 묻는 퀴즈 화면" loading="lazy"><figcaption>퀴즈 출제</figcaption></figure><figure class="mi sh" style="--r:0.5625;--k:1"><img src="assets/project/selected/z-quiz2.jpg" width="900" height="1600" alt="보들 레더 점퍼 정답을 표시한 퀴즈 화면" loading="lazy"><figcaption>정답 공개</figcaption></figure></div><p class="pn-l">쿠폰 · 당첨자 안내</p><div class="mn-r"><figure class="mi" style="--r:1.0833;--k:0"><img src="assets/project/selected/z-coupon.png" width="390" height="360" alt="AUTUMN 23% 라이브 쿠폰 배너" loading="lazy"><figcaption>라이브 쿠폰</figcaption></figure><figure class="mi sh" style="--r:1.1250;--k:1"><img src="assets/project/selected/z-winner.jpg" width="1080" height="960" alt="버터 오버 가디건 5명 증정 당첨자 안내 화면" loading="lazy"><figcaption>당첨자 안내</figcaption></figure></div></section>` },
+    ],
+  },
+  {
+    id: 'unicef', name: 'UNICEF KOREA 제안', desc: 'SNS 비주얼 가이드 · 채널 스킨 · 콘텐츠 시리즈 제안',
+    title: 'UNICEF KOREA<br>아동의 이야기를 공감과 참여로 연결하는<br>SNS 비주얼·콘텐츠 디자인 제안',
+    cat: 'Proposal', client: '유니세프 한국위원회', period: '2025', cover: 'assets/work/unicef.jpg',
+    scope: ['제안 프로젝트', 'SNS 비주얼 가이드', '채널 스킨', '콘텐츠 시안', '스토리보드 디자인'],
+    tools: 'Photoshop, Illustrator, After Effects, Figma',
+    blocks: [
+      // the three series first, each on a phone as a post
+      { html: `<section class="mn un-top" aria-label="유니세프 대표 콘텐츠 3종"><div class="uph-r"><figure class="mi uph" style="--r:0.4780;--k:0" aria-label="제철레시피 카드뉴스 표지를 띄운 아이폰"><div class="phn"><span class="phn-b" aria-hidden="true"></span><div class="igs long"><span class="igh"><i></i><b>unicef_kr</b></span><div class="igm"><img src="assets/project/unicef/recipe1.jpg" width="900" height="1125" alt="" loading="lazy"></div><span class="igf"><svg viewBox="0 0 192 16" aria-hidden="true"><path d="M8 14s-6-3.6-6-8a3.2 3.2 0 0 1 6-1.6A3.2 3.2 0 0 1 14 6c0 4.4-6 8-6 8z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M30 8a6 6 0 1 1-2.2-4.6L31 2.6 30.4 6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M44 3l12 5-12 5 2-5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M178 2h8v12l-4-3-4 3z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></span><span class="igc"><span class="igc-t"><b>unicef_kr</b> [이벤트] 5월의 레시피를 준비했습니다. 🧑‍🍳<br><br>오늘의 메뉴는 학교!<br>지금 유니세프 학교의 재료와 만드는 법을 확인하고<br>여러분이 교실에 넣고 싶은 ‘재료’가 있다면 댓글로 알려주세요!<br><br>지금 이 순간, 전 세계 2억 7,200만 명의 아이들이<br>학교에 가지 못하고 있습니다.<br><br>유니세프는 155개 나라에서<br>아이들의 교실을 만들고 있습니다.<br>학교 레시피, 함께 완성해보실래요?<br><br><span class="igtag">#유니세프 #UNICEF #ForEveryChild<br>#제철레시피 #이달의메뉴 #유니세프_제철레시피</span></span></span></div></div><figcaption>제철레시피</figcaption></figure><figure class="mi uph" style="--r:0.4780;--k:1" aria-label="유니세프 NOW 숫자 모션을 띄운 아이폰"><div class="phn"><span class="phn-b" aria-hidden="true"></span><div class="igs long"><span class="igh"><i></i><b>unicef_kr</b></span><div class="igm"><video src="assets/project/unicef/now.mp4" poster="assets/project/unicef/now-poster.jpg" width="720" height="900" muted loop autoplay playsinline preload="metadata"></video></div><span class="igf"><svg viewBox="0 0 192 16" aria-hidden="true"><path d="M8 14s-6-3.6-6-8a3.2 3.2 0 0 1 6-1.6A3.2 3.2 0 0 1 14 6c0 4.4-6 8-6 8z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M30 8a6 6 0 1 1-2.2-4.6L31 2.6 30.4 6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M44 3l12 5-12 5 2-5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M178 2h8v12l-4-3-4 3z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></span><span class="igc"><span class="igc-t"><b>unicef_kr</b> 19,000명.<br>레바논에서 매일 집을 잃는 아이들의 수입니다.<br><br>이 숫자, 우리 일상으로 옮겨보면<br>서울 초등학교 34곳의 전교생이<br>하루 만에 모두 사라지는 것과 같습니다.<br><br>유니세프는 지금, 그곳에 있습니다.<br><br><span class="igtag">#유니세프 #UNICEF #ForEveryChild #유니세프나우</span></span></span></div></div><figcaption>유니세프 NOW</figcaption></figure><figure class="mi uph" style="--r:0.4780;--k:2" aria-label="유니세프 로그온 시작 화면을 띄운 아이폰"><div class="phn"><span class="phn-b" aria-hidden="true"></span><div class="igs long"><span class="igh"><i></i><b>unicef_kr</b></span><div class="igm"><video src="assets/project/unicef/login-start.mp4" poster="assets/project/unicef/login-start-poster.jpg" width="720" height="900" muted loop autoplay playsinline preload="metadata"></video></div><span class="igf"><svg viewBox="0 0 192 16" aria-hidden="true"><path d="M8 14s-6-3.6-6-8a3.2 3.2 0 0 1 6-1.6A3.2 3.2 0 0 1 14 6c0 4.4-6 8-6 8z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M30 8a6 6 0 1 1-2.2-4.6L31 2.6 30.4 6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M44 3l12 5-12 5 2-5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M178 2h8v12l-4-3-4 3z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></span><span class="igc"><span class="igc-t"><b>unicef_kr</b> EP.01 파티마의 선택<br><br>파티마, 9세, 예멘.<br>학교까지 4km. 배는 고프고, 길은 두렵습니다.<br><br>당신이라면 어떤 선택을 했을까요?<br>파티마의 하루가 달라질 수 있도록,<br>지금 유니세프와 함께해 주세요.<br><br>작은 연결이, 한 아이의 내일을 바꿉니다.<br><br><span class="igtag">#유니세프 #UNICEF #ForEveryChild</span></span></span></div></div><figcaption>유니세프 로그온</figcaption></figure></div></section>` },
+      { label: 'Overview', p: '유니세프 한국위원회의 SNS 운영 제안을 위해 비주얼 가이드와 채널별 적용 시안, 시리즈 콘텐츠를 디자인했습니다. 유니세프 블루를 중심으로 콘텐츠 성격에 따른 컬러와 타이포그래피 기준을 정리하고, 아동 권리와 구호 활동을 카드뉴스·데이터 모션·참여형 스토리로 풀어냈습니다. 브랜드의 신뢰감을 유지하면서도 아동의 이야기를 쉽고 친근하게 전달하는 방향을 제안했습니다.' },
+      { html: `<section class="mn-h"><p class="en">01. Visual Identity</p><h3>신뢰감을 유지하며 넓힌 표현</h3><p class="ds">유니세프 블루를 중심으로 따뜻한 오렌지와 옐로, 생명력을 표현하는 그린을 조합해 콘텐츠별 분위기를 구분했습니다. 정보 전달에는 명료한 고딕 서체를, 핵심 문구에는 손글씨 서체를 활용해 데이터의 가독성과 메시지의 온기를 함께 담았습니다.</p></section>` },
+      { html: `<section class="mn un-vi" aria-label="유니세프 SNS 비주얼 가이드 제안"><div class="uvi"><div><p class="pn-l">컬러</p><div class="upg"><p class="upg-h"><b>Primary</b> 신뢰와 아이덴티티</p><ul><li><i style="--c:#1CABE2"></i><span>UNICEF Blue</span><em class="mono">#1CABE2</em></li><li><i style="--c:#1D3E5E"></i><span>Deep Blue</span><em class="mono">#1D3E5E</em></li><li><i style="--c:#AAE1FA"></i><span>Sky Blue</span><em class="mono">#AAE1FA</em></li><li><i style="--c:#E1F4FD"></i><span>Soft Mist</span><em class="mono">#E1F4FD</em></li></ul></div><div class="upg"><p class="upg-h"><b>Secondary</b> 따뜻함과 연결</p><ul><li><i style="--c:#F57F29"></i><span>Orange</span><em class="mono">#F57F29</em></li><li><i style="--c:#FFCE34"></i><span>Yellow</span><em class="mono">#FFCE34</em></li><li><i style="--c:#80BD41"></i><span>Green</span><em class="mono">#80BD41</em></li><li><i style="--c:#00833D"></i><span>Dark Green</span><em class="mono">#00833D</em></li></ul></div><div class="upg"><p class="upg-h"><b>Accent</b> 강조와 몰입</p><ul><li><i style="--c:#961A49"></i><span>Dark Red</span><em class="mono">#961A49</em></li><li><i style="--c:#6A3674"></i><span>Purple</span><em class="mono">#6A3674</em></li><li><i style="--c:#BCB0DA"></i><span>Purple BG</span><em class="mono">#BCB0DA</em></li><li><i style="--c:#E8A0B4"></i><span>Red BG</span><em class="mono">#E8A0B4</em></li></ul></div></div><div><p class="pn-l">타이포그래피</p><div class="uty"><p class="t1">Spoqa Han Sans Neo</p><p class="t2">본문과 데이터 · 정보 전달</p><p class="t3">Thin · Light · Regular · Medium · Bold</p></div><div class="uty"><p class="t1 hw">MapoMaponaru</p><p class="t2">핵심 문구 · 손글씨 포인트</p><p class="t3">Regular</p></div><p class="uvi-n">SNS 비주얼 가이드 제안</p></div></div><p class="pn-l">카드뉴스 적용</p><div class="mn-r"><figure class="mi sh" style="--r:1.0000;--k:0"><img src="assets/project/unicef/thumb1.jpg" width="900" height="900" alt="손글씨 포인트 문구를 얹은 ‘약 200만 명 어린이 영양실조 위기’ 카드뉴스" loading="lazy"><figcaption>포인트 문구 · 손글씨 서체</figcaption></figure><figure class="mi sh" style="--r:1.0000;--k:1"><img src="assets/project/unicef/thumb2.jpg" width="900" height="900" alt="고딕 서체로 정리한 같은 주제의 카드뉴스" loading="lazy"><figcaption>정보 문구 · 고딕 서체</figcaption></figure></div></section>` },
+      { html: `<section class="mn-h"><p class="en">02. Channel Design</p><h3>채널을 넘어 이어지는 브랜드 인상</h3><p class="ds">평상시에는 유니세프 블루와 아동 사진을 중심으로 브랜드의 정체성을 드러내고, 시즌과 캠페인에는 주제에 맞는 컬러와 그래픽을 적용했습니다. 이를 채널별 커버와 프로필, 하이라이트에 확장해 서로 다른 화면에서도 일관된 인상을 전달하도록 구성했습니다.</p></section>` },
+      { html: `<section class="mn un-sk" aria-label="유니세프 블로그 스킨 시안"><div class="mn-r st"><figure class="mi sh skr" style="--r:1.2790;--k:0"><img src="assets/project/unicef/skin-a.jpg" width="1600" height="1251" alt="유니세프 블루 배경에 아동 사진을 담은 블로그 기본 스킨" loading="lazy"><figcaption>기본 스킨 · 유니세프 블루와 아동 사진</figcaption></figure><figure class="mi" style="--r:1.4599;--k:1"><img src="assets/project/unicef/skin-b.png" width="1200" height="822" alt="숲과 무지개, 급수대 그래픽을 담은 블로그 시즌 스킨을 띄운 브라우저 창" loading="lazy"><figcaption>시즌 스킨 · 어린이날 캠페인</figcaption></figure></div></section>` },
+      { html: `<section class="mn un-ch" aria-label="유니세프 채널 적용 목업"><p class="pn-l">채널 적용</p><div class="mn-r uch"><figure class="mi" style="--r:0.4905;--k:0"><img src="assets/project/unicef/ph-kakao.png" width="800" height="1631" alt="시즌 스킨을 커버에 적용한 유니세프 카카오스토리 프로필 화면" loading="lazy"><figcaption>카카오스토리 · 커버와 프로필</figcaption></figure><figure class="mi" style="--r:0.4905;--k:1"><img src="assets/project/unicef/ph-x.png" width="800" height="1631" alt="시즌 스킨 커버와 유니세프 로그온 게시물을 담은 X 모바일 화면" loading="lazy"><figcaption>X · 커버와 게시물</figcaption></figure></div></section>` },
+      { html: `<section class="mn-h"><p class="en">03. Content Series</p><h3>정보·공감·참여를 위한 세 가지 형식</h3></section>` },
+      { html: `<section class="mn-h sub"><p class="en">제철레시피</p><h3>아동 권리를 일상의 언어로</h3><p class="ds">교육과 영양 등 아동 권리의 주제를 레시피북 형식으로 풀어낸 카드뉴스입니다. 노트와 키링, 손그림 요소를 활용해 친근한 분위기를 만들고, 아동 사진과 핵심 메시지를 결합해 유니세프의 활동을 자연스럽게 소개하는 방향을 제안했습니다.</p></section>` },
+      { html: `<section class="mn un-rc" aria-label="제철레시피 카드뉴스"><div class="mn-r"><figure class="mi sh urc1" style="--r:0.8;--k:0"><img src="assets/project/unicef/recipe1.jpg" width="900" height="1125" alt="‘이달의 메뉴 학교’ 레시피북 표지" loading="lazy"><figcaption>표지 · 이달의 메뉴</figcaption></figure></div><div class="mn-r q"><figure class="mi sh" style="--r:0.8000;--k:0"><img src="assets/project/unicef/recipe2.jpg" width="900" height="1125" alt="교실을 만드는 재료를 소개하는 카드" loading="lazy"><figcaption>재료</figcaption></figure><figure class="mi sh" style="--r:0.8000;--k:1"><img src="assets/project/unicef/recipe3.jpg" width="900" height="1125" alt="세 단계로 만드는 법을 정리한 카드" loading="lazy"><figcaption>만드는 법</figcaption></figure><figure class="mi sh" style="--r:0.8000;--k:2"><img src="assets/project/unicef/recipe4.jpg" width="900" height="1125" alt="완성된 교실 사진과 함께한 마무리 카드" loading="lazy"><figcaption>완성</figcaption></figure></div></section>` },
+      { html: `<section class="mn-h sub gap"><p class="en">유니세프 NOW</p><h3>숫자로 전하는 위기의 규모</h3><p class="ds">아동이 처한 위기 상황을 핵심 수치와 이미지로 전달하는 데이터 콘텐츠입니다. 숫자를 화면의 중심에 배치하고 크기와 대비, 모션을 활용해 정보의 중요도가 직관적으로 드러나도록 구성했습니다.</p></section>` },
+      { html: `<section class="mn un-nw" aria-label="유니세프 NOW 모션형 카드뉴스"><div class="mn-r"><figure class="mi uph" style="--r:0.4780;--k:0" aria-label="유니세프 NOW 숫자 모션을 띄운 아이폰"><div class="phn"><span class="phn-b" aria-hidden="true"></span><div class="igs long"><span class="igh"><i></i><b>unicef_kr</b></span><div class="igm"><video src="assets/project/unicef/now.mp4" poster="assets/project/unicef/now-poster.jpg" width="720" height="900" muted loop autoplay playsinline preload="metadata"></video></div><span class="igf"><svg viewBox="0 0 192 16" aria-hidden="true"><path d="M8 14s-6-3.6-6-8a3.2 3.2 0 0 1 6-1.6A3.2 3.2 0 0 1 14 6c0 4.4-6 8-6 8z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M30 8a6 6 0 1 1-2.2-4.6L31 2.6 30.4 6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M44 3l12 5-12 5 2-5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M178 2h8v12l-4-3-4 3z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></span><span class="igc"><span class="igc-t"><b>unicef_kr</b> 19,000명.<br>레바논에서 매일 집을 잃는 아이들의 수입니다.<br><br>이 숫자, 우리 일상으로 옮겨보면<br>서울 초등학교 34곳의 전교생이<br>하루 만에 모두 사라지는 것과 같습니다.<br><br>유니세프는 지금, 그곳에 있습니다.<br><br><span class="igtag">#유니세프 #UNICEF #ForEveryChild #유니세프나우</span></span></span></div></div><figcaption>하루 동안 집을 잃는 아이들</figcaption></figure><figure class="mi sh" style="--r:0.8;--k:1"><img src="assets/project/unicef/now-34.jpg" width="900" height="1125" alt="집을 잃는 아이들 19,000명을 서울 초등학교 34곳에 빗댄 카드뉴스" loading="lazy"><figcaption>숫자를 일상의 규모로 옮긴 두 번째 시안</figcaption></figure></div><div class="unw-z"><figure class="mi unw-l" style="--k:0"><img src="assets/project/unicef/now-logo.png" width="512" height="329" alt="말풍선 안에 시계 모양 o를 넣은 ‘유니세프 NOW’ 시리즈 로고" loading="lazy"><figcaption>시리즈 로고</figcaption></figure><figure class="mi sh" style="--r:2.8333;--k:0"><img src="assets/project/unicef/now-zoom.jpg" width="1020" height="360" alt="아이들 사진으로 채운 숫자 19,000 부분 확대" loading="lazy"><figcaption>숫자와 아동 사진의 결합 · 부분 확대</figcaption></figure><p class="unw-n">모션형 카드뉴스 제안 시안</p></div></section>` },
+      { html: `<section class="mn-h sub gap"><p class="en">유니세프 로그온</p><h3>한 아이의 하루를 따라가는 이야기</h3><p class="ds">아동의 하루를 따라가며 선택의 순간을 마주하는 참여형 콘텐츠를 제안했습니다. 픽셀 캐릭터와 게임 인터페이스로 이야기의 진입점을 만들고, 인물 소개와 상황 설명, 선택지로 이어지는 흐름을 구성했습니다. 선택에 대한 생각을 댓글로 나누며 아동의 현실을 돌아볼 수 있도록 설계했습니다.</p></section>` },
+      // the main case: the story in five steps, the moving screens as they play
+      { html: `<section class="mn un-lg" aria-label="유니세프 로그온 참여형 스토리보드"><p class="pn-l">01 시작 화면 · 02 인물 소개</p><div class="mn-r"><figure class="mi sh uv" style="--r:0.8;--k:0" aria-label="유니세프 로그온 시작 화면 모션"><video src="assets/project/unicef/login-start.mp4" poster="assets/project/unicef/login-start-poster.jpg" width="720" height="900" muted loop autoplay playsinline preload="metadata"></video><figcaption>시작 화면</figcaption></figure><figure class="mi sh" style="--r:0.8000;--k:1"><img src="assets/project/unicef/login2.jpg" width="900" height="1125" alt="파티마의 플레이어 프로필" loading="lazy"><figcaption>인물 소개</figcaption></figure></div><p class="pn-l">03 상황 제시</p><div class="mn-r"><figure class="mi sh uv" style="--r:0.8;--k:0" aria-label="파티마의 아침과 대화창 모션"><video src="assets/project/unicef/login-story.mp4" poster="assets/project/unicef/login-story-poster.jpg" width="720" height="900" muted loop autoplay playsinline preload="metadata"></video><figcaption>하루의 시작</figcaption></figure><figure class="mi sh" style="--r:0.8000;--k:1"><img src="assets/project/unicef/login5.jpg" width="900" height="1125" alt="예멘 지도와 위기 상황 알림" loading="lazy"><figcaption>위기 상황 알림</figcaption></figure></div><p class="pn-l">04 선택 화면 · 05 마무리</p><div class="mn-r q"><figure class="mi sh uv" style="--r:0.8;--k:0" aria-label="학교에 갈지 물을 길으러 갈지 고르는 선택 모션"><video src="assets/project/unicef/login-choice.mp4" poster="assets/project/unicef/login-choice-poster.jpg" width="720" height="900" muted loop autoplay playsinline preload="metadata"></video><figcaption>선택의 순간</figcaption></figure><figure class="mi sh" style="--r:0.8000;--k:1"><img src="assets/project/unicef/login6.jpg" width="900" height="1125" alt="세이브 포인트와 공유 안내" loading="lazy"><figcaption>세이브 포인트</figcaption></figure><figure class="mi sh" style="--r:0.8000;--k:2"><img src="assets/project/unicef/login7.jpg" width="900" height="1125" alt="게임이 아닌 현실을 전하는 엔딩" loading="lazy"><figcaption>엔딩</figcaption></figure></div><p class="ulg-n">게임 형식을 활용한 SNS 콘텐츠 · 스토리보드 제안</p></section>` },
     ],
   },
 ];
