@@ -519,6 +519,56 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
   .kfl .set-f{aspect-ratio:375/410}
   .kfl .fi{left:var(--mx);top:var(--my);width:var(--mw)}
 }
+/* S-OIL green slide: pieces placed in % of the 3840 × 2160 slide on its vertical green gradient (the same gradient the
+   pieces' JPGs were flattened onto, so their edges vanish); the phones sit in front of the columns */
+.stage.sog{container-type:inline-size;background:linear-gradient(180deg,#003517 0%,#003c19 4.63%,#004b20 13.89%,#005e28 50%,#00411b 92.59%,#013819 97.22%,#003517 100%)}
+.sog .set-o{position:relative;aspect-ratio:3840/2160;overflow:hidden}
+.sog .so{position:absolute;left:var(--x);top:var(--y);width:var(--w);height:auto;opacity:0;transform:translateY(1.2cqw);
+  transition:opacity 1.1s cubic-bezier(.25,.1,.25,1) var(--d),transform 1.4s cubic-bezier(.16,1,.3,1) var(--d)}
+.sog .ph{z-index:1}
+.sog picture{display:contents}
+.sog source{display:none} /* phones get transparent copies (see the media sources); the picture box itself takes no place */
+.sog.in .so.ok{opacity:1;transform:none}
+/* S-OIL Life at S-OIL: label and line on the cream ground, three posts with dark green captions */
+.stage.sol{container-type:inline-size;background:#f5e5b2;font-family:var(--kserif);word-break:keep-all}
+.sol-in{padding:5.5cqw 14.85% 6.75cqw}
+.sol-h{display:grid;grid-template-columns:auto 1fr;column-gap:8.86cqw;margin:0 -5.31cqw 2.60cqw}
+.sol-h p{margin:0}
+.sol-h .lb{font-family:var(--sans);font-size:1.3cqw;font-weight:600;color:#1f6b4a}
+.sol-h .tx3{font-size:1.4cqw;font-weight:500;line-height:1.6;color:#5c5340}
+.sol-h .tx3 b{font-weight:700;color:#2b2618}
+.sol-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1.62cqw}
+.lp{display:flex;flex-direction:column;opacity:0;transform:translateY(0.98cqw);
+  transition:opacity 1s cubic-bezier(.25,.1,.25,1) calc(.3s + var(--k) * .2s),transform 1.3s cubic-bezier(.16,1,.3,1) calc(.3s + var(--k) * .2s)}
+.sol.in .lp{opacity:1;transform:none}
+.lp img{display:block;width:100%;height:auto}
+.lc{flex:1;padding:1.6cqw 1.5cqw 1.8cqw;background:#003b1f}
+.lc h3{margin:0;font-size:1.55cqw;font-weight:600;color:#2ba85f}
+.lc p{margin:.9cqw 0 0;font-size:1.35cqw;line-height:1.75;color:#9fb5a6}
+.lc p b{font-weight:600;color:#e9efe6}
+.fig.sol-lap{background:transparent;padding-top:20px} /* the cut-out laptop and phone straight on the page */
+@media (prefers-reduced-motion:reduce){.sog .so,.lp{transition:none}}
+@container (max-width:640px){
+  .sog .set-o{aspect-ratio:auto;display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:28px 16px 32px;overflow:visible;align-items:start}
+  .sog .so{position:static;width:100%;transform:translateY(16px);--d:.05s!important;transition-duration:.8s,.9s}
+  .sog.in .so.ok{opacity:0;transform:translateY(16px)}
+  .sog .so.in.ok,.sog.in .so.in.ok{opacity:1;transform:none}
+  .sog .ph{order:-1}
+  /* the three columns side by side under the phones, cut to one height */
+  .sog .col{height:auto} /* whole columns, each its own height */
+  .sog .set-o{grid-template-columns:repeat(6,1fr)}
+  .sog .ph{grid-column:span 3}
+  .sog .col{grid-column:span 2}
+  .sol-in{padding:36px 16px 40px}
+  .sol-h{display:block;margin:0 0 22px}
+  .sol-h .lb{font-size:14px}
+  .sol-h .tx3{margin-top:8px!important;font-size:14.5px}
+  .sol-g{grid-template-columns:1fr;gap:22px}
+  .lp{transition-delay:.05s}
+  .lc{padding:18px 18px 20px}
+  .lc h3{font-size:16px}
+  .lc p{margin-top:8px;font-size:14px}
+}
 /* phones: the slide would shrink its text to a few pixels, so the pieces stack instead on the same blue,
    the AFTER frame becoming a plain white card that holds the characters, each character card full width */
 @container (max-width:640px){
@@ -594,7 +644,8 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 /* a small heading and one line of text set straight above the picture it introduces */
 .st-sub{padding:84px 0 28px;max-width:780px;font-family:var(--kserif);word-break:keep-all}
 .st-sub.under{padding:28px 0 0} /* set under the picture it describes */
-.st-sub.en h3{font-weight:400} /* an English heading set like the section titles (Overview, Result) */
+.st-sub.en h3{font-weight:400}
+.st-sub p b{font-weight:500;color:var(--ink)} /* an English heading set like the section titles (Overview, Result) */
 .st-sub h3{margin:0;font-size:clamp(19px,1.5vw,23px);font-weight:600;line-height:1.4;letter-spacing:-.02em}
 .st-sub p{margin:10px 0 0;font-size:15.5px;line-height:1.8;color:var(--ink-2)}
 .tx h2,.st-h,.st-sub.en h3{font-family:var(--serif);font-size:clamp(26px,2.2vw,34px);line-height:1.05;letter-spacing:-.005em}
@@ -1087,12 +1138,30 @@ const PROJECTS = [
     cat: 'Social', client: 'S-OIL', period: '2023', cover: 'assets/work/soil.jpg', pos: '38% 50%',
     tools: 'Illustrator, Photoshop, Figma',
     blocks: [
-      { img: 'p19', alt: '분홍빛 하늘 아래 S-OIL 주유소 캐노피 간판' },
+      { src: 'assets/project/soil/hero.jpg', w: 2000, h: 1125, alt: '분홍빛 하늘 아래 S-OIL 주유소 캐노피 간판' },
       { label: 'Overview', lead: '에쓰오일이 추구하는 미래 에너지 부문의 선도적인 모습과 ESG, 사내 PR 관련 콘텐츠를 디자인했습니다.', p: '콘텐츠의 목적과 핵심 메시지에 맞춰 비주얼 콘셉트를 설정하고, 레이아웃과 타이포그래피, 그래픽을 유연하게 구성했으며, 브랜드 컬러와 톤앤매너의 일관성을 유지하면서도 트렌디하고 캐주얼한 표현으로 시리즈에 새로움을 더했습니다. 이를 통해 <b>기업의 전문성과 친근함을 균형 있게 전달하고 밝고 활기찬 브랜드 SNS 채널을 구축</b>했습니다.' },
-      { img: 'p20', alt: 'S-OIL 인스타그램 피드와 이벤트 콘텐츠 모음' },
-      { label: 'Life at S-OIL', p: '딱딱해지기 쉬운 기업 콘텐츠에 직원의 일상과 이야기를 담아내며, <b>친근하고 따뜻한 브랜드 이미지를 만드는 데 중점</b>을 두었습니다.' },
-      { img: 'p21', alt: '직원의 일상을 담은 S-OIL 인스타그램 게시물 세 개' },
-      { img: 'p22', alt: '노트북과 스마트폰에 띄운 S-OIL STORY 페이지' },
+      // blog and Instagram on phones with columns of contents behind, as on the portfolio slide (3840 × 2160):
+      // the green ground, then the two phones and the three columns one after another; on phones they stack
+      { html: `<figure class="stage sog" aria-label="S-OIL 블로그와 인스타그램 화면, 콘텐츠 모음">
+        <div class="set-o">
+          <picture><source media="(max-width:700px)" srcset="assets/project/soil/col-1-m.png"><img class="so col" style="--x:41.67%;--y:-3.70%;--w:14.08%;--d:.9s" src="assets/project/soil/col-1.jpg" width="400" height="2292" alt="미래 리포트, Z 트렌드, 반려동물 등 S-OIL 콘텐츠" loading="lazy"></picture>
+          <picture><source media="(max-width:700px)" srcset="assets/project/soil/col-2-m.png"><img class="so col" style="--x:57.29%;--y:7.59%;--w:19.86%;--d:1.1s" src="assets/project/soil/col-2.jpg" width="564" height="2585" alt="나의 하루는, 이달의 필터, 국내 아트 페어 등 S-OIL 콘텐츠" loading="lazy"></picture>
+          <picture><source media="(max-width:700px)" srcset="assets/project/soil/col-3-m.png"><img class="so col" style="--x:78.65%;--y:2.41%;--w:14.08%;--d:1.3s" src="assets/project/soil/col-3.jpg" width="400" height="2679" alt="발리 여행, 겨울 축제, 별별 야시장 등 S-OIL 콘텐츠" loading="lazy"></picture>
+          <picture><source media="(max-width:700px)" srcset="assets/project/soil/phone-blog-m.png"><img class="so ph" style="--x:6.88%;--y:8.70%;--w:18.07%;--d:.3s" src="assets/project/soil/phone-blog.jpg" width="560" height="1166" alt="스마트폰에 띄운 S-OIL STORY 블로그" loading="lazy"></picture>
+          <img class="so ph" style="--x:25.83%;--y:24.26%;--w:18.07%;--d:.6s" src="assets/project/soil/phone-insta.png" width="560" height="1166" alt="스마트폰에 띄운 S-OIL 인스타그램 프로필" loading="lazy">
+        </div>
+      </figure>` },
+      { sub: 'Life at S-OIL', en: true, p: '딱딱해지기 쉬운 기업 콘텐츠에 직원의 일상과 이야기를 담아내며, <b>친근하고 따뜻한 브랜드 이미지를 만드는 데 중점</b>을 두었습니다.' },
+      // Life at S-OIL, as on the portfolio slide: the label and line on the cream ground, then the three posts with
+      // their captions coming in one after another; on phones the posts stack
+      { html: `<section class="stage sol" aria-label="Life at S-OIL 인스타그램 시리즈"><div class="sol-in">
+        <div class="sol-g">
+          <article class="lp" style="--k:0"><img src="assets/project/soil/post-1.jpg" width="720" height="1189" alt="반려견 굴비를 소개하는 에쓰오일 멍냥집사 게시물" loading="lazy"><div class="lc"><h3>에쓰오일 멍냥집사</h3><p>직원들의 <b>반려동물을 소개</b>하는 인스타그램 시리즈로, 사진 중심 레이아웃에 말풍선과 스티커형 캡션을 더해 <b>친근하고 유쾌한 분위기</b>를 담았습니다.</p></div></article>
+          <article class="lp" style="--k:1"><img src="assets/project/soil/post-2.jpg" width="720" height="1189" alt="추억은 가을바람 타고 세대 공감 시간 여행 게시물" loading="lazy"><div class="lc"><h3>DJ 구도일</h3><p>‘DJ 구도일’이라는 화자를 내세워 <b>계절 맞춤 여행·문화 정보를 친구에게 말하듯 전하는 콘텐츠 시리즈를 제작</b>했습니다. <b>회차 주제에 맞춰 컬러와 일러스트 콘셉트를 달리하고</b>, 장소마다 <b>개성이 드러나는 비주얼</b>로 정보를 풀어냈습니다.</p></div></article>
+          <article class="lp" style="--k:2"><img src="assets/project/soil/post-3.jpg" width="720" height="1189" alt="8월 이달의 필터 이벤트 게시물" loading="lazy"><div class="lc"><h3>이달의 필터 (인스타그램 필터 시리즈)</h3><p><b>월별 시즌 주제에 맞춘 인스타그램 필터 이미지를 제작</b>하고, 브랜드 캐릭터 활용과 달마다 다른 콘셉트로 시리즈의 재미를 더했습니다. <b>필터 인증샷 이벤트를 연계해 팔로워 참여를 유도</b>했습니다.</p></div></article>
+        </div></div>
+      </section>` },
+      { html: `<figure class="fig sol-lap"><img src="assets/project/soil/laptop.webp" width="2000" height="1054" alt="노트북과 스마트폰에 띄운 S-OIL STORY 페이지와 페이스북" loading="lazy"></figure>` },
       { label: 'Result', stats: [['52%', '인스타그램 성장'], ['100%', '유튜브 성장']] },
     ],
   },
@@ -1180,7 +1249,7 @@ const PROJECTS = [
   // pictures and stages start their fade once their top has come a little way up into the screen (however tall
   // they are), and reset only after leaving through the bottom: scrolling back up never makes things blink out
   // and replay, while scrolling down to them again plays them afresh
-  const shows = $$('.fig, .stage, .rdb .rv, .chr .fg, .clg .cv, .hys .hv, .hys .hc, .hgal, .kbn .kb, .kbn .knav, .kfeed .kf, .kswipe, .kyt .ky');
+  const shows = $$('.fig, .stage, .rdb .rv, .chr .fg, .clg .cv, .hys .hv, .hys .hc, .hgal, .kbn .kb, .kbn .knav, .kfeed .kf, .kswipe, .kyt .ky, .sog .so');
   if (reduce || !('IntersectionObserver' in window)) shows.forEach(s => s.classList.add('in'));
   else {
     const io = new IntersectionObserver(es => es.forEach(e => {
@@ -1222,7 +1291,7 @@ const PROJECTS = [
 
   // pictures fade in once decoded, so lazy ones don't pop in half-drawn; decoding off the main thread
   $$('#body img').forEach(i => { i.decoding = 'async'; });
-  $$('.fig img, .more img, .rdb img, .clg img, .hys img, .hgal img, .khero img, .kap img, .kbn img, .kyt img, .kfl img').forEach(i => {
+  $$('.fig img, .more img, .rdb img, .clg img, .hys img, .hgal img, .khero img, .kap img, .kbn img, .kyt img, .kfl img, .sog img').forEach(i => {
     const ok = () => i.classList.add('ok');
     i.complete && i.naturalWidth ? ok() : i.addEventListener('load', ok, { once: true });
   });
