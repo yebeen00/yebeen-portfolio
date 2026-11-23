@@ -953,6 +953,14 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
   .klp{flex-wrap:wrap}.klp>.mi:first-child{flex:0 0 100%}.klp-a{display:none}
   .mn[class*="kl-"] figcaption{font-size:12px}
 }
+/* HILTI series: square cards on a dark ground, three or four across */
+.mn.hl-s{--g:#141414;grid-template-columns:minmax(0,1fr)}
+.hls-g{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:1.6cqw}
+.hl-c4{--n:4}.hl-c3{--n:3}
+.hls-g img{border-radius:.6cqw}
+.hl-pf{background:#141414}
+.hl-pf .hg-sw .swiper-pagination-bullet-active{background:#d2051e}
+@container (max-width:640px){.hls-g{grid-template-columns:repeat(2,1fr);gap:8px}.hl-c3 .hls-g{grid-template-columns:repeat(2,1fr)}}
 /* phones: the leaflets, plaques and forms become one swipe row, each piece at its own shape, with a bar for progress */
 .mn-c{display:grid;gap:2.4cqw}
 .mn-bar{display:none}
@@ -1676,6 +1684,14 @@ const PROJECTS = [
           <figure class="sk sq" style="--ar:1.0000;--r:3deg"><img src="assets/project/hilti/stack/s18.webp" width="1080" height="1080" alt="힐티 NURON이어야 하는 4가지 이유" loading="lazy"></figure>
         </div>
       </section>` },
+      { sub: 'NURON Review', p: '뉴론을 직접 사용해 본 고객의 후기를 말풍선 형식에 담아, 제품의 장점을 사용자의 목소리로 전달하는 카드뉴스 시리즈로 구성했습니다.' },
+      { html: `<section class="mn hl-s hl-c4" aria-label="NURON 사용 후기 카드뉴스"><div class="hls-g"><figure class="mi" style="--k:0"><img src="assets/project/hilti/n565.jpg" width="900" height="900" alt="‘NURON을 직접 보면 어떤 반응이?’ 후기 시리즈 표지" loading="lazy"></figure><figure class="mi" style="--k:1"><img src="assets/project/hilti/n566.jpg" width="900" height="900" alt="뉴론 데이터 기반 서비스에 대한 고객 후기 카드" loading="lazy"></figure><figure class="mi" style="--k:2"><img src="assets/project/hilti/n567.jpg" width="900" height="900" alt="‘힐티보다 더 빠른 건 오직 힐티뿐!’ 고객 후기 카드" loading="lazy"></figure><figure class="mi" style="--k:3"><img src="assets/project/hilti/n568.jpg" width="900" height="900" alt="임팩 드릴 사용 고객 후기 카드" loading="lazy"></figure></div></section>` },
+      { sub: 'NURON Q&amp;A', p: '배터리 파워와 사용시간, 기존 공구와의 호환처럼 자주 묻는 질문을 Q&amp;A 형식으로 정리하고, 핵심 수치와 답변을 레드 포인트로 강조했습니다.' },
+      { html: `<section class="mn hl-s hl-c3" aria-label="NURON 배터리 궁금증 Q&A 카드뉴스"><div class="hls-g"><figure class="mi" style="--k:0"><img src="assets/project/hilti/n569.jpg" width="900" height="900" alt="‘NURON 배터리 궁금증 4’ 표지" loading="lazy"></figure><figure class="mi" style="--k:1"><img src="assets/project/hilti/n570.jpg" width="900" height="900" alt="뉴론 배터리 파워 최대 2배 Q&A 카드" loading="lazy"></figure><figure class="mi" style="--k:2"><img src="assets/project/hilti/n571.jpg" width="900" height="900" alt="뉴론 배터리 사용시간 20~30% 증대 Q&A 카드" loading="lazy"></figure><figure class="mi" style="--k:0"><img src="assets/project/hilti/n572.jpg" width="900" height="900" alt="기존 힐티 공구와 어댑터 호환 Q&A 카드" loading="lazy"></figure><figure class="mi" style="--k:1"><img src="assets/project/hilti/n573.jpg" width="900" height="900" alt="기존 배터리 호환과 구매 안내 Q&A 카드" loading="lazy"></figure><figure class="mi" style="--k:2"><img src="assets/project/hilti/n574.jpg" width="900" height="900" alt="기존 공구 보상 판매 안내 카드" loading="lazy"></figure></div></section>` },
+      { sub: 'Early Bird', p: '신제품 스크류 매거진 체험단 모집을 위해 모집 기간, 업그레이드 포인트, 참여 방법을 차례로 안내하는 티켓 콘셉트의 카드뉴스를 디자인했습니다.' },
+      { html: `<section class="mn hl-s hl-c4" aria-label="스크류 매거진 얼리버드 체험단 카드뉴스"><div class="hls-g"><figure class="mi" style="--k:0"><img src="assets/project/hilti/n578.jpg" width="900" height="900" alt="NEW 스크류 매거진 얼리버드 체험단 모집 표지" loading="lazy"></figure><figure class="mi" style="--k:1"><img src="assets/project/hilti/n579.jpg" width="900" height="900" alt="스크류 매거진 업그레이드 포인트 카드" loading="lazy"></figure><figure class="mi" style="--k:2"><img src="assets/project/hilti/n580.jpg" width="900" height="900" alt="SMD 57과 SD 5000-22 결합 업그레이드 포인트 카드" loading="lazy"></figure><figure class="mi" style="--k:3"><img src="assets/project/hilti/n581.jpg" width="900" height="900" alt="얼리버드 체험단 참여 방법 카드" loading="lazy"></figure></div></section>` },
+      { sub: 'Promotion &amp; Event', p: '콤보 혜택과 웰컴팩 할인, 인증샷·투표 이벤트, 무상수리 안내까지 프로모션의 성격에 맞춰 타이포그래피와 비주얼의 강도를 조절했습니다.' },
+      { html: `<section class="hgal hl-pf" aria-label="HILTI 프로모션과 이벤트 콘텐츠"><div class="swiper hg-sw"><div class="swiper-wrapper"><div class="swiper-slide" style="--ar:1"><img src="assets/project/hilti/n575.jpg" width="900" height="900" alt="배터리 컷오프쏘 2+2 콤보 혜택" loading="lazy"></div><div class="swiper-slide" style="--ar:1"><img src="assets/project/hilti/n577.jpg" width="900" height="900" alt="인테리어 웰컴팩 즉시 할인" loading="lazy"></div><div class="swiper-slide" style="--ar:1"><img src="assets/project/hilti/n576.jpg" width="900" height="900" alt="NURON 모먼트 챌린지 인증샷 이벤트" loading="lazy"></div><div class="swiper-slide" style="--ar:1"><img src="assets/project/hilti/n582.jpg" width="900" height="900" alt="최고의 뉴론 모먼트 투표 이벤트" loading="lazy"></div><div class="swiper-slide" style="--ar:1"><img src="assets/project/hilti/n583.jpg" width="900" height="900" alt="레이저 공구 2년 무조건 무상수리 안내" loading="lazy"></div></div><div class="swiper-pagination"></div></div></section>` },
       { label: 'Result', lead: '캠페인 운영 성과', stats: [['222%', '목표 대비 달성'], ['700건', '상담·체험 등 리드 확보']],
         end: '이벤트 콘텐츠와 광고 소재 디자인을 담당하며 성과에 기여했습니다.' },
     ],
