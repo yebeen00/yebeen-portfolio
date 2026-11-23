@@ -536,20 +536,29 @@ html.ld-on,html.ld-on body{overflow:hidden}
         <h2 id="ex-t" data-rv>Experience <i>&amp;</i><br>Career</h2>
         <span class="tag" data-rv>Since: 2016</span>
       </div>
-      <div class="erow" data-img="assets/work/p12.jpg">
+      <div class="erow">
         <p class="co">미디어브레인<sup>[2023–2026]</sup></p>
         <ul>
           <li>기업 홈페이지 운영 및 콘텐츠 디자인<time>2023–2026</time></li>
           <li>SK telecom 홈페이지 · 웹진 ‘AI Life Magazine’<time>Web</time></li>
           <li>키움투자자산운용 뉴스레터 ‘연금술사’<time>2024–2026</time></li>
           <li>S-OIL · HYOSUNG · HILTI KOREA SNS<time>Social</time></li>
+          <li>UNICEF KOREA · S-OIL SNS 제안 디자인<time>Proposal</time></li>
         </ul>
       </div>
-      <div class="erow" data-text="2022" data-sub="판씨앤씨">
-        <p class="co">판씨앤씨<sup>[2022]</sup></p>
-        <ul><li>홈페이지 및 라이브 방송 디자인<time>2022</time></li></ul>
+      <div class="erow">
+        <p class="co">외주 프로젝트<sup>[Freelance]</sup></p>
+        <ul>
+          <li>컬리 라이브 커머스 배너<time>Live</time></li>
+          <li>마리몽듀 ‘Mentos’ 상세페이지<time>Detail page</time></li>
+          <li>네이버 쇼핑라이브 · 지그재그 라이브 그래픽<time>Live</time></li>
+        </ul>
       </div>
-      <div class="erow" data-text="21–22" data-sub="미니쉬치과">
+      <div class="erow">
+        <p class="co">판씨앤씨<sup>[2022]</sup></p>
+        <ul><li>판쇼라이브 앱 UI · 라이브 배너 · 기획전 디자인<time>App</time></li></ul>
+      </div>
+      <div class="erow">
         <p class="co">미니쉬치과<sup>[2021–2022]</sup></p>
         <ul>
           <li>온·오프라인 광고 배너<time>Ads</time></li>
@@ -557,23 +566,23 @@ html.ld-on,html.ld-on body{overflow:hidden}
           <li>원내 사인물 디자인<time>Signage</time></li>
         </ul>
       </div>
-      <div class="erow" data-text="18–20" data-sub="아르푸가구">
+      <div class="erow">
         <p class="co">아르푸가구<sup>[2018–2020]</sup></p>
         <ul>
+          <li>헤르짐머 자사몰 구축 · 상세페이지 · 이벤트 디자인<time>Web</time></li>
           <li>이벤트 · 광고 디자인<time>Ads</time></li>
-          <li>상세페이지 및 홈페이지 운영<time>Web</time></li>
           <li>전시 디자인<time>Exhibition</time></li>
         </ul>
       </div>
-      <div class="erow" data-text="16–18" data-sub="K&amp;H 커뮤니케이션즈">
+      <div class="erow">
         <p class="co">K&amp;H 커뮤니케이션즈<sup>[2016–2018]</sup></p>
         <ul><li>이랜드 행사 안내 카탈로그 편집 디자인<time>Editorial</time></li></ul>
       </div>
-      <div class="erow" data-glyph="assets/img/bin.png">
+      <div class="erow">
         <p class="co">Education<sup>[01]</sup></p>
         <ul><li>계원예술대학교 시각디자인과<time>2013–2015</time></li></ul>
       </div>
-      <div class="erow" data-glyph="assets/img/mu.png">
+      <div class="erow">
         <p class="co">Skills<sup>[08]</sup></p>
         <ul>
           <li>Photoshop · Illustrator · After Effects<time>Adobe</time></li>
@@ -1369,6 +1378,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
   const badge = $('#badge'), bx = $('.bx', badge);
   let bxT = 0, byT = 0, bxC = 0, byC = 0, bOn = false;
   $$('.erow').forEach(row => {
+    if (!row.dataset.img && !row.dataset.glyph && !row.dataset.text) return; // rows without a picture show no card
     row.addEventListener('pointerenter', () => {
       if (row.dataset.img) bx.innerHTML = `<img src="${row.dataset.img}" alt="">`;
       else if (row.dataset.glyph) bx.innerHTML = `<img class="glyph" src="${row.dataset.glyph}" alt="">`;
