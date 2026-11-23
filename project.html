@@ -638,20 +638,19 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
   .hlr .hl-m{display:block;position:relative;aspect-ratio:1000/2420;overflow:hidden}
 }
 /* HILTI pile: every print is sticky at the screen's middle, so the next one slides up and lands on top of it; the
-   pile leaves together when the section ends. Prints keep their own shape, sized by kind (wide, square, story) */
+   pile leaves together when the section ends. All prints share one width (heights follow their shapes); only a
+   print taller than that allows (the story) is held to 49% of the screen height */
 .hstk{container-type:inline-size;padding:14svh 0 0}
-.stk{--W:min(620px,84cqw,100svh);--step:40svh;padding-bottom:34svh}
-.sk{position:sticky;top:calc(50svh - var(--W) * var(--f) / var(--ar) / 2 + 30px);width:calc(var(--W) * var(--f));
-  margin:0 auto calc(var(--step) - var(--W) * var(--f) / var(--ar)); /* the next print starts one step below this one's top */
+.stk{--W:min(528px,55cqw,49svh);--step:32svh;padding-bottom:30svh} /* 49svh: keeps a square inside the screen, so every width stays equal */
+.sk{--w:min(var(--W),calc(49svh * var(--ar)));position:sticky;top:calc(50svh - var(--w) / var(--ar) / 2 + 30px);width:var(--w);
+  margin:0 auto calc(var(--step) - var(--w) / var(--ar)); /* the next print starts one step below this one's top */
   rotate:var(--r);border-radius:6px;overflow:hidden;background:#1a1512;box-shadow:0 18px 50px rgba(0,0,0,.55),0 2px 8px rgba(0,0,0,.4)}
 .sk:last-child{margin-bottom:0}
-.sk.ls{--f:1}.sk.wd{--f:.96}.sk.sq{--f:.66}.sk.pt{--f:.42}
 .sk img{display:block;width:100%;height:auto;opacity:0;transition:opacity .6s var(--ease)}
 .sk img.ok{opacity:1}
 @container (max-width:640px){
   .hstk{padding-top:8svh}
-  .stk{--W:86cqw;--step:36svh;padding-bottom:26svh}
-  .sk.sq{--f:.86}.sk.pt{--f:.6}
+  .stk{--W:55cqw;--step:28svh;padding-bottom:22svh}
 }
 /* phones: the slide would shrink its text to a few pixels, so the pieces stack instead on the same blue,
    the AFTER frame becoming a plain white card that holds the characters, each character card full width */
