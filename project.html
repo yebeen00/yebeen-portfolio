@@ -594,14 +594,24 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 .cc-card.active .cc-i,.cc-card.active .cc-t{opacity:1;transform:none}
 .cc-card:focus-visible{outline:2px solid #e8337f;outline-offset:2px}
 @media (prefers-reduced-motion:reduce){.ccs,.cc-card,.cc-img,.cc-t,.cc-i,.cc-v{transition-duration:.15s!important}}
-/* phones: the cards stack, the open one tall, the others thin bands with their name across */
+/* phones: a sideways swipe row of whole cards, each shown open, with arrows either side */
+.cc-nav{display:none}
 @container (max-width:640px){
-  .cc-cards{flex-direction:column;gap:6px;height:auto}
-  .cc-card{flex:none;height:56px;transition:height .75s cubic-bezier(.2,1,.3,1)}
-  .cc-card.active{flex:none;height:min(78cqw,380px)}
-  .cc-v{writing-mode:horizontal-tb;left:16px;bottom:50%;translate:0 50%}
+  .ccs{position:relative}
+  .cc-cards{height:auto;gap:10px;margin:0 -16px;padding:0 16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 16px;
+    overscroll-behavior-x:contain;scrollbar-width:none}
+  .cc-cards::-webkit-scrollbar{display:none}
+  .cc-card,.cc-card.active{flex:none;width:84%;height:auto;aspect-ratio:1/1;scroll-snap-align:center;cursor:default}
+  .cc-card .cc-img,.cc-card.active .cc-img{transform:none;filter:none}
+  .cc-card::after,.cc-card.active::after{opacity:.75}
+  .cc-v{display:none}
+  .cc-card .cc-i,.cc-card .cc-t{opacity:1;transform:none}
   .cc-c{padding:14px 16px}
   .cc-t{font-size:16px}
+  .cc-nav{display:grid;place-items:center;position:absolute;top:50%;z-index:5;width:38px;height:38px;padding:0;translate:0 -50%;border-radius:50%;
+    border:1px solid rgba(255,255,255,.35);background:rgba(10,7,5,.6);color:#fff;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .3s}
+  .cc-prev{left:-6px}.cc-next{right:-6px}
+  .cc-nav[disabled]{opacity:.3;pointer-events:none}
 }
 /* tabs over a carousel: pill buttons, the chosen one filled orange */
 .hg-tabs{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin:0 0 28px}
@@ -673,7 +683,7 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 /* thumbnail wall: three tilted rows drifting in turn, left and right */
 .mnw{position:relative;aspect-ratio:16/8;margin:-6cqw -5.5cqw 2cqw;overflow:hidden;
   -webkit-mask:linear-gradient(180deg,#000 70%,transparent);mask:linear-gradient(180deg,#000 70%,transparent)}
-.wall{position:absolute;left:50%;top:50%;display:grid;gap:1.6cqw;width:150cqw;translate:-50% -50%;rotate:-9deg}
+.mnw .wall{position:absolute;left:50%;top:50%;display:grid;gap:1.6cqw;width:150cqw;translate:-50% -50%;rotate:-9deg}
 .trk{display:flex;gap:1.6cqw;padding-right:1.6cqw;width:max-content;animation:mn-drift var(--t) linear infinite var(--dir)}
 .trk img{display:block;width:30cqw;height:auto;border-radius:.6cqw;box-shadow:0 1cqw 2.4cqw rgba(0,0,0,.45)}
 @keyframes mn-drift{to{transform:translateX(-50%)}}
@@ -687,6 +697,13 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
   .mn-r.q>.mi{flex:0 0 calc(50% - 5px)}
   .mn-r.st{flex-direction:column}
   .mn-r.st>.mi{flex:none;width:100%}
+  /* the square ad and the coupon at one height, the landing page centred under them */
+  .mn-r.mq3{display:grid;grid-template-columns:1fr .5873fr;gap:10px;align-items:start}
+  .mn-r.mq3>.mi{width:auto}
+  .mn-r.mq3>.mi:nth-child(3){grid-column:1/-1;justify-self:center;width:62%}
+  /* two-up rows: each pair shares one height (widths in proportion to their shapes, set by script); a piece left alone is centred */
+  .mn-r.q.pr{justify-content:center}
+  .mn-r.q.pr>.mi{flex:none!important;width:var(--pw)!important}
   .mn-g{grid-template-columns:repeat(3,1fr);gap:6px}
   .mnw{aspect-ratio:4/3;margin:-28px -14px 12px}
   .trk img{width:44cqw}
@@ -961,6 +978,16 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 .hl-pf{background:#141414}
 .hl-pf .hg-sw .swiper-pagination-bullet-active{background:#d2051e}
 @container (max-width:640px){.hls-g{grid-template-columns:repeat(2,1fr);gap:8px}.hl-c3 .hls-g{grid-template-columns:repeat(2,1fr)}}
+/* coverflow arrows: phones only, where they replace the dots */
+.hg-nav{display:none}
+@media (max-width:640px){
+  .hg-sw .swiper-pagination{display:none}
+  .hg-sw{padding-bottom:0!important}
+  .hg-nav{display:grid;place-items:center;position:absolute;top:50%;z-index:10;width:38px;height:38px;padding:0;translate:0 -50%;border-radius:50%;
+    border:1px solid rgba(255,255,255,.35);background:rgba(10,7,5,.6);color:#fff;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .hg-prev{left:6px}.hg-next{right:6px}
+  .hg-nav.swiper-button-disabled{opacity:.3;pointer-events:none}
+}
 /* phones: the leaflets, plaques and forms become one swipe row, each piece at its own shape, with a bar for progress */
 .mn-c{display:grid;gap:2.4cqw}
 .mn-bar{display:none}
@@ -1592,7 +1619,7 @@ const PROJECTS = [
       // contents made with those graphics, in a row to swipe through, with arrows on either side
       // contents made with those graphics: a row of cards; hovering or tapping one opens it while the others fold
       // to narrow strips with their name on end (after Cue's collapsing cards accordion)
-      { html: `<section class="ccs" aria-label="그래픽 요소를 활용한 콘텐츠"><div class="cc-cards"><button class="cc-card active" type="button" aria-label="‘트럼프 풋, 파월 풋 시장의 기대 방향은?’ 썸네일"><img class="cc-img" src="assets/project/kiwoom-sns/gfx/g1.webp" alt="‘트럼프 풋, 파월 풋 시장의 기대 방향은?’ 썸네일" loading="lazy"><span class="cc-v">파월 풋</span><span class="cc-c"><span class="cc-i">01 / 06</span><span class="cc-t">트럼프 풋, 파월 풋 시장의 기대 방향은?</span></span></button><button class="cc-card" type="button" aria-label="보호무역의 경제적 결과 인포그래픽"><img class="cc-img" src="assets/project/kiwoom-sns/gfx/g2.webp" alt="보호무역의 경제적 결과 인포그래픽" loading="lazy"><span class="cc-v">보호무역</span><span class="cc-c"><span class="cc-i">02 / 06</span><span class="cc-t">보호무역의 경제적 결과</span></span></button><button class="cc-card" type="button" aria-label="‘리츠와 리츠 ETF! 투자 절세 꿀팁’ 썸네일"><img class="cc-img" src="assets/project/kiwoom-sns/gfx/g3.webp" alt="‘리츠와 리츠 ETF! 투자 절세 꿀팁’ 썸네일" loading="lazy"><span class="cc-v">리츠 ETF</span><span class="cc-c"><span class="cc-i">03 / 06</span><span class="cc-t">리츠와 리츠 ETF! 투자 절세 꿀팁</span></span></button><button class="cc-card" type="button" aria-label="트럼프 풋 기대감 인포그래픽"><img class="cc-img" src="assets/project/kiwoom-sns/gfx/g4.webp" alt="트럼프 풋 기대감 인포그래픽" loading="lazy"><span class="cc-v">트럼프 풋</span><span class="cc-c"><span class="cc-i">04 / 06</span><span class="cc-t">트럼프 풋 기대감</span></span></button><button class="cc-card" type="button" aria-label="투자자의 대응 전략 인포그래픽"><img class="cc-img" src="assets/project/kiwoom-sns/gfx/g5.webp" alt="투자자의 대응 전략 인포그래픽" loading="lazy"><span class="cc-v">대응 전략</span><span class="cc-c"><span class="cc-i">05 / 06</span><span class="cc-t">투자자의 대응 전략</span></span></button><button class="cc-card" type="button" aria-label="‘키움투자자산운용 SNS 채널 운영원칙’ 썸네일"><img class="cc-img" src="assets/project/kiwoom-sns/gfx/g6.webp" alt="‘키움투자자산운용 SNS 채널 운영원칙’ 썸네일" loading="lazy"><span class="cc-v">운영원칙</span><span class="cc-c"><span class="cc-i">06 / 06</span><span class="cc-t">키움투자자산운용 SNS 채널 운영원칙</span></span></button></div></section>` },
+      { html: `<section class="ccs" aria-label="그래픽 요소를 활용한 콘텐츠"><div class="cc-cards"><button class="cc-card active" type="button" aria-label="‘트럼프 풋, 파월 풋 시장의 기대 방향은?’ 썸네일"><img class="cc-img" src="assets/project/kiwoom-sns/gfx/g1.webp" alt="‘트럼프 풋, 파월 풋 시장의 기대 방향은?’ 썸네일" loading="lazy"><span class="cc-v">파월 풋</span><span class="cc-c"><span class="cc-i">01 / 06</span><span class="cc-t">트럼프 풋, 파월 풋 시장의 기대 방향은?</span></span></button><button class="cc-card" type="button" aria-label="보호무역의 경제적 결과 인포그래픽"><img class="cc-img" src="assets/project/kiwoom-sns/gfx/g2.webp" alt="보호무역의 경제적 결과 인포그래픽" loading="lazy"><span class="cc-v">보호무역</span><span class="cc-c"><span class="cc-i">02 / 06</span><span class="cc-t">보호무역의 경제적 결과</span></span></button><button class="cc-card" type="button" aria-label="‘리츠와 리츠 ETF! 투자 절세 꿀팁’ 썸네일"><img class="cc-img" src="assets/project/kiwoom-sns/gfx/g3.webp" alt="‘리츠와 리츠 ETF! 투자 절세 꿀팁’ 썸네일" loading="lazy"><span class="cc-v">리츠 ETF</span><span class="cc-c"><span class="cc-i">03 / 06</span><span class="cc-t">리츠와 리츠 ETF! 투자 절세 꿀팁</span></span></button><button class="cc-card" type="button" aria-label="트럼프 풋 기대감 인포그래픽"><img class="cc-img" src="assets/project/kiwoom-sns/gfx/g4.webp" alt="트럼프 풋 기대감 인포그래픽" loading="lazy"><span class="cc-v">트럼프 풋</span><span class="cc-c"><span class="cc-i">04 / 06</span><span class="cc-t">트럼프 풋 기대감</span></span></button><button class="cc-card" type="button" aria-label="투자자의 대응 전략 인포그래픽"><img class="cc-img" src="assets/project/kiwoom-sns/gfx/g5.webp" alt="투자자의 대응 전략 인포그래픽" loading="lazy"><span class="cc-v">대응 전략</span><span class="cc-c"><span class="cc-i">05 / 06</span><span class="cc-t">투자자의 대응 전략</span></span></button><button class="cc-card" type="button" aria-label="‘키움투자자산운용 SNS 채널 운영원칙’ 썸네일"><img class="cc-img" src="assets/project/kiwoom-sns/gfx/g6.webp" alt="‘키움투자자산운용 SNS 채널 운영원칙’ 썸네일" loading="lazy"><span class="cc-v">운영원칙</span><span class="cc-c"><span class="cc-i">06 / 06</span><span class="cc-t">키움투자자산운용 SNS 채널 운영원칙</span></span></button></div><button class="cc-nav cc-prev" type="button" aria-label="이전 카드"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="cc-nav cc-next" type="button" aria-label="다음 카드"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button></section>` },
       { label: 'Result', lead: '채널 운영 성과 - 콘텐츠 디자인 기여', stats: [['+72%', '인스타그램 팔로워 증가'], ['+8%', '카카오톡 채널 친구 수 증가']] },
     ],
   },
@@ -1706,7 +1733,7 @@ const PROJECTS = [
       { label: 'Overview', p: '미니쉬치과병원의 디지털 광고와 랜딩 페이지, SNS 콘텐츠부터 원내 홍보물까지 <b>온·오프라인 전반의 브랜드 콘텐츠를 디자인</b>했습니다. 광고에서는 핵심 메시지와 상담 안내를 명확하게 전달하고, 정보형 콘텐츠에서는 진료 내용을 쉽게 이해할 수 있도록 구성했으며, 매체별 특성에 맞는 표현 안에서 <b>병원의 전문성과 일관된 브랜드 이미지</b>를 담아냈습니다.' },
       { html: `<section class="mn-h"><p class="en">Digital Advertising</p><h3>핵심 메시지가 명확한 광고 디자인</h3><p>광고 배너와 랜딩 페이지의 메시지가 자연스럽게 이어지도록 구성하고, 주요 정보와 상담 안내가 눈에 들어오도록 시각적 위계를 정리했습니다.</p></section>` },
       // the banner on top; under it its landing page on a phone and three long landing pages that scroll in their windows; then the site
-      { html: `<section class="mn ad" aria-label="미니쉬 광고 배너와 랜딩 페이지"><div class="mn-r"><figure class="mi" style="--r:2.2979;--k:0"><img src="assets/project/minish/ad-banner.jpg" width="1080" height="470" alt="‘치아를 건강하고 아름답게 MINISH 82.5만원’ 광고 배너" loading="lazy"></figure></div><div class="mn-r"><figure class="mi sh" style="--r:3.8800;--k:0"><img src="assets/project/minish/ad-wide.jpg" width="970" height="250" alt="‘나를 소중히 한다는 것 미니쉬’ 가로형 디스플레이 배너" loading="lazy"></figure></div><div class="mn-r q"><figure class="mi sh" style="--r:1.0000;--k:0"><img src="assets/project/minish/ad-sq.jpg" width="1000" height="1000" alt="‘나를 소중히 한다는 것 미니쉬’ 정사각형 광고" loading="lazy"></figure><figure class="mi sh" style="--r:0.5873;--k:1"><img src="assets/project/minish/ad-coupon.jpg" width="750" height="1277" alt="‘최대 24개월 무이자 프로모션 쿠폰’ 안내 페이지" loading="lazy"></figure><figure class="mi lpw" style="--r:0.5333;--k:2;--t:18s"><img src="assets/project/minish/lp7.jpg" width="400" height="2000" alt="‘특별한 그날을 위해, MINISH TIMING’ 이벤트 랜딩 페이지" loading="lazy"></figure></div><div class="mn-lp"><figure class="mi lpw still" style="--k:0"><img src="assets/project/minish/ad-phone.jpg" width="800" height="1900" alt="같은 캠페인의 모바일 랜딩 페이지" loading="lazy"></figure><figure class="mi lpw" style="--k:1;--t:26s"><img src="assets/project/minish/lp2.jpg" width="720" height="4135" alt="어두운 톤의 미니쉬 소개 랜딩 페이지" loading="lazy"></figure><figure class="mi lpw" style="--k:2;--t:30s"><img src="assets/project/minish/lp3.jpg" width="720" height="4149" alt="미니쉬 정품 인증 안내 랜딩 페이지" loading="lazy"></figure><figure class="mi lpw" style="--k:0;--t:28s"><img src="assets/project/minish/lp4.jpg" width="720" height="4214" alt="미니쉬 치료 과정 안내 랜딩 페이지" loading="lazy"></figure><figure class="mi lpw" style="--k:1;--t:22s"><img src="assets/project/minish/lp5.jpg" width="708" height="2000" alt="교정 진단 이벤트 랜딩 페이지" loading="lazy"></figure><figure class="mi lpw" style="--k:2;--t:24s"><img src="assets/project/minish/lp6.jpg" width="581" height="2000" alt="칫솔 바꾼 DAY 캠페인 랜딩 페이지" loading="lazy"></figure></div><div class="mn-r"><figure class="mi sh" style="--r:1.9830;--k:0"><img src="assets/project/minish/web1.jpg" width="1400" height="706" alt="‘잃어버린 미소, 미니쉬로 되찾다’ 홈페이지 메인" loading="lazy"></figure><figure class="mi sh" style="--r:1.5873;--k:1"><img src="assets/project/minish/web2.jpg" width="1400" height="882" alt="‘Make your smile’ 홈페이지 메인" loading="lazy"></figure></div></section>` },
+      { html: `<section class="mn ad" aria-label="미니쉬 광고 배너와 랜딩 페이지"><div class="mn-r"><figure class="mi" style="--r:2.2979;--k:0"><img src="assets/project/minish/ad-banner.jpg" width="1080" height="470" alt="‘치아를 건강하고 아름답게 MINISH 82.5만원’ 광고 배너" loading="lazy"></figure></div><div class="mn-r"><figure class="mi sh" style="--r:3.8800;--k:0"><img src="assets/project/minish/ad-wide.jpg" width="970" height="250" alt="‘나를 소중히 한다는 것 미니쉬’ 가로형 디스플레이 배너" loading="lazy"></figure></div><div class="mn-r q mq3"><figure class="mi sh" style="--r:1.0000;--k:0"><img src="assets/project/minish/ad-sq.jpg" width="1000" height="1000" alt="‘나를 소중히 한다는 것 미니쉬’ 정사각형 광고" loading="lazy"></figure><figure class="mi sh" style="--r:0.5873;--k:1"><img src="assets/project/minish/ad-coupon.jpg" width="750" height="1277" alt="‘최대 24개월 무이자 프로모션 쿠폰’ 안내 페이지" loading="lazy"></figure><figure class="mi lpw" style="--r:0.5333;--k:2;--t:18s"><img src="assets/project/minish/lp7.jpg" width="400" height="2000" alt="‘특별한 그날을 위해, MINISH TIMING’ 이벤트 랜딩 페이지" loading="lazy"></figure></div><div class="mn-lp"><figure class="mi lpw still" style="--k:0"><img src="assets/project/minish/ad-phone.jpg" width="800" height="1900" alt="같은 캠페인의 모바일 랜딩 페이지" loading="lazy"></figure><figure class="mi lpw" style="--k:1;--t:26s"><img src="assets/project/minish/lp2.jpg" width="720" height="4135" alt="어두운 톤의 미니쉬 소개 랜딩 페이지" loading="lazy"></figure><figure class="mi lpw" style="--k:2;--t:30s"><img src="assets/project/minish/lp3.jpg" width="720" height="4149" alt="미니쉬 정품 인증 안내 랜딩 페이지" loading="lazy"></figure><figure class="mi lpw" style="--k:0;--t:28s"><img src="assets/project/minish/lp4.jpg" width="720" height="4214" alt="미니쉬 치료 과정 안내 랜딩 페이지" loading="lazy"></figure><figure class="mi lpw" style="--k:1;--t:22s"><img src="assets/project/minish/lp5.jpg" width="708" height="2000" alt="교정 진단 이벤트 랜딩 페이지" loading="lazy"></figure><figure class="mi lpw" style="--k:2;--t:24s"><img src="assets/project/minish/lp6.jpg" width="581" height="2000" alt="칫솔 바꾼 DAY 캠페인 랜딩 페이지" loading="lazy"></figure></div><div class="mn-r"><figure class="mi sh" style="--r:1.9830;--k:0"><img src="assets/project/minish/web1.jpg" width="1400" height="706" alt="‘잃어버린 미소, 미니쉬로 되찾다’ 홈페이지 메인" loading="lazy"></figure><figure class="mi sh" style="--r:1.5873;--k:1"><img src="assets/project/minish/web2.jpg" width="1400" height="882" alt="‘Make your smile’ 홈페이지 메인" loading="lazy"></figure></div></section>` },
       { html: `<section class="mn-h"><p class="en">Social Content</p><h3>진료 정보를 쉽게 전달하는 콘텐츠</h3><p>유튜브·블로그·인스타그램의 특성에 맞춰 썸네일과 콘텐츠 이미지를 제작하고, 텍스트와 그래픽의 균형을 조절해 정보의 가독성을 높였습니다.</p></section>` },
       // thumbnails drift past in tilted rows; then two thumbnails and the channel large, two lead posts large and the cards small
       { html: `<section class="mn sns" aria-label="미니쉬 유튜브 썸네일과 SNS 카드뉴스"><div class="mnw" aria-hidden="true"><div class="wall"><div class="trk" style="--dir:normal;--t:60s"><img src="assets/project/minish/yt1.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt2.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt3.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt4.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt1.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt2.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt3.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt4.jpg" width="1400" height="788" alt="" loading="lazy"></div><div class="trk" style="--dir:reverse;--t:68s"><img src="assets/project/minish/yt5.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt6.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt7.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt1.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt5.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt6.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt7.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt1.jpg" width="1400" height="788" alt="" loading="lazy"></div><div class="trk" style="--dir:normal;--t:76s"><img src="assets/project/minish/yt8.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt9.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt10.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt4.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt8.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt9.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt10.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt4.jpg" width="1400" height="788" alt="" loading="lazy"></div></div></div><div class="mn-r"><figure class="mi" style="--r:1.7766;--k:0"><img src="assets/project/minish/yt1.jpg" width="1400" height="788" alt="‘교정으로도 안된 벌어진 치아 미니쉬가 일냈다!’ 유튜브 썸네일" loading="lazy"></figure><figure class="mi" style="--r:1.7766;--k:1"><img src="assets/project/minish/yt10.jpg" width="1400" height="788" alt="‘Teaser ver. 미니쉬 치료’ 유튜브 썸네일" loading="lazy"></figure></div><div class="mn-r"><figure class="mi" style="--r:1.7794;--k:0"><img src="assets/project/minish/yt-channel.jpg" width="2000" height="1124" alt="‘치아의 본질’ 유튜브 채널 화면" loading="lazy"></figure></div><div class="mn-r"><figure class="mi" style="--r:1.0000;--k:0"><img src="assets/project/minish/i4.jpg" width="1080" height="1080" alt="‘벌어진 치아 치료법은?’ 인스타그램 콘텐츠" loading="lazy"></figure><figure class="mi" style="--r:1.0000;--k:1"><img src="assets/project/minish/i2.jpg" width="1080" height="1080" alt="‘활짝 웃는 모습이 일상이 되게 미니쉬가 도와줄게!’ 인스타그램 콘텐츠" loading="lazy"></figure><figure class="mi" style="--r:1.0000;--k:2"><img src="assets/project/minish/i5.jpg" width="850" height="850" alt="‘ㅁㄴㅅ를 했을때 자신감’ 인스타그램 콘텐츠" loading="lazy"></figure></div><div class="mn-g"><figure class="mi" style="--k:0"><img src="assets/project/minish/c1.jpg" width="600" height="600" alt="예상못한 사고에서 내 영구치를 지키는 법 카드뉴스" loading="lazy"></figure><figure class="mi" style="--k:1"><img src="assets/project/minish/c2.jpg" width="600" height="600" alt="미니쉬 치료 후 달라진 모습 카드뉴스" loading="lazy"></figure><figure class="mi" style="--k:2"><img src="assets/project/minish/c3.jpg" width="600" height="600" alt="만족도 높은 의료 서비스 카드뉴스" loading="lazy"></figure><figure class="mi" style="--k:3"><img src="assets/project/minish/c5.jpg" width="600" height="600" alt="미니쉬치과병원의 3가지 신념 카드뉴스" loading="lazy"></figure><figure class="mi" style="--k:4"><img src="assets/project/minish/c6.jpg" width="600" height="600" alt="레진 치료 카드뉴스" loading="lazy"></figure><figure class="mi" style="--k:5"><img src="assets/project/minish/c7.jpg" width="600" height="600" alt="크라운 치료 카드뉴스" loading="lazy"></figure><figure class="mi" style="--k:0"><img src="assets/project/minish/c8.jpg" width="600" height="600" alt="치아의 단면도 카드뉴스" loading="lazy"></figure><figure class="mi" style="--k:1"><img src="assets/project/minish/c9.jpg" width="600" height="600" alt="미니쉬 솔루션 카드뉴스" loading="lazy"></figure><figure class="mi" style="--k:2"><img src="assets/project/minish/c10.jpg" width="600" height="600" alt="듀얼 미니쉬 카드뉴스" loading="lazy"></figure><figure class="mi" style="--k:3"><img src="assets/project/minish/c11.jpg" width="600" height="600" alt="미니쉬 솔루션 추천 대상 카드뉴스" loading="lazy"></figure><figure class="mi" style="--k:4"><img src="assets/project/minish/i1.jpg" width="600" height="600" alt="‘당신은 부모님에 대해 얼마나 알고 계신가요?’ 카드뉴스" loading="lazy"></figure><figure class="mi" style="--k:5"><img src="assets/project/minish/i3.jpg" width="600" height="600" alt="‘웃는 모습 왜 이렇게 이뻐졌어!’ 카드뉴스" loading="lazy"></figure></div></section>` },
@@ -1915,6 +1942,7 @@ const PROJECTS = [
 
   // coverflow carousels (HYOSUNG, 키움 SNS): Swiper is fetched only when the page has one
   const hgSws = $$('.hg-sw');
+  hgSws.forEach(el => el.insertAdjacentHTML('beforeend', '<button class="hg-nav hg-prev" type="button" aria-label="이전 이미지"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="hg-nav hg-next" type="button" aria-label="다음 이미지"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>'));
   if (hgSws.length) {
     const SW = 'https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min';
     const css = document.createElement('link'); css.rel = 'stylesheet'; css.href = SW + '.css'; document.head.appendChild(css);
@@ -1924,6 +1952,7 @@ const PROJECTS = [
       loop: el.querySelectorAll('.swiper-slide').length > 4, // a short set plays as a plain row: looping needs spare slides
       coverflowEffect: { rotate: 40, stretch: 0, depth: 100, modifier: 1, slideShadows: true },
       pagination: { el: el.querySelector('.swiper-pagination'), clickable: true },
+      navigation: { prevEl: el.querySelector('.hg-prev'), nextEl: el.querySelector('.hg-next') },
       speed: reduce ? 0 : 600,
     });
     js.onload = () => hgSws.forEach(el => {
@@ -2011,6 +2040,21 @@ const PROJECTS = [
     if (!reduce) setInterval(() => { if (seen && !hold) go(1); }, 2600);
   });
 
+  // two-up rows on phones: size each pair so both pieces are the same height (see .mn-r.q.pr)
+  $$('.mn-r.q:not(.mq3)').forEach(row => {
+    const k = [...row.children].filter(c => c.classList.contains('mi'));
+    const r = k.map(c => parseFloat(getComputedStyle(c).getPropertyValue('--r')));
+    if (k.length < 2 || r.some(x => !x)) return;
+    for (let i = 0; i < k.length; i += 2) {
+      if (i + 1 < k.length) {
+        const sum = r[i] + r[i + 1];
+        k[i].style.setProperty('--pw', `calc((100% - 10px) * ${r[i] / sum})`);
+        k[i + 1].style.setProperty('--pw', `calc((100% - 10px) * ${r[i + 1] / sum})`);
+      } else k[i].style.setProperty('--pw', r[i] < 1 ? '62%' : '100%');
+    }
+    row.classList.add('pr');
+  });
+
   // swipe rows on phones: the bar under one fills as it is swiped to the end
   $$('.mn-c').forEach(c => {
     const bar = c.nextElementSibling && c.nextElementSibling.querySelector('i');
@@ -2022,6 +2066,16 @@ const PROJECTS = [
   });
 
   // collapsing cards: hovering (mouse) or tapping a card opens it
+  // phones: the arrows step the swipe row one card at a time and dim at either end
+  $$('.ccs').forEach(sec => {
+    const row = sec.querySelector('.cc-cards'), prev = sec.querySelector('.cc-prev'), next = sec.querySelector('.cc-next');
+    if (!prev) return;
+    const step = () => row.firstElementChild.getBoundingClientRect().width + 10;
+    const ends = () => { prev.disabled = row.scrollLeft < 4; next.disabled = row.scrollLeft > row.scrollWidth - row.clientWidth - 4; };
+    prev.addEventListener('click', () => row.scrollBy({ left: -step(), behavior: reduce ? 'auto' : 'smooth' }));
+    next.addEventListener('click', () => row.scrollBy({ left: step(), behavior: reduce ? 'auto' : 'smooth' }));
+    row.addEventListener('scroll', ends, { passive: true }); addEventListener('resize', ends); ends();
+  });
   $$('.cc-cards').forEach(row => {
     const open = c => row.querySelectorAll('.cc-card').forEach(x => x.classList.toggle('active', x === c));
     row.querySelectorAll('.cc-card').forEach(c => {
