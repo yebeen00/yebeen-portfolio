@@ -626,17 +626,113 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 .hlt.in .hp.ok,.hlr.in .hp.ok{opacity:1;transform:none}
 .hlr .hl-m{display:none}
 @media (prefers-reduced-motion:reduce){.hlt .hp,.hlr .hp{transition:opacity .3s}}
-/* phones: the title stacks the logo over a full-width grid on the metal ground; the channels switch to a portrait
+/* phones: the title keeps its slide with a larger logo; the channels switch to a portrait
    composition (Instagram on top, the two phones under it) whose pieces were cut against the gradient at that height */
 @container (max-width:640px){
-  .hlt .bg{position:absolute;inset:0;height:100%;object-fit:cover}
-  .hlt .set{position:relative;display:grid;grid-template-columns:repeat(3,1fr);padding:48px 18px 40px}
-  .hlt .hp{position:static;width:100%;transform:translateY(12px)}
-  .hlt .hp:first-child{grid-column:1/-1;justify-self:center;width:62%;margin-bottom:32px}
-  .hlt .hp:not(:first-child){--d:calc(var(--k) * .09s + .7s)!important}
+  .hlt .hp{--x:25%!important;--y:39.49%!important;--w:50%!important}
   .hlr .hl-set{display:none}
   .hlr .hl-m{display:block;position:relative;aspect-ratio:1000/2420;overflow:hidden}
 }
+/* HILTI Instagram launch: the nine posts as a 3 × 3 feed; each tile rises in when its row comes into view, left to right */
+.hgr{container-type:inline-size;padding-bottom:110px} /* room before the red channel slide */
+.hgr-g{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:960px;margin:0 auto}
+.hgr img{display:block;width:100%;height:auto;opacity:0;transform:translateY(28px);
+  transition:opacity .9s cubic-bezier(.25,.1,.25,1) calc(var(--c) * .16s),transform 1.2s cubic-bezier(.16,1,.3,1) calc(var(--c) * .16s)}
+.hgr img.in.ok{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.hgr img{transition:opacity .3s}}
+@media (max-width:640px){.hgr{padding-bottom:64px}}
+@container (max-width:640px){.hgr-g{gap:5px}.hgr img{transform:translateY(16px)}}
+/* 미니쉬: each area is a ground of its own holding rows of work. In a row (.mn-r) every piece grows in proportion
+   to its shape (--r = width / height) from a zero basis, so the row stays one height; the pieces rise in as they arrive */
+.mn-h{padding:96px 0 30px;max-width:780px;font-family:var(--kserif);word-break:keep-all}
+.mn-h .en{margin:0;font-family:var(--serif);font-size:clamp(26px,2.2vw,34px);line-height:1.05;letter-spacing:-.005em}
+.mn-h h3{margin:14px 0 0;font-size:clamp(18px,1.4vw,21px);font-weight:600;line-height:1.4;letter-spacing:-.02em}
+.mn-h p:last-child{margin:10px 0 0;font-size:15.5px;line-height:1.8;color:var(--ink-2)}
+.mn{container-type:inline-size;display:grid;gap:2.4cqw;padding:6cqw 5.5cqw;background:var(--g)}
+.mn.ad{--g:#e9e9ef}
+.mn.sns{--g:linear-gradient(180deg,#1d1f55 0%,#12133a 45%,#0b0b22 100%)}
+.mn.vid{--g:#0a0a0d}
+.mn.prn{--g:#e6e6e9}
+.mn.bks{--g:linear-gradient(180deg,#dcd5e6 0%,#a49cc2 45%,#2b2d6e 100%)}
+.mn-r{display:flex;gap:2.4cqw;align-items:flex-start}
+.mn-r>.mi{flex:var(--r) 1 0;min-width:0}
+.mi{margin:0;opacity:0;transform:translateY(28px);
+  transition:opacity 1s cubic-bezier(.25,.1,.25,1) calc(var(--k) * .12s),transform 1.2s cubic-bezier(.16,1,.3,1) calc(var(--k) * .12s)}
+.mi.in{opacity:1;transform:none}
+.mi img{display:block;width:100%;height:auto}
+.mi.sh img{box-shadow:0 1.2cqw 3cqw rgba(24,22,60,.16),0 .2cqw .6cqw rgba(24,22,60,.08)}
+.sns .mi img,.vid .mi img{border-radius:.5cqw}
+/* landing pages: each long page runs slowly top to bottom and back inside a phone-shaped window */
+.lpw{aspect-ratio:var(--r);overflow:hidden;border-radius:1.2cqw;background:#fff;box-shadow:0 1.2cqw 3cqw rgba(24,22,60,.16)}
+.lpw img{height:100%;object-fit:cover;object-position:50% 0%;animation:mn-lp var(--t) cubic-bezier(.45,0,.55,1) 1.5s infinite alternate;animation-play-state:paused}
+.lpw.in img{animation-play-state:running}
+@keyframes mn-lp{to{object-position:50% 100%}}
+/* thumbnail wall: three tilted rows drifting in turn, left and right */
+.mnw{position:relative;aspect-ratio:16/8;margin:-6cqw -5.5cqw 2cqw;overflow:hidden;
+  -webkit-mask:linear-gradient(180deg,#000 70%,transparent);mask:linear-gradient(180deg,#000 70%,transparent)}
+.wall{position:absolute;left:50%;top:50%;display:grid;gap:1.6cqw;width:150cqw;translate:-50% -50%;rotate:-9deg}
+.trk{display:flex;gap:1.6cqw;padding-right:1.6cqw;width:max-content;animation:mn-drift var(--t) linear infinite var(--dir)}
+.trk img{display:block;width:30cqw;height:auto;border-radius:.6cqw;box-shadow:0 1cqw 2.4cqw rgba(0,0,0,.45)}
+@keyframes mn-drift{to{transform:translateX(-50%)}}
+.mn-g{display:grid;grid-template-columns:repeat(6,1fr);gap:1.4cqw}
+.mn-g img{border-radius:.4cqw}
+@media (prefers-reduced-motion:reduce){.trk,.lpw img{animation:none}.mi{transition:opacity .3s}}
+@container (max-width:640px){
+  .mn{gap:12px;padding:28px 14px}
+  .mn-r{gap:10px}
+  .mn-r.q{flex-wrap:wrap}
+  .mn-r.q>.mi{flex:0 0 calc(50% - 5px)}
+  .mn-r.st{flex-direction:column}
+  .mn-r.st>.mi{flex:none;width:100%}
+  .mn-g{grid-template-columns:repeat(3,1fr);gap:6px}
+  .mnw{aspect-ratio:4/3;margin:-28px -14px 12px}
+  .trk img{width:44cqw}
+  .lpw{border-radius:10px}
+}
+/* phones: the leaflets, plaques and forms become one swipe row, each piece at its own shape, with a bar for progress */
+.mn-c{display:grid;gap:2.4cqw}
+.mn-bar{display:none}
+@container (max-width:640px){
+  .mn-c{display:flex;align-items:center;gap:10px;margin:0 -14px;padding:8px 14px 22px;overflow-x:auto;scroll-snap-type:x mandatory;
+    overscroll-behavior-x:contain;scrollbar-width:none}
+  .mn-c::-webkit-scrollbar{display:none}
+  .mn-c .mn-r{display:contents}
+  .mn-c .mn-r>.mi{flex:none;width:min(84cqw,calc(78cqw * var(--r)));aspect-ratio:var(--r);scroll-snap-align:center;transform:none;transition:opacity .6s}
+  .mn-bar{display:block;position:relative;width:38%;height:2px;margin:-6px auto 0;border-radius:2px;background:rgba(24,22,60,.14);overflow:hidden}
+  .mn-bar i{position:absolute;left:0;top:0;bottom:0;width:18%;border-radius:2px;background:#2e3288;transition:width .15s}
+}
+@media (max-width:640px){.mn-h{padding:60px 0 22px}.mn-h p:last-child{font-size:14.5px}}
+/* 미니쉬 booklet: an open book. Under everything, the first spread's left page and the last spread's right page; over the
+   right half, three leaves, each the right page of one spread on its front and the left page of the next on its back,
+   turning on the spine. Leaves still on the right lie with the next one on top; turned ones with the last one on top */
+.jr{outline:none}
+.jr-book{position:relative;width:min(100%,calc(72svh * 1.426));aspect-ratio:1800/1263;margin:0 auto;perspective:2800px;cursor:pointer;
+  -webkit-user-select:none;user-select:none;touch-action:pan-y}
+.jr-sh{position:absolute;inset:1% .5% 0;border-radius:3px;box-shadow:0 2.4cqw 5cqw rgba(12,11,46,.42),0 .4cqw 1cqw rgba(12,11,46,.25)}
+.jr-book img{display:block;position:absolute;top:0;width:50%;height:100%;object-fit:cover}
+.jr-l{left:0;border-radius:3px 0 0 3px}
+.jr-r{right:0;border-radius:0 3px 3px 0}
+.jr-leaf{position:absolute;top:0;right:0;width:50%;height:100%;transform-origin:0 50%;transform-style:preserve-3d;
+  transition:transform 1.15s cubic-bezier(.645,.045,.355,1)}
+.jr-leaf.on{transform:rotateY(-180deg)}
+.jr-leaf img{left:0;width:100%;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.jr-leaf .f{border-radius:0 3px 3px 0}
+.jr-leaf .b{transform:rotateY(180deg);border-radius:3px 0 0 3px}
+/* the turning page darkens at its fold while it moves */
+.jr-leaf::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transform:translateZ(.5px);
+  background:linear-gradient(90deg,rgba(20,18,60,.32),rgba(20,18,60,0) 55%);transition:opacity .55s}
+.jr-leaf.moving::after{opacity:1}
+.jr-spine{position:absolute;top:0;bottom:0;left:45%;width:10%;z-index:300;pointer-events:none;
+  background:linear-gradient(90deg,rgba(0,0,0,0),rgba(0,0,0,.07) 38%,rgba(0,0,0,.2) 50%,rgba(0,0,0,.07) 62%,rgba(0,0,0,0))}
+.jr-ui{display:flex;align-items:center;justify-content:center;gap:22px;margin-top:3cqw;color:#fff}
+.jr-b{display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid rgba(255,255,255,.45);border-radius:50%;
+  background:rgba(255,255,255,.06);color:#fff;cursor:pointer;transition:background .3s,border-color .3s,opacity .3s}
+.jr-b:hover:not(:disabled){background:rgba(255,255,255,.18);border-color:#fff}
+.jr-b:disabled{opacity:.3;cursor:default}
+.jr-b:focus-visible,.jr:focus-visible .jr-book{outline:2px solid #fff;outline-offset:4px}
+.jr-n{min-width:64px;text-align:center;font-size:12px;letter-spacing:.14em}
+@media (prefers-reduced-motion:reduce){.jr-leaf{transition-duration:.01s}}
+@container (max-width:640px){.jr-ui{gap:16px;margin-top:16px}.jr-b{width:40px;height:40px}}
 /* HILTI pile: every print is sticky at the screen's middle, so the next one slides up and lands on top of it; the
    pile leaves together when the section ends. All prints share one width (heights follow their shapes); only a
    print taller than that allows (the story) is held to 49% of the screen height */
@@ -738,6 +834,8 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 .tx .lead{margin-top:18px;font-family:var(--kserif);font-size:17px;font-weight:500;line-height:1.6;letter-spacing:-.01em;word-break:keep-all}
 .tx .p{margin-top:16px;font-family:var(--kserif);font-size:15.5px;line-height:1.85;color:rgba(244,239,233,.74);word-break:keep-all}
 .tx .p b{font-weight:500;color:var(--ink)}
+.tx .p b.w{font-weight:700;color:#fff} /* lines picked out in full white */
+.tx .p.end{margin-top:28px}
 .pts{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px;max-width:none}
 .pts div{padding-top:16px;border-top:1px solid var(--line)}
 .pts h3{font-family:var(--serif);font-size:22px;line-height:1.1}
@@ -1255,27 +1353,21 @@ const PROJECTS = [
   },
   {
     id: 'hilti', name: 'HILTI KOREA SNS', desc: 'SNS 콘텐츠 · 광고 소재 디자인',
+    title: 'HILTI KOREA<br>건설 전문가를 위한<br>제품·캠페인 콘텐츠 디자인',
     cat: 'Social', client: '힐티코리아', period: '2023', cover: 'assets/work/hilti.jpg',
     tools: 'Illustrator, Photoshop',
     blocks: [
-      // HILTI title slide, as on the portfolio page: the metal ground first, then the logo, then the nine opening
-      // posts one after another in reading order
-      { html: `<figure class="stage hlt" aria-label="HILTI 로고와 인스타그램 오픈 피드 9칸 그리드">
+      // HILTI title slide: the metal ground first, then the logo fades in at its centre
+      { html: `<figure class="stage hlt" aria-label="HILTI 로고">
         <img class="bg" src="assets/project/hilti/hero-bg.jpg" width="2000" height="1125" alt="" fetchpriority="high">
         <div class="set">
-          <img class="hp" style="--x:15.75%;--y:44.09%;--w:28.55%;--d:.55s" src="assets/project/hilti/logo.png" width="1100" height="260" alt="HILTI 로고">
-          <img class="hp" style="--k:0;--x:55.35%;--y:24.36%;--w:9.60%;--d:1.15s" src="assets/project/hilti/t1.jpg" width="400" height="400" alt="‘HI’ 인스타그램 오픈 피드" loading="lazy">
-          <img class="hp" style="--k:1;--x:64.95%;--y:24.36%;--w:9.60%;--d:1.29s" src="assets/project/hilti/t2.jpg" width="400" height="400" alt="‘반가워요!’ 인스타그램 오픈 피드" loading="lazy">
-          <img class="hp" style="--k:2;--x:74.55%;--y:24.36%;--w:9.60%;--d:1.43s" src="assets/project/hilti/t3.jpg" width="400" height="400" alt="‘HIP’ 인스타그램 오픈 피드" loading="lazy">
-          <img class="hp" style="--k:3;--x:55.35%;--y:41.42%;--w:9.60%;--d:1.57s" src="assets/project/hilti/t4.jpg" width="400" height="400" alt="‘HOT’ 인스타그램 오픈 피드" loading="lazy">
-          <img class="hp" style="--k:4;--x:64.95%;--y:41.42%;--w:9.60%;--d:1.71s" src="assets/project/hilti/t5.jpg" width="400" height="400" alt="‘힐티 X 인스타그램 OPEN’ 인스타그램 오픈 피드" loading="lazy">
-          <img class="hp" style="--k:5;--x:74.55%;--y:41.42%;--w:9.60%;--d:1.85s" src="assets/project/hilti/t6.jpg" width="400" height="400" alt="‘HOPE’ 인스타그램 오픈 피드" loading="lazy">
-          <img class="hp" style="--k:6;--x:55.35%;--y:58.49%;--w:9.60%;--d:1.99s" src="assets/project/hilti/t7.jpg" width="400" height="400" alt="‘HEY’ 인스타그램 오픈 피드" loading="lazy">
-          <img class="hp" style="--k:7;--x:64.95%;--y:58.49%;--w:9.60%;--d:2.13s" src="assets/project/hilti/t8.jpg" width="400" height="400" alt="‘힐티를 만나자’ 인스타그램 오픈 피드" loading="lazy">
-          <img class="hp" style="--k:8;--x:74.55%;--y:58.49%;--w:9.60%;--d:2.27s" src="assets/project/hilti/t9.jpg" width="400" height="400" alt="‘HIT’ 인스타그램 오픈 피드" loading="lazy">
+          <img class="hp" style="--x:35.73%;--y:44.00%;--w:28.55%;--d:.55s" src="assets/project/hilti/logo.png" width="1100" height="260" alt="HILTI 로고">
         </div>
       </figure>` },
-      { label: 'Overview', p: '힐티코리아의 제품과 브랜드 캠페인을 위한 <b>SNS 콘텐츠, 광고·홈페이지 배너, 유튜브·릴스 썸네일을 제작</b>했습니다. 시그니처 레드로 브랜드의 일관성을 유지하고, 건설 전문가가 제품의 기능과 쓰임, 구매 혜택을 빠르게 파악할 수 있도록 정보의 우선순위와 비주얼을 구성했습니다.' },
+      { label: 'Overview', p: '힐티코리아의 제품과 브랜드 캠페인을 위한 <b class="w">SNS 콘텐츠, 광고·홈페이지 배너, 유튜브·릴스 썸네일을 디자인</b>했습니다. 시그니처 레드를 중심으로 브랜드의 일관성을 유지하면서, 제품 소개는 기능과 사용 상황을, 프로모션은 구매 혜택과 참여 방법을 먼저 보여주도록 구성해 <b class="w">건설 전문가가 필요한 정보를 빠르게 파악할 수 있도록 했습니다.</b>' },
+      { sub: 'Instagram Launch', p: '인스타그램 채널 오픈을 알리는 9분할 피드로, 레드 타이포그래피와 제품 이미지를 조합해 하나의 통일된 화면을 구성했습니다.' },
+      // the nine opening posts as the feed shows them: each row comes in as it scrolls into view, left to right
+      { html: `<section class="hgr" aria-label="HILTI 인스타그램 오픈 9분할 피드"><div class="hgr-g"><img style="--c:0" src="assets/project/hilti/g1.jpg" width="556" height="556" alt="‘HI’ 인스타그램 오픈 피드" loading="lazy"><img style="--c:1" src="assets/project/hilti/g2.jpg" width="556" height="556" alt="‘반가워요!’ 인스타그램 오픈 피드" loading="lazy"><img style="--c:2" src="assets/project/hilti/g3.jpg" width="556" height="556" alt="‘HIP’ 인스타그램 오픈 피드" loading="lazy"><img style="--c:0" src="assets/project/hilti/g4.jpg" width="556" height="556" alt="‘HOT’ 인스타그램 오픈 피드" loading="lazy"><img style="--c:1" src="assets/project/hilti/g5.jpg" width="556" height="556" alt="‘힐티 X 인스타그램 OPEN’ 인스타그램 오픈 피드" loading="lazy"><img style="--c:2" src="assets/project/hilti/g6.jpg" width="556" height="556" alt="‘HOPE’ 인스타그램 오픈 피드" loading="lazy"><img style="--c:0" src="assets/project/hilti/g7.jpg" width="556" height="556" alt="‘HEY’ 인스타그램 오픈 피드" loading="lazy"><img style="--c:1" src="assets/project/hilti/g8.jpg" width="556" height="556" alt="‘힐티를 만나자’ 인스타그램 오픈 피드" loading="lazy"><img style="--c:2" src="assets/project/hilti/g9.jpg" width="556" height="556" alt="‘HIT’ 인스타그램 오픈 피드" loading="lazy"></div></section>` },
       // channels on the red ground, as on the portfolio slide: Instagram, then the KakaoTalk channel, then Facebook
       { html: `<figure class="stage hlr" aria-label="HILTI 인스타그램, 카카오톡 채널, 페이스북 화면">
         <div class="hl-set">
@@ -1313,8 +1405,32 @@ const PROJECTS = [
           <figure class="sk sq" style="--ar:1.0000;--r:3deg"><img src="assets/project/hilti/stack/s18.webp" width="1080" height="1080" alt="힐티 NURON이어야 하는 4가지 이유" loading="lazy"></figure>
         </div>
       </section>` },
-      { label: 'Result', p: '<b>이벤트 콘텐츠 및 광고 소재 디자인으로 KPI 222% 초과 및 리드 700건 확보에 기여</b>했습니다.',
-        stats: [['222%', 'KPI 초과 달성'], ['700건', '리드 확보']] },
+      { label: 'Result', lead: '캠페인 운영 성과', stats: [['222%', '목표 대비 달성'], ['700건', '상담·체험 등 리드 확보']],
+        end: '이벤트 콘텐츠와 광고 소재 디자인을 담당하며 성과에 기여했습니다.' },
+    ],
+  },
+  {
+    id: 'minish', name: '미니쉬치과병원', desc: '디지털 광고 · SNS · 원내 홍보물 디자인',
+    title: 'MINISH<br>병원의 전문성과 신뢰를 전달하는<br>온·오프라인 브랜드 콘텐츠 디자인',
+    cat: 'Brand Content', client: '미니쉬치과병원', period: '2021–2022', cover: 'assets/work/minish.jpg',
+    tools: 'Photoshop, Illustrator',
+    blocks: [
+      { src: 'assets/project/minish/hero.jpg', w: 2400, h: 1700, alt: '밤 도로변 광고판에 걸린 ‘나만의 건강한 미소 Only Minish’ 미니쉬치과병원 포스터' },
+      { label: 'Overview', p: '미니쉬치과병원의 디지털 광고와 랜딩 페이지, SNS 콘텐츠부터 원내 홍보물까지 <b>온·오프라인 전반의 브랜드 콘텐츠를 디자인</b>했습니다. 광고에서는 핵심 메시지와 상담 안내를 명확하게 전달하고, 정보형 콘텐츠에서는 진료 내용을 쉽게 이해할 수 있도록 구성했으며, 매체별 특성에 맞는 표현 안에서 <b>병원의 전문성과 일관된 브랜드 이미지</b>를 담아냈습니다.' },
+      { html: `<section class="mn-h"><p class="en">Digital Advertising</p><h3>핵심 메시지가 명확한 광고 디자인</h3><p>광고 배너와 랜딩 페이지의 메시지가 자연스럽게 이어지도록 구성하고, 주요 정보와 상담 안내가 눈에 들어오도록 시각적 위계를 정리했습니다.</p></section>` },
+      // the banner on top; under it its landing page on a phone and three long landing pages that scroll in their windows; then the site
+      { html: `<section class="mn ad" aria-label="미니쉬 광고 배너와 랜딩 페이지"><div class="mn-r"><figure class="mi" style="--r:2.2979;--k:0"><img src="assets/project/minish/ad-banner.jpg" width="1080" height="470" alt="‘치아를 건강하고 아름답게 MINISH 82.5만원’ 광고 배너" loading="lazy"></figure></div><div class="mn-r q"><figure class="mi" style="--r:0.4211;--k:0"><img src="assets/project/minish/ad-phone.jpg" width="800" height="1900" alt="같은 캠페인의 모바일 랜딩 페이지" loading="lazy"></figure><figure class="mi lpw" style="--r:.4211;--k:1;--t:26s"><img src="assets/project/minish/lp2.jpg" width="720" height="4135" alt="어두운 톤의 미니쉬 소개 랜딩 페이지" loading="lazy"></figure><figure class="mi lpw" style="--r:.4211;--k:2;--t:30s"><img src="assets/project/minish/lp3.jpg" width="720" height="4149" alt="미니쉬 정품 인증 안내 랜딩 페이지" loading="lazy"></figure><figure class="mi lpw" style="--r:.4211;--k:3;--t:28s"><img src="assets/project/minish/lp4.jpg" width="720" height="4214" alt="미니쉬 치료 과정 안내 랜딩 페이지" loading="lazy"></figure></div><div class="mn-r"><figure class="mi sh" style="--r:1.9830;--k:0"><img src="assets/project/minish/web1.jpg" width="1400" height="706" alt="‘잃어버린 미소, 미니쉬로 되찾다’ 홈페이지 메인" loading="lazy"></figure><figure class="mi sh" style="--r:1.5873;--k:1"><img src="assets/project/minish/web2.jpg" width="1400" height="882" alt="‘Make your smile’ 홈페이지 메인" loading="lazy"></figure></div></section>` },
+      { html: `<section class="mn-h"><p class="en">Social Content</p><h3>진료 정보를 쉽게 전달하는 콘텐츠</h3><p>유튜브·블로그·인스타그램의 특성에 맞춰 썸네일과 콘텐츠 이미지를 제작하고, 텍스트와 그래픽의 균형을 조절해 정보의 가독성을 높였습니다.</p></section>` },
+      // thumbnails drift past in tilted rows; then two thumbnails and the channel large, two lead posts large and the cards small
+      { html: `<section class="mn sns" aria-label="미니쉬 유튜브 썸네일과 SNS 카드뉴스"><div class="mnw" aria-hidden="true"><div class="wall"><div class="trk" style="--dir:normal;--t:60s"><img src="assets/project/minish/yt1.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt2.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt3.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt4.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt1.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt2.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt3.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt4.jpg" width="1400" height="788" alt="" loading="lazy"></div><div class="trk" style="--dir:reverse;--t:68s"><img src="assets/project/minish/yt5.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt6.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt7.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt1.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt5.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt6.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt7.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt1.jpg" width="1400" height="788" alt="" loading="lazy"></div><div class="trk" style="--dir:normal;--t:76s"><img src="assets/project/minish/yt8.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt9.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt10.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt4.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt8.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt9.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt10.jpg" width="1400" height="788" alt="" loading="lazy"><img src="assets/project/minish/yt4.jpg" width="1400" height="788" alt="" loading="lazy"></div></div></div><div class="mn-r"><figure class="mi" style="--r:1.7766;--k:0"><img src="assets/project/minish/yt1.jpg" width="1400" height="788" alt="‘교정으로도 안된 벌어진 치아 미니쉬가 일냈다!’ 유튜브 썸네일" loading="lazy"></figure><figure class="mi" style="--r:1.7766;--k:1"><img src="assets/project/minish/yt10.jpg" width="1400" height="788" alt="‘Teaser ver. 미니쉬 치료’ 유튜브 썸네일" loading="lazy"></figure></div><div class="mn-r"><figure class="mi" style="--r:1.7794;--k:0"><img src="assets/project/minish/yt-channel.jpg" width="2000" height="1124" alt="‘치아의 본질’ 유튜브 채널 화면" loading="lazy"></figure></div><div class="mn-r"><figure class="mi" style="--r:1.0000;--k:0"><img src="assets/project/minish/i4.jpg" width="1080" height="1080" alt="‘벌어진 치아 치료법은?’ 인스타그램 콘텐츠" loading="lazy"></figure><figure class="mi" style="--r:1.0000;--k:1"><img src="assets/project/minish/i2.jpg" width="1080" height="1080" alt="‘활짝 웃는 모습이 일상이 되게 미니쉬가 도와줄게!’ 인스타그램 콘텐츠" loading="lazy"></figure></div><div class="mn-g"><figure class="mi" style="--k:0"><img src="assets/project/minish/c1.jpg" width="600" height="600" alt="예상못한 사고에서 내 영구치를 지키는 법 카드뉴스" loading="lazy"></figure><figure class="mi" style="--k:1"><img src="assets/project/minish/c2.jpg" width="600" height="600" alt="미니쉬 치료 후 달라진 모습 카드뉴스" loading="lazy"></figure><figure class="mi" style="--k:2"><img src="assets/project/minish/c3.jpg" width="600" height="600" alt="만족도 높은 의료 서비스 카드뉴스" loading="lazy"></figure><figure class="mi" style="--k:3"><img src="assets/project/minish/c5.jpg" width="600" height="600" alt="미니쉬치과병원의 3가지 신념 카드뉴스" loading="lazy"></figure><figure class="mi" style="--k:4"><img src="assets/project/minish/c6.jpg" width="600" height="600" alt="레진 치료 카드뉴스" loading="lazy"></figure><figure class="mi" style="--k:5"><img src="assets/project/minish/c7.jpg" width="600" height="600" alt="크라운 치료 카드뉴스" loading="lazy"></figure><figure class="mi" style="--k:0"><img src="assets/project/minish/c8.jpg" width="600" height="600" alt="치아의 단면도 카드뉴스" loading="lazy"></figure><figure class="mi" style="--k:1"><img src="assets/project/minish/c9.jpg" width="600" height="600" alt="미니쉬 솔루션 카드뉴스" loading="lazy"></figure><figure class="mi" style="--k:2"><img src="assets/project/minish/c10.jpg" width="600" height="600" alt="듀얼 미니쉬 카드뉴스" loading="lazy"></figure><figure class="mi" style="--k:3"><img src="assets/project/minish/c11.jpg" width="600" height="600" alt="미니쉬 솔루션 추천 대상 카드뉴스" loading="lazy"></figure><figure class="mi" style="--k:4"><img src="assets/project/minish/i1.jpg" width="600" height="600" alt="‘당신은 부모님에 대해 얼마나 알고 계신가요?’ 카드뉴스" loading="lazy"></figure><figure class="mi" style="--k:5"><img src="assets/project/minish/i3.jpg" width="600" height="600" alt="‘웃는 모습 왜 이렇게 이뻐졌어!’ 카드뉴스" loading="lazy"></figure></div></section>` },
+      // video titles and captions on black
+      { html: `<section class="mn vid" aria-label="미니쉬 유튜브 영상 자막과 그래픽"><div class="mn-r"><figure class="mi" style="--r:1.2313;--k:0"><img src="assets/project/minish/v5.jpg" width="1400" height="1137" alt="‘미소 나눔’ 로고 베리에이션" loading="lazy"></figure><figure class="mi" style="--r:1.7789;--k:1"><img src="assets/project/minish/v6.jpg" width="1400" height="787" alt="원장 인터뷰 영상의 이름 자막" loading="lazy"></figure></div><div class="mn-r"><figure class="mi" style="--r:1.0173;--k:0"><img src="assets/project/minish/v7.jpg" width="1000" height="983" alt="인스타 상황 자막" loading="lazy"></figure><figure class="mi" style="--r:1.5038;--k:1"><img src="assets/project/minish/v8.jpg" width="1000" height="665" alt="‘화사하고 밝은 이미지!’ 자막" loading="lazy"></figure></div><div class="mn-r st"><figure class="mi" style="--r:4.3478;--k:0"><img src="assets/project/minish/v9.jpg" width="1400" height="322" alt="‘가지런하고 자연스러운 치아!’ 자막 바" loading="lazy"></figure><figure class="mi" style="--r:3.3254;--k:1"><img src="assets/project/minish/v10.jpg" width="1400" height="421" alt="‘미니쉬 후 깨끗해진 치아’ 자막 바" loading="lazy"></figure></div><div class="mn-r"><figure class="mi" style="--r:1.7271;--k:0"><img src="assets/project/minish/v11.jpg" width="1000" height="579" alt="‘미니쉬 치료! 설레는 기다림’ 자막" loading="lazy"></figure><figure class="mi" style="--r:1.7889;--k:1"><img src="assets/project/minish/v12.jpg" width="1000" height="559" alt="크라운 치료 설명 자막" loading="lazy"></figure><figure class="mi" style="--r:1.8083;--k:2"><img src="assets/project/minish/v13.jpg" width="1000" height="553" alt="치아 치료 바로알기 화면 구성" loading="lazy"></figure></div></section>` },
+      { html: `<section class="mn-h"><p class="en">Print &amp; Collateral</p><h3>브랜드 경험을 이어가는 원내 홍보물</h3><p>원내 인쇄물과 홍보물의 용도에 맞춰 정보와 레이아웃을 구성하고, 온라인 콘텐츠와 일관된 인상을 전달하도록 디자인했습니다.</p></section>` },
+      // originals next to the mockups and photos of them in use, on grey
+      { html: `<section class="mn prn" aria-label="미니쉬 원내 홍보물"><div class="mn-r"><figure class="mi sh" style="--r:0.5245;--k:0"><img src="assets/project/minish/p1.jpg" width="900" height="1716" alt="‘나만의 건강한 미소 Only Minish’ 포스터" loading="lazy"></figure><figure class="mi sh" style="--r:0.5248;--k:1"><img src="assets/project/minish/p2.jpg" width="900" height="1715" alt="‘나를 위한 선택 미니쉬치과병원’ 포스터" loading="lazy"></figure><figure class="mi" style="--r:0.4732;--k:2"><img src="assets/project/minish/p3.jpg" width="900" height="1902" alt="‘미니쉬 치료 후 QR 정품 인증 받으세요!’ 배너 목업" loading="lazy"></figure></div><div class="mn-r"><figure class="mi" style="--r:2.0261;--k:0"><img src="assets/project/minish/p-subway.jpg" width="1860" height="918" alt="지하철역 광고판에 걸린 미니쉬 광고 목업" loading="lazy"></figure></div><div class="mn-c"><div class="mn-r"><figure class="mi" style="--r:1.5660;--k:0"><img src="assets/project/minish/b1.jpg" width="1400" height="894" alt="미니쉬 소개 리플렛 펼침면 목업" loading="lazy"></figure><figure class="mi" style="--r:1.6222;--k:1"><img src="assets/project/minish/b2.jpg" width="1400" height="863" alt="미니쉬 소개 리플렛 목업" loading="lazy"></figure></div><div class="mn-r"><figure class="mi sh" style="--r:1.8592;--k:0"><img src="assets/project/minish/b3.jpg" width="1400" height="753" alt="리플렛 안쪽면 디자인" loading="lazy"></figure><figure class="mi sh" style="--r:1.8592;--k:1"><img src="assets/project/minish/b4.jpg" width="1400" height="753" alt="리플렛 바깥쪽면 디자인" loading="lazy"></figure></div><div class="mn-r"><figure class="mi" style="--r:1.4793;--k:0"><img src="assets/project/minish/k5.jpg" width="1000" height="676" alt="미니쉬 공식 지정 기공소 인증 현판" loading="lazy"></figure><figure class="mi" style="--r:1.3423;--k:1"><img src="assets/project/minish/k6.jpg" width="1000" height="745" alt="수료증과 커버 목업" loading="lazy"></figure><figure class="mi" style="--r:1.3369;--k:2"><img src="assets/project/minish/k-sign.jpg" width="1000" height="748" alt="원내 안내 사인 목업" loading="lazy"></figure></div><div class="mn-r"><figure class="mi sh" style="--r:1.4144;--k:0"><img src="assets/project/minish/l12.jpg" width="1000" height="707" alt="‘당신은 부모님에 대해 얼마나 알고 계신가요?’ 카드" loading="lazy"></figure><figure class="mi sh" style="--r:1.4065;--k:1"><img src="assets/project/minish/l13.jpg" width="1000" height="711" alt="미니쉬 스파 리플렛 바깥면" loading="lazy"></figure><figure class="mi sh" style="--r:1.4065;--k:2"><img src="assets/project/minish/l14.jpg" width="1000" height="711" alt="미니쉬 스파 리플렛 안쪽면" loading="lazy"></figure></div><div class="mn-r q"><figure class="mi sh" style="--r:0.4818;--k:0"><img src="assets/project/minish/l11.jpg" width="700" height="1453" alt="원내 처방전 양식" loading="lazy"></figure><figure class="mi sh" style="--r:0.6616;--k:1"><img src="assets/project/minish/l15.jpg" width="700" height="1058" alt="발렛 티켓 앞면" loading="lazy"></figure><figure class="mi sh" style="--r:0.6616;--k:2"><img src="assets/project/minish/l16.jpg" width="700" height="1058" alt="발렛 티켓 뒷면" loading="lazy"></figure><figure class="mi sh" style="--r:0.5251;--k:3"><img src="assets/project/minish/l17.jpg" width="700" height="1333" alt="오시는 길 안내문" loading="lazy"></figure></div></div><div class="mn-bar" aria-hidden="true"><i></i></div></section>` },
+      // the MINISH SPA booklet as an open book: eight pages in four spreads; the right page turns over the spine to the
+      // next spread (after the journal spread carousel on 21st.dev)
+      { html: `<section class="mn bks" aria-label="미니쉬 스파 검진·예방관리 프로그램 책자"><div class="jr mi" style="--k:0" tabindex="0" role="group" aria-roledescription="carousel" aria-label="미니쉬 스파 책자 펼침면. 좌우 화살표 키로 넘깁니다"><div class="jr-book"><span class="jr-sh" aria-hidden="true"></span><img class="jr-l" src="assets/project/minish/pg1.jpg" width="900" height="1263" alt="미니쉬 스파 소개 표지 페이지" loading="lazy"><img class="jr-r" src="assets/project/minish/pg8.jpg" width="900" height="1263" alt="병원 공간과 진료 사진 페이지" loading="lazy"><div class="jr-leaf"><img class="f" src="assets/project/minish/pg2.jpg" width="900" height="1263" alt="미니쉬 스파란? 프로그램 소개 페이지" loading="lazy"><img class="b" src="assets/project/minish/pg3.jpg" width="900" height="1263" alt="정확한 진단과 관리 안내 페이지" loading="lazy"></div><div class="jr-leaf"><img class="f" src="assets/project/minish/pg4.jpg" width="900" height="1263" alt="최첨단 의료 장비 소개 페이지" loading="lazy"><img class="b" src="assets/project/minish/pg5.jpg" width="900" height="1263" alt="구강 검진 간지 페이지" loading="lazy"></div><div class="jr-leaf"><img class="f" src="assets/project/minish/pg6.jpg" width="900" height="1263" alt="구강 종합 검진 프로그램 순서 페이지" loading="lazy"><img class="b" src="assets/project/minish/pg7.jpg" width="900" height="1263" alt="미니쉬 스파 1회 체험 프로그램 페이지" loading="lazy"></div><span class="jr-spine" aria-hidden="true"></span></div><div class="jr-ui"><button class="jr-b jr-prev" type="button" aria-label="이전 펼침면" disabled><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="jr-n mono" aria-live="polite">01 / 04</span><button class="jr-b jr-next" type="button" aria-label="다음 펼침면"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div></section>` },
     ],
   },
 ];
@@ -1350,6 +1466,7 @@ const PROJECTS = [
       + (b.p ? `<p class="p">${b.p}</p>` : '')
       + (b.pts ? `<div class="pts">${b.pts.map(([t, k, d]) => `<div><h3>${t}</h3><p class="mono">${k}</p><p>${d}</p></div>`).join('')}</div>` : '')
       + (b.stats ? `<div class="stats">${b.stats.map(([v, k]) => `<div><b>${v}</b><span class="mono">${k}</span></div>`).join('')}</div>` : '')
+      + (b.end ? `<p class="p end">${b.end}</p>` : '') // a closing line under the figures
       + `</section>`;
   }).join('');
 
@@ -1369,7 +1486,7 @@ const PROJECTS = [
   // pictures and stages start their fade once their top has come a little way up into the screen (however tall
   // they are), and reset only after leaving through the bottom: scrolling back up never makes things blink out
   // and replay, while scrolling down to them again plays them afresh
-  const shows = $$('.fig, .stage, .rdb .rv, .chr .fg, .clg .cv, .hys .hv, .hys .hc, .hgal, .kbn .kb, .kbn .knav, .kfeed .kf, .kswipe, .kyt .ky, .sog .so, .ccs');
+  const shows = $$('.fig, .stage, .rdb .rv, .chr .fg, .clg .cv, .hys .hv, .hys .hc, .hgal, .kbn .kb, .kbn .knav, .kfeed .kf, .kswipe, .kyt .ky, .sog .so, .ccs, .hgr img, .mi');
   if (reduce || !('IntersectionObserver' in window)) shows.forEach(s => s.classList.add('in'));
   else {
     const io = new IntersectionObserver(es => es.forEach(e => {
@@ -1413,6 +1530,51 @@ const PROJECTS = [
     document.head.appendChild(js);
   }
 
+  // booklet: the arrows, a tap on either half of the book, a swipe or the arrow keys turn one leaf over the spine
+  $$('.jr').forEach(j => {
+    const book = j.querySelector('.jr-book'), leaves = [...j.querySelectorAll('.jr-leaf')], n = leaves.length;
+    const prev = j.querySelector('.jr-prev'), next = j.querySelector('.jr-next'), num = j.querySelector('.jr-n');
+    let k = 0, top = 50; // k: leaves turned
+    const pad = x => String(x).padStart(2, '0');
+    const stack = () => leaves.forEach((l, i) => { if (!l.classList.contains('moving')) l.style.zIndex = i < k ? 10 + i : 10 + n - i; });
+    const go = d => {
+      const t = k + d;
+      if (t < 0 || t > n) return;
+      const l = leaves[d > 0 ? k : k - 1];
+      k = t;
+      l.classList.add('moving'); l.style.zIndex = ++top; // the moving leaf passes over everything, the latest one highest
+      l.classList.toggle('on', d > 0);
+      clearTimeout(l._t);
+      l._t = setTimeout(() => { l.classList.remove('moving'); stack(); }, reduce ? 0 : 1150);
+      stack();
+      num.textContent = `${pad(k + 1)} / ${pad(n + 1)}`;
+      prev.disabled = k === 0; next.disabled = k === n;
+    };
+    stack();
+    prev.addEventListener('click', () => go(-1));
+    next.addEventListener('click', () => go(1));
+    j.addEventListener('keydown', e => { if (e.key === 'ArrowRight') { go(1); e.preventDefault(); } if (e.key === 'ArrowLeft') { go(-1); e.preventDefault(); } });
+    let x0 = null;
+    book.addEventListener('pointerdown', e => { x0 = e.clientX; });
+    book.addEventListener('pointerup', e => {
+      if (x0 === null) return;
+      const dx = e.clientX - x0, r = book.getBoundingClientRect();
+      x0 = null;
+      if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
+      else go(e.clientX > r.left + r.width / 2 ? 1 : -1);
+    });
+  });
+
+  // swipe rows on phones: the bar under one fills as it is swiped to the end
+  $$('.mn-c').forEach(c => {
+    const bar = c.nextElementSibling && c.nextElementSibling.querySelector('i');
+    if (!bar) return;
+    const fill = () => { const m = c.scrollWidth - c.clientWidth; bar.style.width = (m > 0 ? 18 + 82 * c.scrollLeft / m : 100) + '%'; };
+    c.addEventListener('scroll', fill, { passive: true });
+    addEventListener('resize', fill);
+    fill();
+  });
+
   // collapsing cards: hovering (mouse) or tapping a card opens it
   $$('.cc-cards').forEach(row => {
     const open = c => row.querySelectorAll('.cc-card').forEach(x => x.classList.toggle('active', x === c));
@@ -1439,7 +1601,7 @@ const PROJECTS = [
 
   // pictures fade in once decoded, so lazy ones don't pop in half-drawn; decoding off the main thread
   $$('#body img').forEach(i => { i.decoding = 'async'; });
-  $$('.fig img, .more img, .rdb img, .clg img, .hys img, .hgal img, .khero img, .kap img, .kbn img, .kyt img, .kfl img, .sog img, .hlt img, .hlr img, .hstk img').forEach(i => {
+  $$('.fig img, .more img, .rdb img, .clg img, .hys img, .hgal img, .khero img, .kap img, .kbn img, .kyt img, .kfl img, .sog img, .hlt img, .hlr img, .hstk img, .hgr img').forEach(i => {
     const ok = () => i.classList.add('ok');
     i.complete && i.naturalWidth ? ok() : i.addEventListener('load', ok, { once: true });
   });
