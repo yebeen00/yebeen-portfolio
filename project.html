@@ -614,6 +614,45 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 .hg-sw.swap{opacity:0}
 .hgal.tabbed .swiper-pagination-bullet-active{background:#ff7a1a} /* the tabbed carousel uses the orange of its tabs */
 @container (max-width:640px){.hg-tabs{gap:6px;margin-bottom:18px}.hg-tab{padding:8px 14px;font-size:12px}}
+/* HILTI slides: pieces placed in % of the 2000 × 1125 portfolio slides. Title: logo and nine posts over the metal
+   ground (its own picture). Channels: on the slide's vertical red gradient (the pieces were cut with that gradient
+   behind them, so their edges vanish) */
+.stage.hlt,.stage.hlr{container-type:inline-size}
+.stage.hlr{background:linear-gradient(180deg,#a50014 0%,#950010 11.11%,#86000f 22.22%,#76000c 33.33%,#66000a 44.44%,#550006 55.56%,#470006 66.67%,#360004 77.78%,#260001 88.89%,#1e0000 100%)}
+.hlr .hl-set{position:relative;aspect-ratio:2000/1125;overflow:hidden}
+.hlt .hp,.hlr .hp{position:absolute;left:var(--x);top:var(--y);width:var(--w);height:auto;opacity:0;transform:translateY(1cqw);
+  transition:opacity 1s cubic-bezier(.25,.1,.25,1) var(--d),transform 1.3s cubic-bezier(.16,1,.3,1) var(--d)}
+.hlr .hp{transform:translateY(.5cqw)}
+.hlt.in .hp.ok,.hlr.in .hp.ok{opacity:1;transform:none}
+.hlr .hl-m{display:none}
+@media (prefers-reduced-motion:reduce){.hlt .hp,.hlr .hp{transition:opacity .3s}}
+/* phones: the title stacks the logo over a full-width grid on the metal ground; the channels switch to a portrait
+   composition (Instagram on top, the two phones under it) whose pieces were cut against the gradient at that height */
+@container (max-width:640px){
+  .hlt .bg{position:absolute;inset:0;height:100%;object-fit:cover}
+  .hlt .set{position:relative;display:grid;grid-template-columns:repeat(3,1fr);padding:48px 18px 40px}
+  .hlt .hp{position:static;width:100%;transform:translateY(12px)}
+  .hlt .hp:first-child{grid-column:1/-1;justify-self:center;width:62%;margin-bottom:32px}
+  .hlt .hp:not(:first-child){--d:calc(var(--k) * .09s + .7s)!important}
+  .hlr .hl-set{display:none}
+  .hlr .hl-m{display:block;position:relative;aspect-ratio:1000/2420;overflow:hidden}
+}
+/* HILTI pile: every print is sticky at the screen's middle, so the next one slides up and lands on top of it; the
+   pile leaves together when the section ends. Prints keep their own shape, sized by kind (wide, square, story) */
+.hstk{container-type:inline-size;padding:14svh 0 0}
+.stk{--W:min(620px,84cqw,100svh);--step:40svh;padding-bottom:34svh}
+.sk{position:sticky;top:calc(50svh - var(--W) * var(--f) / var(--ar) / 2 + 30px);width:calc(var(--W) * var(--f));
+  margin:0 auto calc(var(--step) - var(--W) * var(--f) / var(--ar)); /* the next print starts one step below this one's top */
+  rotate:var(--r);border-radius:6px;overflow:hidden;background:#1a1512;box-shadow:0 18px 50px rgba(0,0,0,.55),0 2px 8px rgba(0,0,0,.4)}
+.sk:last-child{margin-bottom:0}
+.sk.ls{--f:1}.sk.wd{--f:.96}.sk.sq{--f:.66}.sk.pt{--f:.42}
+.sk img{display:block;width:100%;height:auto;opacity:0;transition:opacity .6s var(--ease)}
+.sk img.ok{opacity:1}
+@container (max-width:640px){
+  .hstk{padding-top:8svh}
+  .stk{--W:86cqw;--step:36svh;padding-bottom:26svh}
+  .sk.sq{--f:.86}.sk.pt{--f:.6}
+}
 /* phones: the slide would shrink its text to a few pixels, so the pieces stack instead on the same blue,
    the AFTER frame becoming a plain white card that holds the characters, each character card full width */
 @container (max-width:640px){
@@ -1219,31 +1258,63 @@ const PROJECTS = [
     cat: 'Social', client: '힐티코리아', period: '2023', cover: 'assets/work/hilti.jpg',
     tools: 'Illustrator, Photoshop',
     blocks: [
-      { img: 'p26', alt: 'HILTI 로고와 인스타그램 오픈 피드 9칸 그리드' },
+      // HILTI title slide, as on the portfolio page: the metal ground first, then the logo, then the nine opening
+      // posts one after another in reading order
+      { html: `<figure class="stage hlt" aria-label="HILTI 로고와 인스타그램 오픈 피드 9칸 그리드">
+        <img class="bg" src="assets/project/hilti/hero-bg.jpg" width="2000" height="1125" alt="" fetchpriority="high">
+        <div class="set">
+          <img class="hp" style="--x:15.75%;--y:44.09%;--w:28.55%;--d:.55s" src="assets/project/hilti/logo.png" width="1100" height="260" alt="HILTI 로고">
+          <img class="hp" style="--k:0;--x:55.35%;--y:24.36%;--w:9.60%;--d:1.15s" src="assets/project/hilti/t1.jpg" width="400" height="400" alt="‘HI’ 인스타그램 오픈 피드" loading="lazy">
+          <img class="hp" style="--k:1;--x:64.95%;--y:24.36%;--w:9.60%;--d:1.29s" src="assets/project/hilti/t2.jpg" width="400" height="400" alt="‘반가워요!’ 인스타그램 오픈 피드" loading="lazy">
+          <img class="hp" style="--k:2;--x:74.55%;--y:24.36%;--w:9.60%;--d:1.43s" src="assets/project/hilti/t3.jpg" width="400" height="400" alt="‘HIP’ 인스타그램 오픈 피드" loading="lazy">
+          <img class="hp" style="--k:3;--x:55.35%;--y:41.42%;--w:9.60%;--d:1.57s" src="assets/project/hilti/t4.jpg" width="400" height="400" alt="‘HOT’ 인스타그램 오픈 피드" loading="lazy">
+          <img class="hp" style="--k:4;--x:64.95%;--y:41.42%;--w:9.60%;--d:1.71s" src="assets/project/hilti/t5.jpg" width="400" height="400" alt="‘힐티 X 인스타그램 OPEN’ 인스타그램 오픈 피드" loading="lazy">
+          <img class="hp" style="--k:5;--x:74.55%;--y:41.42%;--w:9.60%;--d:1.85s" src="assets/project/hilti/t6.jpg" width="400" height="400" alt="‘HOPE’ 인스타그램 오픈 피드" loading="lazy">
+          <img class="hp" style="--k:6;--x:55.35%;--y:58.49%;--w:9.60%;--d:1.99s" src="assets/project/hilti/t7.jpg" width="400" height="400" alt="‘HEY’ 인스타그램 오픈 피드" loading="lazy">
+          <img class="hp" style="--k:7;--x:64.95%;--y:58.49%;--w:9.60%;--d:2.13s" src="assets/project/hilti/t8.jpg" width="400" height="400" alt="‘힐티를 만나자’ 인스타그램 오픈 피드" loading="lazy">
+          <img class="hp" style="--k:8;--x:74.55%;--y:58.49%;--w:9.60%;--d:2.27s" src="assets/project/hilti/t9.jpg" width="400" height="400" alt="‘HIT’ 인스타그램 오픈 피드" loading="lazy">
+        </div>
+      </figure>` },
       { label: 'Overview', p: '힐티코리아의 제품과 브랜드 캠페인을 위한 <b>SNS 콘텐츠, 광고·홈페이지 배너, 유튜브·릴스 썸네일을 제작</b>했습니다. 시그니처 레드로 브랜드의 일관성을 유지하고, 건설 전문가가 제품의 기능과 쓰임, 구매 혜택을 빠르게 파악할 수 있도록 정보의 우선순위와 비주얼을 구성했습니다.' },
-      { img: 'p27', alt: 'HILTI 인스타그램과 페이스북 채널 화면' },
-      { img: 'p28', alt: 'HILTI 신제품과 이벤트 광고 소재 모음' },
+      // channels on the red ground, as on the portfolio slide: Instagram, then the KakaoTalk channel, then Facebook
+      { html: `<figure class="stage hlr" aria-label="HILTI 인스타그램, 카카오톡 채널, 페이스북 화면">
+        <div class="hl-set">
+          <img class="hp" style="--x:8.00%;--y:8.18%;--w:44.00%;--d:.2s" src="assets/project/hilti/insta.jpg" width="880" height="1033" alt="HILTI 코리아 인스타그램 프로필과 피드" loading="lazy">
+          <img class="hp" style="--x:55.30%;--y:9.42%;--w:17.90%;--d:.6s" src="assets/project/hilti/kakao.jpg" width="688" height="1927" alt="스마트폰에 띄운 힐티코리아 카카오톡 채널" loading="lazy">
+          <img class="hp" style="--x:74.10%;--y:18.84%;--w:17.90%;--d:1s" src="assets/project/hilti/facebook.jpg" width="688" height="1520" alt="스마트폰에 띄운 Hilti 페이스북 페이지" loading="lazy">
+        </div>
+        <div class="hl-m">
+          <img class="hp" style="--x:5.00%;--y:2.48%;--w:90.00%;--d:.1s" src="assets/project/hilti/insta-m.jpg" width="870" height="1015" alt="HILTI 코리아 인스타그램 프로필과 피드" loading="lazy">
+          <img class="hp" style="--x:5.00%;--y:48.35%;--w:42.00%;--d:.4s" src="assets/project/hilti/kakao-m.jpg" width="460" height="1288" alt="스마트폰에 띄운 힐티코리아 카카오톡 채널" loading="lazy">
+          <img class="hp" style="--x:53.00%;--y:53.31%;--w:42.00%;--d:.7s" src="assets/project/hilti/facebook-m.jpg" width="460" height="1016" alt="스마트폰에 띄운 Hilti 페이스북 페이지" loading="lazy">
+        </div>
+      </figure>` },
+      // ads and posts as a pile of prints: each one sticks at the middle of the screen while the next scrolls up over
+      // it, slightly turned (sticky stacking, after UI Layouts' CSS image stacking)
+      { html: `<section class="hstk" aria-label="HILTI 신제품과 이벤트 광고 소재 모음">
+        <div class="stk">
+          <figure class="sk ls" style="--ar:1.7778;--r:-4deg"><img src="assets/project/hilti/stack/s01.webp" width="1920" height="1080" alt="뉴론 무선 진공 집진기 VC 10-22 언박싱 썸네일" loading="lazy"></figure>
+          <figure class="sk ls" style="--ar:1.7778;--r:3deg"><img src="assets/project/hilti/stack/s02.webp" width="1920" height="1080" alt="뉴론, 한국에서 최초 체험! 썸네일" loading="lazy"></figure>
+          <figure class="sk ls" style="--ar:1.7778;--r:-2deg"><img src="assets/project/hilti/stack/s03.webp" width="1920" height="1080" alt="신제품 출시 신형 매거진 SD-M 1&2 썸네일" loading="lazy"></figure>
+          <figure class="sk ls" style="--ar:1.7778;--r:5deg"><img src="assets/project/hilti/stack/s04.webp" width="1920" height="1080" alt="롯데월드타워 123층을 지탱하는 힐티 앵커 시스템 썸네일" loading="lazy"></figure>
+          <figure class="sk sq" style="--ar:1.0000;--r:-5deg"><img src="assets/project/hilti/stack/s05.webp" width="1080" height="1080" alt="뉴론 첫 구매 웰컴딜 이벤트" loading="lazy"></figure>
+          <figure class="sk sq" style="--ar:1.0000;--r:2deg"><img src="assets/project/hilti/stack/s06.webp" width="1080" height="1080" alt="팔로우 이벤트 힐티 밸런스 게임" loading="lazy"></figure>
+          <figure class="sk sq" style="--ar:1.0000;--r:-3deg"><img src="assets/project/hilti/stack/s07.webp" width="1080" height="1080" alt="힐티가 만드는 순환경제 인포그래픽" loading="lazy"></figure>
+          <figure class="sk sq" style="--ar:1.0000;--r:4deg"><img src="assets/project/hilti/stack/s08.webp" width="1080" height="1080" alt="배터리 컷오프쏘 2+2 콤보 혜택" loading="lazy"></figure>
+          <figure class="sk sq" style="--ar:1.0000;--r:-1deg"><img src="assets/project/hilti/stack/s09.webp" width="1080" height="1080" alt="현장 작업자 안전 궁금증 4" loading="lazy"></figure>
+          <figure class="sk sq" style="--ar:1.0000;--r:3deg"><img src="assets/project/hilti/stack/s10.webp" width="1080" height="1080" alt="NEW DROP! 밴드 쏘 SB 6-22" loading="lazy"></figure>
+          <figure class="sk sq" style="--ar:1.0000;--r:-4deg"><img src="assets/project/hilti/stack/s11.webp" width="1080" height="1080" alt="뉴론 인증샷 이벤트 모먼트 챌린지" loading="lazy"></figure>
+          <figure class="sk sq" style="--ar:1.0000;--r:2deg"><img src="assets/project/hilti/stack/s12.webp" width="1080" height="1080" alt="2024년도 힐티와 함께해요 캘린더 이벤트" loading="lazy"></figure>
+          <figure class="sk pt" style="--ar:0.5625;--r:-2deg"><img src="assets/project/hilti/stack/s13.webp" width="1080" height="1920" alt="NURON 신제품 받는 초간단 방법! 스토리" loading="lazy"></figure>
+          <figure class="sk sq" style="--ar:1.0000;--r:5deg"><img src="assets/project/hilti/stack/s14.webp" width="1080" height="1080" alt="모먼트 챌린지 D-5" loading="lazy"></figure>
+          <figure class="sk wd" style="--ar:1.5000;--r:-3deg"><img src="assets/project/hilti/stack/s15.webp" width="1920" height="1280" alt="2023 Hilti Technical Academy 초대 배너" loading="lazy"></figure>
+          <figure class="sk wd" style="--ar:1.5000;--r:1deg"><img src="assets/project/hilti/stack/s16.webp" width="1920" height="1280" alt="인테리어 웰컴팩 배너" loading="lazy"></figure>
+          <figure class="sk wd" style="--ar:1.5000;--r:-5deg"><img src="assets/project/hilti/stack/s17.webp" width="1920" height="1280" alt="Be First! 힐티 뉴론 프론티어 모집 배너" loading="lazy"></figure>
+          <figure class="sk sq" style="--ar:1.0000;--r:3deg"><img src="assets/project/hilti/stack/s18.webp" width="1080" height="1080" alt="힐티 NURON이어야 하는 4가지 이유" loading="lazy"></figure>
+        </div>
+      </section>` },
       { label: 'Result', p: '<b>이벤트 콘텐츠 및 광고 소재 디자인으로 KPI 222% 초과 및 리드 700건 확보에 기여</b>했습니다.',
         stats: [['222%', 'KPI 초과 달성'], ['700건', '리드 확보']] },
-    ],
-  },
-  {
-    id: 'skt-home', name: 'SK telecom 홈페이지', desc: 'T STORY · INSIGHT 콘텐츠 페이지 디자인',
-    cat: 'Web', client: 'SK텔레콤', period: '2025–2026', cover: 'assets/work/p16.jpg',
-    blocks: [
-      { img: 'p13', alt: '태블릿과 스마트폰에 띄운 SK telecom T STORY 페이지' },
-      { label: 'Overview', p: 'SK텔레콤 홈페이지의 <b>T STORY · INSIGHT 콘텐츠 페이지를 디자인</b>했습니다. 아티클 목록과 상세 페이지를 PC와 모바일 화면에 맞춰 구성했습니다.' },
-      { img: 'p14', alt: 'T STORY 아티클 상세 페이지 모음' },
-      { img: 'p17', alt: '노트북과 스마트폰에 띄운 INSIGHT 페이지' },
-    ],
-  },
-  {
-    id: 'skt-kv', name: 'SK telecom 키비주얼', desc: 'AI·보안·KBO 콘텐츠 키비주얼',
-    cat: 'Key visual', client: 'SK텔레콤', period: '2025–2026', cover: 'assets/work/p14.jpg',
-    blocks: [
-      { img: 'p15', alt: 'AI·보안·KBO·6G 콘텐츠 키비주얼 모음' },
-      { label: 'Overview', p: 'AI, 보안, KBO 등 SK텔레콤 콘텐츠의 주제를 한눈에 보여주는 <b>키비주얼을 디자인</b>했습니다.' },
-      { img: 'p18b', alt: 'SK telecom 콘텐츠 카드 모음' },
     ],
   },
 ];
@@ -1368,7 +1439,7 @@ const PROJECTS = [
 
   // pictures fade in once decoded, so lazy ones don't pop in half-drawn; decoding off the main thread
   $$('#body img').forEach(i => { i.decoding = 'async'; });
-  $$('.fig img, .more img, .rdb img, .clg img, .hys img, .hgal img, .khero img, .kap img, .kbn img, .kyt img, .kfl img, .sog img').forEach(i => {
+  $$('.fig img, .more img, .rdb img, .clg img, .hys img, .hgal img, .khero img, .kap img, .kbn img, .kyt img, .kfl img, .sog img, .hlt img, .hlr img, .hstk img').forEach(i => {
     const ok = () => i.classList.add('ok');
     i.complete && i.naturalWidth ? ok() : i.addEventListener('load', ok, { once: true });
   });
