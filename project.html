@@ -380,6 +380,7 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 .hgal{container-type:inline-size;background:#100927;padding:3cqw 0 5cqw;overflow:hidden;opacity:0;transform:translateY(24px);
   transition:opacity 1s cubic-bezier(.25,.1,.25,1),transform 1.2s cubic-bezier(.16,1,.3,1)}
 .hgal.in{opacity:1;transform:none}
+.hgal.plain{background:transparent}
 .hg-sw{width:100%;padding-bottom:56px!important}
 .hg-sw .swiper-slide{width:calc(300px * var(--ar));height:300px;border-radius:14px;overflow:hidden}
 .hg-sw .swiper-slide img{display:block;width:100%;height:100%;object-fit:cover}
@@ -516,32 +517,6 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 @container (max-width:640px){
   .kfl .set-f{aspect-ratio:375/410}
   .kfl .fi{left:var(--mx);top:var(--my);width:var(--mw)}
-}
-/* 키움 SNS graphics gallery: one row to swipe or step through with the arrows, pictures sharing one height */
-.gsec{container-type:inline-size;padding:8px 0 0}
-.gsw{position:relative}
-.gs-row{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;
-  opacity:0;transform:translateY(24px);transition:opacity 1s cubic-bezier(.25,.1,.25,1),transform 1.2s cubic-bezier(.16,1,.3,1)}
-.gs-row::-webkit-scrollbar{display:none}
-.gs-row.in{opacity:1;transform:none}
-.gs-row img{flex:none;width:auto;height:380px;border-radius:14px;scroll-snap-align:start}
-.gsa{position:absolute;z-index:2;top:50%;width:48px;height:48px;margin-top:-24px;padding:0;display:grid;place-items:center;border:0;border-radius:50%;
-  background:rgba(255,255,255,.94);color:#e8337f;box-shadow:0 4px 16px rgba(0,0,0,.3);cursor:pointer;transition:opacity .3s,transform .3s}
-.gsa svg{width:22px;height:22px}
-.gsa.prev{left:-12px}
-.gsa.next{right:-12px;animation:ksa-nudge 1.8s ease-in-out 1s infinite}
-.gsa.off{opacity:0;pointer-events:none;animation:none}
-.gsa:hover{transform:scale(1.06)}
-.gsa:active{transform:scale(.92)}
-@keyframes ksa-nudge{0%,60%,100%{translate:0 0}30%{translate:4px 0}}
-@media (prefers-reduced-motion:reduce){.gsa{animation:none!important}.gs-row{transition:none}}
-@container (max-width:640px){
-  .gs-row{gap:10px}
-  .gs-row img{height:230px;border-radius:10px}
-  .gsa{width:38px;height:38px;margin-top:-19px}
-  .gsa svg{width:18px;height:18px}
-  .gsa.prev{left:4px}
-  .gsa.next{right:4px}
 }
 /* phones: the slide would shrink its text to a few pixels, so the pieces stack instead on the same blue,
    the AFTER frame becoming a plain white card that holds the characters, each character card full width */
@@ -1098,7 +1073,7 @@ const PROJECTS = [
           <img class="fi" style="--x:58.1%;--y:4.2%;--w:7.8%;--mx:83.3%;--my:2.2%;--mw:13%;--t:4.9s;--dl:-0.2s;--lift:-8%;--tilt:3deg;--k:12" src="assets/project/kiwoom-sns/float/i11.webp" width="2000" height="1793" alt="" loading="lazy">
         </div></figure>` },
       // contents made with those graphics, in a row to swipe through, with arrows on either side
-      { html: `<section class="gsec" aria-label="그래픽 요소를 활용한 콘텐츠"><div class="gsw"><button class="gsa prev off" type="button" aria-label="이전 콘텐츠"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="gsa next" type="button" aria-label="다음 콘텐츠"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="gs-row"><img src="assets/project/kiwoom-sns/gfx/g1.webp" width="2000" height="2000" alt="‘트럼프 풋, 파월 풋 시장의 기대 방향은?’ 썸네일" loading="lazy"><img src="assets/project/kiwoom-sns/gfx/g2.webp" width="2000" height="1285" alt="보호무역의 경제적 결과 인포그래픽" loading="lazy"><img src="assets/project/kiwoom-sns/gfx/g3.webp" width="2000" height="1125" alt="‘리츠와 리츠 ETF! 투자 절세 꿀팁’ 썸네일" loading="lazy"><img src="assets/project/kiwoom-sns/gfx/g4.webp" width="2000" height="1114" alt="트럼프 풋 기대감 인포그래픽" loading="lazy"><img src="assets/project/kiwoom-sns/gfx/g5.webp" width="2000" height="1695" alt="투자자의 대응 전략 인포그래픽" loading="lazy"><img src="assets/project/kiwoom-sns/gfx/g6.webp" width="2000" height="2000" alt="‘키움투자자산운용 SNS 채널 운영원칙’ 썸네일" loading="lazy"></div></div></section>` },
+      { html: `<section class="hgal plain" aria-label="그래픽 요소를 활용한 콘텐츠"><div class="swiper hg-sw"><div class="swiper-wrapper"><div class="swiper-slide" style="--ar:1.0000"><img src="assets/project/kiwoom-sns/gfx/g1.webp" width="2000" height="2000" alt="‘트럼프 풋, 파월 풋 시장의 기대 방향은?’ 썸네일" loading="lazy"></div><div class="swiper-slide" style="--ar:1.5564"><img src="assets/project/kiwoom-sns/gfx/g2.webp" width="2000" height="1285" alt="보호무역의 경제적 결과 인포그래픽" loading="lazy"></div><div class="swiper-slide" style="--ar:1.7778"><img src="assets/project/kiwoom-sns/gfx/g3.webp" width="2000" height="1125" alt="‘리츠와 리츠 ETF! 투자 절세 꿀팁’ 썸네일" loading="lazy"></div><div class="swiper-slide" style="--ar:1.7953"><img src="assets/project/kiwoom-sns/gfx/g4.webp" width="2000" height="1114" alt="트럼프 풋 기대감 인포그래픽" loading="lazy"></div><div class="swiper-slide" style="--ar:1.1799"><img src="assets/project/kiwoom-sns/gfx/g5.webp" width="2000" height="1695" alt="투자자의 대응 전략 인포그래픽" loading="lazy"></div><div class="swiper-slide" style="--ar:1.0000"><img src="assets/project/kiwoom-sns/gfx/g6.webp" width="2000" height="2000" alt="‘키움투자자산운용 SNS 채널 운영원칙’ 썸네일" loading="lazy"></div></div><div class="swiper-pagination"></div></div></section>` },
       { label: 'Result', lead: '채널 운영 성과 - 콘텐츠 디자인 기여', stats: [['+72%', '인스타그램 팔로워 증가'], ['+8%', '카카오톡 채널 친구 수 증가']] },
     ],
   },
@@ -1200,7 +1175,7 @@ const PROJECTS = [
   // pictures and stages start their fade once their top has come a little way up into the screen (however tall
   // they are), and reset only after leaving through the bottom: scrolling back up never makes things blink out
   // and replay, while scrolling down to them again plays them afresh
-  const shows = $$('.fig, .stage, .rdb .rv, .chr .fg, .clg .cv, .hys .hv, .hys .hc, .hgal, .kbn .kb, .kbn .knav, .kfeed .kf, .kswipe, .kyt .ky, .gs-row');
+  const shows = $$('.fig, .stage, .rdb .rv, .chr .fg, .clg .cv, .hys .hv, .hys .hc, .hgal, .kbn .kb, .kbn .knav, .kfeed .kf, .kswipe, .kyt .ky');
   if (reduce || !('IntersectionObserver' in window)) shows.forEach(s => s.classList.add('in'));
   else {
     const io = new IntersectionObserver(es => es.forEach(e => {
@@ -1210,24 +1185,24 @@ const PROJECTS = [
     shows.forEach(s => io.observe(s));
   }
 
-  // coverflow carousel (HYOSUNG): Swiper is fetched only when the page has one
-  const hgSw = $('.hg-sw');
-  if (hgSw) {
+  // coverflow carousels (HYOSUNG, 키움 SNS): Swiper is fetched only when the page has one
+  const hgSws = $$('.hg-sw');
+  if (hgSws.length) {
     const SW = 'https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min';
     const css = document.createElement('link'); css.rel = 'stylesheet'; css.href = SW + '.css'; document.head.appendChild(css);
     const js = document.createElement('script'); js.src = SW + '.js';
-    js.onload = () => new Swiper(hgSw, {
+    js.onload = () => hgSws.forEach(el => new Swiper(el, {
       effect: 'coverflow', grabCursor: true, centeredSlides: true, slidesPerView: 'auto', loop: true,
       coverflowEffect: { rotate: 40, stretch: 0, depth: 100, modifier: 1, slideShadows: true },
-      pagination: { el: hgSw.querySelector('.swiper-pagination'), clickable: true },
+      pagination: { el: el.querySelector('.swiper-pagination'), clickable: true },
       speed: reduce ? 0 : 600,
-    });
+    }));
     document.head.appendChild(js);
   }
 
   // swipe rows (phones): the arrows step one card at a time and hide at either end
-  $$('.ksw, .gsw').forEach(w => {
-    const row = w.querySelector('.kswipe, .gs-row'), prev = w.querySelector('.prev'), next = w.querySelector('.next');
+  $$('.ksw').forEach(w => {
+    const row = w.querySelector('.kswipe'), prev = w.querySelector('.prev'), next = w.querySelector('.next');
     const step = () => { const c = row.querySelector('img'); return c ? c.getBoundingClientRect().width + (parseFloat(getComputedStyle(row).columnGap) || 8) : row.clientWidth * .8; };
     const upd = () => {
       prev.classList.toggle('off', row.scrollLeft < 4);
