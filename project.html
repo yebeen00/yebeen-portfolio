@@ -126,7 +126,15 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 .stage.light .fg{position:absolute;left:var(--x);top:var(--y);width:var(--w)}
 /* the phone file has no shadow of its own; this one copies the tablets' baked-in shadow (soft, down and to
    the right), sized in cqw so it scales with the stage like everything else */
-.stage.light .phone{filter:drop-shadow(1.45cqw 1.66cqw 2.2cqw rgba(0,0,0,.28))}
+/* the whole article drifting in a 9:16 window under the tablet (as on the Marie mon dieu page); a click opens it */
+.stage.light .wz-win{display:block;aspect-ratio:9/16;overflow:hidden;border-radius:.9cqw;background:#fff;cursor:zoom-in;
+  box-shadow:1.2cqw 1.4cqw 2.6cqw rgba(20,40,80,.18),0 .2cqw .6cqw rgba(20,40,80,.08)}
+.stage.light .wz-win img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 0%;
+  animation:mn-lp 60s cubic-bezier(.45,0,.55,1) 1.5s infinite alternate;animation-play-state:paused}
+.stage.light.in .wz-win img{animation-play-state:running}
+.stage.light .wz-cap{width:max-content;margin:0;translate:-50% 0;font-family:var(--kserif);font-weight:500;
+  font-size:clamp(9px,1.2cqw,13px);color:#4d5d78;white-space:nowrap}
+@media (prefers-reduced-motion:reduce){.stage.light .wz-win img{animation:none}}
 /* key visual stage: two rows of cards on the pale blue ground (2000 × 944), placed in % like the portfolio page;
    tall cards are 220 × 380, wide ones 994 × 380, all one row height */
 /* 연금술사 title: the coin sits on its own layer over the title, still */
@@ -761,7 +769,7 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 /* Selected Projects: an iPhone 17 drawn in CSS around the story video. The body is 71.5 x 149.6 mm; the screen sits
    behind a thin even bezel with rounded corners, the Dynamic Island near its top edge, the side button on the right and
    the action and volume buttons on the left */
-.mn.sp-j{--g:#e8efe1}
+.mn.sp-j{--g:#e8efe1} /* the pale green stage behind the jewellery; the necklaces and the character stand on it as cutouts */
 .sp-j .mi.rd img{border-radius:10.8%/8.1%} /* the still beside the phone, its corners as round as the phone's */
 .phn{position:relative;aspect-ratio:var(--r);border-radius:17%/8.1%;background:#0c0c0d;
   box-shadow:inset 0 0 0 1.5px #8d8f94,inset 0 0 0 3.5px #2b2c2f,inset 0 0 0 5px #0c0c0d,
@@ -1348,7 +1356,9 @@ const PROJECTS = [
       // light blue background, then the article pages fade in one by one from the left
       { html: `<figure class="stage light"><img class="bg" src="assets/project/skt-webzine/light-bg.jpg" width="1386" height="2000" alt="" loading="lazy">
         <div class="set">
-          <img class="fg phone" style="--i:0;--x:5.80%;--y:4.01%;--w:32.7%" src="assets/project/skt-webzine/phone.png" width="484" height="2000" alt="T STORY 아티클 ‘Z세대에게 T팩토리 성수를 묻다’ 모바일 화면" loading="lazy">
+          <img class="fg wz-tab" style="--i:0;--x:2.6%;--y:15.5%;--w:34.6%" src="assets/project/skt-webzine/tablet-top.webp" width="1082" height="2000" alt="태블릿에 띄운 ‘Z세대에게 T팩토리 성수를 묻다’ 아티클 첫 화면" loading="lazy">
+          <a class="fg wz-win" style="--i:5;--x:7.4%;--y:61.6%;--w:25%" href="assets/project/skt-webzine/full.jpg" target="_blank" rel="noopener" aria-label="아티클 전체 페이지를 새 창에서 크게 보기"><img src="assets/project/skt-webzine/full.jpg" width="1200" height="7589" alt="‘Z세대에게 T팩토리 성수를 묻다’ 아티클 전체 페이지" loading="lazy"></a>
+          <p class="fg wz-cap" style="--i:5;--x:19.9%;--y:93.4%">클릭하면 전체 페이지를 원본 크기로 볼 수 있습니다</p>
           <img class="fg" style="--i:3;--x:63.97%;--y:15.1%;--w:32.9%" src="assets/project/skt-webzine/tablet-1.png" width="632" height="961" alt="T팩토리 성수 외관과 입구를 소개하는 아티클 화면" loading="lazy">
           <img class="fg" style="--i:4;--x:63.97%;--y:46.93%;--w:32.9%" src="assets/project/skt-webzine/tablet-2.png" width="632" height="999" alt="수능 끝 자유행 티켓 Freedom Flight 아티클 화면" loading="lazy">
           <img class="fg" style="--i:1;--x:33.47%;--y:24.8%;--w:43.63%" src="assets/project/skt-webzine/tablet-3.png" width="642" height="432" alt="AI 이미지와 영상 제작 도구를 소개하는 아티클 화면" loading="lazy">
@@ -1378,6 +1388,9 @@ const PROJECTS = [
           <div class="fg shade" style="--i:1"></div>
           <img class="fg frame" style="--i:2" src="assets/project/skt-webzine/wall-frame.png" width="966" height="610" alt="대형 스크린에 띄운 SKT 웹진 ‘지능형 생태계’ 화면" loading="lazy">
         </div></figure>` },
+      { sub: 'LCD 디자인', p: 'T팩토리 성수 현장의 대형 LCD 화면에 맞춰 웹진 아티클을 가로형 비주얼로 재구성했습니다.' },
+      // the LCD screens in the coverflow carousel, as on the HYOSUNG page
+      { html: `<section class="hgal" aria-label="T팩토리 성수 LCD 디자인"><div class="swiper hg-sw"><div class="swiper-wrapper"><div class="swiper-slide" style="--ar:2"><img src="assets/project/skt-webzine/lcd-1.webp" width="2000" height="1000" alt="‘지금부터, T팩토리 성수 리포트를 시작합니다’ LCD 화면" loading="lazy"></div><div class="swiper-slide" style="--ar:2"><img src="assets/project/skt-webzine/lcd-2.webp" width="2000" height="1000" alt="‘새로 오픈한 T팩토리, 아직 못 가봤다고?’ LCD 화면" loading="lazy"></div><div class="swiper-slide" style="--ar:2"><img src="assets/project/skt-webzine/lcd-3.webp" width="2000" height="1000" alt="‘1F 이 바닥 주인공은 나야 나’ 체험 사진 LCD 화면" loading="lazy"></div><div class="swiper-slide" style="--ar:2"><img src="assets/project/skt-webzine/lcd-4.webp" width="2000" height="1000" alt="‘첫 무대를 경험해본 소감은?’ 인터뷰 LCD 화면" loading="lazy"></div><div class="swiper-slide" style="--ar:2"><img src="assets/project/skt-webzine/lcd-5.webp" width="2000" height="1000" alt="‘2F 바쁘다 바빠, 놀 게 많아서!’ 체험 공간 LCD 화면" loading="lazy"></div></div><div class="swiper-pagination"></div></div></section>` },
       { sub: '다양한 주제를 연결하는 콘텐츠 디자인', p: '주제별 개성을 살리면서 타이포그래피와 정보 배치에 일관성을 더했습니다.' },
       { img: 'p17', alt: '노트북과 스마트폰에 띄운 SK telecom INSIGHT 페이지' },
       { img: 'p18b', alt: '비스듬히 놓인 SK telecom 웹진 콘텐츠 카드 모음' },
@@ -1808,7 +1821,7 @@ const PROJECTS = [
       { label: 'Overview', p: '주얼리 홍보 영상과 구두 신제품 상세페이지, 라이브 커머스 그래픽 등 상품과 매체의 특성에 맞춘 디지털 콘텐츠를 제작했습니다. 픽셀 캐릭터와 모션, 사진 중심의 레이아웃 등 다양한 표현을 활용해 상품의 매력을 담고, 제품 정보와 구매 혜택, 참여 방법이 명확하게 전달되도록 구성했습니다.' },
       { html: `<section class="mn-h"><p class="en">01. Jewelry Motion Content</p><h3>착용 이미지에서 픽셀 캐릭터로</h3><p>주얼리 착용 컷의 헤어스타일과 의상, 클로버 펜던트를 픽셀 캐릭터로 재해석했습니다. 해변 배경과 제품 소개 패널을 결합하고 모션을 더해, 제품의 특징을 경쾌하게 보여주는 인스타그램 스토리 홍보 영상으로 제작했습니다.</p></section>` },
       // the photos, the character and charm drawn from them, then the story playing on a phone beside a still
-      { html: `<section class="mn pn sp-j hzl" aria-label="주얼리 착용 이미지와 픽셀 캐릭터 홍보 영상"><div class="mn-r"><figure class="mi" style="--r:0.7502;--k:0"><img src="assets/project/selected/j-model.jpg" width="1000" height="1333" alt="클로버 펜던트 목걸이를 착용한 모델 사진" loading="lazy"></figure><figure class="mi" style="--r:0.4176;--k:1"><img src="assets/project/selected/j-character.jpg" width="332" height="795" alt="착용 컷의 곱슬머리와 의상, 클로버 목걸이를 옮긴 픽셀 캐릭터" loading="lazy"></figure></div><div class="mn-r"><figure class="mi" style="--r:1.0000;--k:0"><img src="assets/project/selected/j-charm.jpg" width="1400" height="1400" alt="픽셀로 다시 그린 클로버 목걸이" loading="lazy"></figure><figure class="mi" style="--r:0.7502;--k:1"><img src="assets/project/selected/j-product.jpg" width="1000" height="1333" alt="실버 체인에 골드 클로버 펜던트가 달린 목걸이 제품 사진" loading="lazy"></figure></div><p class="pn-l">인스타그램 스토리</p><div class="mn-r st"><figure class="mi phn" style="--r:0.4780;--k:0" aria-label="아이폰 화면에서 재생되는 인스타그램 스토리 홍보 영상"><span class="phn-b" aria-hidden="true"></span><video src="assets/project/selected/story-v2.mp4" poster="assets/project/selected/story-v2-poster.jpg" width="720" height="1280" muted loop autoplay playsinline preload="metadata"></video></figure><figure class="mi rd" style="--r:0.7500;--k:1"><img src="assets/project/selected/j-beach.jpg" width="1080" height="1440" alt="해변 배경에 캐릭터와 CLOVER CORE NK 제품 패널을 놓은 스토리 이미지" loading="lazy"></figure></div></section>` },
+      { html: `<section class="mn pn sp-j hzl" aria-label="주얼리 착용 이미지와 픽셀 캐릭터 홍보 영상"><div class="mn-r"><figure class="mi" style="--r:0.7502;--k:0"><img src="assets/project/selected/j-model.jpg" width="1000" height="1333" alt="클로버 펜던트 목걸이를 착용한 모델 사진" loading="lazy"></figure><figure class="mi" style="--r:0.4176;--k:1"><img src="assets/project/selected/j-character.png" width="332" height="795" alt="착용 컷의 곱슬머리와 의상, 클로버 목걸이를 옮긴 픽셀 캐릭터" loading="lazy"></figure></div><div class="mn-r"><figure class="mi" style="--r:1.0000;--k:0"><img src="assets/project/selected/j-charm.png" width="1400" height="1400" alt="픽셀로 다시 그린 클로버 목걸이" loading="lazy"></figure><figure class="mi" style="--r:0.7502;--k:1"><img src="assets/project/selected/j-product.png" width="1086" height="1448" alt="실버 체인에 골드 클로버 펜던트가 달린 목걸이 제품 사진" loading="lazy"></figure></div><p class="pn-l">인스타그램 스토리</p><div class="mn-r st"><figure class="mi phn" style="--r:0.4780;--k:0" aria-label="아이폰 화면에서 재생되는 인스타그램 스토리 홍보 영상"><span class="phn-b" aria-hidden="true"></span><video src="assets/project/selected/story-v2.mp4" poster="assets/project/selected/story-v2-poster.jpg" width="720" height="1280" muted loop autoplay playsinline preload="metadata"></video></figure><figure class="mi rd" style="--r:0.7500;--k:1"><img src="assets/project/selected/j-beach.jpg" width="1080" height="1440" alt="해변 배경에 캐릭터와 CLOVER CORE NK 제품 패널을 놓은 스토리 이미지" loading="lazy"></figure></div></section>` },
       { html: `<section class="mn-h"><p class="en">02. Footwear Detail Page</p><h3>컬러와 스타일링으로 전하는 제품의 매력</h3><p class="ds">구두 신제품 출시를 위한 상세페이지를 외주로 제작했습니다. 컬러별 착용 컷과 제품 이미지를 조합해 스타일링을 제안하고, 부위별 디테일과 옵션 정보를 구분해 제품의 분위기부터 구매에 필요한 정보까지 자연스럽게 살펴볼 수 있도록 구성했습니다.</p><p class="sc mono">상품 상세페이지 디자인 · 외주 프로젝트</p></section>` },
       // the moving top of the page beside its collage, three colour stretches, the info parts, then the whole page in a window
       { html: `<section class="mn pn sp-m hzl" aria-label="Marie mon dieu Mentos 플랫·펌프스 상세페이지"><p class="pn-l">도입부</p><div class="mn-r"><figure class="mi sh vid" style="--r:0.3502;--k:0" aria-label="Mentos 상세페이지 상단 모션: 타이틀과 대표 착용 컷"><video src="assets/project/selected/m-intro.mp4" poster="assets/project/selected/m-intro-poster.jpg" width="720" height="2056" muted loop autoplay playsinline preload="metadata"></video></figure><figure class="mi sh" style="--r:0.4805;--k:1"><img src="assets/project/selected/m-collage.jpg" width="900" height="1873" alt="컬러별 착용 컷과 제품 사진을 모은 Mentos 타이틀 콜라주" loading="lazy"></figure></div><p class="pn-l">컬러별 구성</p><div class="mn-r"><figure class="mi sh" style="--r:0.3071;--k:2"><img src="assets/project/selected/m-olive.jpg" width="800" height="2605" alt="Olive 컬러 착용 컷과 제품 사진 구간" loading="lazy"></figure><figure class="mi sh" style="--r:0.3384;--k:3"><img src="assets/project/selected/m-brick.jpg" width="800" height="2364" alt="Brick 컬러 착용 컷과 제품 사진 구간" loading="lazy"></figure><figure class="mi sh" style="--r:0.3230;--k:4"><img src="assets/project/selected/m-ivory.jpg" width="800" height="2477" alt="Ivory 컬러 착용 컷과 제품 사진 구간" loading="lazy"></figure></div><p class="pn-l">전체 페이지</p><div class="mn-r"><a class="mi lpw pw spf" href="assets/project/selected/m-full.jpg" target="_blank" rel="noopener" style="--r:0.5625;--k:0;--t:80s" aria-label="Mentos 상세페이지 전체를 새 창에서 크게 보기"><img src="assets/project/selected/m-full.jpg" width="600" height="17445" alt="Mentos 상세페이지 전체" loading="lazy"></a></div><p class="spf-h">클릭하면 전체 페이지를 원본 크기로 볼 수 있습니다</p></section>` },
@@ -1939,6 +1952,7 @@ const PROJECTS = [
   const lenis = !reduce && !touch && window.Lenis ? new Lenis(P.id === 'minish' ? { lerp: .2, wheelMultiplier: 1.9, smoothWheel: true } : { lerp: .12, wheelMultiplier: 1.4, smoothWheel: true }) : null; // detail pages scroll further per wheel step and settle sooner; the long 미니쉬 page faster still, from the first wheel step
   if (lenis) { const raf = t => { lenis.raf(t); requestAnimationFrame(raf); }; requestAnimationFrame(raf); }
   const glide = top => lenis ? lenis.scrollTo(top, { duration: 1.6 }) : scrollTo({ top, behavior: reduce ? 'instant' : 'smooth' });
+
 
   // pictures and stages start their fade once their top has come a little way up into the screen (however tall
   // they are), and reset only after leaving through the bottom: scrolling back up never makes things blink out

@@ -679,17 +679,23 @@ html.ld-on,html.ld-on body{overflow:hidden}
   /* ---------- Particle scene ---------- */
   const canvas = $('#gl');
   const hero = $('.ch1');
-  const isMobile = innerWidth < 900;
+  // in-app browsers (KakaoTalk and the like) can report a desktop-wide window (~980px) for a moment at load, before
+  // the viewport settles: a touch screen that is phone-sized is taken as a phone however wide the window says it is,
+  // and its first measurements fall back to the screen's own size
+  const coarse = matchMedia('(hover:none) and (pointer:coarse)').matches;
+  const isMobile = innerWidth < 900 || (coarse && screen.width > 0 && screen.width < 900);
+  const unsettled = isMobile && (!innerWidth || innerWidth > screen.width + 1);
+  const W0 = unsettled ? screen.width : innerWidth, H0 = unsettled ? Math.round(screen.height * .82) : innerHeight;
   // Phones get the desktop look: particles keep the desktop's pixel size (shrinking them makes the
   // strokes thin and grainy) and their count follows the glyph's on-screen area, so a stroke holds
   // the same number of particles per pixel as on desktop
   // (desktop reference: 斌 at size 1.45 on a 900px-tall screen, 20000 particles at size 1)
   const UNIT = (() => {
     if (!isMobile) return 1;
-    if (!innerWidth || !innerHeight) return .8; // loaded in a zero-size window: a typical phone value
-    const VH = 2 * 10 * Math.tan(17.5 * Math.PI / 180), asp = innerWidth / innerHeight, vw = VH * asp;
+    if (!W0 || !H0) return .8; // loaded in a zero-size window: a typical phone value
+    const VH = 2 * 10 * Math.tan(17.5 * Math.PI / 180), asp = W0 / H0, vw = VH * asp;
     const s = Math.min(1.15 * Math.max(.75, Math.min(1, asp / 1.2) * 1.4) * 1.5, vw / 2 * .96) * .95; // same fit as resize()
-    return (s * innerHeight) / (1.45 * 900);
+    return (s * H0) / (1.45 * 900);
   })();
   // phones: 25% fewer particles than the desktop density, so the larger strokes don't pile up into a white blob
   const N = Math.round(20000 * UNIT * UNIT * (isMobile ? .75 : 1));
@@ -958,7 +964,10 @@ html.ld-on,html.ld-on body{overflow:hidden}
   // phones fire resize whenever the address bar slides in or out while scrolling; reallocating the canvas then
   // stalls the scroll and nudges the shapes, so on phones only a width change (rotation) redraws the scene
   let sizeW = innerWidth;
-  addEventListener('resize', () => { if (isMobile && innerWidth === sizeW) return; sizeW = innerWidth; resize(); });
+  const refit = () => { if (isMobile && innerWidth === sizeW) return; sizeW = innerWidth; resize(); };
+  addEventListener('resize', refit);
+  // in-app browsers may settle the window's width after load without a resize event: look again once loaded
+  addEventListener('load', () => setTimeout(refit, 300));
 
   const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
   addEventListener('pointermove', e => { mouse.tx = e.clientX / innerWidth * 2 - 1; mouse.ty = e.clientY / innerHeight * 2 - 1; }, { passive: true });
