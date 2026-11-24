@@ -326,6 +326,7 @@ main{position:relative;z-index:1}
 .ld.ready .ld-row,.ld.ready .ld-bar{opacity:0}
 .ld-go{position:absolute;left:50%;bottom:20px;translate:-50% 0;opacity:0;transform:translateY(10px);transition:opacity .6s var(--ease),transform .6s var(--ease);pointer-events:none}
 .ld.ready .ld-go{opacity:1;transform:none;pointer-events:auto;transition-delay:.4s}
+@media (max-width:640px){.ld-go{bottom:70px}} /* phones: Enter raised by 30% of the space between the glyph and the screen's foot */
 .ld-go:focus,.ld-go:focus-visible{outline:none}
 .ld.out .ld-fx,.ld.out .ld-go,.ld.out .ld-bar,.ld.out .ld-row{opacity:0}
 html.ld-on,html.ld-on body{overflow:hidden}
@@ -361,7 +362,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
   .ch{height:150vh;height:150svh}
   .hd{grid-template-columns:1fr auto}
   .logo img{width:28px;height:28px} /* phones: 20% smaller */
-  .hd nav{grid-area:2/1/3/-1;justify-content:space-between;gap:8px;padding-top:12px}
+  .hd nav{grid-area:2/1/3/-1;justify-content:space-between;gap:8px;padding-top:12px;font-size:17.2px} /* phones: the menu 30% larger */
   .hd.ink{background:rgba(10,7,5,.88)} /* solid enough to read over text without a live blur */
   .hero-title h1{font-size:clamp(45px,16vw,104px)}
   .hero-foot .pill{white-space:nowrap;flex-shrink:0}
