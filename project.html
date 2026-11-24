@@ -1007,14 +1007,19 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
   .hg-prev{left:6px}.hg-next{right:6px}
   .hg-nav.swiper-button-disabled{opacity:.3;pointer-events:none}
 }
+/* SKT article stage: its empty top is cut (182 of its 2000 units) so 120 units are left above the screens; the bottom,
+   where the full article window sits, stays whole */
+.stage.light{aspect-ratio:1386/1818}
+.stage.light .bg{position:absolute;left:0;top:-10.01%}
+.stage.light .set{inset:auto;left:0;top:-10.01%;width:100%;height:110.01%}
 /* SKT full article: on the stage under the tablet on wider screens; on phones in its own pale blue block instead */
 .mn.wz-m{display:none;--g:#e6eef9}
 .wz-m .spf-h{color:#4d5d78}
 @media (max-width:640px){.stage.light .wz-win,.stage.light .wz-cap{display:none}.mn.wz-m{display:grid}
-  /* with the window gone, the stage is cropped to cut its empty top and bottom by 30% (91 and 102 of its 2000 units) */
-  .stage.light{aspect-ratio:1386/1807}
-  .stage.light .bg{position:absolute;left:0;top:-5.04%}
-  .stage.light .set{inset:auto;left:0;top:-5.04%;width:100%;height:110.68%}}
+  /* phones: with the window gone, the bottom is cut too, leaving 120 of the 2000 units above and below the screens */
+  .stage.light{aspect-ratio:1386/1598}
+  .stage.light .bg,.stage.light .set{top:-11.39%}
+  .stage.light .set{height:125.16%}}
 /* SKT newsletters: three issues side by side straight on the page, no stage behind */
 .mn.wz-nl{--g:none;padding:0}
 /* SKT LCD carousel: no dots, a pair of arrows at the sides on every screen */
