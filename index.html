@@ -371,6 +371,9 @@ html.ld-on,html.ld-on body{overflow:hidden}
 /* ---------- Responsive ---------- */
 @media (max-width:900px){
   .ch{height:150vh;height:150svh}
+  /* phones: only the 斌 intro, then Selected work straight below (the 文 / 武 / brand experience chapters are left out) */
+  .ch3,.ch4,.ch5{display:none}
+  .ch.ch1{height:100vh;height:100svh}
   .hd{grid-template-columns:1fr auto}
   .logo img{width:28px;height:28px} /* phones: 20% smaller */
   .hd nav{grid-area:2/1/3/-1;justify-content:space-between;gap:8px;padding-top:12px;font-size:13.8px} /* phones: the menu text size */
@@ -882,7 +885,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
           vCol = mix(vCol, mix(vec3(.95, .5, .2), vec3(1., .74, .56), e), vWarm * .35);
           vWhite = 0.;
           vCol = mix(vCol, vec3(1.), .1); // 10% more white across the gradient
-          vA = (.55 + .55 * e) * tw * (1. - uScatter * .3) * (1. + vWarm * .25 + vWhite * .55) * uGain;
+          vA = (.55 + .55 * e) * tw * (1. - min(uScatter, .55) * .3) * (1. + vWarm * .25 + vWhite * .55) * uGain;
         }`;
     mat = new THREE.ShaderMaterial({
       uniforms: U,
@@ -994,8 +997,9 @@ html.ld-on,html.ld-on body{overflow:hidden}
 
   const chapters = $('.chapters');
   // layout numbers read once (and again when sizes change), never inside the per-frame or per-scroll code
-  let chTop = 0, heroH = 0, lastK = -1, lastF = -1, lastE = -1, tick = 0;
-  const measure = () => { chTop = chapters.offsetTop; heroH = hero.offsetHeight; };
+  let chTop = 0, heroH = 0, lastK = -1, lastF = -1, lastE = -1, lastS = -1, tick = 0;
+  let solo = false; // phones show the intro chapter alone: the scene then keeps 斌 and never morphs
+  const measure = () => { chTop = chapters.offsetTop; heroH = hero.offsetHeight; solo = chs.length > 1 && !chs[1].offsetHeight; };
   measure();
   new ResizeObserver(measure).observe(chapters);
   const sceneEl = $('.scene'); let sceneShown = true;
@@ -1010,7 +1014,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
     const t = (now - t0) / 1000;
     // a zero-size window (a collapsed pane or hidden frame) has no chapters to scroll: skip the frame
     if (!heroH) return;
-    const p = clamp((scrollY - chTop) / heroH, 0, 4);
+    const p = solo ? 0 : clamp((scrollY - chTop) / heroH, 0, 4);
     if (visible !== sceneShown) { sceneShown = visible; sceneEl.style.visibility = visible ? 'visible' : 'hidden'; }
     if (!ready || !visible) return;
 
@@ -1034,12 +1038,14 @@ html.ld-on,html.ld-on body{overflow:hidden}
     }
     mouse.x += (mouse.tx - mouse.x) * .05; mouse.y += (mouse.ty - mouse.y) * .05;
     mat.uniforms.uTime.value = reduce ? 0 : t;
-    mat.uniforms.uScatter.value = reduce ? 0 : Math.sin(Math.PI * f) * .55;
+    // phones (斌 alone): the glyph bursts apart and swirls out as Selected work rises over it
+    const sp = solo && !reduce ? sstep(.04, .75, clamp((scrollY - chTop) / heroH, 0, 1)) : 0;
+    mat.uniforms.uScatter.value = reduce ? 0 : Math.sin(Math.PI * f) * .55 + sp * sp * 3.4;
     mat.uniforms.uCenter.value.set(la.x + (lb.x - la.x) * f, la.y + (lb.y - la.y) * f);
     mat.uniforms.uScale.value = la.s + (lb.s - la.s) * f;
     // thin shapes pack the same particles denser, so they get less gain: 斌, 文, 武, ring
     const GAIN = [1, .5, .8, .95];
-    mat.uniforms.uGain.value = GAIN[k] + (GAIN[k + 1] - GAIN[k]) * f;
+    mat.uniforms.uGain.value = (GAIN[k] + (GAIN[k + 1] - GAIN[k]) * f) * (1 - sp * .45);
     // the ring (last chapter) turns more than the flat glyphs
     const spin = [.25, .25, .25, .6][k] * (1 - f) + [.25, .25, .25, .6][k + 1] * f;
     points.rotation.y = (reduce ? 0 : Math.sin(t * .35) * .22 * spin) + (reduce ? 0 : mouse.x * .25);
@@ -1048,7 +1054,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
     const e = reduce ? 0 : sstep(.1, .75, p - 3);
     points.scale.setScalar(1 + e * e * 7);
     // phones: when nothing is morphing or flying, the shimmer is drawn at half rate to leave room for scrolling
-    const still = !moved && e === lastE; lastE = e; // a frame that moves the particles is always drawn, even mid-scroll
+    const still = !moved && e === lastE && sp === lastS; lastE = e; lastS = sp; // a frame that moves the particles is always drawn, even mid-scroll
     if (isMobile && still && (now < scrollingTill || (tick++ % 3))) return;
     composer ? composer.render() : renderer.render(scene, camera);
   }
