@@ -929,7 +929,9 @@ html.ld-on,html.ld-on body{overflow:hidden}
   };
   function resize() {
     if (!renderer) return;
-    const w = innerWidth, h = isMobile ? lvh() : innerHeight;
+    // the drawing is sized from the canvas as it is shown, so its shape can never be stretched, whatever size the
+    // window reports (in-app browsers such as KakaoTalk can report a wrong width for a while after load)
+    const w = canvas.clientWidth || innerWidth, h = canvas.clientHeight || (isMobile ? lvh() : innerHeight);
     renderer.setSize(w, h, false);
     // desktop: the glyph's on-screen size follows the window height, so the particles and the bloom's spread
     // follow it too; a smaller window then shows the same strokes and glow, only smaller (fixed pixel sizes made
@@ -963,8 +965,11 @@ html.ld-on,html.ld-on body{overflow:hidden}
   }
   // phones fire resize whenever the address bar slides in or out while scrolling; reallocating the canvas then
   // stalls the scroll and nudges the shapes, so on phones only a width change (rotation) redraws the scene
-  let sizeW = innerWidth;
-  const refit = () => { if (isMobile && innerWidth === sizeW) return; sizeW = innerWidth; resize(); };
+  // phones redraw only when the canvas's shown width changes (rotation, or an in-app browser settling its width);
+  // desktops redraw on every window resize
+  let sizeW = canvas.clientWidth;
+  const refit = () => { const cw = canvas.clientWidth; if (isMobile && cw === sizeW) return; sizeW = cw; resize(); };
+  if ('ResizeObserver' in window) new ResizeObserver(refit).observe(canvas);
   addEventListener('resize', refit);
   // in-app browsers may settle the window's width after load without a resize event: look again once loaded
   addEventListener('load', () => setTimeout(refit, 300));

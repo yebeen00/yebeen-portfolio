@@ -1004,6 +1004,14 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
   .hg-prev{left:6px}.hg-next{right:6px}
   .hg-nav.swiper-button-disabled{opacity:.3;pointer-events:none}
 }
+/* SKT full article: on the stage under the tablet on wider screens; on phones in its own pale blue block instead */
+.mn.wz-m{display:none;--g:#e6eef9}
+.wz-m .spf-h{color:#4d5d78}
+@media (max-width:640px){.stage.light .wz-win,.stage.light .wz-cap{display:none}.mn.wz-m{display:grid}
+  /* with the window gone, the stage is cropped to cut its empty top and bottom by 30% (91 and 102 of its 2000 units) */
+  .stage.light{aspect-ratio:1386/1807}
+  .stage.light .bg{position:absolute;left:0;top:-5.04%}
+  .stage.light .set{inset:auto;left:0;top:-5.04%;width:100%;height:110.68%}}
 /* SKT newsletters: three issues side by side straight on the page, no stage behind */
 .mn.wz-nl{--g:none;padding:0}
 /* SKT LCD carousel: no dots, a pair of arrows at the sides on every screen */
@@ -1373,6 +1381,9 @@ const PROJECTS = [
           <img class="fg" style="--i:1;--x:33.47%;--y:24.8%;--w:43.63%" src="assets/project/skt-webzine/tablet-3.png" width="642" height="432" alt="AI 이미지와 영상 제작 도구를 소개하는 아티클 화면" loading="lazy">
           <img class="fg" style="--i:2;--x:33.47%;--y:40.7%;--w:43.63%" src="assets/project/skt-webzine/tablet-4.png" width="642" height="438" alt="에이닷으로 찾은 집 근처 미술 갤러리 아티클 화면" loading="lazy">
         </div></figure>` },
+      // phones: the stage is too small for the window under the tablet, so the whole article gets its own block here,
+      // laid out like the Marie mon dieu page (desktop keeps the window on the stage and hides this)
+      { html: `<section class="mn pn sp-m wz-m" aria-label="‘Z세대에게 T팩토리 성수를 묻다’ 아티클 전체 페이지"><div class="mn-r"><a class="mi lpw pw spf" href="assets/project/skt-webzine/full.jpg" target="_blank" rel="noopener" style="--r:0.5625;--k:0;--t:60s" aria-label="아티클 전체 페이지를 새 창에서 크게 보기"><img src="assets/project/skt-webzine/full.jpg" width="1200" height="7589" alt="‘Z세대에게 T팩토리 성수를 묻다’ 아티클 전체 페이지" loading="lazy"></a></div><p class="spf-h">탭하면 전체 페이지를<br>원본 크기로 볼 수 있습니다</p></section>` },
       // key visuals on a pale blue ground, laid out like the portfolio page (two rows bleeding off both sides),
       // fading in one by one in the order below
       { html: `<figure class="stage kv"><img class="bg" src="assets/project/skt-kv/bg.jpg" width="2000" height="944" alt="" loading="lazy">
