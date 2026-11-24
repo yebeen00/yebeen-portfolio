@@ -813,7 +813,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
       renderer = new THREE.WebGLRenderer({ canvas, antialias: !isMobile, alpha: false, powerPreference: 'high-performance' });
       renderer.setClearColor(0x000000, 1);
     } catch (e) { return; }
-    renderer.setPixelRatio(Math.min(devicePixelRatio, isMobile ? 1.5 : 2));
+    renderer.setPixelRatio(Math.min(devicePixelRatio, isMobile ? 1 : 2)); // phones: 1x keeps scrolling smooth; point sizes follow uPix
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(35, 1, .1, 100);
     camera.position.z = 10;
@@ -1002,6 +1002,8 @@ html.ld-on,html.ld-on body{overflow:hidden}
   const visIO = new IntersectionObserver(es => { visible = es[0].isIntersecting; }, { rootMargin: '0px 0px 0px 0px' });
   visIO.observe(chapters);
 
+  let scrollingTill = 0; // phones: the scene holds its shimmer while the page is being scrolled
+  if (isMobile) addEventListener('scroll', () => { scrollingTill = performance.now() + 200; }, { passive: true });
   const t0 = performance.now();
   function frame(now) {
     requestAnimationFrame(frame);
@@ -1046,7 +1048,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
     points.scale.setScalar(1 + e * e * 7);
     // phones: when nothing is morphing or flying, the shimmer is drawn at half rate to leave room for scrolling
     const still = (f === 0 || f === 1) && e === lastE; lastE = e;
-    if (isMobile && still && (tick++ & 1)) return;
+    if (isMobile && still && (now < scrollingTill || (tick++ % 3))) return;
     composer ? composer.render() : renderer.render(scene, camera);
   }
 
