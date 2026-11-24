@@ -1018,7 +1018,8 @@ html.ld-on,html.ld-on body{overflow:hidden}
     const k = Math.min(2, Math.floor(p)), f = reduce ? (p - k > .7 ? 1 : 0) : sstep(.5, .95, p - k);
     const A = shapes[k], B = shapes[k + 1], la = lay[k], lb = lay[k + 1];
     // the shader animates the shimmer; positions only change while a morph is moving
-    if (k !== lastK || f !== lastF) {
+    const moved = k !== lastK || f !== lastF;
+    if (moved) {
     lastK = k; lastF = f;
     const pos = geo.attributes.position.array, edg = geo.attributes.aEdge.array;
     for (let n = 0, i = 0, j = 0; n < N; n++, i += 3, j += 4) {
@@ -1047,7 +1048,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
     const e = reduce ? 0 : sstep(.1, .75, p - 3);
     points.scale.setScalar(1 + e * e * 7);
     // phones: when nothing is morphing or flying, the shimmer is drawn at half rate to leave room for scrolling
-    const still = (f === 0 || f === 1) && e === lastE; lastE = e;
+    const still = !moved && e === lastE; lastE = e; // a frame that moves the particles is always drawn, even mid-scroll
     if (isMobile && still && (now < scrollingTill || (tick++ % 3))) return;
     composer ? composer.render() : renderer.render(scene, camera);
   }
