@@ -56,6 +56,10 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 .logo{display:inline-flex;justify-self:start;width:fit-content}
 .logo img{width:35px;height:35px;margin:-2px 0;filter:drop-shadow(0 0 8px rgba(205,185,255,.35))}
 .hd nav{display:flex;gap:40.8px;font-size:13.2px}
+.hd nav.mono{font-family:var(--sans);font-weight:500} /* the menu in the Contact button's face */
+/* Korean text: every element whose own text is mostly Hangul is set in Pretendard with -2% tracking (marked .kr by the
+   script at the end of the page); English-led elements keep their own faces */
+.kr{font-family:"Pretendard Variable","Pretendard",system-ui,sans-serif!important;letter-spacing:-.02em!important}
 .hd nav a{position:relative}
 .hd nav a::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease)}
 .hd nav a:hover::after,.hd nav a[aria-current]::after{transform:scaleX(1);transform-origin:left}
@@ -318,5 +322,16 @@ a.card:hover h3::before,a.card:focus-visible h3::before{width:1em;opacity:1;marg
   });
 })();
 </script>
+<script>/* mark the elements whose own text is mostly Hangul with .kr (Pretendard, -2% tracking) */
+(() => {
+  const H = /[\u1100-\u11ff\u3130-\u318f\uac00-\ud7a3]/g, L = /[A-Za-z]/g;
+  const mark = () => document.body.querySelectorAll('*').forEach(el => {
+    if (/^(SCRIPT|STYLE|svg)$/.test(el.tagName) || el.closest('svg')) return;
+    let t = ''; for (const n of el.childNodes) if (n.nodeType === 3) t += n.nodeValue;
+    const h = (t.match(H) || []).length;
+    if (h && h >= (t.match(L) || []).length) el.classList.add('kr');
+  });
+  document.readyState === 'loading' ? addEventListener('DOMContentLoaded', mark) : mark();
+})();</script>
 </body>
 </html>

@@ -24,7 +24,6 @@ if (/KAKAOTALK/i.test(navigator.userAgent)) location.href = 'kakaotalk://web/ope
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&text=%EB%B9%9B%EB%82%A0%EB%B9%88&display=swap" rel="stylesheet"> <!-- only the three letters of 빛날 빈 -->
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
 <style>
 :root{
@@ -70,6 +69,10 @@ html.lenis,html.lenis body{height:auto}
 .hd{position:fixed;top:0;left:0;right:0;z-index:50;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:18px var(--gut);color:#fff;mix-blend-mode:normal;transition:color .5s var(--ease),transform .7s var(--ease),background .5s var(--ease),box-shadow .5s var(--ease)}
 .hd.ink{color:var(--ink);background:rgba(10,7,5,.5);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);box-shadow:0 1px 0 rgba(255,255,255,.07)}
 .hd nav{display:flex;gap:40.8px;font-size:13.2px} /* 20% larger than the 11px small text */
+.hd nav.mono{font-family:var(--sans);font-weight:500} /* the menu in the Contact button's face */
+/* Korean text: every element whose own text is mostly Hangul is set in Pretendard with -2% tracking (marked .kr by the
+   script at the end of the page); English-led elements keep their own faces */
+.kr{font-family:"Pretendard Variable","Pretendard",system-ui,sans-serif!important;letter-spacing:-.02em!important}
 .hd nav a{position:relative}
 .hd nav a::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease)}
 .hd nav a:hover::after{transform:scaleX(1);transform-origin:left}
@@ -108,6 +111,9 @@ html.lenis,html.lenis body{height:auto}
 /* the ↘ is drawn, not typed: phone fonts put the ↘ glyph off-centre in its circle */
 .pill .dn{display:block;width:10px;height:10px}
 .pill.lg{height:46px;padding:0 8px 0 20px;font-size:15px}
+@media (max-width:640px){ /* phones: the hero's View Portfolio button 30% larger */
+  .pill.cta{height:44px;padding:0 8px 0 18px;gap:13px;font-size:16.9px}
+  .pill.cta>span:not(.roll):not(.pg){width:31px;height:31px}}
 /* Every pill except the intro's Enter: a quiet glass face whose border lights up
    on hover (mouse) or while tapped (touch, see .lit in the script); only Enter keeps the shiny sweep */
 .pill:not(.ld-go){animation:none;background:rgba(14,10,8,.62);border:1px solid rgba(255,255,255,.16);box-shadow:none;
@@ -184,7 +190,7 @@ main{position:relative;z-index:1}
    small white Pretendard stacked vertically, a four-point sparkle between the two words. The particle mask leaves this
    spot empty; resize() projects it onto the screen and passes it in as --hx/--hy/--hs */
 .hun{position:absolute;left:var(--hx,72%);top:var(--hy,40%);margin:0;display:flex;flex-direction:column;align-items:center;gap:.32em;
-  transform:translateX(-50%);font:300 var(--hs,18px)/1 "Noto Serif KR",var(--kserif);pointer-events:none;
+  transform:translateX(-50%);font:300 var(--hs,18px)/1 var(--kserif);pointer-events:none;
 }
 .hun span{writing-mode:vertical-rl;text-orientation:upright;letter-spacing:.12em;margin-bottom:-.12em; /* no trailing space under the last letter, so the sparkle sits exactly midway */
 
@@ -449,7 +455,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
         </div>
         <div class="hero-foot">
           <p>이름 속 斌(빛날 빈)에 소통의 文(문)과 기술의 武(무)를 담아,<br>유연한 소통과 세심한 실행력으로 브랜드를 빛내는 디자이너 유예빈입니다.</p>
-          <a href="#work" class="pill">Selected work <span aria-hidden="true"><svg class="dn" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5l7 7M8.5 3.2v5.3H3.2"/></svg></span></a>
+          <a href="#work" class="pill cta">View Portfolio <span aria-hidden="true"><svg class="dn" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 1.5l7 7M8.5 3.2v5.3H3.2"/></svg></span></a>
         </div>
       </div>
     </div>
@@ -1433,5 +1439,16 @@ html.ld-on,html.ld-on body{overflow:hidden}
   requestAnimationFrame(frame);
 })();
 </script>
+<script>/* mark the elements whose own text is mostly Hangul with .kr (Pretendard, -2% tracking) */
+(() => {
+  const H = /[\u1100-\u11ff\u3130-\u318f\uac00-\ud7a3]/g, L = /[A-Za-z]/g;
+  const mark = () => document.body.querySelectorAll('*').forEach(el => {
+    if (/^(SCRIPT|STYLE|svg)$/.test(el.tagName) || el.closest('svg')) return;
+    let t = ''; for (const n of el.childNodes) if (n.nodeType === 3) t += n.nodeValue;
+    const h = (t.match(H) || []).length;
+    if (h && h >= (t.match(L) || []).length) el.classList.add('kr');
+  });
+  document.readyState === 'loading' ? addEventListener('DOMContentLoaded', mark) : mark();
+})();</script>
 </body>
 </html>

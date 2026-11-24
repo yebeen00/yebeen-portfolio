@@ -56,6 +56,10 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 .logo{display:inline-flex;justify-self:start;width:fit-content}
 .logo img{width:35px;height:35px;margin:-2px 0;filter:drop-shadow(0 0 8px rgba(205,185,255,.35))}
 .hd nav{display:flex;gap:40.8px;font-size:13.2px}
+.hd nav.mono{font-family:var(--sans);font-weight:500} /* the menu in the Contact button's face */
+/* Korean text: every element whose own text is mostly Hangul is set in Pretendard with -2% tracking (marked .kr by the
+   script at the end of the page); English-led elements keep their own faces */
+.kr{font-family:"Pretendard Variable","Pretendard",system-ui,sans-serif!important;letter-spacing:-.02em!important}
 .hd nav a{position:relative}
 .hd nav a::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease)}
 .hd nav a:hover::after,.hd nav a[aria-current]::after{transform:scaleX(1);transform-origin:left}
@@ -220,7 +224,7 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
       <section data-in style="--i:2" aria-labelledby="ab-w"><h2 id="ab-w">WORK</h2><ul class="ab-ls"><li><b>미디어브레인</b><span>SKT, S-OIL, HYOSUNG 등 기업 홈페이지 운영 및 콘텐츠 디자인</span><time>2023 ~ 2026</time></li><li><b>판씨앤씨</b><span>홈페이지 및 라이브 방송 디자인</span><time>2022</time></li><li><b>미니쉬치과</b><span>온·오프라인 광고배너, 홈페이지, 콘텐츠, 원내 사인물 등 디자인</span><time>2021 ~ 2022</time></li><li><b>아르푸가구</b><span>이벤트, 광고, 상세페이지 및 홈페이지 운영, 전시 디자인</span><time>2018 ~ 2020</time></li><li><b>K&amp;H 커뮤니케이션즈</b><span>이랜드 행사 안내 카탈로그 편집 디자인</span><time>2016 ~ 2018</time></li></ul></section>
       <section data-in style="--i:4" aria-labelledby="ab-e"><h2 id="ab-e">EDUCATION</h2><ul class="ab-ls ed"><li><span>계원예술대학교 시각디자인과</span><time>2013 ~ 2015</time></li></ul></section>
       <section data-in style="--i:5" aria-labelledby="ab-s"><h2 id="ab-s">SKILLS</h2>
-        <ul class="ab-sk"><li><img src="assets/img/skills/ps.png" width="126" height="126" alt="Photoshop" title="Photoshop" loading="lazy"></li><li><img src="assets/img/skills/ai.png" width="126" height="126" alt="Illustrator" title="Illustrator" loading="lazy"></li><li><img src="assets/img/skills/ae.png" width="126" height="126" alt="After Effects" title="After Effects" loading="lazy"></li><li><img src="assets/img/skills/figma.png" width="126" height="126" alt="Figma" title="Figma" loading="lazy"></li><li><img src="assets/img/skills/chatgpt.png" width="126" height="126" alt="ChatGPT" title="ChatGPT" loading="lazy"></li><li><img src="assets/img/skills/gemini.png" width="126" height="126" alt="Gemini" title="Gemini" loading="lazy"></li><li><img src="assets/img/skills/claude.png" width="126" height="126" alt="Claude" title="Claude" loading="lazy"></li><li><img src="assets/img/skills/midjourney.jpg" width="126" height="126" alt="Midjourney" title="Midjourney" loading="lazy"></li></ul></section>
+        <ul class="ab-sk"><li><img src="assets/img/skills/ps.png" width="126" height="126" alt="Photoshop" title="Photoshop" loading="lazy"></li><li><img src="assets/img/skills/ai.png" width="126" height="126" alt="Illustrator" title="Illustrator" loading="lazy"></li><li><img src="assets/img/skills/ae.png" width="126" height="126" alt="After Effects" title="After Effects" loading="lazy"></li><li><img src="assets/img/skills/figma.png" width="126" height="126" alt="Figma" title="Figma" loading="lazy"></li><li><img src="assets/img/skills/chatgpt.png" width="126" height="126" alt="ChatGPT" title="ChatGPT" loading="lazy"></li><li><img src="assets/img/skills/gemini.png" width="126" height="126" alt="Gemini" title="Gemini" loading="lazy"></li><li><img src="assets/img/skills/claude.png" width="126" height="126" alt="Claude" title="Claude" loading="lazy"></li><li><img src="assets/img/skills/midjourney.png" width="126" height="126" alt="Midjourney" title="Midjourney" loading="lazy"></li></ul></section>
     </div>
   </div>
 </main>
@@ -285,5 +289,16 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
   });
 })();
 </script>
+<script>/* mark the elements whose own text is mostly Hangul with .kr (Pretendard, -2% tracking) */
+(() => {
+  const H = /[\u1100-\u11ff\u3130-\u318f\uac00-\ud7a3]/g, L = /[A-Za-z]/g;
+  const mark = () => document.body.querySelectorAll('*').forEach(el => {
+    if (/^(SCRIPT|STYLE|svg)$/.test(el.tagName) || el.closest('svg')) return;
+    let t = ''; for (const n of el.childNodes) if (n.nodeType === 3) t += n.nodeValue;
+    const h = (t.match(H) || []).length;
+    if (h && h >= (t.match(L) || []).length) el.classList.add('kr');
+  });
+  document.readyState === 'loading' ? addEventListener('DOMContentLoaded', mark) : mark();
+})();</script>
 </body>
 </html>
