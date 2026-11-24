@@ -206,15 +206,18 @@ main{position:relative;z-index:1}
 /* on Enter the label fades in once the 斌 particles have settled */
 .hun{transition:opacity 1.2s var(--ease)}
 .hun.wait{opacity:0}
-.hero-foot{
+.hero-foot{ /* the description, then View Portfolio under it */
   display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:22px;
   padding-top:14px;
   border-top:1px solid #fff4;
 }
 .hero-foot p{font:400 clamp(14.3px,1.3vw,19.5px)/1.5 var(--sans);color:#f4efe9}
+@media (min-width:641px){ /* desktop: View Portfolio 15% larger than the standard pill */
+  .pill.cta{height:39px;padding:0 7px 0 16px;gap:11.5px;font-size:15px}
+  .pill.cta>span:not(.roll):not(.pg){width:28px;height:28px;font-size:15px}}
 /* ch3 */
 .ch3 .blk{position:absolute;left:var(--gut);bottom:6vh}
 .ch3 .blk .disp .ln:nth-child(2){padding-left:4vw}

@@ -19,6 +19,7 @@ if (/KAKAOTALK/i.test(navigator.userAgent)) location.href = 'kakaotalk://web/ope
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/spoqa/spoqa-han-sans@3.3.0/css/SpoqaHanSansNeo.css" rel="stylesheet"> <!-- UNICEF type card -->
 <style>
 /* Same tokens as the main page (index.html) and the Work page */
 :root{
@@ -1056,6 +1057,9 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 .vty .r{margin:.4cqw 0 0;font-size:clamp(10px,.78cqw,12px);color:#6b6b6b}
 .vty .s{margin:0;font-family:var(--sans);font-size:clamp(9px,.8cqw,12.5px);line-height:1.5;color:#2b2b2b}
 .vb-tint{display:flex;gap:.45cqw;height:7.5cqw}
+@font-face{font-family:'MapoMaponaruA';src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/MapoMaponaruA.woff') format('woff');font-weight:400;font-display:swap}
+.vty[data-font] h4,.vty[data-font] .s{font-family:inherit}
+.vty .kx{display:block;margin-bottom:.6em;font-size:1.5em;line-height:1.35;letter-spacing:0}
 .vb-tint i{flex:var(--f) 1 0;background:color-mix(in srgb,var(--c) var(--m),#fff)}
 .vb-ui{display:grid;gap:1.1cqw}
 .vb-ui img{display:block;width:100%;height:auto;border-radius:1.1cqw;background:#fff}
@@ -1074,6 +1078,96 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
   .vty{min-height:0;padding:12px;border-radius:10px;gap:16px}
   .vb-tint{height:44px;gap:3px}
   .vb-ui img{border-radius:10px}
+}
+/* UNICEF design guidelines, as the proposal's slides (2000 x 1125): a white column with the title and notes, and on a pale
+   blue field the colour palette or the type specimens; everything sized in cqw of the slide, with floors so it stays
+   legible; phones stack the two columns */
+.mn.ugw{--g:none;padding:0 10px;gap:2.4cqw;grid-template-columns:minmax(0,1fr)} /* 10px in from each side */
+.mn.ugw .ugd{width:100%;min-width:0} /* the column's width, never wider: a tall slide grows down, not out */
+.un-vi .mi img{border-radius:6px} /* the card news under the guide, rounded like its slides */
+.ugd{padding:15px} /* 15px of white round the two columns of each slide */
+.ugd-r{border-radius:4px!important}
+.mn.ugw + .mn.un-vi{margin-top:2.4cqw;border-radius:6px} /* the card news panel: apart from the slides, rounded like them */
+@media (max-width:640px){.mn.ugw + .mn.un-vi{margin-top:16px;border-radius:8px}
+  .mn.ugw{padding:0} /* phones: the slides as wide as the card news panel */}
+.ugd{container-type:inline-size;display:grid;grid-template-columns:30.5% 1fr;aspect-ratio:16/9;background:#fff;border-radius:6px;
+  font-family:"Pretendard Variable","Pretendard",system-ui,sans-serif;color:#1a1a1a;letter-spacing:-.01em}
+.ugd p,.ugd h3,.ugd h4,.ugd h5{margin:0}
+.ugd-l{display:flex;flex-direction:column;border-right:1px solid #e6e6e6;border-radius:6px 0 0 6px}
+.ugd-k{padding:2.9cqw 3.1cqw 2.5cqw;border-bottom:1px solid #dcdcdc;font-family:var(--mono);font-size:max(9px,.95cqw);letter-spacing:.14em;text-transform:uppercase;color:#666}
+.ugd-in{padding:3.6cqw 3.1cqw 3cqw}
+.ugd-t{font-family:"Spoqa Han Sans Neo",sans-serif;font-size:max(26px,4.6cqw);font-weight:700;line-height:1.02;letter-spacing:-.03em;color:#111}
+.ugd-d{margin-top:3.6cqw;display:grid;gap:.5cqw}
+.ugd-d h4{margin-top:2.2cqw;font-size:max(14.5px,1.4cqw);font-weight:700;color:#1a1a1a}
+.ugd-d h4:first-child{margin-top:0}
+.ugd-d h5{margin-top:.5cqw;font-size:max(13px,1.25cqw);font-weight:700;color:#1a1a1a}
+.ugd-d p{font-size:max(12.5px,1.2cqw);line-height:1.6;color:#7a7a7a;word-break:keep-all}
+.ugd-d p br{display:none} /* larger text: lines flow to the column instead of breaking where the slide did */
+.ugd-d.ty{gap:3.4cqw}
+.ugd-d.ty b{font-weight:700;color:#1a1a1a}
+.ugd-r{display:grid;place-items:center;padding:3cqw 6.6cqw;background:radial-gradient(75% 85% at 52% 50%,#fff 35%,#eaf5fd 70%,#cfe9fb 100%);border-radius:0 6px 6px 0}
+.cp{width:100%;display:grid;grid-template-columns:max(70px,7.5cqw) 1fr;column-gap:.8cqw;row-gap:2.2cqw;align-items:center}
+.cp-l{font-family:"Spoqa Han Sans Neo",sans-serif;font-size:max(11px,1.35cqw);font-weight:500;color:#111;letter-spacing:-.02em}
+.cp-l small{display:flex;align-items:center;gap:.4cqw;margin-top:.8cqw;font-size:max(7px,.62cqw);line-height:1.15;font-weight:400}
+.cp-l small i{font-style:normal;font-size:1.9em;font-weight:300}
+.cp > .ug3{margin-bottom:-1.7cqw} /* Primary sits close above Secondary */
+.ug3{display:grid;grid-template-columns:repeat(3,1fr)}
+.ug6{display:grid}
+.ug4{display:grid;grid-template-columns:repeat(4,1fr)}
+.ustk{display:grid;grid-template-rows:1fr 1fr}
+.usw{display:flex;flex-direction:column;gap:.25cqw;min-height:7.5cqw;padding:1.25cqw 1.3cqw;background:var(--c);color:#fff;font-family:"Spoqa Han Sans Neo",sans-serif}
+.usw.lt{color:#1a1a1a}
+.ustk .usw,.ug4 .usw{min-height:3.75cqw;padding:1.05cqw 1.3cqw}
+.usw b{font-size:max(9.5px,.95cqw);font-weight:500;line-height:1.1}
+.usw span{font-size:max(7px,.56cqw);opacity:.9;letter-spacing:.02em}
+.ug4.gr i{display:block;height:3.75cqw;min-height:22px;background:linear-gradient(180deg,var(--a),var(--b))}
+.tp{width:100%;display:grid;grid-template-columns:1fr 16.8cqw;column-gap:2.6cqw;row-gap:2.8cqw;align-items:center}
+.tp-k{font-family:"Spoqa Han Sans Neo",sans-serif;font-size:max(10px,1.2cqw);font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:#bdbdbd}
+.tp-n{margin-top:.6cqw;font-size:max(20px,3.6cqw);line-height:1.15;color:#0d0d0d;white-space:nowrap}
+.tp-n.sq{font-family:"Spoqa Han Sans Neo",sans-serif;font-weight:500;letter-spacing:-.04em}
+.tp-n.mp{font-family:'MapoMaponaruA',cursive;letter-spacing:.02em}
+.tp-b{display:flex;flex-direction:column;justify-content:center;min-height:6.5cqw;padding:1.2cqw 2cqw;background:var(--c);color:#fff;font-family:"Spoqa Han Sans Neo",sans-serif;font-size:max(10px,1.1cqw);line-height:1.38}
+.tp-b.w{min-height:8.5cqw}
+.tp-b.hw{font-family:'MapoMaponaruA',cursive;font-size:max(16px,1.9cqw);letter-spacing:.03em}
+.tp-x{position:relative;display:flex;align-items:center;gap:1cqw;padding:.6cqw 0 .6cqw .9cqw}
+.tp-x .hl{padding:.15cqw .7cqw;background:#FF7A00;color:#fff;font-family:'MapoMaponaruA',cursive;font-size:max(16px,2.2cqw);line-height:1.25}
+.tp-x b{font-family:"Spoqa Han Sans Neo",sans-serif;font-size:max(16px,2.4cqw);font-weight:700;letter-spacing:-.04em;color:#111}
+.tp-x .star{position:absolute;width:max(12px,1.6cqw);height:max(12px,1.6cqw)}
+.tp-x .star.a{left:-.3cqw;top:-.8cqw}
+.tp-x .star.b{left:-.2cqw;bottom:-.8cqw;width:max(10px,1.25cqw);height:max(10px,1.25cqw)}
+@container (max-width:640px){
+  .ugd{grid-template-columns:1fr;aspect-ratio:auto;border-radius:8px}
+  .un-vi .mi img{border-radius:8px}
+  .ugd-l{border-right:0;border-bottom:1px solid #e6e6e6;border-radius:8px 8px 0 0}
+  .ugd-r{border-radius:0 0 8px 8px}
+  .ugd-k{padding:16px 18px 14px;font-size:10px}
+  .ugd-in{padding:20px 18px 22px}
+  .ugd-t{font-size:32px}
+  .ugd-d{margin-top:18px;gap:4px}
+  .ugd-d h4{margin-top:16px;font-size:17px}
+  .ugd-d h5{margin-top:6px;font-size:15.5px}
+  .ugd-d p{font-size:15px}
+  .ugd-d p br,.ugd-d h4 br{display:none}
+  .ugd-d.ty{gap:14px}
+  .ugd-r{padding:22px 14px}
+  .cp{grid-template-columns:1fr;row-gap:6px}
+  .cp-l{margin-top:12px;font-size:13px}
+  .cp-l:first-child{margin-top:0}
+  .cp-l small{display:inline-flex;margin:0 0 0 8px;font-size:9px;vertical-align:middle}
+  .cp > .ug3{margin-bottom:0}
+  .usw{min-height:64px;padding:8px;gap:2px}
+  .ustk .usw,.ug4 .usw{min-height:32px;padding:6px 8px}
+  .usw b{font-size:10px}
+  .usw span{font-size:7.5px}
+  .ug4.gr i{height:34px}
+  .tp{grid-template-columns:1fr;row-gap:10px}
+  .tp-n{font-size:28px}
+  .tp-b,.tp-b.w{min-height:0;padding:12px 16px;font-size:12px}
+  .tp-b.w{flex-direction:row;flex-wrap:wrap;gap:4px 12px}
+  .tp-b.hw{font-size:20px}
+  .tp-x{margin-top:6px;padding:8px 0 8px 10px;gap:8px}
+  .tp-x .hl{font-size:20px}
+  .tp-x b{font-size:21px}
 }
 /* SKT newsletters: three issues side by side straight on the page, no stage behind */
 .mn.wz-nl{--g:none;padding:0}
@@ -1932,7 +2026,8 @@ const PROJECTS = [
       { html: `<section class="mn un-top" aria-label="유니세프 대표 콘텐츠 3종"><div class="uph-r"><figure class="mi uph" style="--r:0.4780;--k:0" aria-label="제철레시피 카드뉴스 표지를 띄운 아이폰"><div class="phn"><span class="phn-b" aria-hidden="true"></span><div class="igs long"><span class="igh"><i></i><b>unicef_kr</b></span><div class="igm"><img src="assets/project/unicef/recipe1.jpg" width="900" height="1125" alt="" loading="lazy"></div><span class="igf"><svg viewBox="0 0 192 16" aria-hidden="true"><path d="M8 14s-6-3.6-6-8a3.2 3.2 0 0 1 6-1.6A3.2 3.2 0 0 1 14 6c0 4.4-6 8-6 8z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M30 8a6 6 0 1 1-2.2-4.6L31 2.6 30.4 6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M44 3l12 5-12 5 2-5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M178 2h8v12l-4-3-4 3z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></span><span class="igc"><span class="igc-t"><b>unicef_kr</b> [이벤트] 5월의 레시피를 준비했습니다. 🧑‍🍳<br><br>오늘의 메뉴는 학교!<br>지금 유니세프 학교의 재료와 만드는 법을 확인하고<br>여러분이 교실에 넣고 싶은 ‘재료’가 있다면 댓글로 알려주세요!<br><br>지금 이 순간, 전 세계 2억 7,200만 명의 아이들이<br>학교에 가지 못하고 있습니다.<br><br>유니세프는 155개 나라에서<br>아이들의 교실을 만들고 있습니다.<br>학교 레시피, 함께 완성해보실래요?<br><br><span class="igtag">#유니세프 #UNICEF #ForEveryChild<br>#제철레시피 #이달의메뉴 #유니세프_제철레시피</span></span></span></div></div><figcaption>제철레시피</figcaption></figure><figure class="mi uph" style="--r:0.4780;--k:1" aria-label="유니세프 NOW 숫자 모션을 띄운 아이폰"><div class="phn"><span class="phn-b" aria-hidden="true"></span><div class="igs long"><span class="igh"><i></i><b>unicef_kr</b></span><div class="igm"><video src="assets/project/unicef/now.mp4" poster="assets/project/unicef/now-poster.jpg" width="720" height="900" muted loop autoplay playsinline preload="metadata"></video></div><span class="igf"><svg viewBox="0 0 192 16" aria-hidden="true"><path d="M8 14s-6-3.6-6-8a3.2 3.2 0 0 1 6-1.6A3.2 3.2 0 0 1 14 6c0 4.4-6 8-6 8z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M30 8a6 6 0 1 1-2.2-4.6L31 2.6 30.4 6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M44 3l12 5-12 5 2-5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M178 2h8v12l-4-3-4 3z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></span><span class="igc"><span class="igc-t"><b>unicef_kr</b> 19,000명.<br>레바논에서 매일 집을 잃는 아이들의 수입니다.<br><br>이 숫자, 우리 일상으로 옮겨보면<br>서울 초등학교 34곳의 전교생이<br>하루 만에 모두 사라지는 것과 같습니다.<br><br>유니세프는 지금, 그곳에 있습니다.<br><br><span class="igtag">#유니세프 #UNICEF #ForEveryChild #유니세프나우</span></span></span></div></div><figcaption>유니세프 NOW</figcaption></figure><figure class="mi uph" style="--r:0.4780;--k:2" aria-label="유니세프 로그온 시작 화면을 띄운 아이폰"><div class="phn"><span class="phn-b" aria-hidden="true"></span><div class="igs long"><span class="igh"><i></i><b>unicef_kr</b></span><div class="igm"><video src="assets/project/unicef/login-start.mp4" poster="assets/project/unicef/login-start-poster.jpg" width="720" height="900" muted loop autoplay playsinline preload="metadata"></video></div><span class="igf"><svg viewBox="0 0 192 16" aria-hidden="true"><path d="M8 14s-6-3.6-6-8a3.2 3.2 0 0 1 6-1.6A3.2 3.2 0 0 1 14 6c0 4.4-6 8-6 8z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M30 8a6 6 0 1 1-2.2-4.6L31 2.6 30.4 6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M44 3l12 5-12 5 2-5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M178 2h8v12l-4-3-4 3z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></span><span class="igc"><span class="igc-t"><b>unicef_kr</b> EP.01 파티마의 선택<br><br>파티마, 9세, 예멘.<br>학교까지 4km. 배는 고프고, 길은 두렵습니다.<br><br>당신이라면 어떤 선택을 했을까요?<br>파티마의 하루가 달라질 수 있도록,<br>지금 유니세프와 함께해 주세요.<br><br>작은 연결이, 한 아이의 내일을 바꿉니다.<br><br><span class="igtag">#유니세프 #UNICEF #ForEveryChild</span></span></span></div></div><figcaption>유니세프 로그온</figcaption></figure></div></section>` },
       { label: 'Overview', p: '유니세프 한국위원회의 SNS 운영 제안을 위해 비주얼 가이드와 채널별 적용 시안, 시리즈 콘텐츠를 디자인했습니다. 유니세프 블루를 중심으로 콘텐츠 성격에 따른 컬러와 타이포그래피 기준을 정리하고, 아동 권리와 구호 활동을 카드뉴스·데이터 모션·참여형 스토리로 풀어냈습니다. 브랜드의 신뢰감을 유지하면서도 아동의 이야기를 쉽고 친근하게 전달하는 방향을 제안했습니다.' },
       { html: `<section class="mn-h"><p class="en">01. Visual Identity</p><h3>신뢰감을 유지하며 넓힌 표현</h3><p class="ds">유니세프 블루를 중심으로 따뜻한 오렌지와 옐로, 생명력을 표현하는 그린을 조합해 콘텐츠별 분위기를 구분했습니다. 정보 전달에는 명료한 고딕 서체를, 핵심 문구에는 손글씨 서체를 활용해 데이터의 가독성과 메시지의 온기를 함께 담았습니다.</p></section>` },
-      { html: `<section class="mn vib un-vb" style="--p:#1CABE2;--dk:#1D3E5E;--c:#1CABE2" aria-label="유니세프 SNS 비주얼 가이드 제안"><div class="vb"><div class="vb-l"><div class="vb-big"><div class="vt" style="--c:#1CABE2"><p><b>UNICEF Blue</b><small>Primary · 신뢰와 아이덴티티</small></p><span class="v mono"><span>R 28<br>G 171<br>B 226</span><span>H 197<br>S 88<br>B 89</span></span><span class="hx mono">#1CABE2</span></div><div class="vt lt" style="--c:#E1F4FD"><p><b>Soft Mist</b><small>Primary · 배경</small></p><span class="v mono"><span>R 225<br>G 244<br>B 253</span><span>H 199<br>S 11<br>B 99</span></span><span class="hx mono">#E1F4FD</span></div></div><div class="vb-sm" style="--n:5"><div class="vt" style="--c:#1D3E5E"><p><b>Deep Blue</b><small>Primary</small></p><span class="hx mono">#1D3E5E</span></div><div class="vt lt" style="--c:#AAE1FA"><p><b>Sky Blue</b><small>Primary</small></p><span class="hx mono">#AAE1FA</span></div><div class="vt" style="--c:#F57F29"><p><b>Orange</b><small>Secondary</small></p><span class="hx mono">#F57F29</span></div><div class="vt lt" style="--c:#FFCE34"><p><b>Yellow</b><small>Secondary</small></p><span class="hx mono">#FFCE34</span></div><div class="vt" style="--c:#80BD41"><p><b>Green</b><small>Secondary</small></p><span class="hx mono">#80BD41</span></div></div><div class="vb-sm" style="--n:5"><div class="vt" style="--c:#00833D"><p><b>Dark Green</b><small>Secondary</small></p><span class="hx mono">#00833D</span></div><div class="vt" style="--c:#961A49"><p><b>Dark Red</b><small>Accent</small></p><span class="hx mono">#961A49</span></div><div class="vt" style="--c:#6A3674"><p><b>Purple</b><small>Accent</small></p><span class="hx mono">#6A3674</span></div><div class="vt lt" style="--c:#BCB0DA"><p><b>Purple BG</b><small>Accent</small></p><span class="hx mono">#BCB0DA</span></div><div class="vt lt" style="--c:#E8A0B4"><p><b>Red BG</b><small>Accent</small></p><span class="hx mono">#E8A0B4</span></div></div></div><div class="vb-r"><div class="vb-btn" aria-hidden="true"><span class="vbtn"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>후원하기</span><span class="vbtn">자세히 보기</span><span class="vbtn i"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="vbtn o"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>후원하기</span><span class="vbtn o">자세히 보기</span><span class="vbtn i o"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="vbtn d"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>후원하기</span><span class="vbtn d">자세히 보기</span><span class="vbtn i d"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><div class="vb-ty"><div class="vty"><div><h4>Spoqa Han Sans Neo</h4><p class="r">본문과 데이터 · 정보 전달</p></div><p class="s">Thin · Light · Regular · Medium · Bold<br>Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm<br>Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz<br>1 2 3 4 5 6 7 8 9 0<br>! @ # $ % ( * )</p></div><div class="vty"><div><h4 style="color:#961A49">MapoMaponaru</h4><p class="r">핵심 문구 · 손글씨 포인트</p></div><p class="s">Regular<br>Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm<br>Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz<br>1 2 3 4 5 6 7 8 9 0<br>! @ # $ % ( * )</p></div></div><div class="vb-tint" aria-hidden="true"><i style="--f:26;--m:100%"></i><i style="--f:16;--m:86%"></i><i style="--f:12;--m:72%"></i><i style="--f:9;--m:60%"></i><i style="--f:7;--m:48%"></i><i style="--f:5.5;--m:38%"></i><i style="--f:4;--m:29%"></i><i style="--f:3;--m:21%"></i><i style="--f:2.2;--m:14%"></i><i style="--f:1.6;--m:8%"></i></div><p class="uvi-n">SNS 비주얼 가이드 제안</p></div></div><p class="pn-l">카드뉴스 적용</p><div class="mn-r"><figure class="mi sh" style="--r:1.0000;--k:0"><img src="assets/project/unicef/thumb1b.jpg" width="900" height="900" alt="손글씨 포인트 문구를 얹은 ‘약 200만 명 어린이 영양실조 위기’ 카드뉴스" loading="lazy"><figcaption>포인트 문구 · 손글씨 서체</figcaption></figure><figure class="mi sh" style="--r:1.0000;--k:1"><img src="assets/project/unicef/thumb2.jpg" width="900" height="900" alt="고딕 서체로 정리한 같은 주제의 카드뉴스" loading="lazy"><figcaption>정보 문구 · 고딕 서체</figcaption></figure></div></section>` },
+      { html: `<section class="mn ugw" aria-label="유니세프 SNS 디자인 가이드라인: 컬러 팔레트와 타이포그래피" data-font><div class="ugd"><div class="ugd-l"><p class="ugd-k">Design Guidelines</p><div class="ugd-in"><h3 class="ugd-t">Color<br>Palette</h3><div class="ugd-d"><h4>[Primary] 신뢰와 아이덴티티</h4><p>유니세프의 상징인 unicef-blue를 중심으로, <br>깊이감 있는 Deep Blue를 조합하여 NGO로서의 <br>전문성과 신뢰감을 유지합니다.</p><h4>[Secondary] 따뜻함과 연결</h4><h5>Orange &amp; Yellow</h5><p>아이들의 밝은 미소와 에너지를 상징하며, <br>피드 전체에 생동감을 불어넣습니다.</p><h5>Natural Green</h5><p>지속 가능한 미래와 안전한 환경을 시각화하며, <br>눈의 피로도를 낮추고 정서적인 안정감을 줍니다.</p><h4>[Bold Accent] 강조와 몰입감</h4><p>숫자나 짧고 강렬한 슬로건에 Bold Accent를 적용하여 <br>메시지의 무게감을 전달.</p></div></div></div><div class="ugd-r"><div class="cp"><p class="cp-l">Primary</p><div class="ug3"><div class="usw" style="--c:#00ADEF"><b>unicef-blue</b><span>#00ADEF</span></div><div class="usw" style="--c:#003E5E"><b>Deep Blue</b><span>#003E5E</span></div><div class="ustk"><div class="usw lt" style="--c:#AAE1FA"><b>Sky Blue</b><span>#AAE1FA</span></div><div class="usw lt" style="--c:#E1F4FD"><b>Soft Mist</b><span>#E1F4FD</span></div></div></div><p class="cp-l sec">Secondary<small><span>Warm<br>Accent</span><i>/</i><span>Natural<br>Green</span></small></p><div class="ug6"><div class="ug3"><div class="usw" style="--c:#F57F29"><b>Orange</b><span>#F57F29</span></div><div class="usw lt" style="--c:#FFCE34"><b>Yellow</b><span>#FFCE34</span></div><div class="ustk"><div class="usw lt" style="--c:#F9D89C"><b>Warm Glow</b><span>#F9D89C</span></div><div class="usw lt" style="--c:#FEF5E7"><b>cream-bg</b><span>#FEF5E7</span></div></div></div><div class="ug3"><div class="usw" style="--c:#80BD41"><b>unicef-Green</b><span>#80BD41</span></div><div class="usw" style="--c:#00833D"><b>dark-Green</b><span>#00833D</span></div><div class="ustk"><div class="usw lt" style="--c:#C2D89A"><b>green-tint</b><span>#C2D89A</span></div><div class="usw lt" style="--c:#EEF5E2"><b>green-bg</b><span>#EEF5E2</span></div></div></div></div><p class="cp-l">Bold Accent</p><div class="ug4"><div class="usw" style="--c:#961A49"><b>unicef-dark-red</b><span>#961A49</span></div><div class="usw" style="--c:#6A3674"><b>unicef-purple</b><span>#6A3674</span></div><div class="usw lt" style="--c:#BCB0DA"><b>purple-bg</b><span>#BCB0DA</span></div><div class="usw lt" style="--c:#E8A0B4"><b>red-bg</b><span>#E8A0B4</span></div></div><p class="cp-l">Neutral</p><div class="ug4"><div class="usw" style="--c:#1C1C1C"><b>Black</b><span>#1C1C1C</span></div><div class="usw" style="--c:#767676"><b>Mid Gray</b><span>#767676</span></div><div class="usw lt" style="--c:#C9C9C9"><b>Light Gray</b><span>#C9C9C9</span></div><div class="usw lt" style="--c:#F4F4F4"><b>background</b><span>#F4F4F4</span></div></div><p class="cp-l">Gradient</p><div class="ug4 gr"><i style="--a:#00ADEF;--b:#E1F4FD"></i><i style="--a:#F26B0F;--b:#FFD9A0"></i><i style="--a:#3E8F4E;--b:#C9DFA6"></i><i style="--a:#6A3674;--b:#E8A0B4"></i></div></div></div></div><div class="ugd"><div class="ugd-l"><p class="ugd-k">Design Guidelines</p><div class="ugd-in"><h3 class="ugd-t">Typography</h3><div class="ugd-d ty"><p><b>본문 및 타이틀에 사용될 [Spoqa Han Sans Neo] 서체</b>는 <br>신뢰감을 주며 숫자 및 한글에 사용 시 가독성이 좋아 <br>유니세프가 전달하는 구호 현장의 데이터, 정보, 후원 안내 등 <br>사실적인 신뢰가 필요한 영역에 최적입니다.</p><p><b>포인트 타이틀에 사용될 [MapoMaponaru/HGSisuns] 서체</b>는 <br>고딕 위주의 피드에서 핵심 단어나 인용구에 사용하면 <br>가독성을 해치지 않고 유니세프의 ‘아이 중심’ 철학을 따뜻하게 <br>시각화하기에 좋습니다</p></div></div></div><div class="ugd-r"><div class="tp"><div class="tp-s"><p class="tp-k">Text</p><p class="tp-n sq">Spoqa Han Sans Neo</p></div><div class="tp-b w" style="--c:#00ADEF"><span style="font-weight:100;opacity:.85">Thin</span><span style="font-weight:300">Light</span><span style="font-weight:400">Regular</span><span style="font-weight:500">Medium</span><span style="font-weight:700">Bold</span></div><div class="tp-s"><p class="tp-k">Point</p><p class="tp-n mp">MapoMaponaru</p></div><div class="tp-b hw" style="--c:#FF7A00"><span>Regular</span></div><div class="tp-s"><p class="tp-x"><svg class="star a" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5l2.3 6.9 7.2.2-5.7 4.4 2 6.9L12 15.8l-5.8 4.1 2-6.9L2.5 8.6l7.2-.2z" fill="#111" stroke="#111" stroke-width="1.2" stroke-linejoin="round"/></svg><svg class="star b" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19" stroke="#111" stroke-width="2.2" stroke-linecap="round"/></svg><span class="hl">작은 선택이</span><b>현실을 바꿉니다</b></p></div><div class="tp-b hw" style="--c:#00893A"><span>Regular</span></div></div></div></div></section>` },
+      { html: `<section class="mn un-vi" aria-label="유니세프 카드뉴스 적용"><p class="pn-l">카드뉴스 적용</p><div class="mn-r"><figure class="mi sh" style="--r:1.0000;--k:0"><img src="assets/project/unicef/thumb1b.jpg" width="900" height="900" alt="손글씨 포인트 문구를 얹은 ‘약 200만 명 어린이 영양실조 위기’ 카드뉴스" loading="lazy"><figcaption>포인트 문구 · 손글씨 서체</figcaption></figure><figure class="mi sh" style="--r:1.0000;--k:1"><img src="assets/project/unicef/thumb2.jpg" width="900" height="900" alt="고딕 서체로 정리한 같은 주제의 카드뉴스" loading="lazy"><figcaption>정보 문구 · 고딕 서체</figcaption></figure></div></section>` },
       { html: `<section class="mn-h"><p class="en">02. Channel Design</p><h3>채널을 넘어 이어지는 브랜드 인상</h3><p class="ds">평상시에는 유니세프 블루와 아동 사진을 중심으로 브랜드의 정체성을 드러내고, 시즌과 캠페인에는 주제에 맞는 컬러와 그래픽을 적용했습니다. 이를 채널별 커버와 프로필, 하이라이트에 확장해 서로 다른 화면에서도 일관된 인상을 전달하도록 구성했습니다.</p></section>` },
       { html: `<section class="mn un-sk" aria-label="유니세프 블로그 스킨 시안"><div class="mn-r st"><figure class="mi sh skr" style="--r:1.2790;--k:0"><img src="assets/project/unicef/skin-a.jpg" width="1600" height="1251" alt="유니세프 블루 배경에 아동 사진을 담은 블로그 기본 스킨" loading="lazy"><figcaption>기본 스킨 · 유니세프 블루와 아동 사진</figcaption></figure><figure class="mi" style="--r:1.4599;--k:1"><img src="assets/project/unicef/skin-b.png" width="1200" height="822" alt="숲과 무지개, 급수대 그래픽을 담은 블로그 시즌 스킨을 띄운 브라우저 창" loading="lazy"><figcaption>시즌 스킨 · 어린이날 캠페인</figcaption></figure></div></section>` },
       { html: `<section class="mn un-ch" aria-label="유니세프 채널 적용 목업"><p class="pn-l">채널 적용</p><div class="mn-r uch"><figure class="mi" style="--r:0.4905;--k:0"><img src="assets/project/unicef/ph-kakao-b.png" width="800" height="1631" alt="시즌 스킨을 커버에 적용한 유니세프 카카오스토리 프로필 화면" loading="lazy"><figcaption>카카오스토리 · 커버와 프로필</figcaption></figure><figure class="mi" style="--r:0.4905;--k:1"><img src="assets/project/unicef/ph-x.png" width="800" height="1631" alt="시즌 스킨 커버와 유니세프 로그온 게시물을 담은 X 모바일 화면" loading="lazy"><figcaption>X · 커버와 게시물</figcaption></figure></div></section>` },
@@ -2240,7 +2335,7 @@ const PROJECTS = [
 (() => {
   const H = /[\u1100-\u11ff\u3130-\u318f\uac00-\ud7a3]/g, L = /[A-Za-z]/g;
   const mark = () => document.body.querySelectorAll('*').forEach(el => {
-    if (/^(SCRIPT|STYLE|svg)$/.test(el.tagName) || el.closest('svg')) return;
+    if (/^(SCRIPT|STYLE|svg)$/.test(el.tagName) || el.closest('svg') || el.closest('[data-font]')) return;
     let t = ''; for (const n of el.childNodes) if (n.nodeType === 3) t += n.nodeValue;
     const h = (t.match(H) || []).length;
     if (!(h && h >= (t.match(L) || []).length)) return;
