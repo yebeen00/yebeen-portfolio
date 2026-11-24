@@ -73,6 +73,7 @@ html.lenis,html.lenis body{height:auto}
 /* Korean text: every element whose own text is mostly Hangul is set in Pretendard with -2% tracking (marked .kr by the
    script at the end of the page); English-led elements keep their own faces */
 .kr{font-family:"Pretendard Variable","Pretendard",system-ui,sans-serif!important;letter-spacing:-.02em!important}
+.kr4{font-weight:500!important} /* Korean text set in Regular reads in Medium */
 .hd nav a{position:relative}
 .hd nav a::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease)}
 .hd nav a:hover::after{transform:scaleX(1);transform-origin:left}
@@ -1446,7 +1447,9 @@ html.ld-on,html.ld-on body{overflow:hidden}
     if (/^(SCRIPT|STYLE|svg)$/.test(el.tagName) || el.closest('svg')) return;
     let t = ''; for (const n of el.childNodes) if (n.nodeType === 3) t += n.nodeValue;
     const h = (t.match(H) || []).length;
-    if (h && h >= (t.match(L) || []).length) el.classList.add('kr');
+    if (!(h && h >= (t.match(L) || []).length)) return;
+    el.classList.add('kr');
+    if (getComputedStyle(el).fontWeight === '400') el.classList.add('kr4'); // Regular reads in Medium
   });
   document.readyState === 'loading' ? addEventListener('DOMContentLoaded', mark) : mark();
 })();</script>
