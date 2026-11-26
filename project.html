@@ -146,8 +146,6 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
 @media (prefers-reduced-motion:reduce){.stage.light .wz-win img{animation:none}}
 /* key visual stage: two rows of cards on the pale blue ground (2000 × 944), placed in % like the portfolio page;
    tall cards are 220 × 380, wide ones 994 × 380, all one row height */
-/* 연금술사 title: the coin sits on its own layer over the title, still */
-.fig.coin-hero .coin{position:absolute;left:30.7%;top:26.49%;width:6.1%;height:auto}
 /* 연금술사 results band: navy (#0b2168) with 80px above and below, the chart card beside three figures and the summary.
    Type is sized in cqw of the band with floors, so it stays legible when the band is narrow */
 .stage.sbk{container-type:inline-size;padding:60px 4%;display:grid;grid-template-columns:minmax(0,558fr) minmax(0,872fr);column-gap:3%;align-items:start}
@@ -1586,7 +1584,7 @@ const PROJECTS = [
     blocks: [
       // title image with the coin (the ㅇ of 연) lifted onto its own layer so it can spin; the background
       // file has the coin painted out and the strokes of ㅕ continued underneath
-      { html: `<figure class="fig coin-hero"><img src="assets/project/kiwoom-pension/cover-bg.jpg" width="2000" height="1125" alt="연금술사 뉴스레터 타이틀과 동전 더미 위의 캐릭터 다다, 도도" fetchpriority="high"><img class="coin" src="assets/project/kiwoom-pension/coin.png" width="122" height="124" alt=""></figure>` },
+      { html: `<figure class="fig"><img src="assets/project/kiwoom-pension/cover.webp" width="2000" height="1125" alt="연금술사 뉴스레터 타이틀과 앱 아이콘, 동전 더미 위에서 돋보기를 든 캐릭터 다다, 도도" fetchpriority="high"></figure>` },
       { label: 'Overview', p: '<b>키움투자자산운용의 ‘연금술사’ 뉴스레터를 타이틀부터 캐릭터까지 일관된 비주얼로 리뉴얼</b>했습니다. 볼드한 타이포그래피와 금화 아이콘으로 ‘연금’이라는 주제를 명확하게 드러내고, ‘다다’와 ‘도도’에는 따뜻한 손그림 질감과 부드러운 명암을 더해 금융 정보의 신뢰감과 캐릭터의 친근함을 함께 담아냈습니다.' },
       // approach diagram: a blue line runs across while the circles, then their text, fade in from the left
       { html: `<figure class="stage dgm" aria-label="뉴스레터 디자인 접근 방식: 색상과 브랜드 아이덴티티, 가독성, 캐릭터와 비주얼 아이덴티티">
