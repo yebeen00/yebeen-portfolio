@@ -159,8 +159,6 @@ main{position:relative;z-index:1}
   .hd.ink,.pill:not(.ld-go){backdrop-filter:none;-webkit-backdrop-filter:none}
   .pill:not(.ld-go){background:rgba(14,10,8,.88)}
   .ch .in{text-shadow:none}
-  /* 빛날 빈 keeps the desktop colour split as it warps out, scaled to its smaller size (only this small label, so scrolling stays light) */
-  .ch1 .hun{text-shadow:calc(var(--k,0)*-6px) 0 0 rgb(120 255 200/calc(var(--k,0)*.9)),calc(var(--k,0)*6px) 0 0 rgb(176 120 255/calc(var(--k,0)*.9))}
   .scene{bottom:auto;height:100vh;height:100lvh}
   html,body{overscroll-behavior-y:none}
   .ch.vis .in{will-change:transform,opacity}
@@ -379,13 +377,12 @@ html.ld-on,html.ld-on body{overflow:hidden}
   .ch3,.ch4,.ch5{display:none}
   .ch.ch1{height:100vh;height:100svh}
   /* 빛날 빈 breaks apart with the 斌 particles as Selected work rises (--sc, 0 to 1, set by the scene): each piece drifts
-     outward, gathering speed like the particles, turns, blurs and fades */
-  .ch1 .hun>*{--m:calc(var(--sc,0)*(.5 + var(--sc,0)*.5));opacity:calc(1 - var(--sc,0)*1.5)}
+     outward, gathering speed like the particles, turns and fades. Only transform and opacity change, on layers of their
+     own, so the phone moves the pieces without redrawing them (a blur or SVG filter here made the scroll stutter) */
+  .ch1 .hun>*{--m:calc(var(--sc,0)*(.5 + var(--sc,0)*.5));opacity:calc(1 - var(--sc,0)*1.5);will-change:transform,opacity}
   .ch1 .hun span:first-child{transform:translate(calc(var(--m)*-1em),calc(var(--m)*-7em)) rotate(calc(var(--sc,0)*-35deg))}
   .ch1 .hun span:last-child{transform:translate(calc(var(--m)*4em),calc(var(--m)*7em)) rotate(calc(var(--sc,0)*28deg))}
-  .ch1 .hun span{filter:drop-shadow(0 0 .3em rgba(255,190,140,.45)) blur(calc(var(--sc,0)*4px))}
-  .ch1 .hun .spark{transform:translate(calc(.067em + var(--m)*7em),calc(.053em - var(--m)*1.5em)) rotate(calc(var(--sc,0)*200deg));
-    filter:brightness(0) invert(1) drop-shadow(0 0 .25em #fff) drop-shadow(0 0 .7em rgba(255,214,170,.85)) blur(calc(var(--sc,0)*4px))}
+  .ch1 .hun .spark{transform:translate(calc(.067em + var(--m)*7em),calc(.053em - var(--m)*1.5em)) rotate(calc(var(--sc,0)*200deg))}
   .hd{grid-template-columns:1fr auto}
   .logo img{width:28px;height:28px} /* phones: 20% smaller */
   .hd nav{grid-area:2/1/3/-1;justify-content:space-between;gap:8px;padding-top:12px;font-size:13.8px} /* phones: the menu text size */
@@ -989,7 +986,8 @@ html.ld-on,html.ld-on body{overflow:hidden}
     const hun = $('.hun');
     if (hun) {
       const L = lay[0], px = h / vh, r = L.s * px, cx = w / 2 + L.x * px, cy = h / 2 - L.y * px;
-      hun.style.cssText = `--hx:${cx + r * HUN.x}px;--hy:${cy + r * HUN.y}px;--hs:${Math.max(9, r * HUN.s)}px`;
+      // set one by one, so the scatter's --sc survives a rotation
+      hun.style.setProperty('--hx', `${cx + r * HUN.x}px`); hun.style.setProperty('--hy', `${cy + r * HUN.y}px`); hun.style.setProperty('--hs', `${Math.max(9, r * HUN.s)}px`);
     }
     lastK = -1; // shapes moved: recompute particle positions on the next frame
   }
@@ -1010,7 +1008,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
   const chapters = $('.chapters');
   // layout numbers read once (and again when sizes change), never inside the per-frame or per-scroll code
   const hunS = isMobile ? $('.hun') : null; // phones: 빛날 빈 scatters with the particles
-  let chTop = 0, heroH = 0, lastK = -1, lastF = -1, lastE = -1, lastS = -1, tick = 0;
+  let chTop = 0, heroH = 0, lastK = -1, lastF = -1, lastE = -1, lastS = -1, lastSc = -1, tick = 0, dirty = true, lastDraw = 0;
   let solo = false; // phones show the intro chapter alone: the scene then keeps 斌 and never morphs
   const measure = () => { chTop = chapters.offsetTop; heroH = hero.offsetHeight; solo = chs.length > 1 && !chs[1].offsetHeight; };
   measure();
@@ -1067,9 +1065,14 @@ html.ld-on,html.ld-on body{overflow:hidden}
     const e = reduce ? 0 : sstep(.1, .75, p - 3);
     points.scale.setScalar(1 + e * e * 7);
     // phones: when nothing is morphing or flying, the shimmer is drawn at half rate to leave room for scrolling
-    if (hunS && sp !== lastS) hunS.style.setProperty('--sc', sp.toFixed(3));
+    const sc = Math.min(sp, .7); // the label has faded out by .67: no more restyling after that
+    if (hunS && sc !== lastSc) { lastSc = sc; hunS.style.setProperty('--sc', sc.toFixed(3)); }
     const still = !moved && e === lastE && sp === lastS; lastE = e; lastS = sp; // a frame that moves the particles is always drawn, even mid-scroll
-    if (isMobile && still && (now < scrollingTill || (tick++ % 3))) return;
+    if (!still) dirty = true;
+    // phones: a frame that moves the particles is drawn at up to 60 fps (120 Hz screens would double the GPU work while
+    // the finger scrolls); a still one only shimmers, at a third of the rate and not while scrolling
+    if (isMobile && (dirty ? now - lastDraw < 15 : (now < scrollingTill || (tick++ % 3)))) return;
+    dirty = false; lastDraw = now;
     composer ? composer.render() : renderer.render(scene, camera);
   }
 
@@ -1108,9 +1111,6 @@ html.ld-on,html.ld-on body{overflow:hidden}
 
   /* ---------- Chapters: pinned text that warps in and out with an RGB split ---------- */
   const chIn = chs.map((c, i) => ({ el: c, inner: $('.in', c), w: makeWarp('wv' + i, '0.004 0.05', 3 + i), last: -1, seen: false }));
-  // phones: the full-screen wave is too heavy, so only the small 빛날 빈 label gets it, as on desktop
-  const hunEl = isMobile ? $('.hun') : null, hunW = hunEl && makeWarp('wvh', '0.004 0.05', 3);
-  if (hunW) { const f = hunW.turb.parentNode; f.setAttribute('x', '-600%'); f.setAttribute('width', '1300%'); f.setAttribute('y', '-100%'); f.setAttribute('height', '300%'); /* the label is narrow: room for the wave to throw it sideways */ }
   let introW = 0; // 1 while the hero text is still settling after Enter
   function chUpdate() {
     if (!heroH) return; // zero-size window: nothing to place
@@ -1136,14 +1136,6 @@ html.ld-on,html.ld-on body{overflow:hidden}
       if (fxOn) {
         c.w.disp.setAttribute('scale', (w * 170).toFixed(1));
         c.w.turb.setAttribute('baseFrequency', `${(.003 + w * .004).toFixed(4)} ${(.03 + w * .05).toFixed(4)}`);
-      }
-      if (i === 0 && hunW) {
-        const hOn = on && op > .01;
-        hunEl.style.filter = hOn ? 'url(#wvh)' : '';
-        if (hOn) {
-          hunW.disp.setAttribute('scale', (w * 90).toFixed(1)); // desktop's 170, scaled to the phone's smaller glyph
-          hunW.turb.setAttribute('baseFrequency', `${(.003 + w * .004).toFixed(4)} ${(.03 + w * .05).toFixed(4)}`);
-        }
       }
       // mono lines decode each time a chapter settles in
       if (op > .9 && !c.seen) { c.seen = true; $$('.mono', c.inner).forEach(m => scramble(m)); }
