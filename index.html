@@ -24,6 +24,7 @@ if (/KAKAOTALK/i.test(navigator.userAgent)) location.href = 'kakaotalk://web/ope
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300&text=%EB%B9%9B%EB%82%A0%EB%B9%88&display=swap" rel="stylesheet"> <!-- 빛날 빈 label: only its three letters -->
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
 <style>
 :root{
@@ -195,7 +196,7 @@ main{position:relative;z-index:1}
    small white Pretendard stacked vertically, a four-point sparkle between the two words. The particle mask leaves this
    spot empty; resize() projects it onto the screen and passes it in as --hx/--hy/--hs */
 .hun{position:absolute;left:var(--hx,72%);top:var(--hy,40%);margin:0;display:flex;flex-direction:column;align-items:center;gap:.32em;
-  transform:translateX(-50%);font:300 var(--hs,18px)/1 var(--kserif);pointer-events:none;
+  transform:translateX(-50%);font:300 var(--hs,18px)/1 "Noto Serif KR",var(--kserif);pointer-events:none;
 }
 .hun span{writing-mode:vertical-rl;text-orientation:upright;letter-spacing:.12em;margin-bottom:-.12em; /* no trailing space under the last letter, so the sparkle sits exactly midway */
 
@@ -377,6 +378,14 @@ html.ld-on,html.ld-on body{overflow:hidden}
   /* phones: only the 斌 intro, then Selected work straight below (the 文 / 武 / brand experience chapters are left out) */
   .ch3,.ch4,.ch5{display:none}
   .ch.ch1{height:100vh;height:100svh}
+  /* 빛날 빈 breaks apart with the 斌 particles as Selected work rises (--sc, 0 to 1, set by the scene): each piece drifts
+     outward, gathering speed like the particles, turns, blurs and fades */
+  .ch1 .hun>*{--m:calc(var(--sc,0)*(.5 + var(--sc,0)*.5));opacity:calc(1 - var(--sc,0)*1.5)}
+  .ch1 .hun span:first-child{transform:translate(calc(var(--m)*-1em),calc(var(--m)*-7em)) rotate(calc(var(--sc,0)*-35deg))}
+  .ch1 .hun span:last-child{transform:translate(calc(var(--m)*4em),calc(var(--m)*7em)) rotate(calc(var(--sc,0)*28deg))}
+  .ch1 .hun span{filter:drop-shadow(0 0 .3em rgba(255,190,140,.45)) blur(calc(var(--sc,0)*4px))}
+  .ch1 .hun .spark{transform:translate(calc(.067em + var(--m)*7em),calc(.053em - var(--m)*1.5em)) rotate(calc(var(--sc,0)*200deg));
+    filter:brightness(0) invert(1) drop-shadow(0 0 .25em #fff) drop-shadow(0 0 .7em rgba(255,214,170,.85)) blur(calc(var(--sc,0)*4px))}
   .hd{grid-template-columns:1fr auto}
   .logo img{width:28px;height:28px} /* phones: 20% smaller */
   .hd nav{grid-area:2/1/3/-1;justify-content:space-between;gap:8px;padding-top:12px;font-size:13.8px} /* phones: the menu text size */
@@ -1000,6 +1009,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
 
   const chapters = $('.chapters');
   // layout numbers read once (and again when sizes change), never inside the per-frame or per-scroll code
+  const hunS = isMobile ? $('.hun') : null; // phones: 빛날 빈 scatters with the particles
   let chTop = 0, heroH = 0, lastK = -1, lastF = -1, lastE = -1, lastS = -1, tick = 0;
   let solo = false; // phones show the intro chapter alone: the scene then keeps 斌 and never morphs
   const measure = () => { chTop = chapters.offsetTop; heroH = hero.offsetHeight; solo = chs.length > 1 && !chs[1].offsetHeight; };
@@ -1057,6 +1067,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
     const e = reduce ? 0 : sstep(.1, .75, p - 3);
     points.scale.setScalar(1 + e * e * 7);
     // phones: when nothing is morphing or flying, the shimmer is drawn at half rate to leave room for scrolling
+    if (hunS && sp !== lastS) hunS.style.setProperty('--sc', sp.toFixed(3));
     const still = !moved && e === lastE && sp === lastS; lastE = e; lastS = sp; // a frame that moves the particles is always drawn, even mid-scroll
     if (isMobile && still && (now < scrollingTill || (tick++ % 3))) return;
     composer ? composer.render() : renderer.render(scene, camera);
@@ -1471,7 +1482,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
 (() => {
   const H = /[\u1100-\u11ff\u3130-\u318f\uac00-\ud7a3]/g, L = /[A-Za-z]/g;
   const mark = () => document.body.querySelectorAll('*').forEach(el => {
-    if (/^(SCRIPT|STYLE|svg)$/.test(el.tagName) || el.closest('svg')) return;
+    if (/^(SCRIPT|STYLE|svg)$/.test(el.tagName) || el.closest('svg') || el.closest('.hun')) return; // 빛날 빈 keeps its serif
     let t = ''; for (const n of el.childNodes) if (n.nodeType === 3) t += n.nodeValue;
     const h = (t.match(H) || []).length;
     if (!(h && h >= (t.match(L) || []).length)) return;
