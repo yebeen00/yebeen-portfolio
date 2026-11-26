@@ -205,8 +205,8 @@ main{position:relative;z-index:1}
 .hun span:last-child{background-image:linear-gradient(180deg,#fccea8,#f0965c)}
 .hun .spark{width:1.15em;height:1.15em;margin:0;transform:translate(.067em,.053em); /* optical centre: the serif letters sit a little right of their box and 빈 starts lower than 날 ends */
   filter:brightness(0) invert(1) drop-shadow(0 0 .25em #fff) drop-shadow(0 0 .7em rgba(255,214,170,.85))} /* the grey starburst artwork, turned white and lit */
-/* on Enter the label fades in once the 斌 particles have settled */
-.hun{transition:opacity 1.2s var(--ease)}
+/* on Enter the label fades in together with 斌, over the iris's 1.5s opening */
+.hun{transition:opacity 1.5s var(--ease)}
 .hun.wait{opacity:0}
 .hero-foot{ /* the description, then View Portfolio under it */
   display:flex;
@@ -1400,7 +1400,7 @@ html.ld-on,html.ld-on body{overflow:hidden}
     h1.classList.add('wait'); hun && hun.classList.add('wait');
     addEventListener('intro:enter', () => {
       setTimeout(() => h1.classList.remove('wait'), 650); // as the iris opens
-      hun && setTimeout(() => hun.classList.remove('wait'), 1600); // after the particles have formed 斌
+      hun && setTimeout(() => hun.classList.remove('wait'), 250); // with 斌: as the iris starts to open
     }, { once: true });
   })();
 
