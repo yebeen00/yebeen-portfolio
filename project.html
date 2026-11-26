@@ -434,7 +434,7 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
   font-family:var(--kserif);word-break:keep-all;opacity:0;transform:translateX(-2cqw);
   transition:opacity .9s cubic-bezier(.25,.1,.25,1) var(--t),transform 1.1s cubic-bezier(.16,1,.3,1) var(--t)}
 .kap.in .kbx{opacity:1;transform:none}
-.kbx h3{margin:0;font-family:var(--sans);font-size:2.05cqw;font-weight:600;letter-spacing:-.01em;color:#e0427f}
+.kbx h3{margin:0;font-family:var(--serif);font-size:2.5cqw;font-weight:400;line-height:1.05;letter-spacing:0;color:#e0427f} /* the site serif (Instrument Serif), a size up: it sets smaller than the sans */
 .kbx .k{margin:.3cqw 0 0;font-size:1.05cqw;font-weight:500;color:#9a9a9a}
 .kbx .k+p{margin:1.1cqw 0 0;font-size:1.3cqw;font-weight:500;line-height:1.5;letter-spacing:-.02em;color:#222}
 .kstrip img{display:block;width:100%;height:auto;opacity:0;transition:opacity 1.2s cubic-bezier(.25,.1,.25,1) 1.5s}
@@ -459,7 +459,7 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
   .kdg .ln{left:50%;right:auto;top:28px;bottom:40px;width:1px;height:auto;transform:scaleY(0);transform-origin:top}
   .kap.in .kdg .ln{transform:none}
   .kbx{min-height:0;padding:22px 28px;box-shadow:0 0 18px rgba(238,48,126,.45),0 0 5px rgba(238,48,126,.25);transform:translateY(-12px)}
-  .kbx h3{font-size:19px}
+  .kbx h3{font-size:23px}
   .kbx .k{margin-top:3px;font-size:11.5px}
   .kbx .k+p{margin-top:9px;font-size:14px}
   .kstrip{display:flex;flex-direction:column}
@@ -481,10 +481,11 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
     transition:opacity .8s cubic-bezier(.25,.1,.25,1) .05s,transform .9s cubic-bezier(.16,1,.3,1) .05s}
   .kfeed .kf.in.ok{opacity:1;transform:none}
   .kfeed .post{grid-column:1/-1;width:78%;justify-self:center;aspect-ratio:auto;margin-bottom:6px}
-  /* the cards below the post: one row to swipe through sideways, the next card peeking in at the edge */
+  /* the cards below the post: one row to swipe through sideways, each card stopping in the middle with its
+     neighbours peeking in; the side padding (half the row less half a 240px card) lets the first and last centre too */
   .ksw{grid-column:1/-1;position:relative}
   .kswipe{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
-    margin:0 -12px;padding:0 12px 4px;scroll-padding:0 12px;scrollbar-width:none;opacity:0;transition:opacity .8s cubic-bezier(.25,.1,.25,1) .05s}
+    margin:0 -12px;padding:0 calc(50% - 108px) 4px;scroll-padding:0;scrollbar-width:none;opacity:0;transition:opacity .8s cubic-bezier(.25,.1,.25,1) .05s}
   .kswipe::-webkit-scrollbar{display:none}
   .kswipe.in{opacity:1}
   /* arrows over the row: they show there is more to swipe, and step one card at a time */
@@ -497,7 +498,7 @@ h1,h2,h3,h4,p{margin:0;font-weight:400}
   .ksa.off{opacity:0;pointer-events:none;animation:none}
   .ksa:active{transform:scale(.92)}
   @keyframes ksa-nudge{0%,60%,100%{translate:0 0}30%{translate:4px 0}}
-  .kswipe .kf{flex:none;width:auto;max-width:none;height:300px;aspect-ratio:auto;object-fit:cover;scroll-snap-align:start;border-radius:16px;opacity:1!important;transform:none!important}
+  .kswipe .kf{flex:none;width:auto;max-width:none;height:300px;aspect-ratio:auto;object-fit:cover;scroll-snap-align:center;border-radius:16px;opacity:1!important;transform:none!important}
   .kfeed .full{grid-column:1/-1;aspect-ratio:auto}
   .kfeed .tri{grid-column:span 2} /* the three K-ETF event cards side by side */
 }
@@ -2300,8 +2301,13 @@ const PROJECTS = [
   // pictures fade in once decoded, so lazy ones don't pop in half-drawn; decoding off the main thread
   $$('#body img').forEach(i => { i.decoding = 'async'; });
   $$('.fig img, .more img, .rdb img, .clg img, .hys img, .hgal img, .khero img, .kap img, .kbn img, .kyt img, .kfl img, .sog img, .hlt img, .hlr img, .hstk img, .hgr img').forEach(i => {
-    const ok = () => i.classList.add('ok');
-    i.complete && i.naturalWidth ? ok() : i.addEventListener('load', ok, { once: true });
+    // layered pictures (the 연금술사 cover's coin over its title) wait for every layer, so the small one never shows first
+    const fig = i.closest('.fig'), mates = fig ? [...fig.querySelectorAll('img')] : [i]; // (this page's $$ takes no root)
+    const ok = () => {
+      if (!mates.every(m => m.complete)) return; // the last layer to arrive shows them all
+      Promise.all(mates.map(m => m.decode ? m.decode().catch(() => {}) : 0)).then(() => mates.forEach(m => m.classList.add('ok')));
+    };
+    i.complete && i.naturalWidth ? ok() : (i.addEventListener('load', ok, { once: true }), i.addEventListener('error', ok, { once: true }));
   });
 
   // header gets its glass face once the page moves; the orb appears further down
